@@ -4,6 +4,7 @@ from models import User
 from exts import db
 from flask_jwt_extended import JWTManager
 from auth import auth_ns
+from questions import questions_ns
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
@@ -17,6 +18,7 @@ def create_app(config):
     api = Api(app, doc='/docs')
 
     api.add_namespace(auth_ns)
+    api.add_namespace(questions_ns)
 
     @app.shell_context_processor
     def make_shell_context():
