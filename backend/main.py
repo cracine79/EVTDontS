@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restx import Api, Resource
+from flask_restx import Api, Resource, fields
 from config import DevConfig
 from models import User
 from exts import db
@@ -10,6 +10,16 @@ app.config.from_object(DevConfig)
 db.init_app(app)
 
 api = Api(app, doc='/docs')
+
+user_model=api.model(
+    "User",
+    {
+        "id":fields.Integer(),
+        "username":fields.String(),
+        "email":fields.String(),
+        "password_hash":fields.String()
+    }
+)
 
 @api.route('/hello')
 class HelloResource(Resource):
