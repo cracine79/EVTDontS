@@ -4,11 +4,15 @@ from config import DevConfig
 from models import User
 from exts import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required
+
+#to protect a route(require signin), decorate the route with @jwt_required()
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 
 db.init_app(app)
+JWTManager(app)
 
 api = Api(app, doc='/docs')
 
@@ -23,18 +27,25 @@ signup_model = api.model(
     }
 )
 
+login_model = api.model(
+    'Login',
+    { 
+        "username":fields.String(),
+        "password":fields.String()
+    }
+)
+
 
 @api.route('/hello')
 class HelloResource(Resource):
+    @jwt_required()
     def get(self):
         return {"message":"Hello World"}
 
 @api.route('/signup')
 class Signup(Resource):
-    # @api.marshal_with(signup_model)
     @api.expect(signup_model)
     def post(self):
-        # return {"message":"Hello World"}
         data=request.get_json()
 
         username=data.get('username')
@@ -53,15 +64,33 @@ class Signup(Resource):
 
         new_user.save()
 
-        # return new_user, 201
         return jsonify({"message":f"User {username} successfully signed up"})
     
     
 
 @api.route('/login')
 class Login(Resource):
+    @api.expect(login_model)
     def post(self):
-        pass
+        data=request.get_json()
+
+        username = data.get('username')
+        password = data.get('password')
+
+        db_user = User.query.filter_by(username=username).first()
+
+        if db_user and check_password_hash(db_user.password_hash, password):
+            #must pass in identity to include in access token
+            access_token = create_access_token(db_user.username)
+            refresh_token = create_refresh_token(db_user.username)
+
+            return jsonify(
+                {
+                    "access_token":access_token,
+                    "refresh_token":refresh_token
+                }
+            )
+
 
 
 @app.shell_context_processor
