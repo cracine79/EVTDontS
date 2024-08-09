@@ -21,13 +21,14 @@ user_model=api.model(
     }
 )
 
+
 @api.route('/hello')
 class HelloResource(Resource):
     def get(self):
         return {"message":"Hello World"}
     
 
-     
+     d
 @app.shell_context_processor
 def make_shell_context():
     return {
