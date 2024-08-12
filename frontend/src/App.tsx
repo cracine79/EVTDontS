@@ -4,6 +4,7 @@ import "./App.css"
 // import logo from "./logo.svg"
 import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom'
 import { Home } from "./features/home/Home"
+import { Login } from "./features/login/Login"
 const Layout = () => {
   return(
     <>
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path: "/login",
+        element: <Login />
       }
     ]
   }
