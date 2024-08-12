@@ -1,7 +1,10 @@
 export const Home = () => {
     return (
         <>
-            Hello from home
+             <h1 className="text-3xl font-bold underline">
+             Hello from home!!
+             </h1>
+          
         </>
     )
 }
