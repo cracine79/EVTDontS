@@ -1,26 +1,27 @@
-# App Academy React Vite Template
+# vite-template-redux
 
-This repo contains a basic Vite React template configured for use in App Academy
-projects.
+Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
 
-## How to clone
-
-To clone this repo as `<new-project-name>`, run
-
-```shell
-npx tiged appacademy/aa-react18-vite-template#main <new-project-name>
+```sh
+npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
 ```
 
-in the directory where you want the new project to appear.
+## Goals
 
-## How to install and run
+- Easy migration from Create React App or Vite
+- As beginner friendly as Create React App
+- Optimized performance compared to Create React App
+- Customizable without ejecting
 
-Once the repo is cloned, run `cd <new-project-name> && npm install` to install
-dependencies. You will probably also want to run `git init`.
+## Scripts
 
-To run the app, type `npm run dev` in the root directory.
+- `dev`/`start` - start dev server and open browser
+- `build` - build for production
+- `preview` - locally preview production build
+- `test` - launch test runner
 
-## Reminders
+## Inspiration
 
-Don't forget to update this README, change the `title` in __index.html__, and
-change the `"name"` in __package.json__ when making a new project!
+- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
+- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
+- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
