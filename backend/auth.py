@@ -44,7 +44,14 @@ class Signup(Resource):
 
         new_user.save()
 
-        return jsonify({"message":f"User {username} successfully signed up"})
+        access_token = create_access_token(new_user.username)
+        refresh_token = create_refresh_token(new_user.username)
+
+        return jsonify({
+            "message":f"User {username} successfully signed up",
+            "access_token":access_token,
+            "refresh_token":refresh_token
+            })
     
 
 

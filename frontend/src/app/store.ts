@@ -3,10 +3,11 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { counterSlice } from "../features/counter/counterSlice"
 import { quotesApiSlice } from "../features/quotes/quotesApiSlice"
+import { userSlice } from "../features/session/sessionSlice"
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(counterSlice, quotesApiSlice)
+const rootReducer = combineSlices(userSlice)
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -40,3 +41,10 @@ export type AppThunk<ThunkReturnType = void> = ThunkAction<
   unknown,
   Action
 >
+
+
+// import { configureStore } from '@reduxjs/toolkit'
+  
+// export const store = configureStore({ 
+//     reducer: {}, 
+// })
