@@ -7,6 +7,6 @@ questions_ns=Namespace('questions', description="A namespace for questions")
 
 @questions_ns.route('/hello')
 class HelloResource(Resource):
-    @jwt_required()
+    # @jwt_required()
     def get(self):
         return {"message":"Hello World"}

@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask, Response, abort, redirect, render_template, request, url_for
 from flask_restx import Api
 from models import User
 from exts import db
 from flask_jwt_extended import JWTManager
 from auth import auth_ns
 from questions import questions_ns
+from csrf import csrf_ns
+from flask_wtf.csrf import CSRFProtect
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
@@ -14,11 +16,13 @@ def create_app(config):
 
     db.init_app(app)
     JWTManager(app)
-
+    csrf = CSRFProtect()
+    csrf.init_app(app)
     api = Api(app, doc='/docs')
 
     api.add_namespace(auth_ns)
     api.add_namespace(questions_ns)
+    api.add_namespace(csrf_ns)
 
     @app.shell_context_processor
     def make_shell_context():
