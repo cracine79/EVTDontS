@@ -5,14 +5,30 @@ export const Home = () => {
       const getIt = async (e)=>{
         e.preventDefault()
         fetch('/api/questions/hello')
-            .then(res=>console.log(res))
+                .then(response=>{
+                    if(!response.ok){
+                        throw new Error("oops")
+                    }
+                    return response.json();
+                })
+                .then(data=>{
+                    console.log(data)
+                })
     }
 
-        const getOne = async(e) => {
+        const getOne = (e) => {
             e.preventDefault()
             fetch('/api/questions/hello')
-                .then(res=>jsonify(res))
-                .then(res=>console.log(res))
+                .then(response=>{
+                    if(!response.ok){
+                        throw new Error("oops")
+                    }
+                    return response.json();
+                })
+                .then(data=>{
+                    console.log(data)
+                })
+                
         }
     return (
         <>
