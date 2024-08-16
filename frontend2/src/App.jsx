@@ -2,8 +2,12 @@
 import {createBrowserRouter, Outlet, RouterProvider} from 'react-router-dom'
 import { Home } from "./features/home/home"
 import { Login } from './features/login/login'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
 
 const Layout = () => {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false)
   return(
     <>
       <Outlet/>
