@@ -7,11 +7,13 @@ from auth import auth_ns
 from questions import questions_ns
 from csrf import csrf_ns
 from flask_wtf.csrf import CSRFProtect
+from flask_cors import CORS
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
 def create_app(config):
     app = Flask(__name__)
+    CORS(app, origins="http://localhost:5173/")
     app.config.from_object(config)
 
     db.init_app(app)
