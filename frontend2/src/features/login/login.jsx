@@ -22,15 +22,10 @@ export const Login = () => {
 
     return (
         <>
-            <form>
+    
                 <p>Hello {user} </p>
                 <p>Username</p>
-                <input type='text' className='border-black border'></input>
-                <p className='text-lg text-orange-800'>Password</p>
-                <input type='text' className='border-black border'></input>
-                <input type='submit' onClick={getIt}/>
-                <input type = 'submit' onClick={fetch('/api/questions/hello')}>Hello dude</input>
-            </form>
+        
             
         </>
     )
