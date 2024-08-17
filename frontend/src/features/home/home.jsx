@@ -44,7 +44,7 @@ export const Home = () => {
                 <p className='text-lg text-orange-800'>Password</p>
                 <input type='text' className='border-black border'></input>
                 <input type='submit' onClick={getIt}/>
-                <input type='submit' onClick={getOne}/>
+     
             </form>
           
         </>
