@@ -42,14 +42,15 @@ const initialState = {
 
   export const storeCSRFToken = response => {
 
-    const csrfToken = response.headers.get("X-CSRF-Token");
+    const csrfToken = response['csrf_token'];
     if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
   };
 
   export const restoreSession = () => async dispatch => {
-    let res = await csrfFetch('/api/csrf');
-    storeCSRFToken(res);
-    return res;
+    let res = await csrfFetch('/api/csrf/');
+    let outcome = await res.json()
+    storeCSRFToken(outcome);
+    console.log(outcome);
   }
 
 

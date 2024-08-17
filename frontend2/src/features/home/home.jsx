@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
+import csrfFetch from "../session/csrf"
 export const Home = () => {
     const user = useSelector((state)=>state.user.user)
 
@@ -18,7 +19,7 @@ export const Home = () => {
 
         const getOne = (e) => {
             e.preventDefault()
-            fetch('/api/questions/hello')
+            csrfFetch('/api/questions/hello')
                 .then(response=>{
                     if(!response.ok){
                         throw new Error("oops")
