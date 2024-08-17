@@ -50,7 +50,6 @@ const initialState = {
     let res = await csrfFetch('/api/csrf/');
     let outcome = await res.json()
     storeCSRFToken(outcome);
-    console.log(outcome);
   }
 
 
