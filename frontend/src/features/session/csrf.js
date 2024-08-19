@@ -1,15 +1,35 @@
-async function csrfFetch (url, options = {}){
-    options.headers ||= {};
-    options.method ||='GET';
-    if (options.method.toUpperCase() !== 'GET') {
-        options.headers['Content-Type'] =
-          options.headers['Content-Type'] || 'application/json';
-        options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token');
-      }
-      const res = await fetch(url, options);
-      if (res.status >= 400) throw res;
+async function csrfFetch(url, options = {}) {
+  try {
+    console.log('Making request to:', url);
+    console.log('Request options:', options);
 
-      return res
+    options.headers ||= {};
+    options.method ||= 'GET';
+
+    if (options.method.toUpperCase() !== 'GET') {
+      options.headers['Content-Type'] =
+        options.headers['Content-Type'] || 'application/json';
+      options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token');
+    }
+    // console.log(options)
+    // console.log(url)
+    // console.log('hello')
+    const res = await fetch(url, options);
+
+    console.log('Response status:', res.status);
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Error response from server:", errorData);
+      throw new Error(`Request failed with status ${res.status}`);
+    }
+
+    return res;
+  } catch (err) {
+    console.error("Fetch error:", err.message);
+    console.error("Fetch error details:", err);
+    throw err; // Re-throw the error to handle it in the calling function
+  }
 }
 
 export function storeCSRFToken(response) {

@@ -53,30 +53,42 @@ class Signup(Resource):
             "refresh_token":refresh_token
             })
     
-
-
 @auth_ns.route('/login')
 class Login(Resource):
     @auth_ns.expect(login_model)
     def post(self):
-        data=request.get_json()
+        data = request.get_json()
+
+        print("Request data:", data)  # Print the incoming request data
 
         username = data.get('username')
         password = data.get('password')
 
+        print("Username:", username)
+        print("Password:", password)
+
         db_user = User.query.filter_by(username=username).first()
 
-        if db_user and check_password_hash(db_user.password_hash, password):
-            #must pass in identity to include in access token
-            access_token = create_access_token(db_user.username)
-            refresh_token = create_refresh_token(db_user.username)
+        if db_user:
+            print("User found in database.")
+            if check_password_hash(db_user.password_hash, password):
+                print("Password matches.")
+                access_token = create_access_token(db_user.username)
+                refresh_token = create_refresh_token(db_user.username)
 
-            return jsonify(
-                {
-                    "access_token":access_token,
-                    "refresh_token":refresh_token
-                }
-            )
+                return jsonify({
+                    "access_token": access_token,
+                    "refresh_token": refresh_token,
+                    "username": db_user.username,
+                    "email": db_user.email
+                })
+            else:
+                print("Password does not match.")
+        else:
+            print("User not found.")
+
+        return jsonify({"error": "problem logging in"})
+
 
 @auth_ns.route('/refresh')
 class Refresh(Resource):

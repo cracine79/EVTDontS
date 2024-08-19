@@ -5,7 +5,7 @@ export const Home = () => {
 
       const getIt = async (e)=>{
         e.preventDefault()
-        fetch('/api/questions/hello')
+        csrfFetch('/api/questions/hello')
                 .then(response=>{
                     if(!response.ok){
                         throw new Error("oops")

@@ -6,19 +6,19 @@ import csrfFetch from "../session/csrf"
 import { loginUser } from "../session/sessionSlice"
 
 export const Login = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [password, setPassword]=useState("");
     // const [email, setEmail]=useState("");
 
     const user = useSelector((state)=>state.user.user)
 
-    console.log(username)
-    console.log(password)
+    // console.log(username)
+    // console.log(password)
 
     const getIt = async (e)=>{
         e.preventDefault()
-        fetch('/api/questions/hello')
+        csrfFetch('/api/questions/hello')
                 .then(response=>{
                     if(!response.ok){
                         throw new Error("oops")
@@ -30,6 +30,9 @@ export const Login = () => {
                 })
     }
 
+    const handleLogin = () => {
+        dispatch(loginUser({username, password}))
+    }
 
     return (
         <>
@@ -43,7 +46,7 @@ export const Login = () => {
                 <input type='text' className='border-black border' onChange = {e=>setUsername(e.target.value)}></input>
                 <p className='text-lg text-orange-800'>Password</p>
                 <input type='text' className='border-black border' onChange = {e=>setPassword(e.target.value)}></input>
-                <input type='submit' onClick={loginUser(username, password)}/>
+                <input type='submit' onClick={handleLogin}/>
      
             </form>
           
