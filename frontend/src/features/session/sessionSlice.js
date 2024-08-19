@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 import csrfFetch from "./csrf";
 const SESSION_LOGIN_USER = 'session/loginUser'
+import axios from 'axios'
 
 
 // export const loginUser = createAsyncThunk(
@@ -15,28 +16,51 @@ const SESSION_LOGIN_USER = 'session/loginUser'
 // )
 const initialState = {
     user: null,
-    email: "dude@dude.com",
-    loggedIn: true,
+    email: null,
+    loggedIn: false,
     error: null
   };
+
+  export const loginUser = createAsyncThunk(
+    'auth/loginUser',
+    async ({ username, password }, { rejectWithValue }) => {
+      try {
+        const response = await axios.post('/api/auth/login', { username, password });
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response.data);
+      }
+    }
+  );
 
   export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-      loginUser(state, action) {
-        state.user = action.payload.username;
-        state.email = action.payload.email;
-        state.loggedIn = true;
-      },
       logoutUser(state) {
         state.user = null;
         state.email = null;
         state.loggedIn = true;
       },
-      setError(state, action) {
-        state.error = action.payload;
-      },
+      extraReducers: (builder) => {
+        // Handle login
+        builder
+          .addCase(loginUser.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+          })
+          .addCase(loginUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload.user;
+            state.email=action.payload.email
+            state.loggedIn = true;
+            localStorage.setItem('token', action.payload.access_token); // Assuming a token is returned
+          })
+          .addCase(loginUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+          })
+      }
     },
   });
 
@@ -52,7 +76,11 @@ const initialState = {
     storeCSRFToken(outcome);
   }
 
+  export const login = user => async dispatch => {
+    let res = await csrfFetch('/api/auth/login')
+  }
 
-export const { loginUser, logoutUser, setError } = userSlice.actions;
+
+export const { logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;
