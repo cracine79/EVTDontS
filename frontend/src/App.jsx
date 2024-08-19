@@ -11,11 +11,11 @@ const Layout = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false)
 
-  useEffect(() => {
-    dispatch(restoreSession()).then(() => {
-      setIsLoaded(true)
-    });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(restoreSession()).then(() => {
+  //     setIsLoaded(true)
+  //   });
+  // }, [dispatch]);
 
   return(
     <>

@@ -76,12 +76,15 @@ class Login(Resource):
                 access_token = create_access_token(db_user.username)
                 refresh_token = create_refresh_token(db_user.username)
 
-                return jsonify({
+                user_data = ({
                     "access_token": access_token,
                     "refresh_token": refresh_token,
                     "username": db_user.username,
                     "email": db_user.email
                 })
+                # print(user_data)
+                # print(jsonify(user_data))
+                return jsonify(user_data)
             else:
                 print("Password does not match.")
         else:

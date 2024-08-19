@@ -16,8 +16,8 @@ export const loginUser = createAsyncThunk(
   SESSION_LOGIN_USER,
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const res = await csrfFetch('/api/auth/login', {
-        method: 'POST',
+      const res = await csrfFetch('/api/questions/hello', {
+        method: 'GET',
         body: JSON.stringify({ username, password }),
         headers: { 'Content-Type': 'application/json' }
       });
@@ -31,7 +31,7 @@ export const loginUser = createAsyncThunk(
 
       return data;  // Success case
     } catch (err) {
-      console.error('Login error mofo:', err);  // Log the error
+      console.error('Login error:', err);  // Log the error
       return rejectWithValue(err.message);
     }
   }
