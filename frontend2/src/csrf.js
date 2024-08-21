@@ -3,19 +3,38 @@ export async function csrfFetch(url, options = {}) {
     options.headers = options.headers || {};
   
     // Set the CSRF token if the method is not GET
-    if (options.method !== 'GET') {
-      const token = sessionStorage.getItem('X-CSRF-Token');
-      options.headers['X-CSRF-Token'] = token;
+    if (options.method != 'GET') {
+        debugger;
+        const token = sessionStorage.getItem('X-CSRF-Token');
+        debugger
+        if(token){
+            options.headers['X-CSRF-Token'] = token;
+        } else {
+            console.warn('No CSRF token found in sessionStorage.');
+        }
+    }
+    debugger;
+    try{
+        const response = await fetch(url, options);
+        if (!response.ok){
+               // Try to parse JSON response if available
+                let errorMessage = `HTTP error! Status: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    errorMessage += ` - ${errorData.error || errorData.message || 'Unknown error'}`;
+                } catch (e) {
+                    // Handle the case where response is not JSON
+                    errorMessage += ` - ${response.statusText}`;
+                }
+                throw new Error(errorMessage);
+        }
+        return response;
+        }catch(error){
+            console.error('Fetch error:', error);
+            throw error
+        }
     }
   
-    const response = await fetch(url, options);
-  
-    if (response.ok) {
-      return response;
-    } else {
-      throw new Error('Failed to fetch');
-    }
-  }
   
   // Get CSRF token when app starts
   export async function restoreCSRF() {

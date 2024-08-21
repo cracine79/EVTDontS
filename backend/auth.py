@@ -57,6 +57,7 @@ class Signup(Resource):
 class Login(Resource):
     @auth_ns.expect(login_model)
     def post(self):
+        print("starting")
         data = request.get_json()
 
         print("Request data:", data)  # Print the incoming request data

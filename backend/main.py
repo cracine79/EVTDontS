@@ -18,8 +18,8 @@ def create_app(config):
 
     db.init_app(app)
     JWTManager(app)
-    csrf = CSRFProtect()
-    csrf.init_app(app)
+    # csrf = CSRFProtect()
+    # csrf.init_app(app)
     api = Api(app, doc='/docs')
 
     api.add_namespace(auth_ns)
