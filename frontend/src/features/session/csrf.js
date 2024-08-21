@@ -1,48 +1,38 @@
-async function csrfFetch(url, options = {}) {
-  try {
-    console.log('Making request to:', url);
-    console.log('Request options:', options);
+export async function csrfFetch(url, options = {}) {
+  options.method = options.method || 'GET';
+  options.headers = options.headers || {};
 
-    options.headers ||= {};
-    options.method ||= 'GET';
-
-    if (options.method.toUpperCase() !== 'GET') {
-      options.headers['Content-Type'] =
-        options.headers['Content-Type'] || 'application/json';
-      options.headers['X-CSRF-Token'] = sessionStorage.getItem('X-CSRF-Token');
+  // Fetch CSRF token if not present in options
+  if (options.method.toUpperCase() !== 'GET') {
+    const token = sessionStorage.getItem('X-CSRF-TOKEN');
+    if (token) {
+      options.headers['X-CSRF-TOKEN'] = token;
     }
-    // console.log(options)
-    // console.log(url)
-    // console.log('hello')
-    const res = await fetch(url, options);
-
-    console.log('Response status:', res.status);
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error("Error response from server:", errorData);
-      throw new Error(`Request failed with status ${res.status}`);
-    }
-
-    return res;
-  } catch (err) {
-    console.error("Fetch error:", err.message);
-    console.error("Fetch error details:", err);
-    throw err; // Re-throw the error to handle it in the calling function
+    options.headers['Content-Type'] = 'application/json';
   }
+
+  const response = await fetch(url, options);
+
+  // Automatically store the CSRF token from the response if available
+  if (response.headers.has('X-CSRF-TOKEN')) {
+    const token = response.headers.get('X-CSRF-TOKEN');
+    sessionStorage.setItem('X-CSRF-TOKEN', token);
+  }
+
+  return response;
 }
 
-export function storeCSRFToken(response) {
+// export function storeCSRFToken(response) {
 
-    const csrfToken = response.headers.get("X-CSRF-Token");
+//     const csrfToken = response.headers.get("X-CSRF-Token");
 
-    if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
-  }
+//     if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
+//   }
   
-  export async function restoreCSRF() {
-    const response = await csrfFetch("/api/session");
-    storeCSRFToken(response);
-    return response;
-  }
+//   export async function restoreCSRF() {
+//     const response = await csrfFetch("/api/session");
+//     storeCSRFToken(response);
+//     return response;
+//   }
 
-export default csrfFetch
+// export default csrfFetch

@@ -42,6 +42,19 @@ const router = createBrowserRouter([
 
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      const response = await csrfFetch('/api/csrf/restore'); // Endpoint to fetch the token
+      const token = response.headers.get('X-CSRF-TOKEN');
+      dispatch(setCsrfToken(token));
+      sessionStorage.setItem('X-CSRF-TOKEN', token);
+    };
+
+    fetchCsrfToken();
+  }, [dispatch]);
+  
   return <RouterProvider router={router} />;
 }
 
