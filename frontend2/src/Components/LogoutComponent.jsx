@@ -6,10 +6,10 @@ const LogoutButton = () => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    await csrfFetch('/api/auth/logout', {
-      method: 'POST',
-    });
-
+    // await csrfFetch('/api/auth/logout', {
+    //   method: 'POST',
+    // });
+    localStorage.setItem('access_token', null);
     dispatch(logout()); // Clear user from Redux state
   };
 
