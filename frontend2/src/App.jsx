@@ -6,6 +6,33 @@ import LogoutButton from './Components/LogoutComponent';
 import { useEffect } from 'react';
 import { restoreCSRF } from './csrf';
 import './index.css'
+import { AuthRoute } from './Components/routes';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { NavBar } from './Components/NavBar';
+import { MainPage } from './Components/MainPage';
+
+
+
+const Layout = () => {
+  return(
+    <>
+      <NavBar />
+      <Outlet />
+    </>
+  )
+}
+
+const router = createBrowserRouter([
+  {
+    element: <Layout />,
+    children:[
+      {
+        path:"/",
+        element: <MainPage />
+      }
+    ]
+  }
+])
 
 function App() {
 
@@ -14,17 +41,18 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginComponent />} />
-        <Route path="/signup" element={<SignupComponent />} />
-        {/* <Route
-          path="/protected"
-          element={<ProtectedRoute><ProtectedPage /></ProtectedRoute>}
-        /> */}
-      </Routes>
-      <LogoutButton />
-    </Router>
+    <RouterProvider router={router} />
+    // <Router>
+    //   <Routes>
+    //     <Route path="/login" element={<LoginComponent />} />
+    //     <Route path="/signup" element={<SignupComponent />} />
+    //     {/* <Route
+    //       path="/protected"
+    //       element={<ProtectedRoute><ProtectedPage /></ProtectedRoute>}
+    //     /> */}
+    //   </Routes>
+    //   <LogoutButton />
+    // </Router>
   );
 }
 
