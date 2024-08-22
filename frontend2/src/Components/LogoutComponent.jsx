@@ -13,7 +13,18 @@ const LogoutButton = () => {
     dispatch(logout()); // Clear user from Redux state
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  const test = async () => {
+    const res = await csrfFetch('/api/questions/hello')
+    const better=await res.json()
+    console.log(better)
+  }
+
+  return (
+    <>
+        <button onClick={handleLogout}>Logout</button>
+        <button onClick={test}>Test</button>
+    </>
+  )
 };
 
 export default LogoutButton;

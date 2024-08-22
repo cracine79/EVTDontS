@@ -17,7 +17,7 @@ export async function csrfFetch(url, options = {}) {
     if(auth_token){
         options.headers['Authorization'] = `Bearer ${auth_token}`
     }
-    debugger;
+
     try{
         const response = await fetch(url, options);
         if (!response.ok){
