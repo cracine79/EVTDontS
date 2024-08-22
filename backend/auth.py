@@ -30,7 +30,7 @@ class Signup(Resource):
         data=request.get_json()
 
         username=data.get('username')
-
+        email = data.get('email')
         db_user=User.query.filter_by(username=username).first()
         print(db_user)
 
@@ -49,9 +49,13 @@ class Signup(Resource):
         refresh_token = create_refresh_token(new_user.username)
 
         return jsonify({
+            "user": {
+                "access_token":access_token,
+                "refresh_token":refresh_token,
+                "email": email,
+                "username": username
+            },
             "message":f"User {username} successfully signed up",
-            "access_token":access_token,
-            "refresh_token":refresh_token
             })
     
 @auth_ns.route('/login')

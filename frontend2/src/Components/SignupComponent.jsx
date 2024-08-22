@@ -7,19 +7,21 @@ const SignupComponent = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const response = await csrfFetch('/api/auth/login', {
+    debugger;
+    const response = await csrfFetch('/api/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ username, email, password }),
     });
 
     const data = await response.json();
+    localStorage.setItem('access_token', data.user.access_token);
     dispatch(login(data.user)); // Store user in Redux state
   };
 
@@ -37,7 +39,13 @@ const SignupComponent = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <button type="submit">Login</button>
+         <input
+        type="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
+      <button type="submit">Sign Up</button>
     </form>
   );
 };
