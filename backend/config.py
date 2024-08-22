@@ -9,8 +9,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI= config('DATABASE_URL')
     TESTING=False
     DEBUG=False
-    JWT_BLACKLIST_ENABLED=True
-    JWT_BLACKLIST_TOKEN_CHECKS=True
+
 
 class DevConfig(Config):
     DEBUG=True
