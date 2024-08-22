@@ -3,6 +3,7 @@ from models import User
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import session
 
 auth_ns=Namespace('auth', description='A namespace for authentication')
 
@@ -85,6 +86,7 @@ class Login(Resource):
                 })
                 # print(user_data)
                 # print(jsonify(user_data))
+                session['access_token'] = access_token
                 return jsonify(user_data)
             else:
                 print("Password does not match.")

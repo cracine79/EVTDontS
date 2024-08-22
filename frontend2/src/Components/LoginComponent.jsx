@@ -34,6 +34,7 @@ const LoginComponent = () => {
 
     const data = await response.json();
     console.log(data)
+    localStorage.setItem('access_token', data.access_token);
     dispatch(login(data)); // Store user in Redux state
   } catch (error) {
     // Log any errors that occur during fetch or processing

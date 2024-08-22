@@ -4,14 +4,18 @@ export async function csrfFetch(url, options = {}) {
   
     // Set the CSRF token if the method is not GET
     if (options.method != 'GET') {
-        debugger;
+        
         const token = sessionStorage.getItem('X-CSRF-Token');
-        debugger
+        
         if(token){
             options.headers['X-CSRF-Token'] = token;
         } else {
             console.warn('No CSRF token found in sessionStorage.');
         }
+    }
+    const auth_token = localStorage.getItem('access_token')
+    if(auth_token){
+        options.headers['Authorization'] = `Bearer ${auth_token}`
     }
     debugger;
     try{
