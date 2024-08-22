@@ -5,6 +5,8 @@ import SignupComponent from './Components/SignupComponent';
 import LogoutButton from './Components/LogoutComponent';
 import { useEffect } from 'react';
 import { restoreCSRF } from './csrf';
+import './index.css'
+
 function App() {
 
   useEffect(() => {

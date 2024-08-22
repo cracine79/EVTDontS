@@ -58,6 +58,7 @@ const LoginComponent = () => {
         placeholder="Password"
       />
       <button type="submit">Login</button>
+      <p className="text-3xl font-bold underline">Hello there Tailwind</p>
     </form>
   );
 };
