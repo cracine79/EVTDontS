@@ -1,3 +1,5 @@
+import LogoutButton from "./LogoutComponent"
+
 export const MainPage = () => {
     return(
         <>

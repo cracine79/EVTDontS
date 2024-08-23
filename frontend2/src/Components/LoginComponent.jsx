@@ -44,7 +44,8 @@ const LoginComponent = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="w-100">
+      <form onSubmit={handleSubmit}>
       <input
         type="username"
         value={username}
@@ -58,8 +59,10 @@ const LoginComponent = () => {
         placeholder="Password"
       />
       <button type="submit">Login</button>
-      <p className="text-3xl font-bold underline">Hello there Tailwind</p>
+      <p className="text-3xl font-bold underline">Hello there Tailwind</p>w
     </form>
+    </div>
+    
   );
 };
 

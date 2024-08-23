@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { useState } from "react"
 import LoginComponent from "./LoginComponent"
+import LogoutButton from "./LogoutComponent"
 
 
 
@@ -13,7 +14,7 @@ export const NavBar = () => {
     }
 
     const sessionLinks = currentUser ? (
-        <>Signed In Already</>
+            <LogoutButton />
     ) : (
         <div className="flex w-32 justify-around mr-10">
             <p className="hover:cursor-pointer">Sign Up</p>
@@ -35,6 +36,7 @@ export const NavBar = () => {
                 </div>
             </nav>
             {loginFormOpen && (<LoginComponent />)}
+            
             
         </>
     )
