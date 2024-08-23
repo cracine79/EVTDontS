@@ -27,6 +27,7 @@ export const NavBar = () => {
             <nav className=
                 "w-full 
                 h-24 
+                z-0
                 bg-lime-500 
                 items-center 
                 flex justify-between">

@@ -44,7 +44,7 @@ const LoginComponent = () => {
   };
 
   return (
-    <div className="w-100">
+    <div className="fixed w-full z-20 h-screen bg-red-800">
       <form onSubmit={handleSubmit}>
       <input
         type="username"
