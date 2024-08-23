@@ -14,7 +14,7 @@ export const NavBar = () => {
     ) : (
         <>
             <p>Sign Up</p>
-            <p onClick = {handleLogin} >Log In</p>
+            <p onClick = {handleLogin} >Log In Here</p>
         </>
     )
     return(
