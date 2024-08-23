@@ -22,7 +22,7 @@ export const NavBar = () => {
         
             <nav className="w-full h-24 bg-lime-500 items-center flex">
                 
-                <img src="/Logo.svg" alt="EVTDS Logo" className="h-3/4 ml-2.5"/>
+                <img src="/Logo.svg" alt="EVTDS Logo Top" className="h-3/4 ml-2.5"/>
                 {sessionLinks}
             </nav>
         </>
