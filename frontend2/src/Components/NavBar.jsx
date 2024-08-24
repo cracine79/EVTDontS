@@ -1,16 +1,17 @@
-import { useSelector } from "react-redux"
-import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import LoginComponent from "./LoginComponent"
 import LogoutButton from "./LogoutComponent"
+import { openLoginModal } from "../Slices/modalSlice"
 
 
 
 export const NavBar = () => {
-    const [loginFormOpen, setLoginFormOpen] = useState(false)
+    let loginFormOpen = useSelector(state=>(state.modal.isLoginOpen))
     const currentUser = useSelector(state=>(state.user.username))
-    console.log(currentUser)
-    const handleLogin = () =>{
-        setLoginFormOpen(true)
+    const dispatch = useDispatch()
+   
+    const handleLogin = ()=>{
+    dispatch(openLoginModal())
     }
 
     const sessionLinks = currentUser ? (
