@@ -36,7 +36,7 @@ export const NavBar = () => {
                     {sessionLinks}
                 </div>
             </nav>
-            {loginFormOpen && (<LoginComponent />)}
+            {loginFormOpen && (<LoginComponent className="z-10" />)}
             
             
         </>
