@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Slices/userSlice';
 import { csrfFetch } from '../csrf';
+import { closeLoginModal } from '../Slices/modalSlice';
+
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
   const dispatch = useDispatch();
@@ -24,20 +26,23 @@ const LoginComponent = () => {
       const errorText = await response.text();
       console.error('Error response status:', response.status);
       console.error('Error response body:', errorText);
-
       // Optionally, throw an error to handle it later in the catch block
       throw new Error(`Error ${response.status}: ${errorText}`);
     }
-
+   
     const data = await response.json();
     localStorage.setItem('access_token', data.access_token);
-    dispatch(login(data)); // Store user in Redux state
+    dispatch(login(data));
+    dispatch(closeLoginModal()) // Store user in Redux state
   } catch (error) {
     // Log any errors that occur during fetch or processing
     console.error('Error during login:', error);
   }
-
   };
+
+
+
+
   return (
     <div
       className="
@@ -95,7 +100,7 @@ const LoginComponent = () => {
         >
           <div className='"w-full mb-5 relative'>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
-              <div>Welcome Back</div>
+              <div className="text-xl mt-5">Welcome Back Fellow Econo-Warrior!</div>
               <input
                 className='
                             p-2
