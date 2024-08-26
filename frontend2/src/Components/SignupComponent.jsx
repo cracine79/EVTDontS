@@ -25,6 +25,7 @@ const SignupComponent = () => {
 
     const data = await response.json();
     localStorage.setItem('access_token', data.user.access_token);
+    dispatch(closeSignupModal())
     dispatch(login(data.user)); // Store user in Redux state
   };
 
