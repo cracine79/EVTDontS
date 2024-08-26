@@ -1,24 +1,30 @@
 import { useSelector, useDispatch } from "react-redux"
 import LoginComponent from "./LoginComponent"
+import SignupComponent from "./SignupComponent"
 import LogoutButton from "./LogoutComponent"
-import { openLoginModal } from "../Slices/modalSlice"
+import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
 
 
 
 export const NavBar = () => {
     let loginFormOpen = useSelector(state=>(state.modal.isLoginOpen))
+    let signupFormOpen = useSelector(state=>(state.modal.isSignupOpen))
     const currentUser = useSelector(state=>(state.user.username))
     const dispatch = useDispatch()
    
     const handleLogin = ()=>{
-    dispatch(openLoginModal())
+        dispatch(openLoginModal())
+    }
+
+    const handleSignup = () => {
+        dispatch(openSignupModal())
     }
 
     const sessionLinks = currentUser ? (
             <LogoutButton />
     ) : (
         <div className="flex w-32 justify-around mr-10">
-            <p className="hover:cursor-pointer">Sign Up</p>
+            <p className="hover:cursor-pointer" onClick = {handleSignup}>Sign Up</p>
             <p className="hover:cursor-pointer" onClick = {handleLogin} >Log In</p>
         </div>
     )
@@ -37,7 +43,8 @@ export const NavBar = () => {
                     {sessionLinks}
                 </div>
             </nav>
-            {loginFormOpen && (<LoginComponent className="z-10" />)}     
+            {loginFormOpen && (<LoginComponent className="z-10" />)}   
+            {signupFormOpen && (<SignupComponent className="z-10" />)}     
         </>
     )
 }
