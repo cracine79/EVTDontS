@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Slices/userSlice';
 import { csrfFetch } from '../csrf';
 import { closeLoginModal } from '../Slices/modalSlice';
+import { IoMdClose } from "react-icons/io";
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
@@ -40,6 +41,9 @@ const LoginComponent = () => {
   }
   };
 
+  const handleClose = ()=>{
+    dispatch(closeLoginModal())
+  }
 
 
 
@@ -99,6 +103,20 @@ const LoginComponent = () => {
           `}
         >
           <div className='"w-full mb-5 relative'>
+          <button
+										onClick={handleClose}
+										className="
+											p-1
+											border-0
+											hover:opacity-70
+											transition
+											absolute
+											right-3
+                      top-2
+										"
+									>
+										<IoMdClose size={18}/>
+						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
               <div className="text-xl mt-5">Welcome Back Fellow Econo-Warrior!</div>
               <input
