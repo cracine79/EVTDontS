@@ -21,7 +21,9 @@ export const NavBar = () => {
     }
 
     const sessionLinks = currentUser ? (
-            <LogoutButton />
+        <div className="mr-8">
+            <LogoutButton/>
+        </div>
     ) : (
         <div className="flex w-32 justify-around mr-10">
             <p className="hover:cursor-pointer" onClick = {handleSignup}>Sign Up</p>
