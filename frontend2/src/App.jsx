@@ -10,6 +10,8 @@ import { AuthRoute } from './Components/routes';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { NavBar } from './Components/NavBar';
 import { MainPage } from './Components/MainPage';
+import { restoreUser } from './Slices/userActions';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -35,9 +37,11 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     restoreCSRF();
+    dispatch(restoreUser());
   }, []);
 
   return (

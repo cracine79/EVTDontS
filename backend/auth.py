@@ -16,6 +16,23 @@ signup_model = auth_ns.model(
     }
 )
 
+@auth_ns.route('/refreshuser')
+class RefreshUser(Resource):
+    @jwt_required()
+    def get(self):
+        current_user = get_jwt_identity()
+        user = User.query.filter_by(username=current_user).first()
+        if user:
+            return jsonify({
+                "username": user.username,
+                "email": user.email
+                # Add any other user data you want to return
+            })
+        else:
+            return jsonify({"message": "User not found"}), 404
+        
+
+
 login_model = auth_ns.model(
     'Login',
     { 
