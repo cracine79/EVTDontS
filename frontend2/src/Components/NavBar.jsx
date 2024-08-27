@@ -36,8 +36,7 @@ export const NavBar = () => {
             <nav className=
                 "w-full 
                 h-24 
-                z-0
-                
+                z-10
                 items-center 
                 flex justify-between
                 sticky
