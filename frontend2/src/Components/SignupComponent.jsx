@@ -104,7 +104,7 @@ const SignupComponent = () => {
 										<IoMdClose size={18}/>
 						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
-              <div className="text-xl mt-5">Welcome Back Fellow Econo-Warrior!</div>
+              <div className="text-xl mt-5">Let's do This Thing!</div>
               <input
                 className='
                             p-2
@@ -143,7 +143,7 @@ const SignupComponent = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
               />
-              <button type="submit">Login</button>
+              <button type="submit">Sign Up</button>
             </form>
           </div>
         </div>
