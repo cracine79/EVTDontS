@@ -17,10 +17,10 @@ import { useDispatch } from 'react-redux';
 
 const Layout = () => {
   return(
-    <>
+    <div className="flex flex-col">
       <NavBar />
       <Outlet />
-    </>
+    </div>
   )
 }
 
