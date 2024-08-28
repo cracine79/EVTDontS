@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux"
 export const UserHome = () => {
+    const userName = useSelector((state)=>state.user.username)
     return(
-        <>
-            Hello from UserHome
-        </>
+        <div className='mt-40'>
+            Hello there {userName}
+        </div>
     )
 }
