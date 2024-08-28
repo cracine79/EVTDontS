@@ -49,17 +49,6 @@ function App() {
 
   return (
     <RouterProvider router={router} />
-    // <Router>
-    //   <Routes>
-    //     <Route path="/login" element={<LoginComponent />} />
-    //     <Route path="/signup" element={<SignupComponent />} />
-    //     {/* <Route
-    //       path="/protected"
-    //       element={<ProtectedRoute><ProtectedPage /></ProtectedRoute>}
-    //     /> */}
-    //   </Routes>
-    //   <LogoutButton />
-    // </Router>
   );
 }
 
