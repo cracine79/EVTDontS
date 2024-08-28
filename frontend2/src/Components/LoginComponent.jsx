@@ -4,12 +4,14 @@ import { login } from '../Slices/userSlice';
 import { csrfFetch } from '../csrf';
 import { closeLoginModal } from '../Slices/modalSlice';
 import { IoMdClose } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +37,7 @@ const LoginComponent = () => {
     localStorage.setItem('access_token', data.access_token);
     dispatch(login(data));
     dispatch(closeLoginModal()) // Store user in Redux state
+    navigate('/userhome')
   } catch (error) {
     // Log any errors that occur during fetch or processing
     console.error('Error during login:', error);

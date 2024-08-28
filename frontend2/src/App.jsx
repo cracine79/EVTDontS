@@ -12,6 +12,7 @@ import { NavBar } from './Components/NavBar';
 import { MainPage } from './Components/MainPage';
 import { restoreUser } from './Slices/userActions';
 import { useDispatch } from 'react-redux';
+import { UserHome } from './Components/UserHome';
 
 
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path:"/",
         element: <MainPage />
+      },
+      {
+        path:"/userhome",
+        element: <UserHome />
       }
     ]
   }
