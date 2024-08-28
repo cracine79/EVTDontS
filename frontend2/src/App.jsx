@@ -13,7 +13,7 @@ import { MainPage } from './Components/MainPage';
 import { restoreUser } from './Slices/userActions';
 import { useDispatch } from 'react-redux';
 import { UserHome } from './Components/UserHome';
-
+import { Footer } from './Components/Footer';
 
 
 const Layout = () => {
@@ -24,6 +24,7 @@ const Layout = () => {
 
       <Outlet />
       </div>
+      <Footer />
     </div>
   )
 }
