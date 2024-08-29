@@ -3,7 +3,8 @@ export const UserHome = () => {
     const userName = useSelector((state)=>state.user.username)
     return(
         <div className='mt-40'>
-            Hello there {userName}
+            Hello there {userName}.
+            These are your units.
         </div>
     )
 }
