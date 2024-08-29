@@ -1,6 +1,7 @@
 import { login, logout } from "./userSlice";
 import { csrfFetch } from "../csrf";
 import { useDispatch } from "react-redux";
+import { storeUserUnits } from "./unitsSlice";
 
 
 
@@ -15,9 +16,10 @@ export const restoreUser = () => async(dispatch) => {
   
         // Dispatch the login action from userSlice
         dispatch(login({
-          username: data.username,
-          email: data.email
+          username: data.user.username,
+          email: data.user.email
         }));
+        dispatch(storeUserUnits(data.units))
       } else {
         dispatch(logout());
       }

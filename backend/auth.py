@@ -22,10 +22,15 @@ class RefreshUser(Resource):
     def get(self):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
+        user_units = user.units
+        units_dict = {unit.id: unit.name for unit in user_units}
         if user:
             return jsonify({
-                "username": user.username,
-                "email": user.email
+               "user":{
+                    "username": user.username,
+                    "email": user.email
+               },
+               "units": units_dict
                 # Add any other user data you want to return
             })
         else:
