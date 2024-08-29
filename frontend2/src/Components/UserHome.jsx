@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-
+import { Progress } from "./Progress"
 export const UserHome = () => {
     const userName = useSelector((state)=>state.user.username)
     const messages = [
@@ -24,11 +24,12 @@ export const UserHome = () => {
     return(
         <div className=
             'flex 
-            justify-center 
+            items-center 
             w-screen 
             mt 
             bg-slate-50 
-            h-screen'>
+            h-screen
+            flex-col'>
             <div className=
                 'mt-36 
                 w-3/4 
@@ -55,7 +56,7 @@ export const UserHome = () => {
                     </p>
                 )}
             </div>
-        
+            <Progress />
         </div>
     )
 }
