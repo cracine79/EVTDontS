@@ -5,6 +5,7 @@ import { csrfFetch } from '../csrf';
 import { closeLoginModal } from '../Slices/modalSlice';
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { storeUserUnits } from '../Slices/unitsSlice';
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
@@ -37,6 +38,7 @@ const LoginComponent = () => {
     console.log(data)
     localStorage.setItem('access_token', data.user.access_token);
     dispatch(login(data.user));
+    dispatch(storeUserUnits(data.units))
     dispatch(closeLoginModal()) // Store user in Redux state
     navigate('/userhome')
   } catch (error) {
