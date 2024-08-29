@@ -40,8 +40,6 @@ class User(db.Model):
 
 
 
-
-
 class Unit(db.Model):
     __tablename__ = 'unit'
 
