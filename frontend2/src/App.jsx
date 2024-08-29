@@ -21,8 +21,7 @@ const Layout = () => {
     <div className="flex flex-col">
       <NavBar />
       <div className='flex flex-col -mt-24'>
-
-      <Outlet />
+        <Outlet />
       </div>
       <Footer />
     </div>

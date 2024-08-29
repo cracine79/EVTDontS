@@ -99,11 +99,17 @@ class Login(Resource):
                 access_token = create_access_token(db_user.username)
                 refresh_token = create_refresh_token(db_user.username)
 
+                user_units = db_user.units
+                units_dict = {unit.id: unit.name for unit in user_units}
                 user_data = ({
-                    "access_token": access_token,
-                    "refresh_token": refresh_token,
-                    "username": db_user.username,
-                    "email": db_user.email
+                    "user": {
+                        "access_token": access_token,
+                        "refresh_token": refresh_token,
+                        "username": db_user.username,
+                        "email": db_user.email
+                        },
+                    "units": units_dict
+                
                 })
                 # print(user_data)
                 # print(jsonify(user_data))

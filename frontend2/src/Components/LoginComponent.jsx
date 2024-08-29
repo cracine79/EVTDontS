@@ -34,8 +34,9 @@ const LoginComponent = () => {
     }
    
     const data = await response.json();
-    localStorage.setItem('access_token', data.access_token);
-    dispatch(login(data));
+    console.log(data)
+    localStorage.setItem('access_token', data.user.access_token);
+    dispatch(login(data.user));
     dispatch(closeLoginModal()) // Store user in Redux state
     navigate('/userhome')
   } catch (error) {
