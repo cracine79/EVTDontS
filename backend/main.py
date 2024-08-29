@@ -8,6 +8,7 @@ from questions import questions_ns
 from csrf import csrf_ns
 from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
+from flask_migrate import Migrate
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
@@ -21,6 +22,8 @@ def create_app(config):
     # csrf = CSRFProtect()
     # csrf.init_app(app)
     api = Api(app, doc='/docs')
+
+    migrate = Migrate(app, db)
 
     api.add_namespace(auth_ns)
     api.add_namespace(questions_ns)
