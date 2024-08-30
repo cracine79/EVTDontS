@@ -1,7 +1,7 @@
 from exts import db
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, text
+from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean
 
 class Base(DeclarativeBase):
     pass
@@ -61,39 +61,46 @@ class Unit(db.Model):
         db.session.commit()
 
 class Chapter(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    unit_id = db.Column(db.Integer, db.ForeignKey('unit.id'))
-    video_url = db.Column(db.String(255))
-    completed = db.Column(db.Boolean, default=False)
-    unit = relationship('Unit', back_populates='chapters')
-    questions = relationship('Question', back_populates='chapter')
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    unit_id: Mapped[int] = mapped_column(ForeignKey('unit.id'))
+    video_url: Mapped[str] = mapped_column(String(255))
+    completed: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
+    questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
 
 
 class Question(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text, nullable=False)
-    chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'))
-    topic_id = db.Column(db.Integer, db.ForeignKey('question_topic.id'))
-    chapter = relationship('Chapter', back_populates='questions')
-    topic = relationship('QuestionTopic', back_populates='questions')
-    answers = relationship('Answer', back_populates='question')
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    text: Mapped[str] = mapped_column(Text, nullable=False)
+    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'))
+    topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id'))
+
+    chapter: Mapped["Chapter"] = relationship('Chapter', back_populates='questions')
+    topic: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='questions')
+    answers: Mapped[list["Answer"]] = relationship('Answer', back_populates='question')
+
 
 class QuestionTopic(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    questions = relationship('Question', back_populates='topic')
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+
+    questions: Mapped[list["Question"]] = relationship('Question', back_populates='topic')
+
 
 class Answer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(255), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
-    is_correct = db.Column(db.Boolean, nullable=False)
-    question = relationship('Question', back_populates='answers')
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    text: Mapped[str] = mapped_column(String(255), nullable=False)
+    question_id: Mapped[int] = mapped_column(ForeignKey('question.id'))
+    is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+    question: Mapped["Question"] = relationship('Question', back_populates='answers')
+
 
 class UserPerformance(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
-    is_correct = db.Column(db.Boolean, nullable=False)
-    answered_at = db.Column(db.DateTime, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
+    question_id: Mapped[int] = mapped_column(ForeignKey('question.id'))
+    is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    answered_at: Mapped["DateTime"] = mapped_column(DateTime, nullable=False)
