@@ -52,6 +52,7 @@ class Unit(db.Model):
         secondary=user_unit_association,
         back_populates='units'
     )
+    subject: Mapped[str] = mapped_column
 
     def __repr__(self):
         return f"Unit <{self.name}>"
@@ -70,6 +71,8 @@ class Chapter(db.Model):
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
 
+    def __repr__(self):
+        return f"Chapter <{self.name}"
 
 class Question(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
