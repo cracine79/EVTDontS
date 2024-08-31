@@ -23,6 +23,11 @@ class RefreshUser(Resource):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_units = user.units
+        user_chapters = []
+        for unit in user.units:
+            chapters = user.unit.chapters
+            user_chapters += chapters
+        chapter_dict = {chapter.id: chapter for chapter in user_chapters}
         units_dict = {unit.id: unit.name for unit in user_units}
         if user:
             return jsonify({
@@ -30,7 +35,8 @@ class RefreshUser(Resource):
                     "username": user.username,
                     "email": user.email
                },
-               "units": units_dict
+               "units": units_dict,
+               "chapters": chapter_dict
                 # Add any other user data you want to return
             })
         else:
@@ -105,6 +111,14 @@ class Login(Resource):
                 refresh_token = create_refresh_token(db_user.username)
 
                 user_units = db_user.units
+                user_chapters = []
+                for unit in user_units:
+                    chapters = unit.chapters
+                    user_chapters += chapters
+                print(f"user_chapters are {user_chapters}")
+                print(user_chapters[0].id)
+                chapter_dict = {chapter.id: {"name": chapter.name, "unit_id": chapter.unit_id} for chapter in user_chapters}
+                # print(chapter_dict)
                 units_dict = {unit.id: unit.name for unit in user_units}
                 user_data = ({
                     "user": {
@@ -113,7 +127,8 @@ class Login(Resource):
                         "username": db_user.username,
                         "email": db_user.email
                         },
-                    "units": units_dict
+                    "units": units_dict,
+                    "chapters": chapter_dict
                 
                 })
                 # print(user_data)

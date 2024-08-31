@@ -72,7 +72,7 @@ class Chapter(db.Model):
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
 
     def __repr__(self):
-        return f"Chapter <{self.name}"
+        return f"Chapter <{self.name}>"
 
 class Question(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -84,12 +84,18 @@ class Question(db.Model):
     topic: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='questions')
     answers: Mapped[list["Answer"]] = relationship('Answer', back_populates='question')
 
+    def __repr__(self):
+        return f"Question <{self.id}>"
+
 
 class QuestionTopic(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
 
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='topic')
+
+    def __repr__(self):
+        return f"Topic <{self.name}>"
 
 
 class Answer(db.Model):
