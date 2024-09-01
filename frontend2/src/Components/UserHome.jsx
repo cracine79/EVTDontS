@@ -57,9 +57,9 @@ export const UserHome = () => {
                 )}
             </div>
             <div className='flex flex-com justify-center w-screen'>
-                <div className='flex flex-row items-center justify-evenly w-11/12'>
+                <div className='flex flex-row items-center justify-center w-11/12'>
                     <Progress />
-                    <div className="w-3/12 bg-blue-100 h-20">
+                    <div className="w-1/6 bg-blue-100 h-20 ml-12">
                     </div>
                 </div>
             </div>

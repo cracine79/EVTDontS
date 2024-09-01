@@ -117,7 +117,12 @@ class Login(Resource):
                     user_chapters += chapters
                 print(f"user_chapters are {user_chapters}")
                 print(user_chapters[0].id)
-                chapter_dict = {chapter.id: {"name": chapter.name, "unit_id": chapter.unit_id} for chapter in user_chapters}
+                chapter_dict = {
+                    chapter.id: {
+                        "name": chapter.name, 
+                        "unit_id": chapter.unit_id,
+                        "video_url": chapter.video_url,
+                    } for chapter in user_chapters}
                 # print(chapter_dict)
                 units_dict = {unit.id: unit.name for unit in user_units}
                 user_data = ({
