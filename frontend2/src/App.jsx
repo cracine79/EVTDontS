@@ -14,6 +14,7 @@ import { restoreUser } from './Slices/userActions';
 import { useDispatch } from 'react-redux';
 import { UserHome } from './Components/UserHome';
 import { Footer } from './Components/Footer';
+import { Video } from './Components/Video';
 
 
 const Layout = () => {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path:"/userhome",
         element: <UserHome />
+      },
+      {
+        path:"/video",
+        element: <Video />
       }
     ]
   }

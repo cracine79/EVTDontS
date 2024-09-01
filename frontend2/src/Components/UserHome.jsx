@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux"
 import { Progress } from "./Progress"
+import { useNavigate } from "react-router-dom"
+import { Video } from "./Video"
+
 export const UserHome = () => {
+    const navigate = useNavigate()
     const userName = useSelector((state)=>state.user.username)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
@@ -18,6 +22,10 @@ export const UserHome = () => {
         <>
             {messages[number]}
         </>)
+    }
+
+    const handleClick = () => {
+        navigate('/Video')
     }
 
     
@@ -59,7 +67,8 @@ export const UserHome = () => {
             <div className='flex flex-com justify-center w-screen'>
                 <div className='flex flex-row items-center justify-center w-11/12'>
                     <Progress />
-                    <div className="w-1/6 bg-blue-100 h-20 ml-12">
+                    <div className="w-1/6 bg-white 100 h-3/5 mt-20 ml-12 rounded-3xl shadow-2xl">
+                        <p className='mt-10' onClick={handleClick}>Take me to the next video</p>
                     </div>
                 </div>
             </div>
