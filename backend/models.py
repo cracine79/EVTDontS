@@ -2,6 +2,7 @@ from exts import db
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean
+from datetime import datetime
 
 class Base(DeclarativeBase):
     pass
@@ -29,6 +30,8 @@ class User(db.Model):
         secondary=user_unit_association,
         back_populates='users'
     )
+
+    video_progress: Mapped["UserVideoProgress"] = relationship('UserVideoProgress', back_populates='user')
 
 
     def __repr__(self):
@@ -113,3 +116,16 @@ class UserPerformance(db.Model):
     question_id: Mapped[int] = mapped_column(ForeignKey('question.id'))
     is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
     answered_at: Mapped["DateTime"] = mapped_column(DateTime, nullable=False)
+
+class UserVideoProgress(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False)
+    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'), nullable=False)
+    video_completed: Mapped[bool] = mapped_column(Boolean, default=False)
+    # completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    user = relationship('User', back_populates='video_progress')
+    chapter = relationship('Chapter')
+
+    def __repr__(self):
+        return f"Progress for user<{self.user_id}> on video in chapter{self.chapter_id}"
