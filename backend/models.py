@@ -31,7 +31,10 @@ class User(db.Model):
         back_populates='users'
     )
 
-    video_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='user')
+    # current_chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'))
+    # current_chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='users')
+
+    chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='user')
 
 
     def __repr__(self):
@@ -72,6 +75,12 @@ class Chapter(db.Model):
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
+
+    chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='chapter')
+    # users: Mapped[list["User"]] = relationship(
+    #     'User',
+    #     back_populates='current_chapter'
+    # )
 
     def __repr__(self):
         return f"Chapter <{self.name}>"
@@ -124,7 +133,7 @@ class UserChapterProgress(db.Model):
     quiz_grade: Mapped[int] = mapped_column(Integer, nullable=True)
     # completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    user = relationship('User', back_populates='video_progress')
+    user = relationship('User', back_populates='chapter_progress')
     chapter = relationship('Chapter')
 
     def __repr__(self):
