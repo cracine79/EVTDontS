@@ -22,13 +22,40 @@ class RefreshUser(Resource):
     def get(self):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
+
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+        
         user_units = user.units
         user_chapters = []
         for unit in user.units:
-            chapters = user.unit.chapters
+            chapters = unit.chapters
             user_chapters += chapters
-        chapter_dict = {chapter.id: chapter for chapter in user_chapters}
+        
+        chapter_dict = {
+            chapter.id: {
+                "name": chapter.name,
+                'unit_id': chapter.unit_id,
+                'video_url': chapter.video_url
+            } for chapter in user_chapters
+        }
+        
         units_dict = {unit.id: unit.name for unit in user_units}
+
+        chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id).all()
+        progress_dict={
+            chapter.id: {
+                "video_completed": chapter.video_completed,
+                "quiz_grade": chapter.quiz_grade
+            } for chapter in chapter_progress
+        }
+        
+        for chapter_id, progress_data in progress_dict.items():
+            if chapter_id in chapter_dict:
+                chapter_dict[chapter_id].update(progress_data)
+            else:
+                chapter_dict[chapter_id] = progress_data            
+        
         if user:
             return jsonify({
                "user":{
