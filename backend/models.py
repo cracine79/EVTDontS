@@ -31,7 +31,7 @@ class User(db.Model):
         back_populates='users'
     )
 
-    video_progress: Mapped["UserVideoProgress"] = relationship('UserVideoProgress', back_populates='user')
+    video_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='user')
 
 
     def __repr__(self):
@@ -117,11 +117,12 @@ class UserPerformance(db.Model):
     is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
     answered_at: Mapped["DateTime"] = mapped_column(DateTime, nullable=False)
 
-class UserVideoProgress(db.Model):
+class UserChapterProgress(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False)
     chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'), nullable=False)
     video_completed: Mapped[bool] = mapped_column(Boolean, default=False)
+    quiz_grade: Mapped[int] = mapped_column(Integer, nullable=True)
     # completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
 
     user = relationship('User', back_populates='video_progress')

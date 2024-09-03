@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource, fields
-from models import User
+from models import User, UserChapterProgress
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -111,20 +111,37 @@ class Login(Resource):
                 refresh_token = create_refresh_token(db_user.username)
 
                 user_units = db_user.units
+                
+                
+                #extract all relevant chapters for user and send down on login
+                
                 user_chapters = []
                 for unit in user_units:
                     chapters = unit.chapters
                     user_chapters += chapters
-                print(f"user_chapters are {user_chapters}")
-                print(user_chapters[0].id)
+
+                chapter_progress = UserChapterProgress.query.filter_by(user_id=db_user.id).all()
+                progress_dict={
+                    chapter.id: {
+                        "video_completed": chapter.video_completed,
+                        "quiz_grade": chapter.quiz_grade
+                    } for chapter in chapter_progress
+                }
+
                 chapter_dict = {
                     chapter.id: {
                         "name": chapter.name, 
                         "unit_id": chapter.unit_id,
                         "video_url": chapter.video_url,
                     } for chapter in user_chapters}
-                # print(chapter_dict)
                 units_dict = {unit.id: unit.name for unit in user_units}
+
+                for chapter_id, progress_data in progress_dict.items():
+                    if chapter_id in chapter_dict:
+                        chapter_dict[chapter_id].update(progress_data)
+                    else:
+                        chapter_dict[chapter_id] = progress_data            
+
                 user_data = ({
                     "user": {
                         "access_token": access_token,
