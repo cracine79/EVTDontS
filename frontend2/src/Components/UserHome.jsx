@@ -17,6 +17,9 @@ export const UserHome = () => {
         "You like us!  You really like us!"
     ]
 
+    const currentChapterId = useSelector((state)=>state.user.currentChapter)
+    const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
+
     const genMessage = () =>{
         const number = Math.floor(Math.random()*6)
         return (
@@ -27,6 +30,18 @@ export const UserHome = () => {
 
     const handleClick = () => {
         navigate('/Video')
+    }
+
+    const upNext = () => {
+        if(!currentChapter.video_completed){
+            return(
+                <p onClick={handleClick}> The next video </p>
+            )
+        } else {
+            return(
+                <p>Review quiz</p>
+            )
+        }
     }
 
     
@@ -69,7 +84,9 @@ export const UserHome = () => {
                 <div className='flex flex-row items-center justify-center w-11/12'>
                     <Progress />
                     <div className="w-1/6 bg-white 100 h-3/5 mt-20 ml-12 rounded-3xl shadow-2xl">
-                        <p className='mt-10' onClick={handleClick}>Take me to the next video</p>
+                        <p>You are currently working on: {currentChapter.name}</p>
+                        <p>Up Next</p>
+                        <p className='mt-10' onClick={handleClick}>{upNext()}</p>
                     </div>
                 </div>
             </div>
