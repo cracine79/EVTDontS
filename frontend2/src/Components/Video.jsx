@@ -1,7 +1,14 @@
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+
+
 export const Video = () => {
+    const navigate = useNavigate()
     const chapters = useSelector((state)=>state.chapters)
     const source = chapters[1].video_url
+    const handleClick = () => {
+        navigate('/userhome')
+    }
     return(
         <div className="w-full flex flex-col justify-center items-center">
         <div className='mt-40  aspect-video justify-center w-3/4'>
@@ -12,6 +19,9 @@ export const Video = () => {
                 Text text text text
             </div>
             <div>
+                <div onClick = {handleClick}>
+                    Back to my Dashboarddd
+                </div>
                 <div>
                     Mark as Complete
                     (take me to the quiz)
