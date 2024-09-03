@@ -13,7 +13,8 @@ export const UserHome = () => {
         "We're starting to think you actually enjoy this stuff.",
         "Back for more?  We promise not to make this TOO interesting.",
         "We've got to stop meeting like this!",
-        "We've never felt so loved before.  Except the time our Mom subscribed to our Youtube channel"
+        "We've never felt so loved before.  Except the time our Mom subscribed to our Youtube channel",
+        "You like us!  You really like us!"
     ]
 
     const genMessage = () =>{
