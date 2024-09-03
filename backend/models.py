@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean
 from datetime import datetime
+from typing import Optional
 
 class Base(DeclarativeBase):
     pass
@@ -31,8 +32,9 @@ class User(db.Model):
         back_populates='users'
     )
 
-    # current_chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'))
-    # current_chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='users')
+    current_chapter_id: Mapped[Optional[int]] = mapped_column(ForeignKey('chapter.id'), nullable=True)
+    current_chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='users')
+
 
     chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='user')
 
@@ -75,6 +77,8 @@ class Chapter(db.Model):
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
+    
+
 
     chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='chapter')
     # users: Mapped[list["User"]] = relationship(
@@ -82,6 +86,8 @@ class Chapter(db.Model):
     #     back_populates='current_chapter'
     # )
 
+    users: Mapped[list["User"]] = relationship('User', back_populates='current_chapter')
+    
     def __repr__(self):
         return f"Chapter <{self.name}>"
 

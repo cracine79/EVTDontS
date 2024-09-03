@@ -60,7 +60,8 @@ class RefreshUser(Resource):
             return jsonify({
                "user":{
                     "username": user.username,
-                    "email": user.email
+                    "email": user.email,
+                    "current_chapter": user.current_chapter.id
                },
                "units": units_dict,
                "chapters": chapter_dict
@@ -174,7 +175,8 @@ class Login(Resource):
                         "access_token": access_token,
                         "refresh_token": refresh_token,
                         "username": db_user.username,
-                        "email": db_user.email
+                        "email": db_user.email,
+                        "current_chapter": db_user.current_chapter.id
                         },
                     "units": units_dict,
                     "chapters": chapter_dict
