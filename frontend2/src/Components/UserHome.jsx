@@ -44,7 +44,9 @@ export const UserHome = () => {
 
     const handleClick = () => {
         if(!currentChapter.video_completed){
-            (startChapterProgress(currentChapterId, userId))
+            if(!("video_completed" in currentChapter)){
+                (startChapterProgress(currentChapterId, userId))
+            }
             navigate('/Video')
         } else {
             navigate('/Quiz')
@@ -69,7 +71,7 @@ export const UserHome = () => {
 
     const startChapterProgress = async(chapterId, userId) => {
         try{
-            const response = await csrfFetch('/api/progress/create', {
+            const response = await csrfFetch('/api/progress/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

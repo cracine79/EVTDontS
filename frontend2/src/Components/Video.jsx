@@ -1,10 +1,15 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { csrfFetch } from "../csrf"
+import { updateUserChapters } from "../Slices/chaptersSlice"
+
 
 
 
 export const Video = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch
+    
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
     
     const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
@@ -13,7 +18,31 @@ export const Video = () => {
     const handleClick = () => {
         navigate('/userhome')
     }
-    console.log(source)
+
+    const updateVideoProgress = async(chapterId) => {
+        try {
+            const response = await csrfFetch('/api/progress/' , {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                  },
+                body: JSON.stringify({ chapter_id: chapterId }),
+            });
+
+        const data = await response.json()
+        console.log(data)
+        
+        dispatch(updateUserChapters(data))
+        } catch (error) {
+            console.error("error finding", error)
+        }
+    }
+
+    const completeVid = () => {
+        updateVideoProgress(currentChapterId)
+       
+    }
+  
     return(
         <div className="w-full flex flex-col justify-center items-center">
         <div className='mt-40  aspect-video justify-center w-3/4'>
@@ -27,7 +56,7 @@ export const Video = () => {
                 <div onClick = {handleClick}>
                     Back to my Dashboarddd
                 </div>
-                <div>
+                <div onClick = {completeVid}>
                     Mark as Complete
                     (take me to the quiz)
                 </div>
