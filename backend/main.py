@@ -9,6 +9,7 @@ from csrf import csrf_ns
 from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
 from flask_migrate import Migrate
+from progress import progress_ns
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
@@ -28,6 +29,7 @@ def create_app(config):
     api.add_namespace(auth_ns)
     api.add_namespace(questions_ns)
     api.add_namespace(csrf_ns)
+    api.add_namespace(progress_ns)
 
     @app.shell_context_processor
     def make_shell_context():

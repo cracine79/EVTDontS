@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { Progress } from "./Progress"
 import { useNavigate } from "react-router-dom"
-import { Video } from "./Video"
+
 
 export const UserHome = () => {
     const navigate = useNavigate()
@@ -19,7 +19,17 @@ export const UserHome = () => {
 
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
     const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
-
+    const workingOn = () =>{
+        if(currentChapter){
+            return (
+                <p>You are currently working on: {currentChapter.name}</p>
+            )
+        } else{
+            return (
+              <>Get Started</>  
+            )
+        }
+    }
     const genMessage = () =>{
         const number = Math.floor(Math.random()*6)
         return (
@@ -29,11 +39,19 @@ export const UserHome = () => {
     }
 
     const handleClick = () => {
-        navigate('/Video')
+        if(!currentChapter.video_completed){
+            navigate('/Video')
+        } else {
+            navigate('/Quiz')
+        }
     }
 
     const upNext = () => {
-        if(!currentChapter.video_completed){
+        if(currentChapter==null){
+            return(
+                <>Get Started</>
+            )
+        }else if(!currentChapter.video_completed){
             return(
                 <p onClick={handleClick}> The next video </p>
             )
@@ -84,7 +102,7 @@ export const UserHome = () => {
                 <div className='flex flex-row items-center justify-center w-11/12'>
                     <Progress />
                     <div className="w-1/6 bg-white 100 h-3/5 mt-20 ml-12 rounded-3xl shadow-2xl">
-                        <p>You are currently working on: {currentChapter.name}</p>
+                        {workingOn}
                         <p>Up Next</p>
                         <p className='mt-10' onClick={handleClick}>{upNext()}</p>
                     </div>

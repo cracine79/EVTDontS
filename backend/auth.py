@@ -55,13 +55,17 @@ class RefreshUser(Resource):
                 chapter_dict[chapter_id].update(progress_data)
             else:
                 chapter_dict[chapter_id] = progress_data            
-        
+        if user.current_chapter:
+            current_chapter = user.current_chapter.id
+        else:
+            current_chapter=None
         if user:
+
             return jsonify({
                "user":{
                     "username": user.username,
                     "email": user.email,
-                    "current_chapter": user.current_chapter.id
+                    "current_chapter": current_chapter
                },
                "units": units_dict,
                "chapters": chapter_dict
@@ -103,7 +107,7 @@ class Signup(Resource):
 
         access_token = create_access_token(new_user.username)
         refresh_token = create_refresh_token(new_user.username)
-
+        
         return jsonify({
             "user": {
                 "access_token":access_token,
@@ -130,6 +134,12 @@ class Login(Resource):
         print("Password:", password)
 
         db_user = User.query.filter_by(username=username).first()
+        if db_user.current_chapter:
+            current_chapter = db_user.current_chapter.id
+            print(f"current_chapter is {current_chapter}")
+        else:
+            current_chapter=None
+            print("no current chapter")
 
         if db_user:
             print("User found in database.")
@@ -176,7 +186,7 @@ class Login(Resource):
                         "refresh_token": refresh_token,
                         "username": db_user.username,
                         "email": db_user.email,
-                        "current_chapter": db_user.current_chapter.id
+                        "current_chapter": current_chapter
                         },
                     "units": units_dict,
                     "chapters": chapter_dict
