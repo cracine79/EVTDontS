@@ -1,11 +1,15 @@
 import { useSelector } from "react-redux"
 import { Progress } from "./Progress"
 import { useNavigate } from "react-router-dom"
-
+import { csrfFetch } from "../csrf"
+import { useDispatch } from "react-redux"
+import { updateUserChapters } from "../Slices/chaptersSlice"
 
 export const UserHome = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const userName = useSelector((state)=>state.user.username)
+    const userId = useSelector((state)=>state.user.id)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
         "Already back for more?  Guess Netflix isn't cutting it today",
@@ -40,6 +44,7 @@ export const UserHome = () => {
 
     const handleClick = () => {
         if(!currentChapter.video_completed){
+            (startChapterProgress(currentChapterId, userId))
             navigate('/Video')
         } else {
             navigate('/Quiz')
@@ -59,6 +64,25 @@ export const UserHome = () => {
             return(
                 <p>Review quiz</p>
             )
+        }
+    }
+
+    const startChapterProgress = async(chapterId, userId) => {
+        try{
+            const response = await csrfFetch('/api/progress/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                  },
+                body: JSON.stringify({ chapter_id: chapterId, user_id: userId }),
+            });
+    
+        const data = await response.json()
+        
+        dispatch(updateUserChapters(data))
+    
+        } catch (error) {
+            console.error('Error finding', error)
         }
     }
 
