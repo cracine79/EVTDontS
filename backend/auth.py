@@ -160,12 +160,12 @@ class Login(Resource):
 
                 chapter_progress = UserChapterProgress.query.filter_by(user_id=db_user.id).all()
                 progress_dict={
-                    chapter.id: {
+                    chapter.chapter_id: {
                         "video_completed": chapter.video_completed,
                         "quiz_grade": chapter.quiz_grade
                     } for chapter in chapter_progress
                 }
-
+                print(f"progress_dict is {progress_dict}")
                 chapter_dict = {
                     chapter.id: {
                         "name": chapter.name, 
