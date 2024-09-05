@@ -139,8 +139,10 @@ class UserChapterProgress(db.Model):
     quiz_grade: Mapped[int] = mapped_column(Integer, nullable=True)
     # completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
 
+    __table_args__ = (db.UniqueConstraint('user_id', 'chapter_id', name='uix_user_chapter'),)
+    
     user = relationship('User', back_populates='chapter_progress')
     chapter = relationship('Chapter')
 
     def __repr__(self):
-        return f"Progress for user<{self.user_id}> on video in chapter{self.chapter_id}"
+        return f"Progress for user<{self.user_id}> on video in chapter {self.chapter_id}"
