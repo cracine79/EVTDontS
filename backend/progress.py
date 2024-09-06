@@ -51,16 +51,31 @@ class CreateChapterProgress(Resource):
         chapter_id = data.get('chapter_id')
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
-
+        print(f"progress is {progress} DUDDEORAMMMMMMA")
         progress.video_completed = True
-        db.session.commit()
+        print(f"completed is {progress.video_completed}")
+        try:
+            db.session.commit()
+
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error: {e}")
+
         chapter = Chapter.query.filter_by(id=chapter_id).first()
-        return jsonify({
-            chapter_id:{
-                "name": chapter.name,
-                'unit_id': chapter.unit_id,
-                'video_url': chapter.video_url,
-                "video_completed": progress.video_completed,
-                "quiz_grade": progress.quiz_grade
-            }
-        })
+        print(f"chapte name is {chapter.name}")
+        print(f"chapter is {chapter}")
+        # print (f"chapter is {chapter} HOMMMMIE")
+        # print(f"name is {chapter.name}")
+        # print(chapter.unit_id)
+        # print(chapter.video_url)
+        # print(progress.video_completed)
+        # print(progress.quiz_grade)
+        # chapter_object =  {chapter_id:{
+        #         "name": chapter.name,
+        #         'unit_id': chapter.unit_id,
+        #         'video_url': chapter.video_url,
+        #         "video_completed": progress.video_completed,
+        #         "quiz_grade": progress.quiz_grade
+        #     }}
+      
+        # return jsonify( chapter_object )
