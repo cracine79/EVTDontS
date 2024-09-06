@@ -64,18 +64,18 @@ class CreateChapterProgress(Resource):
         chapter = Chapter.query.filter_by(id=chapter_id).first()
         print(f"chapte name is {chapter.name}")
         print(f"chapter is {chapter}")
-        # print (f"chapter is {chapter} HOMMMMIE")
-        # print(f"name is {chapter.name}")
-        # print(chapter.unit_id)
-        # print(chapter.video_url)
-        # print(progress.video_completed)
-        # print(progress.quiz_grade)
-        # chapter_object =  {chapter_id:{
-        #         "name": chapter.name,
-        #         'unit_id': chapter.unit_id,
-        #         'video_url': chapter.video_url,
-        #         "video_completed": progress.video_completed,
-        #         "quiz_grade": progress.quiz_grade
-        #     }}
+        print (f"chapter is {chapter} HOMMMMIE")
+        print(f"name is {chapter.name}")
+        print(chapter.unit_id)
+        print(chapter.video_url)
+        print(progress.video_completed)
+        print(progress.quiz_grade)
+        chapter_object =  {chapter_id:{
+                "name": chapter.name,
+                'unit_id': chapter.unit_id,
+                'video_url': chapter.video_url,
+                "video_completed": progress.video_completed,
+                "quiz_grade": progress.quiz_grade
+            }}
       
-        # return jsonify( chapter_object )
+        return jsonify( chapter_object )

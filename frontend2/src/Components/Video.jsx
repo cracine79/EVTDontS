@@ -8,7 +8,7 @@ import { updateUserChapters } from "../Slices/chaptersSlice"
 
 export const Video = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch
+    const dispatch = useDispatch()
     
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
     
@@ -31,7 +31,7 @@ export const Video = () => {
 
         const data = await response.json()
         console.log(data)
-        
+
         dispatch(updateUserChapters(data))
         } catch (error) {
             console.error("error finding", error)
