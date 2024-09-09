@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { UserHome } from './Components/UserHome';
 import { Footer } from './Components/Footer';
 import { Video } from './Components/Video';
+import { Quiz } from './Components/Quiz';
 
 
 const Layout = () => {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path:"/video",
         element: <Video />
+      }, 
+      {
+        path:"/quiz",
+        element: <Quiz />
       }
     ]
   }

@@ -53,6 +53,8 @@ export const UserHome = () => {
         }
     }
 
+
+
     const upNext = () => {
         if(currentChapter==null){
             return(
@@ -64,7 +66,7 @@ export const UserHome = () => {
             )
         } else {
             return(
-                <p>Review quiz</p>
+                <p onClick={handleClick}>Review quiz</p>
             )
         }
     }
