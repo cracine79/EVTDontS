@@ -49,7 +49,7 @@ export const UserHome = () => {
             }
             navigate('/Video')
         } else {
-            navigate('/Quiz')
+            navigate('/Quiz', {state: {chapter: currentChapterId}})
         }
     }
 
