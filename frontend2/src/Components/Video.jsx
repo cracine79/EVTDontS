@@ -54,7 +54,7 @@ export const Video = () => {
             </div>
             <div>
                 <div onClick = {handleClick}>
-                    Back to my Dashboarddd
+                    Back to my Dashboard
                 </div>
                 <div onClick = {completeVid}>
                     Mark as Completed
