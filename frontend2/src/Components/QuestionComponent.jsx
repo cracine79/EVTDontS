@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
 
 
@@ -13,6 +13,24 @@ export const QuestionComponent = () => {
     const handleClose = () => {
       dispatch(closeQuizModal())
     }
+
+    const Answers = () => {
+      if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
+        return Object.values(questionsObj[questionNumber].answers).map((answer, index) => (
+          <>
+          <input type='radio'
+                  name={`question-${questionNumber}`}
+                  id={`answer-${index}`} 
+          />
+         <label htmlFor={`answer-${index}`}>{answer.text}</label>
+          <br />
+          </>
+        ));
+      } else {
+        return <p>No answers available</p>;
+      }
+    };
+    
 
     return(
       <div >
@@ -74,7 +92,12 @@ export const QuestionComponent = () => {
           `}
         >
             {questionsObj[questionNumber] ? (
-              <div>{questionsObj[questionNumber].text}</div>
+              <div>
+                <div>{questionsObj[questionNumber].text}</div>
+                <div><Answers /></div>
+
+              </div>
+
             ) : (
               <div>No question available</div>
             )}
