@@ -1,6 +1,6 @@
 from exts import db
 from main import create_app
-from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance
+from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 from config import ProdConfig
@@ -15,10 +15,11 @@ def seed_users():
     user1 = User(username="charlee", email="user1@exdample.com", password_hash=hashed_password)
     user2 = User(username="user", email="user1@exdample.com", password_hash=hashed_password)
 
-    db.session.add_all([user1, user2])
+    users = [user1, user2]
+    db.session.add_all(users)
     db.session.commit()
 
-    return user1, user2
+    return users
 
 def seed_units():
     print("Seeding units")
@@ -75,11 +76,12 @@ def assign_units_to_users(users, units):
 
 def seed_topics():
     topic1=QuestionTopic(name="Scarcity")
+    topic2=QuestionTopic(name="Economic Systems")
 
-    db.session.add(topic1)
+    topics = [topic1, topic2]
+    db.session.add_all(topics)
     db.session.commit()
-
-    return [topic1]
+    return topics
 
 def seed_questions(chapters, topics):
     print("seeding questions")
@@ -87,8 +89,23 @@ def seed_questions(chapters, topics):
     question2=Question(text="The basic problem that all economies face is deciding how to best utilize", chapter=chapters[0], topic=topics[0])
     question3=Question(text="Scarcity exists because", chapter=chapters[0], topic=topics[0])
     question4=Question(text="Individuals in all societies are forced to make choices regarding the types of goods and services to be produced and consumed because", chapter=chapters[0], topic=topics[0])
-    
-    questions = [question1, question2, question3, question4]
+    question5 = Question(
+        text="Which of the following is a defining characteristic of a market economy?", 
+        chapter=chapters[1], topic=topics[1]
+    )
+    question6 = Question(
+        text="A fundamental difference between a market economy and command economy lies in which of the following?", 
+        chapter=chapters[1], topic=topics[1]
+    )
+    question7 = Question(
+        text="Unlike a market economy, a command economy uses", 
+        chapter=chapters[1], topic=topics[1]
+    )
+    question8 = Question(
+        text="Which economic system is characterized by a combination of government intervention and market force?", 
+        chapter=chapters[1], topic=topics[1]
+    )
+    questions = [question1, question2, question3, question4, question5, question6, question7, question8]
     print("questions created")
     db.session.add_all(questions)
     print("questions added")
@@ -124,12 +141,45 @@ def seed_answers(questions):
     answer4d=Answer(text="Resources are scarce and human wants and needs are unlimited", question=questions[3], is_correct=True)
     answer4e=Answer(text="Resources are allocated in a way that is often unequal and unfair", question=questions[3], is_correct=False)
 
+    answer5a = Answer(text="Private ownership of resources", question=questions[4], is_correct=True)
+    answer5b = Answer(text="Progressive income taxes", question=questions[4], is_correct=False)
+    answer5c = Answer(text="Equitable distribution of income", question=questions[4], is_correct=False)
+    answer5d = Answer(text="Government provided public goods", question=questions[4], is_correct=False)
+    answer5e = Answer(text="Central planning for resource allocation", question=questions[4], is_correct=False)
 
-    answers = [answer1a, answer1b, answer1c, answer1d, answer1e, answer2a, answer2b, answer2c, answer2e, answer2d, answer3a, answer3b, answer3c, answer3d, answer3e, answer4a, answer4b, answer4c, answer4d, answer4e]
+    answer6a = Answer(text="Property rights and protection of private property", question=questions[5], is_correct=True)
+    answer6b = Answer(text="Specialization and trade", question=questions[5], is_correct=False)
+    answer6c = Answer(text="Market economies have a central economic decision maker", question=questions[5], is_correct=False)
+    answer6d = Answer(text="Command economies generally don’t need a government", question=questions[5], is_correct=False)
+    answer6e = Answer(text="Days it takes to open a business", question=questions[5], is_correct=False)
+
+    answer7a = Answer(text="Consumer preference to determine output", question=questions[6], is_correct=False)
+    answer7b = Answer(text="Prices as signals to producers to change output level", question=questions[6], is_correct=False)
+    answer7c = Answer(text="Taxes on imports", question=questions[6], is_correct=False)
+    answer7d = Answer(text="Profits as motivators for firms", question=questions[6], is_correct=False)
+    answer7e = Answer(text="Centralized planning for economic decision making", question=questions[6], is_correct=True)
+
+    answer8a = Answer(text="Traditional economy", question=questions[7], is_correct=False)
+    answer8b = Answer(text="Command economy", question=questions[7], is_correct=False)
+    answer8c = Answer(text="Mixed economy", question=questions[7], is_correct=True)
+    answer8d = Answer(text="Market economy", question=questions[7], is_correct=False)
+    answer8e = Answer(text="Planned economy", question=questions[7], is_correct=False)
+
+
+
+    answers = [answer1a, answer1b, answer1c, answer1d, answer1e, answer2a, answer2b, answer2c, answer2e, answer2d, answer3a, answer3b, answer3c, answer3d, answer3e, answer4a, answer4b, answer4c, answer4d, answer4e, answer5a, answer5b, answer5c, answer5d, answer5e, answer6a, answer6b, answer6c, answer6d, answer6e, answer7a, answer7b, answer7c, answer7d, answer7e, answer8a, answer8b, answer8c, answer8d, answer8e]
 
     db.session.add_all(answers)
     db.session.commit()
 
+
+def seed_progress():
+    print("seeding progress")
+    progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=100)
+    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=None)
+    progresses = [progress1, progress2]
+    db.session.add_all(progresses)
+    db.session.commit()
 
 def main():
     with app.app_context():
@@ -142,6 +192,7 @@ def main():
         db.session.query(Unit).delete()
         db.session.query(Chapter).delete()
         db.session.query(Question).delete()
+        db.session.query(UserChapterProgress).delete()
         db.session.commit()
         print("DB Deleted")
 
@@ -153,6 +204,9 @@ def main():
         topics = seed_topics()
         questions = seed_questions(chapters, topics)
         seed_answers(questions)
+        seed_progress()
+        users[0].current_chapter = chapters[1]
+        db.session.commit()
         
 
         print("Database seeded succsesfully")
