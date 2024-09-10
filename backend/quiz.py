@@ -5,7 +5,7 @@ from flask import request, jsonify
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-@quiz_ns.route('/quiz')
+@quiz_ns.route('/')
 class AccessQuiz(Resource):
     @jwt_required()
     def get(self):
@@ -21,10 +21,18 @@ class AccessQuiz(Resource):
         
         question_dict = {}
         for question in questions:
+
+            answers = [{
+                answer.id: {
+                    'text': answer.text,
+                    'is_correct': answer.is_correct
+                }
+            } for answer in question.answers]
+
             question_dict[question.id] = {
                 "text": question.text,
                 "topic_id": question.topic_id,
-                "answers": question.answers
+                "answers": answers
             }
         
         for performance in performances:
