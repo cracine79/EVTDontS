@@ -10,19 +10,29 @@ export const QuestionComponent = () => {
     console.log(questionsObj)
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
+    const [selectedAnswer,setSelectedAnswer] = useState(null)
     const handleClose = () => {
       dispatch(closeQuizModal())
     }
 
+    const handleAnswerSelect = (answerId) => {
+      console.log("Selected answer:", answerId); // Log selected answer to console
+      setSelectedAnswer(answerId); // Update state
+    };
+
+
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
-        return Object.values(questionsObj[questionNumber].answers).map((answer, index) => (
+        return Object.entries(questionsObj[questionNumber].answers).map(([answerId, answer]) => (
           <>
           <input type='radio'
                   name={`question-${questionNumber}`}
-                  id={`answer-${index}`} 
+                  id={`answer-${answerId}`} 
+                  onChange = {()=>handleAnswerSelect(answerId)}
+                  checked={answerId === selectedAnswer} // Check if answer matches
+                  value={answerId} // Set value to answerObj.id
           />
-         <label htmlFor={`answer-${index}`}>{answer.text}</label>
+         <label htmlFor={`answer-${answerId}`}>{answer.text}</label>
           <br />
           </>
         ));
