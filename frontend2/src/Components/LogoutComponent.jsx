@@ -1,6 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { logout } from '../Slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { clearUserUnits } from '../Slices/unitsSlice';
+import { clearQuestions } from '../Slices/questionsSlice';
+import { clearUserChapters } from '../Slices/chaptersSlice';
 
 const LogoutButton = () => {
   const navigate = useNavigate();
@@ -9,6 +12,9 @@ const LogoutButton = () => {
   const handleLogout = async () => {
     localStorage.setItem('access_token', null);
     dispatch(logout()); // Clear user from Redux state
+    dispatch(clearUserUnits())
+    dispatch(clearQuestions())
+    dispatch(clearUserChapters())
     navigate('/')
   };
 

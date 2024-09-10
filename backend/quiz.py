@@ -5,12 +5,11 @@ from flask import request, jsonify
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-@quiz_ns.route('/')
+@quiz_ns.route('/<int:chapter_id>')
 class AccessQuiz(Resource):
     @jwt_required()
-    def get(self):
-        data = request.get_json()
-        chapter_id = data.get('chapter_id')
+    def get(self, chapter_id):
+
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id

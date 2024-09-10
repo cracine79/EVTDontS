@@ -8,9 +8,12 @@ const unitsSlice = createSlice({
     reducers: {
         storeUserUnits: (state, action) => {
             return action.payload
+        },
+        clearUserUnits: (state, action) => {
+            return {}
         }
     }
 })
 
-export const {storeUserUnits} = unitsSlice.actions;
+export const {storeUserUnits, clearUserUnits} = unitsSlice.actions;
 export default unitsSlice.reducer

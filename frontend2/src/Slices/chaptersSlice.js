@@ -15,9 +15,12 @@ const chaptersSlice = createSlice({
                 ...action.payload
             }
 
+        }, 
+        clearUserChapters: (state) => {
+            return {}
         }
-    }
+     }
 })
 
-export const {storeUserChapters, updateUserChapters} = chaptersSlice.actions
+export const {storeUserChapters, updateUserChapters, clearUserChapters} = chaptersSlice.actions
 export default chaptersSlice.reducer
