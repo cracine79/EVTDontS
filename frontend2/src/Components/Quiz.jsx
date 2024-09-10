@@ -14,7 +14,8 @@ export const Quiz = () => {
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
-                This is the page for the quiz for Chapter {chapter}
+                <div>This is the page for the quiz for Chapter {chapter}</div>
+                <button>Start The Quiz</button>
             </div>
         </div>
       
