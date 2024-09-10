@@ -21,13 +21,13 @@ class AccessQuiz(Resource):
         question_dict = {}
         for question in questions:
 
-            answers = [{
-                answer.id: {
-                    'text': answer.text,
-                    'is_correct': answer.is_correct
+            answers = {
+                answer.id: {  
+                 'text': answer.text,
+                'is_correct': answer.is_correct
                 }
-            } for answer in question.answers]
-
+            for answer in question.answers
+            }
             question_dict[question.id] = {
                 "text": question.text,
                 "topic_id": question.topic_id,
@@ -36,5 +36,5 @@ class AccessQuiz(Resource):
         
         for performance in performances:
             question_dict[performance.question_id]['correct'] = performance.is_correct
-
+        print (question_dict)
         return question_dict
