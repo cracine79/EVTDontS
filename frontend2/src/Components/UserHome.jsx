@@ -26,7 +26,7 @@ export const UserHome = () => {
     const workingOn = () =>{
         if(currentChapter){
             return (
-                <p>You are currently working on: {currentChapter.name}</p>
+                <div>You are currently working on: {currentChapter.name}</div>
             )
         } else{
             return (
@@ -62,11 +62,11 @@ export const UserHome = () => {
             )
         }else if(!currentChapter.video_completed){
             return(
-                <p onClick={handleClick}> The next video </p>
+                <div onClick={handleClick}><p > The next video </p></div>
             )
         } else {
             return(
-                <p onClick={handleClick}>Review quiz</p>
+                <div onClick={handleClick}><p > Review Quiz </p></div>
             )
         }
     }
@@ -113,12 +113,12 @@ export const UserHome = () => {
                 justify-center'>
                {userName ? (
                         <div className='flex flex-col ml-10 items-center justify-center'>
-                            <p className='ml-10 text-5xl'>
+                            <div className='ml-10 text-5xl'>
                                 Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
-                            </p>
-                            <p className='text-xl w-4/5 text-center mt-6'>
+                            </div>
+                            <div className='text-xl w-4/5 text-center mt-6'>
                                 {genMessage()}
-                            </p>
+                            </div>
                         </div>
              
                 ) : (
@@ -130,9 +130,9 @@ export const UserHome = () => {
                 <div className='flex flex-row items-center justify-center w-11/12'>
                     <Progress />
                     <div className="w-1/6 bg-white 100 h-3/5 mt-20 ml-12 rounded-3xl shadow-2xl">
-                        {workingOn}
+                        {workingOn()}
                         <p>Up Next</p>
-                        <p className='mt-10' onClick={handleClick}>{upNext()}</p>
+                        <div className='mt-10' onClick={handleClick}>{upNext()}</div>
                     </div>
                 </div>
             </div>
