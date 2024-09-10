@@ -1,9 +1,18 @@
 import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react";
+import { closeQuizModal } from "../Slices/modalSlice";
 
 
 export const QuestionComponent = () => {
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
+    const questions = useSelector(state=>(state.questions))
+    const questionsObj = Object.values(questions)
+    console.log(questionsObj)
     const dispatch = useDispatch();
+    const [questionNumber, setQuestionNumber] = useState(0)
+    const handleClose = () => {
+      dispatch(closeQuizModal())
+    }
 
     return(
       <div >
@@ -46,6 +55,7 @@ export const QuestionComponent = () => {
           className={`
             translate
             h-full
+            min-h-64
             lg:h-auto
             md:h-auto
             border-0
@@ -63,6 +73,13 @@ export const QuestionComponent = () => {
               
           `}
         >
+            {questionsObj[questionNumber] ? (
+              <div>{questionsObj[questionNumber].text}</div>
+            ) : (
+              <div>No question available</div>
+            )}
+
+            <button onClick = {handleClose}>Close</button>          
          
       </div>
       </div>
