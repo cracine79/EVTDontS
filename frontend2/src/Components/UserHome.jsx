@@ -26,7 +26,10 @@ export const UserHome = () => {
     const workingOn = () =>{
         if(currentChapter){
             return (
-                <div className="text-xl">You are currently working on Chapter {currentChapter.name.slice(0,3)}: {currentChapter.name.slice(3)}</div>
+                <>
+                    <div className="text-xl">You are currently working on:</div>
+                    <div className="text-xl"> Chapter {currentChapter.name.slice(0,3)}: {currentChapter.name.slice(3)}</div>
+                </>
             )
         } else{
             return (
@@ -100,9 +103,10 @@ export const UserHome = () => {
             bg-slate-50 
             flex-col
             h-screen'>
-            <div className='h-100 flex flex-row mt-20'>
+            <div className='h-100 flex flex-row mt-20 w-3/4'>
                 <div className=
                     'mt-36 
+                    min-w-96
                     w-3/5 
                     h-auto
                     bg-white 
@@ -127,7 +131,7 @@ export const UserHome = () => {
                         </p>
                     )}
                 </div>
-                <div className="w-1/3 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                <div className="w-1/3 min-w-80 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
                         <p className="mt-8 text-3xl underline">Progress</p>
                         <div className = "mt-2 ml-4 mr-2">
                             {workingOn()}
@@ -136,7 +140,7 @@ export const UserHome = () => {
                             'mt-10 
                             border-black 
                             h-1/5 
-                            w-2/5 
+                            w-1/2 
                             border-2 
                             flex 
                             justify-center 

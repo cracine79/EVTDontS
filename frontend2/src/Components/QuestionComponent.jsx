@@ -29,7 +29,7 @@ export const QuestionComponent = () => {
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
         return Object.entries(questionsObj[questionNumber].answers).map(([answerId, answer]) => (
-          <>
+          <div className='my-2'>
           <input type='radio'
                   name={`question-${questionNumber}`}
                   id={`answer-${answerId}`} 
@@ -37,9 +37,9 @@ export const QuestionComponent = () => {
                   checked={answerId === selectedAnswer} // Check if answer matches
                   value={answerId} // Set value to answerObj.id
           />
-         <label htmlFor={`answer-${answerId}`}>{answer.text}</label>
+         <label className='ml-4' htmlFor={`answer-${answerId}`}>{answer.text}</label>
           <br />
-          </>
+          </div>
         ));
       } else {
         return <p>No answers available</p>;
@@ -119,15 +119,15 @@ export const QuestionComponent = () => {
         >
             {questionsObj[questionNumber] ? (
               <div>
-                <div>{questionsObj[questionNumber].text}</div>
-                <div><Answers /></div>
+                <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questionNumber + 1} : {questionsObj[questionNumber].text}</div>
+                <div className="ml-8 text-xl"><Answers /></div>
 
               </div>
 
             ) : (
               <div>No question available</div>
             )}
-            <div className='flex justify-around mt-10'>
+            <div className='flex justify-around mt-10 mb-10'>
               <button onClick = {handleSubmit}>Submit</button>
               <button onClick = {handleClose}>Close</button>          
             </div>

@@ -3,13 +3,15 @@ import LogoutButton from "./LogoutComponent"
 export const MainPage = () => {
     return(
         <>
-            <div className="flex mt">
+            <div className="flex justify-center">
                 {/* <div className="font-serif text-5xl w-1/2 ">
                     Learning economics doesn't have to suck...   But it usually does. 
                 </div> */}
-                <video autoPlay loop muted>
+
+                <video className='w-3/4 -mr-2 h-auto' autoPlay loop muted>
                     <source src="Intro.mp4" type="video/mp4" />
                 </video>
+       
             </div>
             <div className="w-screen h-auto bg-gray-50">
                 <div className="mt-20 ml-20 flex justify-around items-center">
@@ -18,6 +20,7 @@ export const MainPage = () => {
                         <p className="mt-2 w-4/6 text-2xl text-center">Seriously, they don’t. We’ve edited out all the parts that flopped, so all you need to do is kick back, press play, and maybe even laugh while learning. (We said maybe.)</p>
                     </div>
                     <div className="flex flex-col items-center">
+                       
                         <video autoPlay loop muted className="w-5/6 rounded-3xl">
                             <source src="Sample.mp4" type="video/mp4" />
                         </video>
