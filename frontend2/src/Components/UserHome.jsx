@@ -55,7 +55,7 @@ export const UserHome = () => {
 
 
 
-    const upNext = () => {
+    const UpNext = () => {
         if(currentChapter==null){
             return(
                 <>Get Started</>
@@ -97,15 +97,14 @@ export const UserHome = () => {
             'flex 
             items-center 
             w-screen 
-            mt 
             bg-slate-50 
-            h-screen
-            flex-col'>
-            <div className='h-full flex flex-row mt-20'>
+            flex-col
+            h-screen'>
+            <div className='h-100 flex flex-row mt-20'>
                 <div className=
                     'mt-36 
                     w-3/5 
-                    h-2/5 
+                    h-auto
                     bg-white 
                     rounded-3xl 
                     shadow-2xl 
@@ -115,7 +114,7 @@ export const UserHome = () => {
                     justify-center'>
                 {userName ? (
                             <div className='flex flex-col items-center justify-center'>
-                                <div className='ml-10 text-5xl'>
+                                <div className='ml-10 text-5xl '>
                                     Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
                                 </div>
                                 <div className='text-xl w-4/5 text-center mt-6'>
@@ -128,7 +127,7 @@ export const UserHome = () => {
                         </p>
                     )}
                 </div>
-                <div className="w-1/3 bg-white 100 h-2/5 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                <div className="w-1/3 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
                         <p className="mt-8 text-3xl underline">Progress</p>
                         <div className = "mt-2 ml-4 mr-2">
                             {workingOn()}
@@ -147,16 +146,17 @@ export const UserHome = () => {
                             hover:bg-slate-500
                             font-medium
                             hover:cursor-pointer
+                            mb-6
                             '
                             >
-                            <div onClick={handleClick}>{upNext()}</div>
+                            <div onClick={handleClick}><UpNext /></div>
                         </div>
                     </div>
+
             </div>
             <div className='flex flex-com justify-center w-screen'>
-                <div className='flex flex-row items-center justify-center w-11/12'>
+                <div className='flex flex-row items-center justify-center w-11/12 mt-20'>
                     <Progress />
-
                 </div>
             </div>
         </div>
