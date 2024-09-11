@@ -62,11 +62,11 @@ export const UserHome = () => {
             )
         }else if(!currentChapter.video_completed){
             return(
-                <div onClick={handleClick}><p > The next video </p></div>
+                <div onClick={handleClick}><p > Watch the next video </p></div>
             )
         } else {
             return(
-                <div onClick={handleClick}><p > Review Quiz </p></div>
+                <div onClick={handleClick}><p > Go To Review Quiz </p></div>
             )
         }
     }
@@ -128,12 +128,29 @@ export const UserHome = () => {
                         </p>
                     )}
                 </div>
-                <div className="w-1/3 bg-white 100 h-2/5 mt-36 ml-12 rounded-3xl shadow-2xl">
-                        <div className = "mt-8">
+                <div className="w-1/3 bg-white 100 h-2/5 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                        <p className="mt-8 text-3xl underline">Progress</p>
+                        <div className = "mt-2 ml-4 mr-2">
                             {workingOn()}
                         </div>
-                        <p>Up Next</p>
-                        <div className='mt-10' onClick={handleClick}>{upNext()}</div>
+                        <div className=
+                            'mt-10 
+                            border-black 
+                            h-1/5 
+                            w-2/5 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-slate-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            '
+                            >
+                            <div onClick={handleClick}>{upNext()}</div>
+                        </div>
                     </div>
             </div>
             <div className='flex flex-com justify-center w-screen'>
