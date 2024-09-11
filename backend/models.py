@@ -77,7 +77,7 @@ class Chapter(db.Model):
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
-    
+    topics: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='chapter')
 
 
     chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='chapter')
@@ -90,6 +90,10 @@ class Chapter(db.Model):
     
     def __repr__(self):
         return f"Chapter <{self.name}>"
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Question(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -104,16 +108,24 @@ class Question(db.Model):
     def __repr__(self):
         return f"Question <{self.id}>"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class QuestionTopic(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'))
 
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='topic')
-
+    chapter: Mapped["Chapter"] = relationship('Chapter', back_populates='topics')
+    
     def __repr__(self):
         return f"Topic <{self.name}>"
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Answer(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -123,6 +135,9 @@ class Answer(db.Model):
 
     question: Mapped["Question"] = relationship('Question', back_populates='answers')
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class UserPerformance(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -130,6 +145,10 @@ class UserPerformance(db.Model):
     question_id: Mapped[int] = mapped_column(ForeignKey('question.id'))
     is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
     answered_at: Mapped["DateTime"] = mapped_column(DateTime, nullable=False)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 class UserChapterProgress(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

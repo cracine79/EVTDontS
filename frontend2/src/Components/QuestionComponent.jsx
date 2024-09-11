@@ -13,6 +13,11 @@ export const QuestionComponent = () => {
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState([])
     console.log(submittedAnswers)
+
+    const handleFinishQuiz = () => {
+      console.log(submittedAnswers)
+      dispatch(closeQuizModal())
+    }
     const handleClose = () => {
       dispatch(closeQuizModal())
       setSubmittedAnswers([])
@@ -51,7 +56,11 @@ export const QuestionComponent = () => {
       // console.log( {[questionNumber]:(questionsObj[questionNumber].answers)[selectedAnswer]})
       const answerToSubmit = {[questionNumber]:(questionsObj[questionNumber].answers)[selectedAnswer]}
       setSubmittedAnswers(prevSubmittedAnswers => [...prevSubmittedAnswers, answerToSubmit]);
-      setQuestionNumber(prevNumber => prevNumber + 1)
+      if (questionNumber < questionsObj.length - 1){
+        setQuestionNumber(prevNumber => prevNumber + 1)
+      } else {
+        handleFinishQuiz()
+      }
       
       // setSubmittedAnswers(submittedAnswers.append(answerToSubmit))
       // console.log(submittedAnswers)

@@ -74,9 +74,9 @@ def assign_units_to_users(users, units):
 
     db.session.commit()
 
-def seed_topics():
-    topic1=QuestionTopic(name="Scarcity")
-    topic2=QuestionTopic(name="Economic Systems")
+def seed_topics(chapters):
+    topic1=QuestionTopic(name="Scarcity", chapter=chapters[0])
+    topic2=QuestionTopic(name="Economic Systems", chapter=chapters[1])
 
     topics = [topic1, topic2]
     db.session.add_all(topics)
@@ -201,7 +201,7 @@ def main():
         units= seed_units()
         assign_units_to_users(users, units)
         chapters = seed_chapters(units)
-        topics = seed_topics()
+        topics = seed_topics(chapters)
         questions = seed_questions(chapters, topics)
         seed_answers(questions)
         seed_progress()
