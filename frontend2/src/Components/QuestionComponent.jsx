@@ -11,6 +11,7 @@ export const QuestionComponent = () => {
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
+    const [submittedAnswers, setSubmittedAnswers] = useState([])
     const handleClose = () => {
       dispatch(closeQuizModal())
     }
@@ -40,6 +41,17 @@ export const QuestionComponent = () => {
         return <p>No answers available</p>;
       }
     };
+
+    const handleSubmit = () => {
+
+      console.log( {[questionNumber]:(questionsObj[questionNumber].answers)[selectedAnswer]})
+      const answerToSubmit = {[questionNumber]:(questionsObj[questionNumber].answers)[selectedAnswer]}
+      setSubmittedAnswers(prevSubmittedAnswers => [...prevSubmittedAnswers, answerToSubmit]);
+      setQuestionNumber(prevNumber => prevNumber + 1)
+      console.log(submittedAnswers)
+      // setSubmittedAnswers(submittedAnswers.append(answerToSubmit))
+      // console.log(submittedAnswers)
+    }
     
 
     return(
@@ -111,8 +123,10 @@ export const QuestionComponent = () => {
             ) : (
               <div>No question available</div>
             )}
-
-            <button onClick = {handleClose}>Close</button>          
+            <div className='flex justify-around mt-10'>
+              <button onClick = {handleSubmit}>Submit</button>
+              <button onClick = {handleClose}>Close</button>          
+            </div>
          
       </div>
       </div>
