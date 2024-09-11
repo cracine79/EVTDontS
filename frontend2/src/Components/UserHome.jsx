@@ -12,7 +12,7 @@ export const UserHome = () => {
     const userId = useSelector((state)=>state.user.id)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
-        "Already back for more?  Guess Netflix isn't cutting it today",
+        "Already back for more?  Guess Netflix isn't cutting it today.",
         "Here again?, we knew you couldn't resist the allure of more charts and graphs",
         "We're starting to think you actually enjoy this sh... this stuff.",
         "Back for more?  We promise not to make this TOO interesting.",
@@ -26,7 +26,7 @@ export const UserHome = () => {
     const workingOn = () =>{
         if(currentChapter){
             return (
-                <div>You are currently working on: {currentChapter.name}</div>
+                <div className="text-xl">You are currently working on Chapter {currentChapter.name.slice(0,3)}: {currentChapter.name.slice(3)}</div>
             )
         } else{
             return (
@@ -128,9 +128,8 @@ export const UserHome = () => {
                         </p>
                     )}
                 </div>
-                <div className="w-1/6 bg-white 100 h-3/5 mt-20 ml-12 rounded-3xl shadow-2xl">
+                <div className="w-1/3 bg-white 100 h-2/5 mt-36 ml-12 rounded-3xl shadow-2xl">
                         <div className = "mt-8">
-
                             {workingOn()}
                         </div>
                         <p>Up Next</p>
