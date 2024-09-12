@@ -1,4 +1,5 @@
 import { csrfFetch } from "../csrf";
+import { updateUserResults } from "./resultsSlice";
 
 export const addResults = (results) => async(dispatch) => {
     try{
@@ -20,7 +21,8 @@ export const addResults = (results) => async(dispatch) => {
       }
 
       const data = await response.json()
-      console.log(data)
+      dispatch(updateUserResults(data))
+      
     } catch(error) {
         console.error('Error during answer submission:', error);
     }
