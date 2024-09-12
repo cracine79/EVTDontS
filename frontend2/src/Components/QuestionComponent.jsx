@@ -21,6 +21,7 @@ export const QuestionComponent = () => {
     const handleFinishQuiz = () => {
       dispatch(addResults(submittedAnswers))
       dispatch(closeQuizModal())
+      setQuestionNumber(0)
     }
     const handleClose = () => {
       dispatch(closeQuizModal())
