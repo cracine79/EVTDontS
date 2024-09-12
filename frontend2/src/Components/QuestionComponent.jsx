@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
+import { addResults } from "../Slices/resultsActions";
 
 
 export const QuestionComponent = () => {
@@ -14,11 +15,11 @@ export const QuestionComponent = () => {
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
-    const [submittedAnswers, setSubmittedAnswers] = useState([])
+    const [submittedAnswers, setSubmittedAnswers] = useState({})
     console.log(submittedAnswers)
 
     const handleFinishQuiz = () => {
-      console.log(submittedAnswers)
+      dispatch(addResults(submittedAnswers))
       dispatch(closeQuizModal())
     }
     const handleClose = () => {
@@ -54,20 +55,46 @@ export const QuestionComponent = () => {
       }
     };
 
-    const handleSubmit = () => {
+    // const handleSubmit = () => {
 
-      console.log( {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]})
-      const answerToSubmit = {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]}
-      setSubmittedAnswers(prevSubmittedAnswers => [...prevSubmittedAnswers, answerToSubmit]);
-      if (questionNumber < questionsObj.length - 1){
-        setQuestionNumber(prevNumber => prevNumber + 1)
-      } else {
-        handleFinishQuiz()
-      }
+    //   console.log( {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]})
+    //   const answerToSubmit = {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]}
+    //   setSubmittedAnswers(prevSubmittedAnswers => [...prevSubmittedAnswers, answerToSubmit]);
+    //   if (questionNumber < questionsObj.length - 1){
+    //     setQuestionNumber(prevNumber => prevNumber + 1)
+    //   } else {
+    //     handleFinishQuiz()
+    //   }
       
-      // setSubmittedAnswers(submittedAnswers.append(answerToSubmit))
-      // console.log(submittedAnswers)
-    }
+    //   // setSubmittedAnswers(submittedAnswers.append(answerToSubmit))
+    //   // console.log(submittedAnswers)
+    // }
+    const handleSubmit = () => {
+      const questionId = questionsObj[questionNumber].id;
+      const selectedAnswerObj = questionsObj[questionNumber].answers[selectedAnswer];
+      const answerId = selectedAnswer; // Assuming selectedAnswer is the id of the selected answer
+      const isCorrect = selectedAnswerObj.is_correct;
+    
+      // Log the answer to submit
+      console.log({
+        questionId,
+        answerId,
+        isCorrect
+      });
+    
+      // Update submittedAnswers as a dictionary
+      setSubmittedAnswers(prevSubmittedAnswers => ({
+        ...prevSubmittedAnswers, // Spread the previous submittedAnswers
+        [questionId]: { answerId, isCorrect } // Add/overwrite the new answer for this question
+      }));
+    
+      // Move to the next question or finish the quiz
+      if (questionNumber < questionsObj.length - 1) {
+        setQuestionNumber(prevNumber => prevNumber + 1);
+      } else {
+        handleFinishQuiz();
+      }
+    };
     
 
     return(

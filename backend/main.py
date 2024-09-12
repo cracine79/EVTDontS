@@ -11,6 +11,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from progress import progress_ns
 from quiz import quiz_ns
+from results import results_ns
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
@@ -32,6 +33,7 @@ def create_app(config):
     api.add_namespace(csrf_ns)
     api.add_namespace(progress_ns)
     api.add_namespace(quiz_ns)
+    api.add_namespace(results_ns)
 
     @app.shell_context_processor
     def make_shell_context():
