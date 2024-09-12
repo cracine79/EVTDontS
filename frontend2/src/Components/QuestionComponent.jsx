@@ -2,11 +2,13 @@ import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
+import { useNavigate } from "react-router-dom";
 
 
 export const QuestionComponent = () => {
+    const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
-    const questions = useSelector(state=>(state.questions))
+    const questions = useSelector(state=>(state.questions));
     const questionsObj = Object.entries(questions).map(([id, question]) => ({
       ...question,
       id: id
@@ -18,11 +20,7 @@ export const QuestionComponent = () => {
     const [submittedAnswers, setSubmittedAnswers] = useState({})
     console.log(submittedAnswers)
 
-    // const handleFinishQuiz = () => {
-    //   dispatch(addResults(submittedAnswers))
-    //   dispatch(closeQuizModal())
-    //   setQuestionNumber(0)
-    // }
+
     const handleClose = () => {
       dispatch(closeQuizModal())
       setSubmittedAnswers([])
@@ -56,20 +54,7 @@ export const QuestionComponent = () => {
       }
     };
 
-    // const handleSubmit = () => {
 
-    //   console.log( {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]})
-    //   const answerToSubmit = {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]}
-    //   setSubmittedAnswers(prevSubmittedAnswers => [...prevSubmittedAnswers, answerToSubmit]);
-    //   if (questionNumber < questionsObj.length - 1){
-    //     setQuestionNumber(prevNumber => prevNumber + 1)
-    //   } else {
-    //     handleFinishQuiz()
-    //   }
-      
-    //   // setSubmittedAnswers(submittedAnswers.append(answerToSubmit))
-    //   // console.log(submittedAnswers)
-    // }
     const handleSubmit = () => {
       const questionId = questionsObj[questionNumber].id;
       const selectedAnswerObj = questionsObj[questionNumber].answers[selectedAnswer];
@@ -101,6 +86,7 @@ export const QuestionComponent = () => {
         dispatch(addResults(newSubmittedAnswers));  // Call dispatch directly with the new state
         dispatch(closeQuizModal());
         setQuestionNumber(0);
+        navigate('/results')
     
       }
     };

@@ -16,6 +16,7 @@ import { UserHome } from './Components/UserHome';
 import { Footer } from './Components/Footer';
 import { Video } from './Components/Video';
 import { Quiz } from './Components/Quiz';
+import { QuizResults } from './Components/QuizResults';
 
 
 const Layout = () => {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path:"/quiz",
         element: <Quiz />
+      },
+      {
+        path:"/results",
+        element: <QuizResults />
       }
     ]
   }
