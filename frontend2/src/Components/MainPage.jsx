@@ -8,8 +8,8 @@ export const MainPage = () => {
                     Learning economics doesn't have to suck...   But it usually does. 
                 </div> */}
 
-                <video className='w-3/4 -mr-2 h-auto' autoPlay loop muted>
-                    <source src="Intro.mp4" type="video/mp4" />
+                <video className='w-11/12 -mr-2 h-auto mt-20' autoPlay loop muted>
+                    <source src="intro2.mp4" type="video/mp4" />
                 </video>
        
             </div>

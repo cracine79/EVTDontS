@@ -34,14 +34,14 @@ export const NavBar = () => {
         <>
         
             <nav className=
-                "w-full 
-                h-24 
+                "w-full  
                 z-10
+                bg-lime-500
                 items-center 
                 flex justify-between
                 sticky
                 top-0">
-                <img src="/Logo.svg" alt="EVTDS Logo" className="h-3/4 ml-2.5"/>
+                <img src="/Logo.svg" alt="EVTDS Logo" className="w-1/12 ml-12 my-2 md:ml-14 sm:ml-12 lg:ml-16 min-w-20"/>
                 <div>
                     {sessionLinks}
                 </div>
