@@ -18,9 +18,10 @@ class AddResults(Resource):
         user_id = user.id
 
         data = request.get_json()
-
+        response_data = {}
+        print(f'data that you RECEIVED is {data}')
         for question_id, answer_data in data.items():
-            print(answer_data)
+     
             answer = UserPerformance(
                 user_id = user_id, 
                 question_id = question_id,
@@ -29,6 +30,15 @@ class AddResults(Resource):
             )
 
             db.session.add(answer)
+            db.session.flush()
+            response_data[answer.id]={
+                'questionId': question_id, 
+                'isCorrect': answer_data['isCorrect'], 
+                'answerId': answer_data['answerId'],
+                 'answeredAt': answer.answered_at }
         db.session.commit()
+        
+        
+        return (jsonify(response_data))
 
         

@@ -18,11 +18,11 @@ export const QuestionComponent = () => {
     const [submittedAnswers, setSubmittedAnswers] = useState({})
     console.log(submittedAnswers)
 
-    const handleFinishQuiz = () => {
-      dispatch(addResults(submittedAnswers))
-      dispatch(closeQuizModal())
-      setQuestionNumber(0)
-    }
+    // const handleFinishQuiz = () => {
+    //   dispatch(addResults(submittedAnswers))
+    //   dispatch(closeQuizModal())
+    //   setQuestionNumber(0)
+    // }
     const handleClose = () => {
       dispatch(closeQuizModal())
       setSubmittedAnswers([])
@@ -77,23 +77,31 @@ export const QuestionComponent = () => {
       const isCorrect = selectedAnswerObj.is_correct;
     
       // Log the answer to submit
-      console.log({
-        questionId,
-        answerId,
-        isCorrect
-      });
+      // console.log({
+      //   questionId,
+      //   answerId,
+      //   isCorrect
+      // });
     
       // Update submittedAnswers as a dictionary
       setSubmittedAnswers(prevSubmittedAnswers => ({
         ...prevSubmittedAnswers, // Spread the previous submittedAnswers
         [questionId]: { answerId, isCorrect } // Add/overwrite the new answer for this question
       }));
+
+      const newSubmittedAnswers = {
+        ...submittedAnswers,
+        [questionId]: {answerId, isCorrect}
+      }
     
       // Move to the next question or finish the quiz
       if (questionNumber < questionsObj.length - 1) {
         setQuestionNumber(prevNumber => prevNumber + 1);
       } else {
-        handleFinishQuiz();
+        dispatch(addResults(newSubmittedAnswers));  // Call dispatch directly with the new state
+        dispatch(closeQuizModal());
+        setQuestionNumber(0);
+    
       }
     };
     

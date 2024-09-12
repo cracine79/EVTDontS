@@ -36,5 +36,5 @@ class AccessQuiz(Resource):
         
         for performance in performances:
             question_dict[performance.question_id]['correct'] = performance.is_correct
-        print (question_dict)
+        # print (question_dict)
         return question_dict
