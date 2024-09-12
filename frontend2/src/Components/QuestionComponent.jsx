@@ -37,7 +37,7 @@ export const QuestionComponent = () => {
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
         return Object.entries(questionsObj[questionNumber].answers).map(([answerId, answer]) => (
-          <div className='my-2'>
+          <div className='my-2' key={answerId}>
           <input type='radio'
                   name={`question-${questionNumber}`}
                   id={`answer-${answerId}`} 

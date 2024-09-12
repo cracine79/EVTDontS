@@ -1,4 +1,8 @@
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { clearUserResults } from "../Slices/resultsSlice"
+import { useNavigate } from "react-router-dom"
+import { openQuizModal } from "../Slices/modalSlice"
+
 
 export const QuizResults = () => {
     const currentChapter = useSelector(state=>(state.user.currentChapter))
@@ -6,6 +10,8 @@ export const QuizResults = () => {
     const results = useSelector(state=>(state.results))
     const resultsObj = Object.values(results)
     const fullChapterName = chapters[currentChapter].name
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     let breakPoint = 0
     while(fullChapterName[breakPoint] != ' '){
@@ -32,6 +38,12 @@ export const QuizResults = () => {
         }
     }
 
+    const retake = () => {
+        dispatch(clearUserResults())
+        navigate('/Quiz',  {state: {chapter: currentChapter}})
+        dispatch(openQuizModal())
+    }
+
     
     return(
         <div className='w-screen flex justify-center'>
@@ -42,8 +54,10 @@ export const QuizResults = () => {
                     <p className = 'mt-4 text-xl'>You answered <span className='font-bold'>{numCorrect} out of a total possible {resultsObj.length} questions</span> correctly.  Your total score on this quiz was <span className = 'font-extrabold'>{percentageScore}%</span></p>
                     <p className = 'mt-4 text-xl'>{scoreHeader()}</p>
                 </div>
-                <div>
-                    <button>See What You Missed</button>
+                <div className='flex flex-row justify-around my-10'>
+                    <button>Show Me What I Missed</button>
+                    <button onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
+                    <button>Enough of this.  Let's go to the next Video.</button>
                 </div>
             </div>
         </div>
