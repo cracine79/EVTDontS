@@ -6,8 +6,11 @@ import { closeQuizModal } from "../Slices/modalSlice";
 export const QuestionComponent = () => {
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions))
-    const questionsObj = Object.values(questions)
-    // console.log(questionsObj)
+    const questionsObj = Object.entries(questions).map(([id, question]) => ({
+      ...question,
+      id: id
+    }))
+    console.log(questionsObj)
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
@@ -53,8 +56,8 @@ export const QuestionComponent = () => {
 
     const handleSubmit = () => {
 
-      // console.log( {[questionNumber]:(questionsObj[questionNumber].answers)[selectedAnswer]})
-      const answerToSubmit = {[questionNumber]:(questionsObj[questionNumber].answers)[selectedAnswer]}
+      console.log( {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]})
+      const answerToSubmit = {[questionsObj[questionNumber].id]:(questionsObj[questionNumber].answers)[selectedAnswer]}
       setSubmittedAnswers(prevSubmittedAnswers => [...prevSubmittedAnswers, answerToSubmit]);
       if (questionNumber < questionsObj.length - 1){
         setQuestionNumber(prevNumber => prevNumber + 1)
