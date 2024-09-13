@@ -42,15 +42,33 @@ export const ResultsModal = () => {
         }
     }
 
+    const appropriateRadio = (answerId) => {
+        
+        if(answerId == wrongAnswers[answerNumber].answerId){
+            return(
+                <>
+                <input type='radio'  className="opacity-100" disabled checked/>
+             </>
+            )
+        } else {
+            return(
+            <>
+                <input type='radio' className="opacity-100 form-radio cursor-not-allowed" disabled/>
+            </>
+            )
+        }
+      
+        
+    }
+
 
     const Answers = () => {
         
         if (wrongAnswers[answerNumber] && questions[wrongAnswers[answerNumber].questionId] && questions[wrongAnswers[answerNumber].questionId].answers) {
           return Object.entries(questions[wrongAnswers[answerNumber].questionId].answers).map(([answerId, answer]) => (
-            <div className='my-2' key={answerId}>
-    
+            <div className='my-4 flex' key={answerId}>
+                {appropriateRadio(answerId)}
                 <div className='ml-4 flex flex-row items-center' >{answer.text}  <span>{createComment(answer, answerId)}</span></div>
-        
             <br />
             </div>
           ));
@@ -73,6 +91,7 @@ export const ResultsModal = () => {
         if(questions[currentAnswer.questionId]){
                 return(
                     <>
+                  
                     {questions[wrongAnswers[answerNumber].questionId].text}
                     </>
                 )
@@ -88,7 +107,20 @@ export const ResultsModal = () => {
     const NextButton = ()=>{
         if (answerNumber < wrongAnswers.length - 1){
             return(
-                <button onClick={()=>{setAnswerNumber(answerNumber+1)}}>
+                <button className='
+                border-black 
+                h-1/5 
+                w-40 
+                border-2 
+                flex 
+                justify-center 
+                items-center
+                rounded-lg
+                bg-stone-300
+                hover:bg-slate-500
+                font-medium
+                hover:cursor-pointer' 
+                onClick={()=>{setAnswerNumber(answerNumber+1)}}>
                     Next Question
                 </button>
             )
@@ -118,9 +150,9 @@ export const ResultsModal = () => {
           translate
           relative
           w-full
-          md:w-4/6
-          lg:w-3/6
-          xl:w-2/5
+          md:w-5/6
+          lg:w-4/6
+          xl:w-3/5
           my-6
           mx-auto
           h-full
@@ -156,12 +188,24 @@ export const ResultsModal = () => {
         <div className='text-2xl mt-8 ml-8 mr-4 mb-6'>
             <Question />
         </div>
-            <div className='ml-8 text-xl'>
-        <Answers />
-
+        <div className='ml-8 text-xl'>
+            <Answers />
         </div>
-        <div>
-            <button onClick = {handleClose}>Close Results</button>
+        <div className='flex justify-around mb-8'>
+            <button className='
+                            border-black 
+                            h-1/5 
+                            w-40 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick = {handleClose}>Close Results</button>
             <NextButton />
         </div>
         </div>

@@ -61,9 +61,48 @@ export const QuizResults = () => {
                     <div className = 'mt-4 text-xl'>{scoreHeader()}</div>
                 </div>
                 <div className='flex flex-row justify-around my-10'>
-                    <button onClick={showResults }>Show Me What I Missed</button>
-                    <button onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
-                    <button>Enough of this.  Let's go to the next Video.</button>
+                    <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={showResults }>Show Me What I Missed</button>
+                    <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
+                    <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            >Enough of this.  Let's go to the next Video.</button>
                 </div>
                 
             </div>

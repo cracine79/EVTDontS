@@ -28,8 +28,40 @@ export const Quiz = () => {
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
                 <div>This is the page for the quiz for Chapter {chapter}</div>
-                <button onClick={handleOpen}>Start The Quiz</button>
-                <button onClick={goHome}>Back to Dashboard</button>
+                <div className='flex justify-around'>
+                <button className='mt-10 
+                            border-black 
+                            h-1/5 
+                            w-40 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            mb-6'
+                            onClick={handleOpen}>Start The Quiz</button>
+
+                <button className='mt-10 
+                            border-black 
+                            h-1/5 
+                            w-40 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            mb-6'
+                            onClick={goHome}>Back to Dashboard</button>
+                </div>
+               
             </div>
             <QuestionComponent />
         </div>

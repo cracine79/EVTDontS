@@ -153,6 +153,7 @@ export const QuestionComponent = () => {
         >
             {questionsObj[questionNumber] ? (
               <div>
+                <div>Chapter</div>
                 <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questionNumber + 1} : {questionsObj[questionNumber].text}</div>
                 <div className="ml-8 text-xl"><Answers /></div>
 
@@ -162,8 +163,34 @@ export const QuestionComponent = () => {
               <div>No question available</div>
             )}
             <div className='flex justify-around mt-10 mb-10'>
-              <button onClick = {handleSubmit}>Submit</button>
-              <button onClick = {handleClose}>Close</button>          
+              <button className='
+                            border-black 
+                            h-1/5 
+                            w-40 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer'
+                            onClick = {handleSubmit}>Submit</button>
+              <button className='
+                            border-black 
+                            h-1/5 
+                            w-40 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer'
+                            onClick = {handleClose}>Close</button>          
             </div>
          
       </div>
