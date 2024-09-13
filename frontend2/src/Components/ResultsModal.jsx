@@ -25,8 +25,8 @@ export const ResultsModal = () => {
         dispatch(closeResultsModal())
     }
 
-    const createComment = (answer) => {
-        console.log(answer)
+    const createComment = (answer, answerId) => {
+        console.log("answer is", answer)
         if (answer.is_correct === true){
             return(
                 <>
@@ -34,15 +34,24 @@ export const ResultsModal = () => {
                 </>
             )
         }
+
+        if (answerId == wrongAnswers[answerNumber].answerId){
+            return(
+                <>
+                Your Answer
+                </>
+            )
+        }
     }
 
 
     const Answers = () => {
+        
         if (wrongAnswers[answerNumber] && questions[wrongAnswers[answerNumber].questionId] && questions[wrongAnswers[answerNumber].questionId].answers) {
           return Object.entries(questions[wrongAnswers[answerNumber].questionId].answers).map(([answerId, answer]) => (
             <div className='my-2' key={answerId}>
     
-           <div className='ml-4' >{answer.text}  <span>{createComment(answer)}</span></div>
+           <div className='ml-4' >{answer.text}  <span>{createComment(answer, answerId)}</span></div>
         
             <br />
             </div>
@@ -51,6 +60,32 @@ export const ResultsModal = () => {
           return <p>No answers available</p>;
         }
       };
+    
+    const Question = () => {
+        const currentAnswer = wrongAnswers[answerNumber];
+        
+        if (!currentAnswer || currentAnswer.questionId === undefined) {
+            return (
+                <>
+                    Loading...
+                </>
+            );
+        }
+
+        if(questions[currentAnswer.questionId]){
+                return(
+                    <>
+                    {questions[wrongAnswers[answerNumber].questionId].text}
+                    </>
+                )
+        } else {
+            return (
+                <>
+                 Oops, Question unavailable!
+                </>
+            )
+        }
+    }
 
     return(<>
       <div
@@ -109,11 +144,8 @@ export const ResultsModal = () => {
               
           `}
         >
-        {questions[wrongAnswers[answerNumber]]? (
- <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questions[wrongAnswers[answerNumber].questionId].text}</div>
-        ):(
-            <p>No questions</p>
-        )}
+        <Question />
+
        
         <Answers />
         <button onClick = {handleClose}>Close Results</button>
