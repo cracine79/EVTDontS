@@ -23,19 +23,20 @@ export const ResultsModal = () => {
 
     const handleClose = () => {
         dispatch(closeResultsModal())
+        setAnswerNumber(0)
     }
 
     const createComment = (answer, answerId) => {
         if (answer.is_correct === true){
             return(
-                <span className='font-bold items-center flex ml-8'>   <FaArrowLeft /> Correct Answer</span>
+                <span className='font-bold items-center flex ml-8'>   <FaArrowLeft /> &nbsp; Correct Answer</span>
             )
         }
 
         if (answerId == wrongAnswers[answerNumber].answerId){
             return(
                 <span className='font-bold flex items-center ml-8'>
-                <FaArrowLeft /> Your Answer
+                <FaArrowLeft />&nbsp;  Your Answer
                 </span>
             )
         }
@@ -81,6 +82,17 @@ export const ResultsModal = () => {
                  Oops, Question unavailable!
                 </>
             )
+        }
+    }
+
+    const NextButton = ()=>{
+        if (answerNumber < wrongAnswers.length - 1){
+            return(
+                <button onClick={()=>{setAnswerNumber(answerNumber+1)}}>
+                    Next Question
+                </button>
+            )
+            
         }
     }
 
@@ -141,11 +153,17 @@ export const ResultsModal = () => {
               
           `}
         >
-        <Question />
-        
+        <div className='text-2xl mt-8 ml-8 mr-4 mb-6'>
+            <Question />
+        </div>
+            <div className='ml-8 text-xl'>
         <Answers />
-        
-        <button onClick = {handleClose}>Close Results</button>
+
+        </div>
+        <div>
+            <button onClick = {handleClose}>Close Results</button>
+            <NextButton />
+        </div>
         </div>
         </div>
         </div>
