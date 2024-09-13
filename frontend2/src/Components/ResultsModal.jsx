@@ -3,6 +3,18 @@ import { closeResultsModal } from "../Slices/modalSlice"
 
 export const ResultsModal = () => {
     const showModal = useSelector(state=>(state.modal.isResultsOpen))
+    const answers = useSelector(state=>(state.results))
+    const questions = useSelector(state=>(state.questions))
+    const wrongAnswers = []
+    console.log(answers)
+
+   Object.values(answers).forEach((entry)=>{
+       
+        if (entry.isCorrect == false){
+            wrongAnswers.push(entry)        }
+    })
+    console.log('wronganswers are ', {wrongAnswers})
+
     const dispatch = useDispatch();
 
     const handleClose = () => {
