@@ -26,20 +26,17 @@ export const ResultsModal = () => {
     }
 
     const createComment = (answer, answerId) => {
-        console.log("answer is", answer)
         if (answer.is_correct === true){
             return(
-                <>
-                <span className='font-bold'>   <FaArrowLeft /> Correct Answer</span>
-                </>
+                <span className='font-bold items-center flex ml-8'>   <FaArrowLeft /> Correct Answer</span>
             )
         }
 
         if (answerId == wrongAnswers[answerNumber].answerId){
             return(
-                <>
-                Your Answer
-                </>
+                <span className='font-bold flex items-center ml-8'>
+                <FaArrowLeft /> Your Answer
+                </span>
             )
         }
     }
@@ -51,7 +48,7 @@ export const ResultsModal = () => {
           return Object.entries(questions[wrongAnswers[answerNumber].questionId].answers).map(([answerId, answer]) => (
             <div className='my-2' key={answerId}>
     
-           <div className='ml-4' >{answer.text}  <span>{createComment(answer, answerId)}</span></div>
+                <div className='ml-4 flex flex-row items-center' >{answer.text}  <span>{createComment(answer, answerId)}</span></div>
         
             <br />
             </div>
@@ -145,9 +142,9 @@ export const ResultsModal = () => {
           `}
         >
         <Question />
-
-       
+        
         <Answers />
+        
         <button onClick = {handleClose}>Close Results</button>
         </div>
         </div>
