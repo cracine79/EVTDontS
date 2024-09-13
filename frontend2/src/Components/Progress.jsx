@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { useState } from "react"
 
 export const Progress = () => {
     const units = useSelector((state)=>state.units)
@@ -6,12 +7,29 @@ export const Progress = () => {
     const units_names = Object.values(units)
     const chapters = useSelector((state)=>state.chapters)
     const chaptersObj = Object.values(chapters)
-    console.log(units_names)
+    const [expandedUnits, setExpandedUnits] = useState({})
 
-    const unitChapters = (unitNumber) => {
+
+    const toggleUnit = (unitId) => {
+        setExpandedUnits((prevState)=>({
+            ...prevState,
+            [unitId]: !prevState[unitId]
+        }))
+    }
+    const unitChapters = (unitId) => {
+        const chaptersUnits = chaptersObj.filter((chapter)=>chapter.unit_id == unitId)
         return(
             <>
-                Chapters for Unit {unitNumber}
+
+                {chaptersUnits.map((chapter)=>{
+                    return(
+                        <>
+                            <div className='ml-8 my-2'>
+                            {chapter.name}
+                            </div>
+                        </>
+                    )
+                })}
             </>
         )
     }
@@ -25,11 +43,16 @@ export const Progress = () => {
                 {Object.entries(units).map(([key, value])=>{
                     return(
                         <>
-                            <div className='text-left text-xl'key={key}>
-                                +  {value}
+                            <div key={key}>
+                            <div 
+                                className='text-left text-xl cursor-pointer'
+                                onClick ={()=>toggleUnit(key)}>
+                                {expandedUnits[key] ? ' -' : ' +'}  {value}
                             </div>
-                            <div>
+                            {expandedUnits[key] && (<div>
                                 {unitChapters(key)}
+                            </div>
+                            )}
                             </div>
                         </>
                     )
