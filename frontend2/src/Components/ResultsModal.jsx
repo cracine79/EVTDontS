@@ -1,11 +1,15 @@
 import { useSelector, useDispatch } from "react-redux"
 import { closeResultsModal } from "../Slices/modalSlice"
+import { useState } from "react"
+import { FaArrowLeft } from "react-icons/fa6";
 
 export const ResultsModal = () => {
     const showModal = useSelector(state=>(state.modal.isResultsOpen))
     const answers = useSelector(state=>(state.results))
     const questions = useSelector(state=>(state.questions))
+    const [answerNumber, setAnswerNumber] = useState(0)
     const wrongAnswers = []
+
     console.log(answers)
 
    Object.values(answers).forEach((entry)=>{
@@ -20,6 +24,33 @@ export const ResultsModal = () => {
     const handleClose = () => {
         dispatch(closeResultsModal())
     }
+
+    const createComment = (answer) => {
+        console.log(answer)
+        if (answer.is_correct === true){
+            return(
+                <>
+                <span className='font-bold'>   <FaArrowLeft /> Correct Answer</span>
+                </>
+            )
+        }
+    }
+
+
+    const Answers = () => {
+        if (wrongAnswers[answerNumber] && questions[wrongAnswers[answerNumber].questionId] && questions[wrongAnswers[answerNumber].questionId].answers) {
+          return Object.entries(questions[wrongAnswers[answerNumber].questionId].answers).map(([answerId, answer]) => (
+            <div className='my-2' key={answerId}>
+    
+           <div className='ml-4' >{answer.text}  <span>{createComment(answer)}</span></div>
+        
+            <br />
+            </div>
+          ));
+        } else {
+          return <p>No answers available</p>;
+        }
+      };
 
     return(<>
       <div
@@ -78,7 +109,13 @@ export const ResultsModal = () => {
               
           `}
         >
-        MotherFucking Results Modal Bitch
+        {questions[wrongAnswers[answerNumber]]? (
+ <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questions[wrongAnswers[answerNumber].questionId].text}</div>
+        ):(
+            <p>No questions</p>
+        )}
+       
+        <Answers />
         <button onClick = {handleClose}>Close Results</button>
         </div>
         </div>
