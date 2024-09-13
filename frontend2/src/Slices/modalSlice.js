@@ -6,7 +6,8 @@ const modalSlice = createSlice({
     initialState: {
         isLoginOpen: false,
         isSignupOpen: false,
-        isQuizOpen: false
+        isQuizOpen: false,
+        isResultsOpen: false
     },
     reducers: {
         openLoginModal: (state) => {
@@ -27,8 +28,14 @@ const modalSlice = createSlice({
         closeQuizModal: (state) => {
             state.isQuizOpen = false
         },
+        openResultsModal: (state) => {
+            state.isResultsOpen = true
+        },
+        closeResultsModal: (state) => {
+            state.isResultsOpen = false
+        }
     }
 })
 
-export const {openLoginModal, closeLoginModal, openSignupModal, closeSignupModal, openQuizModal, closeQuizModal} = modalSlice.actions
+export const {openLoginModal, closeLoginModal, openSignupModal, closeSignupModal, openQuizModal, closeQuizModal, openResultsModal, closeResultsModal} = modalSlice.actions
 export default modalSlice.reducer;
