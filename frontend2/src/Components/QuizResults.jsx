@@ -50,6 +50,10 @@ export const QuizResults = () => {
         dispatch(openResultsModal())
     }
 
+    const nextVideo = ()=>{
+        console.log('need to dispatch quiz score to backend and frontend, and update current chapter to +1')
+    }
+
     
     return(
         <div className='w-screen flex justify-center'>
@@ -102,6 +106,7 @@ export const QuizResults = () => {
                             hover:bg-slate-500
                             font-medium
                             hover:cursor-pointer' 
+                            onClick={nextVideo}
                             >Enough of this.  Let's go to the next Video.</button>
                 </div>
                 
