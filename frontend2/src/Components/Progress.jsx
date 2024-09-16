@@ -7,7 +7,9 @@ export const Progress = () => {
     const units_names = Object.values(units)
     const chapters = useSelector((state)=>state.chapters)
     const chaptersObj = Object.values(chapters)
+    const chaptersEnt = Object.entries(chapters)
     const [expandedUnits, setExpandedUnits] = useState({})
+
 
 
     const toggleUnit = (unitId) => {
@@ -20,7 +22,7 @@ export const Progress = () => {
     const chapterProgress = (chapter) => {
         if(chapter.quiz_grade && chapter.quiz_grade > 50){
             return(
-                <>Killed it</>
+                <>Crushed it</>
             )
         } else if (!chapter.video_completed){
             return(
@@ -28,19 +30,24 @@ export const Progress = () => {
             )
         } else {
             return(
-                <>Watched the Vid</>
+                <div className='flex flex-col justify-center items-center'>
+                <div className='text-center'> Watched The Sweet Video
+                </div>
+                <div>Quiz is next!</div>
+                </div>
             )
         }
     }
     const unitChapters = (unitId) => {
-        const chaptersUnits = chaptersObj.filter((chapter)=>chapter.unit_id == unitId)
+        const chaptersUnits = chaptersEnt.filter(([chapterId, chapter])=>chapter.unit_id == unitId)
         return(
             <>
 
-                {chaptersUnits.map((chapter)=>{
+                {chaptersUnits.map(([chapterId, chapter])=>{
+                    const odd = chapterId % 2 == 0
                     return(
-                        <div className='w-100 flex items-center'>
-                            <div className='ml-8 my-2 w-3/5 font-semibold bg-green-300'>
+                        <div className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
+                            <div className='ml-8 my-2 w-2/3 font-semibold'>
                                 {chapter.name}
                             </div>
                             <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/5'>
@@ -78,10 +85,10 @@ export const Progress = () => {
             <h1 className='text-4xl text-center mb-8'>Your Study Plan</h1>
             <div className='flex flex-row justify-around'>
             <div className='w-full'>
-                <div className='flex flex-row bg-blue-200 w-100'>
-                    <span className='text-2xl text-left font-bold w-3/5 bg-red-200'>Units</span>
-                    <span className='text-2xl text-center font-bold w-1/5'>Progress</span>
-                    <span className='text-2xl text-center font-bold w-1/5'>Mastery</span>
+                <div className='flex flex-row w-100 mb-2 bg-'>
+                    <span className='text-3xl text-left font-bold w-2/3'>Units</span>
+                    <span className='text-3xl text-center font-bold w-1/5'>Progress</span>
+    
                 </div>
                 {Object.entries(units).map(([key, value])=>{
                     return(
@@ -89,7 +96,7 @@ export const Progress = () => {
                             <div className='w-100' key={key}>
                             <div className='flex w-100'>
                                 <div 
-                                    className='text-left text-xl cursor-pointer w-3/5'
+                                    className='text-left text-xl cursor-pointer w-2/3'
                                     onClick ={()=>toggleUnit(key)}>
                                     {expandedUnits[key] ? ' -' : ' +'}  {value}
                                 </div>
