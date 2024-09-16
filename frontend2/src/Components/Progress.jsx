@@ -16,6 +16,22 @@ export const Progress = () => {
             [unitId]: !prevState[unitId]
         }))
     }
+
+    const chapterProgress = (chapter) => {
+        if(chapter.quiz_grade && chapter.quiz_grade > 50){
+            return(
+                <>Killed it</>
+            )
+        } else if (!chapter.video_completed){
+            return(
+                <>Not yet</>
+            )
+        } else {
+            return(
+                <>Watched the Vid</>
+            )
+        }
+    }
     const unitChapters = (unitId) => {
         const chaptersUnits = chaptersObj.filter((chapter)=>chapter.unit_id == unitId)
         return(
@@ -23,11 +39,14 @@ export const Progress = () => {
 
                 {chaptersUnits.map((chapter)=>{
                     return(
-                        <>
-                            <div className='ml-8 my-2'>
-                            {chapter.name}
+                        <div className='w-100 flex items-center'>
+                            <div className='ml-8 my-2 w-3/5 font-semibold bg-green-300'>
+                                {chapter.name}
                             </div>
-                        </>
+                            <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/5'>
+                                {chapterProgress(chapter)}
+                            </div>
+                        </div>
                     )
                 })}
             </>
@@ -58,7 +77,7 @@ export const Progress = () => {
         <div className='w-3/5 bg-white rounded-3xl shadow-2xl p-5'>
             <h1 className='text-4xl text-center mb-8'>Your Study Plan</h1>
             <div className='flex flex-row justify-around'>
-            <div className='w-full bg-slate-200'>
+            <div className='w-full'>
                 <div className='flex flex-row bg-blue-200 w-100'>
                     <span className='text-2xl text-left font-bold w-3/5 bg-red-200'>Units</span>
                     <span className='text-2xl text-center font-bold w-1/5'>Progress</span>
@@ -78,7 +97,7 @@ export const Progress = () => {
                                     {percentUnitCompleted(key)}
                                 </div>
                             </div>
-                            {expandedUnits[key] && (<div>
+                            {expandedUnits[key] && (<div className='w-100 '>
                                 {unitChapters(key)}
                             </div>
                             )}
