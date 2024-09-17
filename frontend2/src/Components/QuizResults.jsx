@@ -51,7 +51,7 @@ export const QuizResults = () => {
     }
 
     const nextVideo = ()=>{
-        console.log('need to dispatch quiz score to backend and frontend, and update current chapter to +1')
+        console.log('need to dispatch quiz score to backend and frontend, and update current chapter to +1 mofo')
     }
 
     
