@@ -5,6 +5,7 @@ import { openQuizModal } from "../Slices/modalSlice"
 import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
 import { finishQuiz } from "../Slices/resultsActions"
+import { clearQuestions } from "../Slices/questionsSlice"
 
 
 export const QuizResults = () => {
@@ -58,6 +59,7 @@ export const QuizResults = () => {
         }
         // console.log(quizData)
         dispatch(finishQuiz(quizData))
+        dispatch(clearQuestions())
         navigate('/video')
     }
 

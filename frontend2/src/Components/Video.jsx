@@ -43,12 +43,13 @@ export const Video = () => {
         updateVideoProgress(currentChapterId)
         navigate('/quiz', {state: {chapter: currentChapterId}})
     }
+
   
     return(
         <div className="w-full flex flex-col justify-center items-center">
         <div className='mt-40  aspect-video justify-center w-3/4'>
     
-            <iframe className="w-full h-full" src="https://www.youtube.com/embed/WqlGzTYXd0U"   title="title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe className="w-full h-full" src={source}  title="title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div>
                 Text text text text
