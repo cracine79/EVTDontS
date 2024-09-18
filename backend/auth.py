@@ -171,6 +171,7 @@ class Login(Resource):
                         "name": chapter.name, 
                         "unit_id": chapter.unit_id,
                         "video_url": chapter.video_url,
+                        "video_blurb": chapter.video_blurb
                     } for chapter in user_chapters}
                 units_dict = {unit.id: unit.name for unit in user_units}
 

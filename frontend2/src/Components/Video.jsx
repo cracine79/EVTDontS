@@ -49,18 +49,56 @@ export const Video = () => {
         <div className="w-full flex flex-col justify-center items-center">
         <div className='mt-40  aspect-video justify-center w-3/4'>
     
-            <iframe className="w-full h-full" src={source}  title="title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe className="w-full h-full" 
+                    src={`${source}?modestbranding=1&rel=0&controls=1&autohide=1`}
+                    title="title" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen></iframe>
+        </div>
+            <div className="whitespace-pre-line">
+                {currentChapter.video_blurb}
             </div>
-            <div>
-                Text text text text
-            </div>
-            <div>
-                <div onClick = {handleClick}>
+            <div className='flex justify-between w-1/2 mt-6'>
+                <div onClick = {handleClick} className=
+                            'mt-10 
+                            border-black 
+                            h-auto 
+                            w-1/3
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-xl
+                            bg-slate-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            mb-6
+                            '>
                     Back to my Dashboard
                 </div>
-                <div onClick = {completeVid}>
-                    Mark as Completed
-                    (take me to the quiz)
+                <div onClick = {completeVid} className=
+                            'mt-10 
+                            flex
+                            flex-col
+                            border-black 
+                            h-auto
+                            w-1/3 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-xl
+                            bg-slate-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            mb-6
+                            '>
+                    <p>Mark as Completed</p>
+                    <p>Let's Rock the Quiz</p>
                 </div>
             </div>
         </div>
