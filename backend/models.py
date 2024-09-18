@@ -74,6 +74,8 @@ class Chapter(db.Model):
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     unit_id: Mapped[int] = mapped_column(ForeignKey('unit.id'))
     video_url: Mapped[str] = mapped_column(String(255))
+    video_blurb: Mapped[str] = mapped_column(Text, nullable=True)  
+    quiz_blurb: Mapped[str] = mapped_column(Text, nullable=True)
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
