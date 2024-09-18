@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate } from "react-router-dom";
+import { GrChapterAdd } from "react-icons/gr";
 
 
-export const QuestionComponent = () => {
+export const QuestionComponent = ({chapter}) => {
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions));
@@ -13,7 +14,7 @@ export const QuestionComponent = () => {
       ...question,
       id: id
     }))
-    console.log(questionsObj)
+    const quizChapterName = useSelector(state=>(state.chapters[chapter].name))
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
@@ -153,7 +154,10 @@ export const QuestionComponent = () => {
         >
             {questionsObj[questionNumber] ? (
               <div>
-                <div>Chapter</div>
+                <div className='flex flex-col items-center mt-6'>
+                  <div className="text-3xl">{quizChapterName}  - Chapter Quiz</div>
+                
+                </div>
                 <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questionNumber + 1} : {questionsObj[questionNumber].text}</div>
                 <div className="ml-8 text-xl"><Answers /></div>
 

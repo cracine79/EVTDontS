@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { openQuizModal } from "../Slices/modalSlice"
 import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
+import { finishQuiz } from "../Slices/resultsActions"
 
 
 export const QuizResults = () => {
@@ -51,7 +52,12 @@ export const QuizResults = () => {
     }
 
     const nextVideo = ()=>{
-        console.log('need to dispatch quiz score to backend and frontend, and update current chapter to +1 mofo')
+        const quizData = {
+            chapter_id: currentChapter,
+            quiz_score: percentageScore
+        }
+        // console.log(quizData)
+        dispatch(finishQuiz(quizData))
     }
 
     

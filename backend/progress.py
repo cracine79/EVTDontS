@@ -79,3 +79,75 @@ class CreateChapterProgress(Resource):
             }}
       
         return jsonify( chapter_object )
+    
+@progress_ns.route('/finishquiz')
+class QuizProgress(Resource):
+    @jwt_required()
+    def put(self):
+        
+        data = request.get_json()
+        quiz_grade = data.get('quiz_score')
+        chapter_id = data.get('chapter_id')
+
+        current_user = get_jwt_identity()
+        user = User.query.filter_by(username=current_user).first()
+        user_id = user.id
+
+        finished_chapter = Chapter.query.get(chapter_id)
+        current_unit = finished_chapter.unit
+        
+        progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
+        print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
+
+        progress.quiz_grade = quiz_grade
+
+        unit_chapters = current_unit.chapters
+        done = False
+
+        if finished_chapter == unit_chapters[-1]:
+            print('lastChapter!!')
+            user_units = user.units
+            current_unit_index = user_units.index(current_unit)
+
+            if current_unit_index +1 < len(user_units):
+                next_unit = user_units[current_unit_index+1]
+                user.current_chapter = next_unit.chapters[0].id
+            else:
+                user.current_chapter = None
+                done = True
+        else:
+            print('NOT LAST CHAPTER')
+            next_chapter_index = unit_chapters.index(finished_chapter) + 1
+            print(next_chapter_index)
+            print(unit_chapters[next_chapter_index])
+            user.current_chapter = unit_chapters[next_chapter_index]
+        
+        db.session.commit()
+
+        if user.current_chapter:
+            current_chapter = user.current_chapter.id
+        else:
+            current_chapter = None
+
+        chapter_dict = {
+            finished_chapter.id: {
+                "name": finished_chapter.name,
+                'unit_id': finished_chapter.unit_id,
+                'video_url': finished_chapter.video_url,
+                'video_completed': True,
+                'quiz_grade': quiz_grade
+            }
+        }
+        return (jsonify({
+            "user":{
+                "username": user.username,
+                "email": user.email,
+                "current_chapter": current_chapter
+                 },
+            "chapters": chapter_dict,
+            "completed": done
+            }
+                ))
+
+
+        

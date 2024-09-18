@@ -27,3 +27,21 @@ export const addResults = (results) => async(dispatch) => {
         console.error('Error during answer submission:', error);
     }
 }
+
+export const finishQuiz = (quizData) => async(dispatch) => {
+    console.log(quizData)
+    try{
+        const response = await csrfFetch('/api/progress/finishquiz', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(quizData)
+        })
+
+        const data = await response.json()
+        console.log(data)
+    } catch(error){
+        Console.log('Error during data submission:', error)
+    }
+}

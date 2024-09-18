@@ -11,7 +11,7 @@ export const Quiz = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const chapter = location.state?.chapter
-    console.log(chapter)
+
 
     useEffect(()=>{
         dispatch(getQuestions(chapter)), [dispatch]
@@ -63,7 +63,7 @@ export const Quiz = () => {
                 </div>
                
             </div>
-            <QuestionComponent />
+            <QuestionComponent chapter={chapter}/>
         </div>
       
     )
