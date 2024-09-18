@@ -18,9 +18,12 @@ const userSlice = createSlice({
       state.email = null;
       state.currentChapter = null;
     },
+    updateUser: (state) => {
+      state.currentChapter = action.payload.current_chapter
+    }
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateUser } = userSlice.actions;
 
 export default userSlice.reducer;

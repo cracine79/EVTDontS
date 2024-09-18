@@ -1,5 +1,9 @@
 import { csrfFetch } from "../csrf";
 import { updateUserResults } from "./resultsSlice";
+import { updateUserChapters } from "./chaptersSlice";
+import { updateUser, login } from "./userSlice";
+import { useNavigate } from "react-router-dom";
+
 
 export const addResults = (results) => async(dispatch) => {
     try{
@@ -22,6 +26,8 @@ export const addResults = (results) => async(dispatch) => {
 
       const data = await response.json()
       dispatch(updateUserResults(data))
+      dispatch(updateUser(user))
+
       
     } catch(error) {
         console.error('Error during answer submission:', error);
@@ -29,7 +35,7 @@ export const addResults = (results) => async(dispatch) => {
 }
 
 export const finishQuiz = (quizData) => async(dispatch) => {
-    console.log(quizData)
+
     try{
         const response = await csrfFetch('/api/progress/finishquiz', {
             method: 'PUT',
@@ -40,8 +46,14 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         })
 
         const data = await response.json()
-        console.log(data)
+        console.log(data.user)
+        dispatch(updateUserChapters(data.chapters))
+        dispatch(login(data.user))
+
+        
+
+
     } catch(error){
-        Console.log('Error during data submission:', error)
+        console.log('Error during data submission:', error)
     }
 }

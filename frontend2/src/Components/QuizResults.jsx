@@ -58,6 +58,7 @@ export const QuizResults = () => {
         }
         // console.log(quizData)
         dispatch(finishQuiz(quizData))
+        navigate('/video')
     }
 
     
