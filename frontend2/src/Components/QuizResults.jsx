@@ -57,7 +57,7 @@ export const QuizResults = () => {
             chapter_id: currentChapter,
             quiz_score: percentageScore
         }
-        // console.log(quizData)
+        console.log(quizData)
         dispatch(finishQuiz(quizData))
         dispatch(clearQuestions())
         navigate('/video')

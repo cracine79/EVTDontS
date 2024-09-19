@@ -101,7 +101,8 @@ class QuizProgress(Resource):
 
         progress.quiz_grade = quiz_grade
 
-        unit_chapters = current_unit.chapters
+        unit_chapters = Chapter.query.filter_by(unit_id=current_unit.id).order_by(Chapter.order).all()
+        print(unit_chapters)
         done = False
 
         if finished_chapter == unit_chapters[-1]:

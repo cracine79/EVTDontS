@@ -16,8 +16,8 @@ class Base(DeclarativeBase):
 """
 user_unit_association = db.Table(
     'user_unit',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column('unit_id', db.Integer, db.ForeignKey('unit.id'), primary_key=True)
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id', name='user_unit_id'), primary_key=True),
+    db.Column('unit_id', db.Integer, db.ForeignKey('unit.id', name='unit_user_id'), primary_key=True)
 )
 
 class User(db.Model):
@@ -72,10 +72,11 @@ class Unit(db.Model):
 class Chapter(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
-    unit_id: Mapped[int] = mapped_column(ForeignKey('unit.id'))
+    unit_id: Mapped[int] = mapped_column(ForeignKey('unit.id', name='fk_chapter_unit_id'))
     video_url: Mapped[str] = mapped_column(String(255))
     video_blurb: Mapped[str] = mapped_column(Text, nullable=True)  
     quiz_blurb: Mapped[str] = mapped_column(Text, nullable=True)
+    order: Mapped[int] = mapped_column(Integer, nullable=False)
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
@@ -100,8 +101,8 @@ class Chapter(db.Model):
 class Question(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     text: Mapped[str] = mapped_column(Text, nullable=False)
-    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'))
-    topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id'))
+    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id', name='question_chapter_id'))
+    topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id', name='question_topic_id'))
 
     chapter: Mapped["Chapter"] = relationship('Chapter', back_populates='questions')
     topic: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='questions')
@@ -132,7 +133,7 @@ class QuestionTopic(db.Model):
 class Answer(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     text: Mapped[str] = mapped_column(String(255), nullable=False)
-    question_id: Mapped[int] = mapped_column(ForeignKey('question.id'))
+    question_id: Mapped[int] = mapped_column(ForeignKey('question.id', name='answer_question_id'))
     is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
     question: Mapped["Question"] = relationship('Question', back_populates='answers')
@@ -143,8 +144,8 @@ class Answer(db.Model):
 
 class UserPerformance(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
-    question_id: Mapped[int] = mapped_column(ForeignKey('question.id'))
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id', name='userperformance_user_id'))
+    question_id: Mapped[int] = mapped_column(ForeignKey('question.id', name='userperformance_qusetion_id'))
     is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
     answered_at: Mapped["DateTime"] = mapped_column(DateTime, nullable=False)
 
@@ -154,8 +155,8 @@ class UserPerformance(db.Model):
 
 class UserChapterProgress(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey('user.id'), nullable=False)
-    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id'), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id', name='user_chapter_progress_id'), nullable=False)
+    chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id', name='chapter_progress_user_id'), nullable=False)
     video_completed: Mapped[bool] = mapped_column(Boolean, default=False)
     quiz_grade: Mapped[int] = mapped_column(Integer, nullable=True)
     # completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
