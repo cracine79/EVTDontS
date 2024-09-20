@@ -4,6 +4,8 @@ import { login } from '../Slices/userSlice';
 import { csrfFetch } from '../csrf';
 import { closeSignupModal } from '../Slices/modalSlice';
 import { IoMdClose } from 'react-icons/io';
+import { GetStarted } from './GetStarted';
+import { useNavigate } from 'react-router-dom';
 
 const SignupComponent = () => {
   const showModal= useSelector(state=>(state.modal.isSignupOpen))
@@ -11,6 +13,7 @@ const SignupComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('')
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +29,8 @@ const SignupComponent = () => {
     const data = await response.json();
     localStorage.setItem('access_token', data.user.access_token);
     dispatch(closeSignupModal())
-    dispatch(login(data.user)); // Store user in Redux state
+    dispatch(login(data.user));
+    navigate('/getstarted')
   };
 
   const handleClose = ()=>{
