@@ -7,7 +7,6 @@ import { ResultsModal } from "./ResultsModal"
 import { finishQuiz } from "../Slices/resultsActions"
 import { clearQuestions } from "../Slices/questionsSlice"
 
-
 export const QuizResults = () => {
     const currentChapter = useSelector(state=>(state.user.currentChapter))
     const chapters = useSelector(state=>(state.chapters))
@@ -60,6 +59,7 @@ export const QuizResults = () => {
         console.log(quizData)
         dispatch(finishQuiz(quizData))
         dispatch(clearQuestions())
+        dispatch(clearUserResults())
         navigate('/video')
     }
 

@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource
-from models import Question, Answer, UserPerformance, User
+from models import Question, Answer, UserPerformance, User, QuestionTopic
 from flask import request, jsonify
 
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
@@ -14,7 +14,17 @@ class AccessQuiz(Resource):
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
 
-        questions = Question.query.filter_by(chapter_id=chapter_id).all()
+        topics = QuestionTopic.query.filter_by(chapter_id=chapter_id).all()
+        questions = []
+        
+        if len(topics)>1:
+            for topic in topics:
+                topic_questions = Question.query.filter_by(topic_id=topic.id).limit(3).all()
+                questions.extend(topic_questions)
+        else:
+            topic_questions = Question.query.filter_by(topic_id=topics[0].id).limit(6).all()
+            questions.extend(topic_questions)
+    
         question_ids = [question.id for question in questions]
         performances = UserPerformance.query.filter(UserPerformance.user_id == user_id, UserPerformance.question_id.in_(question_ids)).all()
         
