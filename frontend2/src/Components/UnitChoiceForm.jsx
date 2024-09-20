@@ -6,6 +6,10 @@ export const SelectUnitsForm = () => {
         intro: false,
         supplyDemand: false,
         elasticity: false,
+        governmentIntervention: false,
+        marketFailure: false,
+        consumerTheory: false,
+        producerTheory: false
       });
     
       // State to track whether the microeconomics units are visible
@@ -22,6 +26,7 @@ export const SelectUnitsForm = () => {
           intro: checked,
           supplyDemand: checked,
           elasticity: checked,
+
         });
       };
     
@@ -88,6 +93,54 @@ export const SelectUnitsForm = () => {
                   onChange={handleMicroUnitChange}
                 />
                 Elasticity
+              </label>
+              <label className="block text-gray-700">
+                <input
+                  type="checkbox"
+                  name="elasticity"
+                  className="mr-2"
+                  checked={microUnits.governmentIntervention}
+                //   onChange={handleMicroUnitChange}
+                  disabled
+                />
+                Government Intervention 
+                <p>(coming soon)</p>
+              </label>
+              <label className="block text-gray-700">
+                <input
+                  type="checkbox"
+                  name="elasticity"
+                  className="mr-2"
+                  checked={microUnits.marketFailure}
+                //   onChange={handleMicroUnitChange}
+                  disabled
+                />
+                Market Failure
+                <p>(coming soon)</p>
+              </label>
+              <label className="block text-gray-700">
+                <input
+                  type="checkbox"
+                  name="elasticity"
+                  className="mr-2"
+                  checked={microUnits.consumerTheory}
+                //   onChange={handleMicroUnitChange}
+                  disabled
+                />
+                Consumer Theory
+                <p>(coming soon)</p>
+              </label>
+              <label className="block text-gray-700">
+                <input
+                  type="checkbox"
+                  name="elasticity"
+                  className="mr-2"
+                  checked={microUnits.producerTheory}
+                //   onChange={handleMicroUnitChange}
+                  disabled
+                />
+                Producer Theory (Competition, Oligopoly & Monopoly)
+                <p>(coming soon)</p>
               </label>
             </div>
           )}
