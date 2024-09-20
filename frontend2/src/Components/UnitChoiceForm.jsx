@@ -11,14 +11,27 @@ export const SelectUnitsForm = () => {
         consumerTheory: false,
         producerTheory: false
       });
+
+      const[macroUnits, setMacroUnits] = useState({
+        macroeconomicObjectives: false,
+        macroeconomicModels: false,
+        macroeconomicPolicies: false,
+        internationalModelsAndPolicies: false
+      })
     
       // State to track whether the microeconomics units are visible
       const [showMicroUnits, setShowMicroUnits] = useState(false);
+      const [showMacroUnits, setShowMacroUnits] = useState(false);
     
       const handleMicroUnitChange = (e) => {
         const { name, checked } = e.target;
         setMicroUnits((prev) => ({ ...prev, [name]: checked }));
       };
+
+      const handleMacroUnitChange = (e) => {
+        const {name, checked} = e.target;
+        setMacroUnits((prev)=>({...prev, [name]: checked}))
+      }
     
       const handleMicroSelectAll = (e) => {
         const checked = e.target.checked;
@@ -29,6 +42,13 @@ export const SelectUnitsForm = () => {
 
         });
       };
+
+    //   const handleMacroSelectAll = (e) => {
+    //     const checked = e.target.checked;
+    //     setMacroUnits({
+   
+    //     });
+    //   };
     
    
   return (
@@ -38,24 +58,19 @@ export const SelectUnitsForm = () => {
 
         {/* Microeconomics Section */}
         <div className="mb-6">
-        <div className="ml-6">
-
-
-             </div>
+            <div className="ml-6">
+            </div>
              <div className='flex items-center'>
-
-             <input
-              type="checkbox"
-              className="mr-2"
-              onChange={handleMicroSelectAll}
-              checked={Object.values(microUnits).every(Boolean)}
-            />
-        <label
-            className="block text-lg font-medium text-gray-700 cursor-pointer"
-            onClick={() => setShowMicroUnits(!showMicroUnits)} // Toggle visibility when the label (word) is clicked
-          >
-            Microeconomics (click to expand)
-          </label>
+                <input
+                    type="checkbox"
+                    className="mr-2"
+                    onChange={handleMicroSelectAll}
+                    checked={Object.values(microUnits).every(Boolean)}/>
+                <label
+                    className="block text-lg font-medium text-gray-700 cursor-pointer"
+                    onClick={() => setShowMicroUnits(!showMicroUnits)}>
+                    Microeconomics (click to expand)
+                </label>
              </div>
 
           {/* The checkbox is separate for selecting all, does NOT toggle visibility */}
@@ -147,10 +162,80 @@ export const SelectUnitsForm = () => {
         </div>
 
         {/* Macroeconomics Section */}
-        <div className="mb-6">
-          <label className="block text-lg font-medium text-gray-700">Macroeconomics</label>
+        <div className="mb-4">
+            <div className='ml-6'>
+            </div>
+            <div className='flex items-center'>
+
+                <input
+                    type="checkbox"
+                    className="mr-2"
+                    // onChange={handleMacroSelectAll}
+                    checked={Object.values(macroUnits).every(Boolean)}
+                    disabled
+                    />
+            <label  onClick={() => setShowMacroUnits(!showMacroUnits)} className="block text-lg font-medium text-gray-700 cursor-pointer">
+                Macroeconomics (click to expand)</label>
+                
+            </div>
           {/* Add Macroeconomics units here with similar structure */}
         </div>
+        {showMacroUnits && (
+            <div className="ml-6 mt-2">
+             <label className="block text-gray-700">
+             <input
+               type="checkbox"
+               name="macroeconomicObjectives"
+               className="mr-2"
+               checked={macroUnits.macroeconomicObjectives}
+             //   onChange={handleMicroUnitChange}
+               disabled
+             />
+                 Macroeconomic Objectives
+                <p>(coming soon)</p>
+              </label>
+
+              <label className="block text-gray-700">
+             <input
+               type="checkbox"
+               name="macroeconomicModels"
+               className="mr-2"
+               checked={macroUnits.macroeconomicModels}
+             //   onChange={handleMicroUnitChange}
+               disabled
+             />
+                 Macroeconomic Models
+                <p>(coming soon)</p>
+              </label>
+
+              <label className="block text-gray-700">
+             <input
+               type="checkbox"
+               name="macroeconomicPolicies"
+               className="mr-2"
+               checked={macroUnits.macroeconomicPolicies}
+             //   onChange={handleMicroUnitChange}
+               disabled
+             />
+                 Macroeconomic Policies
+                <p>(coming soon)</p>
+              </label>
+
+              <label className="block text-gray-700">
+             <input
+               type="checkbox"
+               name="internationalPoliciesAndModels"
+               className="mr-2"
+               checked={macroUnits.internationalPoliciesAndModels}
+             //   onChange={handleMicroUnitChange}
+               disabled
+             />
+                 Trade and the Balance of Payments
+                <p>(coming soon)</p>
+              </label>
+              
+            </div>
+        )}
 
         {/* Submit Button */}
         <div className="flex justify-end">
