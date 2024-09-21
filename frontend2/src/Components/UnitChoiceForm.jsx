@@ -1,22 +1,25 @@
 import { useState } from "react"
+import { addUserUnits } from "../Slices/unitsActions";
+import { useDispatch } from "react-redux";
 
 
 export const SelectUnitsForm = () => {
+    const dispatch = useDispatch()
     const [microUnits, setMicroUnits] = useState({
-        intro: false,
-        supplyDemand: false,
-        elasticity: false,
-        governmentIntervention: false,
-        marketFailure: false,
-        consumerTheory: false,
-        producerTheory: false
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        7: false
       });
 
       const[macroUnits, setMacroUnits] = useState({
-        macroeconomicObjectives: false,
-        macroeconomicModels: false,
-        macroeconomicPolicies: false,
-        internationalModelsAndPolicies: false
+        8: false,
+        9: false,
+        10: false,
+        11: false
       })
     
       // State to track whether the microeconomics units are visible
@@ -50,10 +53,24 @@ export const SelectUnitsForm = () => {
     //     });
     //   };
     
+    const handleSubmit = () => {
+        const units = []
+        for (const[unit_num, chosen] of Object.entries(microUnits)){
+            if(chosen){
+                units.push(unit_num)
+            }
+        }
+        for (const[mac_unit_num, mac_chosen] of Object.entries(macroUnits)){
+            if(mac_chosen){
+                units.push(mac_unit_num)
+            }
+        }
+        dispatch(addUserUnits(units))
+    }
    
   return (
-    <div className="bg-gray-100 p-8 min-h-screen flex justify-center items-center">
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-green-400 w-5/12 p-8 flex justify-center ">
+      <div className="w-full mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">I am interested in studying:</h1>
 
         {/* Microeconomics Section */}
@@ -82,7 +99,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="intro"
+                  name="1"
                   className="mr-2"
                   checked={microUnits.intro}
                   onChange={handleMicroUnitChange}
@@ -92,7 +109,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="supplyDemand"
+                  name="2"
                   className="mr-2"
                   checked={microUnits.supplyDemand}
                   onChange={handleMicroUnitChange}
@@ -102,7 +119,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="elasticity"
+                  name="3"
                   className="mr-2"
                   checked={microUnits.elasticity}
                   onChange={handleMicroUnitChange}
@@ -112,7 +129,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="elasticity"
+                  name="4"
                   className="mr-2"
                   checked={microUnits.governmentIntervention}
                 //   onChange={handleMicroUnitChange}
@@ -124,7 +141,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="elasticity"
+                  name="5"
                   className="mr-2"
                   checked={microUnits.marketFailure}
                 //   onChange={handleMicroUnitChange}
@@ -136,7 +153,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="elasticity"
+                  name="6"
                   className="mr-2"
                   checked={microUnits.consumerTheory}
                 //   onChange={handleMicroUnitChange}
@@ -148,7 +165,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
                 <input
                   type="checkbox"
-                  name="elasticity"
+                  name="7"
                   className="mr-2"
                   checked={microUnits.producerTheory}
                 //   onChange={handleMicroUnitChange}
@@ -185,7 +202,7 @@ export const SelectUnitsForm = () => {
              <label className="block text-gray-700">
              <input
                type="checkbox"
-               name="macroeconomicObjectives"
+               name="8"
                className="mr-2"
                checked={macroUnits.macroeconomicObjectives}
              //   onChange={handleMicroUnitChange}
@@ -198,7 +215,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
              <input
                type="checkbox"
-               name="macroeconomicModels"
+               name="9"
                className="mr-2"
                checked={macroUnits.macroeconomicModels}
              //   onChange={handleMicroUnitChange}
@@ -211,7 +228,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
              <input
                type="checkbox"
-               name="macroeconomicPolicies"
+               name="10"
                className="mr-2"
                checked={macroUnits.macroeconomicPolicies}
              //   onChange={handleMicroUnitChange}
@@ -224,7 +241,7 @@ export const SelectUnitsForm = () => {
               <label className="block text-gray-700">
              <input
                type="checkbox"
-               name="internationalPoliciesAndModels"
+               name="11"
                className="mr-2"
                checked={macroUnits.internationalPoliciesAndModels}
              //   onChange={handleMicroUnitChange}
@@ -238,12 +255,12 @@ export const SelectUnitsForm = () => {
         )}
 
         {/* Submit Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-start mt-20">
           <button
             type="button"
-            className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+            className="px-4 py-2 bg-slate-500 text-white font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
             onClick={() => {
-              console.log('Selected Micro Units:', microUnits);
+              handleSubmit()
               // Add submission logic here
             }}
           >
