@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { addUserUnits } from "../Slices/unitsActions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 export const SelectUnitsForm = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [microUnits, setMicroUnits] = useState({
         1: false,
@@ -54,20 +56,10 @@ export const SelectUnitsForm = () => {
     //   };
     
     const handleSubmit = () => {
-        // const units = []=={microUnits}
-        // for (const[unit_num, chosen] of Object.entries(microUnits)){
-        //     if(chosen){
-        //         units.push(unit_num)
-        //     }
-        // }
-        // for (const[mac_unit_num, mac_chosen] of Object.entries(macroUnits)){
-        //     if(mac_chosen){
-        //         units.push(mac_unit_num)
-        //     }
-        // }
         const units = {...microUnits, ...macroUnits}
-        // console.log(units)
         dispatch(addUserUnits(units))
+        navigate('/userhome')
+        
     }
    
   return (
