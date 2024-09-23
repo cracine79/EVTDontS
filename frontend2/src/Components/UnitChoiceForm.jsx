@@ -66,8 +66,8 @@ export const SelectUnitsForm = () => {
         //     }
         // }
         const units = {...microUnits, ...macroUnits}
-        console.log(units)
-        // dispatch(addUserUnits(units))
+        // console.log(units)
+        dispatch(addUserUnits(units))
     }
    
   return (

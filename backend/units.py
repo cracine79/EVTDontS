@@ -16,10 +16,21 @@ class AddUnits(Resource):
         user_chapters = []
 
         data = request.get_json()
-        for unit_id in data:
+        for unit_id, selected in data.items():
             unit = Unit.query.get(unit_id)
-            user.units.append(unit)
-        
+
+            if not unit: 
+                continue
+
+            if selected:
+                if unit not in user.units:
+                    user.units.append(unit)
+            
+            else:
+                if unit in user.units:
+                    user.units.remove(unit)
+
+        print('USER UNITS ARRRE', user.units)
         db.session.commit()
         user_units = user.units
 
