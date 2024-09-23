@@ -38,12 +38,12 @@ export const SelectUnitsForm = () => {
     
       const handleMicroSelectAll = (e) => {
         const checked = e.target.checked;
-        setMicroUnits({
-          intro: checked,
-          supplyDemand: checked,
-          elasticity: checked,
-
-        });
+        setMicroUnits((prevMicroUnits) => ({
+          ...prevMicroUnits,
+          1: checked,
+          2: checked,
+          3: checked,
+        }));
       };
 
     //   const handleMacroSelectAll = (e) => {
@@ -54,18 +54,20 @@ export const SelectUnitsForm = () => {
     //   };
     
     const handleSubmit = () => {
-        const units = []
-        for (const[unit_num, chosen] of Object.entries(microUnits)){
-            if(chosen){
-                units.push(unit_num)
-            }
-        }
-        for (const[mac_unit_num, mac_chosen] of Object.entries(macroUnits)){
-            if(mac_chosen){
-                units.push(mac_unit_num)
-            }
-        }
-        dispatch(addUserUnits(units))
+        // const units = []=={microUnits}
+        // for (const[unit_num, chosen] of Object.entries(microUnits)){
+        //     if(chosen){
+        //         units.push(unit_num)
+        //     }
+        // }
+        // for (const[mac_unit_num, mac_chosen] of Object.entries(macroUnits)){
+        //     if(mac_chosen){
+        //         units.push(mac_unit_num)
+        //     }
+        // }
+        const units = {...microUnits, ...macroUnits}
+        console.log(units)
+        // dispatch(addUserUnits(units))
     }
    
   return (
@@ -82,7 +84,7 @@ export const SelectUnitsForm = () => {
                     type="checkbox"
                     className="mr-2"
                     onChange={handleMicroSelectAll}
-                    checked={Object.values(microUnits).every(Boolean)}/>
+                    checked={microUnits[1] && microUnits[2] && microUnits[3]}/>
                 <label
                     className="block text-lg font-medium text-gray-700 cursor-pointer"
                     onClick={() => setShowMicroUnits(!showMicroUnits)}>
@@ -101,7 +103,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="1"
                   className="mr-2"
-                  checked={microUnits.intro}
+                  checked={microUnits[1]}
                   onChange={handleMicroUnitChange}
                 />
                 Intro to Economics
@@ -111,7 +113,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="2"
                   className="mr-2"
-                  checked={microUnits.supplyDemand}
+                  checked={microUnits[2]}
                   onChange={handleMicroUnitChange}
                 />
                 Supply and Demand
@@ -121,7 +123,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="3"
                   className="mr-2"
-                  checked={microUnits.elasticity}
+                  checked={microUnits[3]}
                   onChange={handleMicroUnitChange}
                 />
                 Elasticity
@@ -131,7 +133,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="4"
                   className="mr-2"
-                  checked={microUnits.governmentIntervention}
+                  checked={microUnits[4]}
                 //   onChange={handleMicroUnitChange}
                   disabled
                 />
@@ -143,7 +145,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="5"
                   className="mr-2"
-                  checked={microUnits.marketFailure}
+                  checked={microUnits[5]}
                 //   onChange={handleMicroUnitChange}
                   disabled
                 />
@@ -155,7 +157,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="6"
                   className="mr-2"
-                  checked={microUnits.consumerTheory}
+                  checked={microUnits[6]}
                 //   onChange={handleMicroUnitChange}
                   disabled
                 />
@@ -167,7 +169,7 @@ export const SelectUnitsForm = () => {
                   type="checkbox"
                   name="7"
                   className="mr-2"
-                  checked={microUnits.producerTheory}
+                  checked={microUnits[7]}
                 //   onChange={handleMicroUnitChange}
                   disabled
                 />
@@ -204,7 +206,7 @@ export const SelectUnitsForm = () => {
                type="checkbox"
                name="8"
                className="mr-2"
-               checked={macroUnits.macroeconomicObjectives}
+               checked={macroUnits[8]}
              //   onChange={handleMicroUnitChange}
                disabled
              />
@@ -217,7 +219,7 @@ export const SelectUnitsForm = () => {
                type="checkbox"
                name="9"
                className="mr-2"
-               checked={macroUnits.macroeconomicModels}
+               checked={macroUnits[9]}
              //   onChange={handleMicroUnitChange}
                disabled
              />
@@ -230,7 +232,7 @@ export const SelectUnitsForm = () => {
                type="checkbox"
                name="10"
                className="mr-2"
-               checked={macroUnits.macroeconomicPolicies}
+               checked={macroUnits[10]}
              //   onChange={handleMicroUnitChange}
                disabled
              />
@@ -243,7 +245,7 @@ export const SelectUnitsForm = () => {
                type="checkbox"
                name="11"
                className="mr-2"
-               checked={macroUnits.internationalPoliciesAndModels}
+               checked={macroUnits[11]}
              //   onChange={handleMicroUnitChange}
                disabled
              />
