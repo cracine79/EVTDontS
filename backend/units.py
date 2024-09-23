@@ -62,11 +62,15 @@ class AddUnits(Resource):
             else:
                 chapter_dict[chapter_id] = progress_data      
         
-        if user.current_chapter:
+        sorted_chapters = sorted(user_units[0].chapters, key=lambda chapter: chapter.order)
+        if user.current_chapter and user.current_chapter.id < sorted_chapters[0].id and user.current_chapter in sorted_chapters:
             current_chapter = user.current_chapter.id
         else:
-             sorted_chapters = sorted(user_units[0].chapters, key=lambda chapter: chapter.order)
              current_chapter = sorted_chapters[0].id
+             user.current_chapter = sorted_chapters[0]
+             db.session.commit()
+        
+
         
         return jsonify({
             "user":{

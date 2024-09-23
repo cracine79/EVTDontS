@@ -18,7 +18,7 @@ const userSlice = createSlice({
       state.email = null;
       state.currentChapter = null;
     },
-    updateUser: (state) => {
+    updateUser: (state, action) => {
       state.currentChapter = action.payload.current_chapter
     }
   },

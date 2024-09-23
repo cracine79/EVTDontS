@@ -1,5 +1,7 @@
 import { csrfFetch } from "../csrf";
 import { storeUserUnits } from "./unitsSlice";
+import { storeUserChapters } from "./chaptersSlice";
+import { updateUser } from "./userSlice";
 
 
 export const addUserUnits = (units) => async(dispatch) => {
@@ -23,7 +25,10 @@ export const addUserUnits = (units) => async(dispatch) => {
 
       const data = await response.json()
       console.log(data)
-      dispatch(storeUserUnits(data))
+      dispatch(storeUserUnits(data.units))
+      dispatch(updateUser(data.user))
+      dispatch(storeUserChapters(data.chapters))
+      
 
       
     } catch(error) {
