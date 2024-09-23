@@ -22,6 +22,7 @@ export const addUserUnits = (units) => async(dispatch) => {
       }
 
       const data = await response.json()
+      console.log(data)
       dispatch(storeUserUnits(data))
 
       

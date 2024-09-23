@@ -65,7 +65,8 @@ class AddUnits(Resource):
         if user.current_chapter:
             current_chapter = user.current_chapter.id
         else:
-            current_chapter=user_units[0].chapters[0].id
+             sorted_chapters = sorted(user_units[0].chapters, key=lambda chapter: chapter.order)
+             current_chapter = sorted_chapters[0].id
         
         return jsonify({
             "user":{
