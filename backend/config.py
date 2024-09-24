@@ -9,6 +9,10 @@ class Config:
     SQLALCHEMY_DATABASE_URI= config('DATABASE_URL')
     TESTING=False
     DEBUG=False
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_BUCKET = config('AWS_S3_BUCKET')
+    AWS_REGION = config('AWS_REGION')
 
 
 class DevConfig(Config):

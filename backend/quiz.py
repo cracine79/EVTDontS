@@ -41,6 +41,7 @@ class AccessQuiz(Resource):
             question_dict[question.id] = {
                 "text": question.text,
                 "topic_id": question.topic_id,
+                'image_url': question.image_url,
                 "answers": answers
             }
         

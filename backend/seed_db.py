@@ -80,9 +80,10 @@ def seed_topics(chapters):
     topic2=QuestionTopic(name='Opportunity Cost', chapter=chapters[0])
     topic3=QuestionTopic(name="Factors of Production", chapter=chapters[1])
     topic4=QuestionTopic(name='Economic Systems', chapter=chapters[2])
+    topic5=QuestionTopic(name='PPF', chapter=chapters[3])
     
 
-    topics = [topic1, topic2, topic3, topic4]
+    topics = [topic1, topic2, topic3, topic4, topic5]
     db.session.add_all(topics)
     db.session.commit()
     return topics
@@ -117,6 +118,7 @@ def seed_questions(chapters, topics):
     question26 = Question(text='Which of the following describes the factor of production known as Land?',chapter=chapters[1], topic=topics[2])
     question27 = Question(text='Which of the following is an example of Capital as a factor of production?',chapter=chapters[1], topic=topics[2])
     question28 = Question(text='Which of the following statements about factors of production is true?',chapter=chapters[1], topic=topics[2])
+    question29 = Question(text='The diagram above shows the production possibilities curve for country D.  Which of the following points represents an obtainable level of output, but inefficient use of resources?',chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF2.png')
 
     
     
@@ -129,7 +131,7 @@ def seed_questions(chapters, topics):
                  question19, question20, question21,
                  question22, question23, question24,
                  question25, question26, question27,
-                 question28]
+                 question28, question29]
     print("questions created")
     db.session.add_all(questions)
     print("questions added")

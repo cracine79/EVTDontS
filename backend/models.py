@@ -103,10 +103,12 @@ class Question(db.Model):
     text: Mapped[str] = mapped_column(Text, nullable=False)
     chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id', name='question_chapter_id'))
     topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id', name='question_topic_id'))
+    image_url: Mapped[str] = mapped_column(Text, nullable=True)
 
     chapter: Mapped["Chapter"] = relationship('Chapter', back_populates='questions')
     topic: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='questions')
     answers: Mapped[list["Answer"]] = relationship('Answer', back_populates='question')
+    
 
     def __repr__(self):
         return f"Question <{self.id}>"
