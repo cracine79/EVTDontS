@@ -60,7 +60,7 @@ export const QuizResults = () => {
         dispatch(finishQuiz(quizData))
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate('/video')
+        navigate('/Video', {state: {chapter: currentChapter}})
     }
 
     
