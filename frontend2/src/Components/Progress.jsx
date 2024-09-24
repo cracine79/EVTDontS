@@ -91,7 +91,10 @@ export const Progress = () => {
         let totalUnitsCompleted = 0 
         chaptersUnits.forEach((chapter) => {
             if(chapter.quiz_grade && chapter.quiz_grade >=60){
-                totalUnitsCompleted +=1
+                totalUnitsCompleted +=0.5
+            }
+            if(chapter.video_completed){
+                totalUnitsCompleted += 0.5
             }
         })
         const percentComplete = Math.floor((totalUnitsCompleted / chaptersUnits.length) * 100)
