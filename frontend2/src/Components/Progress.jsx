@@ -19,30 +19,53 @@ export const Progress = () => {
         }))
     }
 
-    const chapterProgress = (chapter) => {
-        if(chapter.quiz_grade && chapter.quiz_grade > 50){
+    const quizProgress = (chapter) => {
+        if(chapter.quiz_grade){
+            if(chapter.quiz_grade > 50){
+                return(
+                    <>Crushed it!</>
+                )
+            } else {
+                return(
+                    <div className='flex flex-col justify-center items-center'>
+                    <div className='text-center'> Gave it a shot.
+                    </div>
+                    <div>Need more practice</div>
+                    </div>
+                )
+            }
+        } else if (chapter.video_completed){
             return(
-                <>Crushed it</>
-            )
-        } else if (!chapter.video_completed){
-            return(
-                <>Not yet</>
+                <>Up next!</>
             )
         } else {
             return(
-                <div className='flex flex-col justify-center items-center'>
-                <div className='text-center'> Watched The Sweet Video
-                </div>
-                <div>Quiz is next!</div>
-                </div>
+                <>It's coming!</>
             )
         }
     }
+    const vidProgress = (chapter) => {
+        if(chapter.video_completed && chapter.video_completed == true){
+            return(
+                <>Heck yeah I watched it!</>
+            )
+        } else {
+            return(
+                <>Not Yet!</>
+            )
+        }
+    }
+
+    
     const unitChapters = (unitId) => {
         const chaptersUnits = chaptersEnt.filter(([chapterId, chapter])=>chapter.unit_id == unitId)
         return(
             <>
-
+                <div className='flex bg-green-600 h-8 items-center'>
+                    <span className='ml-8 font-semibold w-2/3 text-s'>Chapter Name</span>
+                    <span className='w-1/6 font-semibold text-s'>Watched Video?</span>
+                    <span className='w-1/6 font-semibold text-s -mr-8'>Quiz Taken?</span>
+                </div>
                 {chaptersUnits.map(([chapterId, chapter])=>{
                     const odd = chapterId % 2 == 0
                     return(
@@ -50,8 +73,11 @@ export const Progress = () => {
                             <div className='ml-8 my-2 w-2/3 font-semibold'>
                                 {chapter.name}
                             </div>
-                            <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/5'>
-                                {chapterProgress(chapter)}
+                            <div className='justify-center text-xs font-bold flex items-center w-1/6'>
+                                {vidProgress(chapter)}
+                            </div>
+                            <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/6'>
+                                {quizProgress(chapter)}
                             </div>
                         </div>
                     )
