@@ -52,7 +52,10 @@ class CreateChapterProgress(Resource):
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
         print(f"progress is {progress} DUDDEORAMMMMMMA")
-        progress.video_completed = True
+        if progress:
+            progress.video_completed = True
+        else:
+            progress = UserChapterProgress(user_id = user_id, chapter_id=chapter_id, video_completed=True)
         print(f"completed is {progress.video_completed}")
         try:
             db.session.commit()
