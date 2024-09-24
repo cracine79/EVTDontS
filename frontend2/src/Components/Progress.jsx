@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const Progress = () => {
     const units = useSelector((state)=>state.units)
@@ -9,6 +10,7 @@ export const Progress = () => {
     const chaptersObj = Object.values(chapters)
     const chaptersEnt = Object.entries(chapters)
     const [expandedUnits, setExpandedUnits] = useState({})
+    const navigate = useNavigate()
 
 
 
@@ -47,7 +49,7 @@ export const Progress = () => {
     const vidProgress = (chapter) => {
         if(chapter.video_completed && chapter.video_completed == true){
             return(
-                <>Heck yeah I watched it!</>
+                <>Yeah I watched it!</>
             )
         } else {
             return(
@@ -70,13 +72,17 @@ export const Progress = () => {
                     const odd = chapterId % 2 == 0
                     return(
                         <div className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
-                            <div className='ml-8 my-2 w-2/3 font-semibold'>
+                            <div className='ml-8 my-2 w-3/5 font-semibold'>
                                 {chapter.name}
                             </div>
-                            <div className='justify-center text-xs font-bold flex items-center w-1/6'>
+                            <div className='justify-around text-xs font-bold flex items-center w-1/5'>
                                 {vidProgress(chapter)}
+                                <div onClick = {()=>navigate('/Video', {state: {chapter:chapterId}})} className=
+                                    'w-1/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
+                                    
+                                    >Watch Video</div>
                             </div>
-                            <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/6'>
+                            <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/5'>
                                 {quizProgress(chapter)}
                             </div>
                         </div>
@@ -110,7 +116,7 @@ export const Progress = () => {
     }
 
     return(
-        <div className='w-3/5 bg-white rounded-3xl shadow-2xl p-5'>
+        <div className='w-4/5 bg-white rounded-3xl shadow-2xl p-5'>
             <h1 className='text-4xl text-center mb-8'>Your Study Plan</h1>
             <div className='flex flex-row justify-around'>
             <div className='w-full'>

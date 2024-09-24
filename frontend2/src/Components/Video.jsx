@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { csrfFetch } from "../csrf"
 import { updateUserChapters } from "../Slices/chaptersSlice"
 import { getQuestions } from "../Slices/questionsActions"
@@ -7,11 +7,13 @@ import { getQuestions } from "../Slices/questionsActions"
 
 
 
+
 export const Video = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
     
-    const currentChapterId = useSelector((state)=>state.user.currentChapter)
+    const currentChapterId = location.state?.chapter
     
     const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
 

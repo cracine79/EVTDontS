@@ -50,7 +50,7 @@ export const UserHome = () => {
             if(!("video_completed" in currentChapter)){
                 (startChapterProgress(currentChapterId, userId))
             }
-            navigate('/Video')
+            navigate('/Video', {state: {chapter: currentChapterId}})
         } else {
             navigate('/Quiz', {state: {chapter: currentChapterId}})
         }
