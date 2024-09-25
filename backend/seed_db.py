@@ -188,7 +188,7 @@ def seed_answers(questions):
     answer6b=Answer(text='Zero, if the activity is rewarding', question=questions[5], is_correct=False)
     answer6c=Answer(text='The amount of money spent to engage in the activity', question=questions[5], is_correct=False)
     answer6d=Answer(text='The value of the foregone benefit of the next best alternative', question=questions[5], is_correct=True)
-    answer6e=Answer(text='The usm of bneefits from all foregone alternatives', question=questions[5], is_correct=False)
+    answer6e=Answer(text='The sum of benefits from all foregone alternatives', question=questions[5], is_correct=False)
    
     answer7a=Answer(text='Fredrick’s opportunity cost includes the foregone salary he could have earned if he had gone to work.', question=questions[6], is_correct=True)
     answer7b=Answer(text='Frederick’s total opportunity cost is the tuition he must pay to attend school plus the price of books.', question=questions[6], is_correct=False)
