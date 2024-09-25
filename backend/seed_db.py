@@ -119,8 +119,15 @@ def seed_questions(chapters, topics):
     question27 = Question(text='Which of the following is an example of Capital as a factor of production?',chapter=chapters[1], topic=topics[2])
     question28 = Question(text='Which of the following statements about factors of production is true?',chapter=chapters[1], topic=topics[2])
     question29 = Question(text='The diagram above shows the production possibilities curve for country D.  Which of the following points represents an obtainable level of output, but inefficient use of resources?',chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF2.png')
-
-    
+    question30 = Question(text='An increase in the amount of available capital and land in an economy must result in', chapter=chapters[3], topic=topics[4])
+    question31 = Question(text='The diagram above shows the production possibilities curve for country D. Which of the following is true about Country D?', chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF2.png')
+    question32 = Question(text='An economy is operating at a point inside its production possibilities curve. Which of the following will most likely cause the economy to move toward the current PPC in the short run?', chapter=chapters[3], topic=topics[4])
+    question33 = Question(text='An outward shift of a production possibilities curve could have been caused by which of the following?', chapter=chapters[3], topic=topics[4])
+    question34 = Question(text='Given the production possibilities curve above, which of the following represents a movement from efficiency to inefficiency?', chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF3.png')
+    question35 = Question(text='Improvements in technology for producing all goods must result in', chapter=chapters[3], topic=topics[4])
+    question36 = Question(text='The diagram above shows the production possibilities curve for Capital City. Which of the following statements is true?', chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPFCapCity.png')
+    question37 = Question(text='Which of the following is always true about an economy operating at a point on its production possibilities frontier?', chapter=chapters[3], topic=topics[4])
+    question38 = Question(text='Any point inside a production possibilities curve is', chapter=chapters[3], topic=topics[4])
     
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -131,7 +138,11 @@ def seed_questions(chapters, topics):
                  question19, question20, question21,
                  question22, question23, question24,
                  question25, question26, question27,
-                 question28, question29]
+                 question28, question29, question30,
+                 question31, question32, question33,
+                 question34, question35, question36,
+                 question37, question38]
+    
     print("questions created")
     db.session.add_all(questions)
     print("questions added")
@@ -275,7 +286,7 @@ def seed_answers(questions):
     answer22d = Answer(text="Market Economy", question=questions[21], is_correct=True)
     answer22e = Answer(text="Psuedo Economy", question=questions[21], is_correct=False)
 
-    answer23a = Answer(text='Land', question=questions[22], is_correct=False)
+    answer23a = Answer(text='Interest', question=questions[22], is_correct=False)
     answer23b = Answer(text='Capital', question=questions[22], is_correct=False)
     answer23c = Answer(text='Entrepreneurship', question=questions[22], is_correct=False)
     answer23d = Answer(text='Labor', question=questions[22], is_correct=False)
@@ -311,6 +322,66 @@ def seed_answers(questions):
     answer28d = Answer(text='Capital refers only to financial investments.', question=questions[27], is_correct=False)
     answer28e = Answer(text='All resources are considered capital.', question=questions[27], is_correct=False)
 
+    answer29a = Answer(text='Point A', question=questions[28], is_correct=False)
+    answer29b = Answer(text='Point B', question=questions[28], is_correct=True)
+    answer29c = Answer(text='Point C', question=questions[28], is_correct=False)
+    answer29d = Answer(text='Point D', question=questions[28], is_correct=False)
+    answer29e = Answer(text='None of the above', question=questions[28], is_correct=False)
+
+    answer30a = Answer(text='A steeper production possibilities frontier', question=questions[29], is_correct=False)
+    answer30b = Answer(text='A flatter production possibilities frontier', question=questions[29], is_correct=False)
+    answer30c = Answer(text='An outward shift of the production possibilities frontier', question=questions[29], is_correct=True)
+    answer30d = Answer(text='An inward shift of the production possibilities frontier', question=questions[29], is_correct=False)
+    answer30e = Answer(text='A decrease in the cost of labor', question=questions[29], is_correct=False)
+
+    answer31a = Answer(text='If Country D is producing at point A, it is using all its resources efficiently', question=questions[30], is_correct=True)
+    answer31b = Answer(text='The opportunity cost of producing franks is more than the opportunity cost of producing beans', question=questions[30], is_correct=False)
+    answer31c = Answer(text='The opportunity cost of producing more beans is constant', question=questions[30], is_correct=False)
+    answer31d = Answer(text='The economy is in recession if it is not producing at point D', question=questions[30], is_correct=False)
+    answer31e = Answer(text='The economy is not capable of producing at point A', question=questions[30], is_correct=False)
+
+    answer32a = Answer(text='An increase in taxes', question=questions[31], is_correct=False)
+    answer32b = Answer(text='An increase in inflation', question=questions[31], is_correct=False)
+    answer32c = Answer(text='An increase in physical capital', question=questions[31], is_correct=False)
+    answer32d = Answer(text='An increase in employment', question=questions[31], is_correct=True)
+    answer32e = Answer(text='A decrease in exports', question=questions[31], is_correct=False)
+
+    answer33a = Answer(text='Manufacturers producing more profitable electronics', question=questions[32], is_correct=False)
+    answer33b = Answer(text='Improvement in technology', question=questions[32], is_correct=True)
+    answer33c = Answer(text='Employment of previously unemployed labor', question=questions[32], is_correct=False)
+    answer33d = Answer(text='Consumers indicating a desire for more durable goods', question=questions[32], is_correct=False)
+    answer33e = Answer(text='An increase in the minimum wage', question=questions[32], is_correct=False)
+
+    answer34a = Answer(text='Point X to Point Y', question=questions[33], is_correct=False)
+    answer34b = Answer(text='Point Y to Point X', question=questions[33], is_correct=False)
+    answer34c = Answer(text='Point Y to Point W', question=questions[33], is_correct=True)
+    answer34d = Answer(text='Point Y to Point V', question=questions[33], is_correct=False)
+    answer34e = Answer(text='Point V to Point Z', question=questions[33], is_correct=False)
+
+    answer35a = Answer(text='The production possibilities curve becoming steeper', question=questions[34], is_correct=False)
+    answer35b = Answer(text='The production possibilities curve becoming flatter', question=questions[34], is_correct=False)
+    answer35c = Answer(text='The production possibilities curve shifting outward', question=questions[34], is_correct=True)
+    answer35d = Answer(text='The production possibilities curve shifting inward', question=questions[34], is_correct=False)
+    answer35e = Answer(text='The creation of a third axis on the production possibilities curve', question=questions[34], is_correct=False)
+
+    answer36a = Answer(text='If the Capital City is producing at point A, it is using all of its resources efficiently.', question=questions[35], is_correct=True)
+    answer36b = Answer(text='The opportunity cost of producing more Metal records is constant.', question=questions[35], is_correct=False)
+    answer36c = Answer(text='Producing at point C is not preferrable, because there are other options that allow for a greater variety of music.', question=questions[35], is_correct=False)
+    answer36d = Answer(text='Capital City can produce at point D.', question=questions[35], is_correct=False)
+    answer36e = Answer(text='It’s not possible to produce at point E.', question=questions[35], is_correct=False)
+
+    answer37a = Answer(text='Income is distributed equitably.', question=questions[36], is_correct=False)
+    answer37b = Answer(text='It must be a market economy.', question=questions[36], is_correct=False)
+    answer37c = Answer(text='It was not operating at the same point in the previous calendar year.', question=questions[36], is_correct=False)
+    answer37d = Answer(text='It will not engage with trade with other nations, as it is already fully efficient.', question=questions[36], is_correct=False)
+    answer37e = Answer(text='Its resources are fully employed.', question=questions[36], is_correct=True)
+
+    answer38a = Answer(text='A point that does not involve opportunity cost', question=questions[37], is_correct=False)
+    answer38b = Answer(text='Associated with an inefficient use or unemployment of resources', question=questions[37], is_correct=True)
+    answer38c = Answer(text='Infeasible', question=questions[37], is_correct=False)
+    answer38d = Answer(text='Efficient', question=questions[37], is_correct=False)
+    answer38e = Answer(text='Associated with changes to technology', question=questions[37], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1d, answer1e, 
                answer2a, answer2b, answer2c, answer2e, answer2d, 
                answer3a, answer3b, answer3c, answer3d, answer3e, 
@@ -338,7 +409,18 @@ def seed_answers(questions):
                answer25a, answer25b, answer25c, answer25d, answer25e, 
                answer26a, answer26b, answer26c, answer26d, answer26e,
                answer27a, answer27b, answer27c, answer27d, answer27e, 
-               answer28a, answer28b, answer28c, answer28d, answer28e]
+               answer28a, answer28b, answer28c, answer28d, answer28e,
+               answer29a, answer29b, answer29c, answer29d, answer29e,
+               answer30a, answer30b, answer30c, answer30e, answer30d, 
+               answer31a, answer31b, answer31c, answer31d, answer31e,
+               answer32a, answer32b, answer32c, answer32d, answer32e,
+               answer33a, answer33b, answer33c, answer33d, answer33e,
+               answer34a, answer34b, answer34c, answer34d, answer34e, 
+               answer35a, answer35b, answer35c, answer35d, answer35e, 
+               answer36a, answer36b, answer36c, answer36d, answer36e,
+               answer37a, answer37b, answer37c, answer37d, answer37e, 
+               answer38a, answer38b, answer38c, answer38d, answer38e,
+               ]
 
     db.session.add_all(answers)
     db.session.commit()
@@ -347,8 +429,7 @@ def seed_answers(questions):
 def seed_progress():
     print("seeding progress")
     progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=None)
-    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=False, quiz_grade=None)
-    progresses = [progress1, progress2]
+    progresses = [progress1]
     db.session.add_all(progresses)
     db.session.commit()
 

@@ -56,11 +56,11 @@ export const QuizResults = () => {
             chapter_id: currentChapter,
             quiz_score: percentageScore
         }
-        console.log(quizData)
+
         dispatch(finishQuiz(quizData))
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate('/Video', {state: {chapter: currentChapter}})
+        navigate('/Video', {state: {chapter: currentChapter + 1}})
     }
 
     

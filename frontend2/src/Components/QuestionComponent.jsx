@@ -158,8 +158,10 @@ export const QuestionComponent = ({chapter}) => {
                   <div className="text-3xl">{quizChapterName}  - Chapter Quiz</div>
                 
                 </div>
-                <img src={questionsObj[questionNumber].image_url}/>
-                <>{questionsObj[questionNumber].image_url}</>
+                <div className='flex flex-row justify-center mt-4 -mb-4 w-full'>
+                  <img src={questionsObj[questionNumber].image_url}/>
+
+                </div>
                 <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questionNumber + 1} : {questionsObj[questionNumber].text}</div>
                 <div className="ml-8 text-xl"><Answers /></div>
 
