@@ -73,7 +73,7 @@ export const ResultsModal = () => {
             </div>
           ));
         } else {
-          return <p>No answers available</p>;
+          return <p className='mb-10 text-2xl text-center'>You got 100% on the last quiz.  Get out of here before we make you write the EVTDS Textbook</p>;
         }
       };
     
@@ -83,7 +83,7 @@ export const ResultsModal = () => {
         if (!currentAnswer || currentAnswer.questionId === undefined) {
             return (
                 <>
-                    Loading...
+                    
                 </>
             );
         }
@@ -91,7 +91,9 @@ export const ResultsModal = () => {
         if(questions[currentAnswer.questionId]){
                 return(
                     <>
-                  
+                    <div className="flex items-center justify-center">
+                        {questions[wrongAnswers[answerNumber].questionId].image_url ? <img src={questions[wrongAnswers[answerNumber].questionId].image_url}/>:<></>}
+                    </div>
                     {questions[wrongAnswers[answerNumber].questionId].text}
                     </>
                 )
