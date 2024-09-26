@@ -155,8 +155,8 @@ def seed_questions(chapters, topics):
     question58 = Question(text='Both Albert and Becky produce and consume hamburgers and French fries. In one hour, Albert makes five hamburgers or 10 baskets of French fries, while Becky makes fifteen hamburgers or fifteen baskets of French fries. Based on the above information, one can correctly conclude that:', chapter=chapters[6], topic=topics[8], image_url=None)
     question59 = Question(text='The diagram above shows the production possibilities for two countries, Country A and Country B. Assume that both countries use equal amounts of resources in production. If the two countries engage in trade, both would be better off under which of the following conditions?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/ABMusicMovies.png')
     question60 = Question(text='Gilligan and Skipper can produce hot dogs or hamburgers. In one hour, Gilligan can make 20 hot dogs or 10 hamburgers. In one hour, Skipper can make 18 hot dogs or 6 hamburgers. Which of the following statements is true?', chapter=chapters[6], topic=topics[8], image_url=None)
-    question61 = Question(text='Japan and China produce both computers and printers using labor as the only input. The table above shows the labor hours required to produce one computer and one printer in each country. Based on the information in the table, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/ChinaJapanComputersPrintersTable.png')
-    question62 = Question(text='The table above shows the maximum number of fish or coconuts that Mark and Donny can catch or gather in a day. Which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/MarkDonnyCoconutsFishTable.png')
+    question61 = Question(text='Japan and China produce both computers and printers using labor as the only input. The table above shows the labor hours required to produce one computer and one printer in each country. Based on the information in the table, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/JapanChinaPrinterComputerTable.png')
+    question62 = Question(text='The table above shows the maximum number of fish or coconuts that Mark and Donny can catch or gather in a day. Which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/MarkDonnyFishCoconutsTable.png')
     question63 = Question(text='Both Katie and Lucas produce chocolate bars and cake slices. In one hour, Katie can make eight chocolate bars or twelve cake slices, while Lucas can make six chocolate bars or six cake slices. Based on the above information, one can correctly conclude that:', chapter=chapters[6], topic=topics[8], image_url=None)
     question64 = Question(text='Both Factory A and Factory B produce computers and smartphones. In one hour, Factory A can produce 20 computers or 30 smartphones, while Factory B can produce 15 computers or 15 smartphones. Based on the information provided, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url=None)
     question65 = Question(text='Both Carol and Dave produce t-shirts and hoodies. In one hour, Carol makes 10 t-shirts or 5 hoodies, while Dave can make 6 t-shirts or 6 hoodies. Which of the following statements is correct?', chapter=chapters[6], topic=topics[8], image_url=None)
@@ -707,8 +707,10 @@ def seed_progress():
     progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=83)
     progress3 = UserChapterProgress(user_id = 1, chapter_id = 3, video_completed=True, quiz_grade=100)
     progress4 = UserChapterProgress(user_id = 1, chapter_id = 4, video_completed=True, quiz_grade=83)
-    progress5 = UserChapterProgress(user_id = 1, chapter_id = 5, video_completed=True, quiz_grade=None)
-    progresses = [progress1, progress2, progress3, progress4, progress5]
+    progress5 = UserChapterProgress(user_id = 1, chapter_id = 5, video_completed=True, quiz_grade=100)
+    progress6 = UserChapterProgress(user_id = 1, chapter_id = 6, video_completed=True, quiz_grade=100)
+    
+    progresses = [progress1, progress2, progress3, progress4, progress5, progress6]
     db.session.add_all(progresses)
     db.session.commit()
 
@@ -736,7 +738,7 @@ def main():
         questions = seed_questions(chapters, topics)
         seed_answers(questions)
         seed_progress()
-        users[0].current_chapter = chapters[4]
+        users[0].current_chapter = chapters[6]
         db.session.commit()
         
 
