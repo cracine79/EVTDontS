@@ -83,10 +83,12 @@ def seed_topics(chapters):
     topic5=QuestionTopic(name='PPF Interpretation', chapter=chapters[3])
     topic6=QuestionTopic(name='PPF Shifts vs Movement', chapter=chapters[3])
     topic7=QuestionTopic(name='PPF Opportunity Cost', chapter=chapters[4])
+    topic8=QuestionTopic(name='Theory of Absolute and Comparative Advantage', chapter = chapters[5])
+    topic9=QuestionTopic(name='Comparative Advantage Calculations', chapter=chapters[6])
     
     
 
-    topics = [topic1, topic2, topic3, topic4, topic5, topic6, topic7]
+    topics = [topic1, topic2, topic3, topic4, topic5, topic6, topic7, topic8, topic9]
     db.session.add_all(topics)
     db.session.commit()
     return topics
@@ -138,7 +140,33 @@ def seed_questions(chapters, topics):
     question43 = Question(text='Based on a comparison of points X, Y and Z, the opportunity cost of an additional capital good is',chapter=chapters[4], topic=topics[6], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF3.png')
     question44 = Question(text='Which of the following is an explanation of why we generally represent the production possibilities curve as concave, or outward bowed?',chapter=chapters[4], topic=topics[6], image_url=None)
     question45 = Question(text='An outward bowed PPC implies that as more of a good is produced, its opportunity cost:',chapter=chapters[4], topic=topics[6], image_url=None)
-    
+    question46 = Question(text='The table above shows the opportunity cost of producing lemons and limes in Countries Alpha and Beta. Which of the following can be concluded based on data given in the table?', chapter=chapters[5], topic=topics[7], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/AlphaBetaLimesLemons.png')
+    question47 = Question(text='The above diagram shows the production of two countries, Metalland and Grungeton, which produce guns and butter. The domestic opportunity cost of producing one ton of butter is which of the following?', chapter=chapters[5], topic=topics[7], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/MettallandGrungeTon.png')
+    question48 = Question(text='The theory of comparative advantage implies that Metalland would find it advantageous to:', chapter=chapters[5], topic=topics[7], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/MettallandGrungeTon.png')
+    question49 = Question(text='Assume both France and Spain produce only two goods: cheese and olives. If France holds a comparative advantage in the production of cheese, then which of the following statements is NOT true?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question50 = Question(text='Both Tayloronia and Davenia produce guitars and synthesizers. Which of the following is true if Tayloronia imports guitars from Davenia?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question51 = Question(text='If two nations specialize according to the law of comparative advantage and then trade with one another, which of the following is true?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question52 = Question(text='Nations X and Y produce only shirts and ties. If each laborer in Nation X can produce twice as many shirts as each laborer in Nation Y, then which of the following is necessarily true?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question53 = Question(text='If Nation A has an absolute advantage in producing both wheat and corn, but Nation B has a comparative advantage in corn, what should Nation B specialize in?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question54 = Question(text='Which of the following best explains why a country can have an absolute advantage in producing all goods but still benefit from trade?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question55 = Question(text='Assume Country X has a lower opportunity cost for producing textiles, and Country Y has a lower opportunity cost for producing cars. According to the theory of comparative advantage, which of the following should happen?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question56 = Question(text='When a country produces at a point inside its production possibilities frontier, what can be said about its resource usage?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question57 = Question(text='If Country A can produce more units of both coffee and tea than Country B using the same resources, what is true about their trade potential?', chapter=chapters[5], topic=topics[7], image_url=None)
+    question58 = Question(text='Both Albert and Becky produce and consume hamburgers and French fries. In one hour, Albert makes five hamburgers or 10 baskets of French fries, while Becky makes fifteen hamburgers or fifteen baskets of French fries. Based on the above information, one can correctly conclude that:', chapter=chapters[6], topic=topics[8], image_url=None)
+    question59 = Question(text='The diagram above shows the production possibilities for two countries, Country A and Country B. Assume that both countries use equal amounts of resources in production. If the two countries engage in trade, both would be better off under which of the following conditions?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/ABMusicMovies.png')
+    question60 = Question(text='Gilligan and Skipper can produce hot dogs or hamburgers. In one hour, Gilligan can make 20 hot dogs or 10 hamburgers. In one hour, Skipper can make 18 hot dogs or 6 hamburgers. Which of the following statements is true?', chapter=chapters[6], topic=topics[8], image_url=None)
+    question61 = Question(text='Japan and China produce both computers and printers using labor as the only input. The table above shows the labor hours required to produce one computer and one printer in each country. Based on the information in the table, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/ChinaJapanComputersPrintersTable.png')
+    question62 = Question(text='The table above shows the maximum number of fish or coconuts that Mark and Donny can catch or gather in a day. Which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/MarkDonnyCoconutsFishTable.png')
+    question63 = Question(text='Both Katie and Lucas produce chocolate bars and cake slices. In one hour, Katie can make eight chocolate bars or twelve cake slices, while Lucas can make six chocolate bars or six cake slices. Based on the above information, one can correctly conclude that:', chapter=chapters[6], topic=topics[8], image_url=None)
+    question64 = Question(text='Both Factory A and Factory B produce computers and smartphones. In one hour, Factory A can produce 20 computers or 30 smartphones, while Factory B can produce 15 computers or 15 smartphones. Based on the information provided, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url=None)
+    question65 = Question(text='Both Carol and Dave produce t-shirts and hoodies. In one hour, Carol makes 10 t-shirts or 5 hoodies, while Dave can make 6 t-shirts or 6 hoodies. Which of the following statements is correct?', chapter=chapters[6], topic=topics[8], image_url=None)
+    question66 = Question(text='Both Alice and Tom produce pizzas and sandwiches. In one hour, Alice makes 12 pizzas or 18 sandwiches, while Tom makes 8 pizzas or 10 sandwiches. Based on the above information, one can correctly conclude that:', chapter=chapters[6], topic=topics[8], image_url=None)
+    question67 = Question(text='The graph above shows the production possibilities curve for Factory X and Factory Y. If Factory X uses the same amount of resources to produce rollerblades and helmets as Factory Y uses, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/FacXYRollerbladesHelmetsPPF.png')
+    question68 = Question(text='The diagram above shows the production possibilities for Factory C and Factory D. Assume both factories use the same amount of resources. Based on the graph, which of the following is correct?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/FacCDGoodAB.png')
+    question69 = Question(text='The graph above compares the production capabilities of Factory M and Factory N, which produce tablets and headphones. Using equal resources, which statement about comparative advantage is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/FactoryMNTabletsHeadphones.png')
+    question70 = Question(text='The diagram above shows the production possibilities curve for two countries, Country A and Country B, which produce coffee and tea. Assuming both countries use equal resources, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/CountryABCoffeeTea.png')
+
+
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
                  question7, question8, question9, 
@@ -153,7 +181,17 @@ def seed_questions(chapters, topics):
                  question34, question35, question36,
                  question37, question38, question39,
                  question40, question41, question42,
-                 question43, question44, question45]
+                 question43, question44, question45,
+                 question46, question47, question48, 
+                 question49, question50, question51,
+                 question52, question53, question54, 
+                 question55,question56, question57,
+                 question58, question59, question60,
+                 question61, question62, question63, 
+                 question64, question65, question66, 
+                 question67,question68, question69, 
+                 question70,
+                 ]
     
     print("questions created")
     db.session.add_all(questions)
@@ -436,6 +474,156 @@ def seed_answers(questions):
     answer45d = Answer(text='Increases, then remains constant', question=questions[44], is_correct=False)
     answer45e = Answer(text='Decreases at an increasing rate.', question=questions[44], is_correct=False)
 
+    answer46a = Answer(text='Country Beta has an absolute advantage in producing both goods.', question=questions[45], is_correct=False)
+    answer46b = Answer(text='Country Beta has a comparative advantage in producing both goods.', question=questions[45], is_correct=False)
+    answer46c = Answer(text='Country Alpha has an absolute advantage in producing both goods.', question=questions[45], is_correct=False)
+    answer46d = Answer(text='Country Alpha has a comparative advantage in producing limes.', question=questions[45], is_correct=True)
+    answer46e = Answer(text='Country Alpha has a comparative advantage in producing lemons.', question=questions[45], is_correct=False)
+
+    answer47a = Answer(text='M: 1 ton of guns, G: 1 ton of guns.', question=questions[46], is_correct=False)
+    answer47b = Answer(text='M: 1 ton of guns, G: 2 tons of guns.', question=questions[46], is_correct=False)
+    answer47c = Answer(text='M: 2 tons of guns, G: 1 ton of guns.', question=questions[46], is_correct=False)
+    answer47d = Answer(text='M: 1 ton of guns, G: 0.5 tons of guns.', question=questions[46], is_correct=True)
+    answer47e = Answer(text='M: 0.33 tons of guns, G: 1.5 tons of guns.', question=questions[46], is_correct=False)
+
+    answer48a = Answer(text='Export guns and import butter.', question=questions[47], is_correct=True)
+    answer48b = Answer(text='Export butter and import guns.', question=questions[47], is_correct=False)
+    answer48c = Answer(text='Export both guns and butter and import nothing.', question=questions[47], is_correct=False)
+    answer48d = Answer(text='Import both grain and steel and export nothing.', question=questions[47], is_correct=False)
+    answer48e = Answer(text='Trade 1 ton of grain for 0.5 tons of steel.', question=questions[47], is_correct=False)
+
+    answer49a = Answer(text='France must hold an absolute advantage in the production of cheese.', question=questions[48], is_correct=True)
+    answer49b = Answer(text='Spain holds a comparative advantage in the production of olives.', question=questions[48], is_correct=False)
+    answer49c = Answer(text='France’s opportunity cost of producing one additional unit of cheese is less than Spain’s.', question=questions[48], is_correct=False)
+    answer49d = Answer(text='Spain’s opportunity cost of producing one additional unit of olives is lower than France’s.', question=questions[48], is_correct=False)
+    answer49e = Answer(text='If trade is open between them, these countries have an incentive to trade.', question=questions[48], is_correct=False)
+
+    answer50a = Answer(text='The opportunity cost of producing synthesizers is higher in Taloronia than Davenia.', question=questions[49], is_correct=False)
+    answer50b = Answer(text='Davenia has a comparative advantage in producing guitars.', question=questions[49], is_correct=True)
+    answer50c = Answer(text='Tayloronia must be specializing in guitars.', question=questions[49], is_correct=False)
+    answer50d = Answer(text='Workers in Tayloronia produce more guitars per hour than workers in Davenia.', question=questions[49], is_correct=False)
+    answer50e = Answer(text='Consumers in Davenia buy more synthesizers than in Tayloronia.', question=questions[49], is_correct=False)
+
+    answer51a = Answer(text='Consumers will have access to fewer goods in each nation.', question=questions[50], is_correct=False)
+    answer51b = Answer(text='Total world GDP will decrease.', question=questions[50], is_correct=False)
+    answer51c = Answer(text='Every stakeholder in each nation will be made better off.', question=questions[50], is_correct=False)
+    answer51d = Answer(text='Each nation will be able to consume more overall.', question=questions[50], is_correct=True)
+    answer51e = Answer(text='Each nation will be able to produce more overall.', question=questions[50], is_correct=False)
+
+    answer52a = Answer(text='Nation X has a comparative advantage in shirts.', question=questions[51], is_correct=False)
+    answer52b = Answer(text='Nation X has a comparative advantage in ties.', question=questions[51], is_correct=False)
+    answer52c = Answer(text='Nation X has an absolute advantage in shirts.', question=questions[51], is_correct=True)
+    answer52d = Answer(text='Nation Y has an absolute advantage in ties.', question=questions[51], is_correct=False)
+    answer52e = Answer(text='Nation X should specialize in producing shirts.', question=questions[51], is_correct=False)
+
+    answer53a = Answer(text='Nation A should specialize in wheat.', question=questions[52], is_correct=True)
+    answer53b = Answer(text='Nation B should specialize in wheat.', question=questions[52], is_correct=False)
+    answer53c = Answer(text='Nation A should stop trading with Nation B.', question=questions[52], is_correct=False)
+    answer53d = Answer(text='Nation B should specialize in corn.', question=questions[52], is_correct=True)
+    answer53e = Answer(text='Both nations should specialize in wheat.', question=questions[52], is_correct=False)
+
+    answer54a = Answer(text='Trade allows countries to consume beyond their production possibilities.', question=questions[53], is_correct=True)
+    answer54b = Answer(text='Countries with absolute advantages always produce more efficiently.', question=questions[53], is_correct=False)
+    answer54c = Answer(text='Comparative advantage only applies to one good.', question=questions[53], is_correct=False)
+    answer54d = Answer(text='Absolute advantage is always irrelevant to trade decisions.', question=questions[53], is_correct=False)
+    answer54e = Answer(text='Countries with absolute advantages are less reliant on international markets.', question=questions[53], is_correct=False)
+
+    answer55a = Answer(text='Country X should export textiles and import cars.', question=questions[54], is_correct=True)
+    answer55b = Answer(text='Country Y should specialize in textiles.', question=questions[54], is_correct=False)
+    answer55c = Answer(text='Country X should stop producing textiles.', question=questions[54], is_correct=False)
+    answer55d = Answer(text='Both countries should produce both goods equally.', question=questions[54], is_correct=False)
+    answer55e = Answer(text='Country Y should export textiles and import cars.', question=questions[54], is_correct=False)
+
+    answer56a = Answer(text='The country is underutilizing its resources.', question=questions[55], is_correct=True)
+    answer56b = Answer(text='The country is fully efficient in its production.', question=questions[55], is_correct=False)
+    answer56c = Answer(text='The country is overusing its resources.', question=questions[55], is_correct=False)
+    answer56d = Answer(text='The country cannot benefit from trade.', question=questions[55], is_correct=False)
+    answer56e = Answer(text='The country is operating beyond its capacity.', question=questions[55], is_correct=False)
+
+    answer57a = Answer(text='Country A has an absolute advantage in both goods, but could still benefit from trading with Country B.', question=questions[56], is_correct=True)
+    answer57b = Answer(text='Country B should stop producing both goods.', question=questions[56], is_correct=False)
+    answer57c = Answer(text='Country A should only export tea.', question=questions[56], is_correct=False)
+    answer57d = Answer(text='Country A and Country B should not trade.', question=questions[56], is_correct=False)
+    answer57e = Answer(text='Country B has an absolute advantage in tea.', question=questions[56], is_correct=False)
+
+    answer58a = Answer(text='Albert has an absolute advantage in making French fries and will sell French fries to Becky.', question=questions[57], is_correct=False)
+    answer58b = Answer(text='Albert has a comparative advantage in making French Fries and will sell French Fries to Becky.', question=questions[57], is_correct=True)
+    answer58c = Answer(text='Albert does not have a comparative advantage in making either good and will not trade with Becky.', question=questions[57], is_correct=False)
+    answer58d = Answer(text='Albert has an absolute advantage in making hamburgers but a comparative advantage in making French fries.', question=questions[57], is_correct=False)
+    answer58e = Answer(text='Albert’s opportunity cost of making French fries is higher than Becky’s.', question=questions[57], is_correct=False)
+
+    answer59a = Answer(text='Country A produced both music and movies because it has an absolute advantage in the production of both goods.', question=questions[58], is_correct=False)
+    answer59b = Answer(text='Country B produced both music and movies because it has a comparative advantage in the production of both goods.', question=questions[58], is_correct=False)
+    answer59c = Answer(text='Country A specialized in the production of movies because it has an absolute advantage in the production of movies.', question=questions[58], is_correct=False)
+    answer59d = Answer(text='Country A specialized in the production of music because it has a comparative advantage in producing music.', question=questions[58], is_correct=True)
+    answer59e = Answer(text='Country B specialized in the production of music because it has a comparative advantage in the production of music.', question=questions[58], is_correct=False)
+
+    answer60a = Answer(text='Skipper has an absolute advantage in making hot dogs and a comparative advantage in making hamburgers.', question=questions[59], is_correct=False)
+    answer60b = Answer(text='Skipper has both an absolute advantage and comparative advantage in making hamburgers.', question=questions[59], is_correct=False)
+    answer60c = Answer(text='Gilligan has a comparative advantage in making both hot dogs and hamburgers.', question=questions[59], is_correct=False)
+    answer60d = Answer(text='Gilligan has a comparative advantage in making hamburgers and Skipper has a comparative advantage in making hot dogs.', question=questions[59], is_correct=True)
+    answer60e = Answer(text='Gilligan has a comparative advantage in making hot dogs and Skipper has a comparative advantage in making hamburgers.', question=questions[59], is_correct=False)
+
+    answer61a = Answer(text='China has a comparative advantage in producing printers.', question=questions[60], is_correct=True)
+    answer61b = Answer(text='China has an absolute advantage in producing printers.', question=questions[60], is_correct=False)
+    answer61c = Answer(text='Japan has an absolute advantage in producing printers.', question=questions[60], is_correct=False)
+    answer61d = Answer(text='China has a comparative advantage in producing computers.', question=questions[60], is_correct=False)
+    answer61e = Answer(text='Japan has a comparative advantage in producing computers.', question=questions[60], is_correct=False)
+
+    answer62a = Answer(text='Mark has a comparative advantage in picking coconuts.', question=questions[61], is_correct=False)
+    answer62b = Answer(text='Donny has a comparative advantage in catching fish.', question=questions[61], is_correct=False)
+    answer62c = Answer(text='Mark and Donny can both benefit from trade with each other if 1 coconut is traded for 1 fish.', question=questions[61], is_correct=False)
+    answer62d = Answer(text='Mark and Donny can both benefit from trade with each other if 1 coconut is traded for 2 palm leaves.', question=questions[61], is_correct=False)
+    answer62e = Answer(text='Mark and Donny can both benefit from trade with each other if 1 coconut is traded for 3 palm leaves.', question=questions[61], is_correct=True)
+
+    answer63a = Answer(text='Katie has an absolute advantage in producing both chocolate bars and cake slices.', question=questions[62], is_correct=False)
+    answer63b = Answer(text='Lucas has an absolute advantage in producing both chocolate bars and cake slices.', question=questions[62], is_correct=False)
+    answer63c = Answer(text='Katie has a comparative advantage in producing cake slices, and Lucas has a comparative advantage in chocolate bars.', question=questions[62], is_correct=True)
+    answer63d = Answer(text='Lucas has a comparative advantage in producing both products.', question=questions[62], is_correct=False)
+    answer63e = Answer(text='Neither Katie nor Lucas has a comparative advantage in either product.', question=questions[62], is_correct=False)
+
+    answer64a = Answer(text='Factory A has an absolute advantage in producing both computers and smartphones.', question=questions[63], is_correct=False)
+    answer64b = Answer(text='Factory B has a comparative advantage in producing computers.', question=questions[63], is_correct=True)
+    answer64c = Answer(text='Factory B has an absolute advantage in producing both computers and smartphones.', question=questions[63], is_correct=False)
+    answer64d = Answer(text='Factory A has a comparative advantage in producing computers, and Factory B has an absolute advantage in producing computers.', question=questions[63], is_correct=False)
+    answer64e = Answer(text='Factory A and Factory B should not trade because they produce at the same opportunity cost.', question=questions[63], is_correct=False)
+
+    answer65a = Answer(text='Carol has a comparative advantage in producing t-shirts, while Dave has a comparative advantage in producing hoodies.', question=questions[64], is_correct=True)
+    answer65b = Answer(text='Dave has an absolute advantage in producing both t-shirts and hoodies.', question=questions[64], is_correct=False)
+    answer65c = Answer(text='Carol has an absolute advantage in producing both products.', question=questions[64], is_correct=False)
+    answer65d = Answer(text='Neither Carol nor Dave has a comparative advantage in producing either good.', question=questions[64], is_correct=False)
+    answer65e = Answer(text='Dave has a comparative advantage in producing t-shirts, while Carol has a comparative advantage in producing hoodies.', question=questions[64], is_correct=False)
+
+    answer66a = Answer(text='Alice has an absolute advantage in producing both pizzas and sandwiches.', question=questions[65], is_correct=True)
+    answer66b = Answer(text='Tom has a absolute advantage in producing pizzas, while Alice has an absolute advantage in producing sandwiches.', question=questions[65], is_correct=False)
+    answer66c = Answer(text='Alice has a comparative advantage in producing both pizzas and sandwiches.', question=questions[65], is_correct=False)
+    answer66d = Answer(text='Tom has an absolute advantage in producing sandwiches.', question=questions[65], is_correct=False)
+    answer66e = Answer(text='Neither Alice nor Tom has a comparative advantage in producing either good.', question=questions[65], is_correct=False)
+
+    answer67a = Answer(text='Factory Y has an absolute advantage in producing rollerblades.', question=questions[66], is_correct=False)
+    answer67b = Answer(text='Factory Y has an absolute advantage in producing rollerblades.', question=questions[66], is_correct=False)
+    answer67c = Answer(text='Factory X has a comparative advantage in producing rollerblades.', question=questions[66], is_correct=False)
+    answer67d = Answer(text='Factory Y has a comparative advantage in producing rollerblades.', question=questions[66], is_correct=True)
+    answer67e = Answer(text='Factory X has an absolute advantage in producing rollerblades.', question=questions[66], is_correct=False)
+
+    answer68a = Answer(text='Factory C has an absolute advantage in producing both products.', question=questions[67], is_correct=False)
+    answer68b = Answer(text='Factory D has a comparative advantage in producing one of the goods.', question=questions[67], is_correct=True)
+    answer68c = Answer(text='Neither Factory C nor Factory D has a comparative advantage.', question=questions[67], is_correct=False)
+    answer68d = Answer(text='Factory C should specialize in producing both goods.', question=questions[67], is_correct=False)
+    answer68e = Answer(text='Factory D has an absolute advantage in producing both products.', question=questions[67], is_correct=False)
+
+    answer69a = Answer(text='Factory M has a comparative advantage in producing tablets, while Factory N has a comparative advantage in producing headphones.', question=questions[68], is_correct=True)
+    answer69b = Answer(text='Factory N has an absolute advantage in producing both products.', question=questions[68], is_correct=False)
+    answer69c = Answer(text='Factory M should specialize in producing headphones.', question=questions[68], is_correct=False)
+    answer69d = Answer(text='Neither factory has a comparative advantage.', question=questions[68], is_correct=False)
+    answer69e = Answer(text='Factory N has a comparative advantage in producing both products.', question=questions[68], is_correct=False)
+
+    answer70a = Answer(text='Country A has a comparative advantage in producing tea, and Country B has a comparative advantage in producing coffee.', question=questions[69], is_correct=True)
+    answer70b = Answer(text='Country B has an absolute advantage in producing both coffee and tea.', question=questions[69], is_correct=False)
+    answer70c = Answer(text='Neither Country A nor Country B has a comparative advantage in producing any good.', question=questions[69], is_correct=False)
+    answer70d = Answer(text='Country A should specialize in producing coffee.', question=questions[69], is_correct=False)
+    answer70e = Answer(text='Country B has a comparative advantage in producing tea.', question=questions[69], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1d, answer1e, 
                answer2a, answer2b, answer2c, answer2e, answer2d, 
                answer3a, answer3b, answer3c, answer3d, answer3e, 
@@ -480,7 +668,33 @@ def seed_answers(questions):
                answer42a, answer42b, answer42c, answer42d, answer42e,
                answer43a, answer43b, answer43c, answer43d, answer43e,
                answer44a, answer44b, answer44c, answer44d, answer44e, 
-               answer45a, answer45b, answer45c, answer45d, answer45e 
+               answer45a, answer45b, answer45c, answer45d, answer45e,
+               answer46a, answer46b, answer46c, answer46d, answer46e,
+               answer47a, answer47b, answer47c, answer47d, answer47e, 
+               answer48a, answer48b, answer48c, answer48d, answer48e,
+               answer49a, answer49b, answer49c, answer49d, answer49e,
+               answer50a, answer50b, answer50c, answer50e, answer50d, 
+               answer51a, answer51b, answer51c, answer51d, answer51e,
+               answer52a, answer52b, answer52c, answer52d, answer52e,
+               answer53a, answer53b, answer53c, answer53d, answer53e,
+               answer54a, answer54b, answer54c, answer54d, answer54e, 
+               answer55a, answer55b, answer55c, answer55d, answer55e,
+               answer56a, answer56b, answer56c, answer56d, answer56e,
+               answer57a, answer57b, answer57c, answer57d, answer57e,
+               answer58a, answer58b, answer58c, answer58d, answer58e,
+               answer59a, answer59b, answer59c, answer59d, answer59e,
+               answer60a, answer60b, answer60c, answer60e, answer60d, 
+               answer61a, answer61b, answer61c, answer61d, answer61e,
+               answer62a, answer62b, answer62c, answer62d, answer62e,
+               answer63a, answer63b, answer63c, answer63d, answer63e,
+               answer64a, answer64b, answer64c, answer64d, answer64e, 
+               answer65a, answer65b, answer65c, answer65d, answer65e,
+               answer66a, answer66b, answer66c, answer66d, answer66e,
+               answer67a, answer67b, answer67c, answer67d, answer67e, 
+               answer68a, answer68b, answer68c, answer68d, answer68e,
+               answer69a, answer69b, answer69c, answer69d, answer69e,
+               answer70a, answer70b, answer70c, answer70e, answer70d, 
+
                ]
 
     db.session.add_all(answers)
