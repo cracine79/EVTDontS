@@ -80,10 +80,13 @@ def seed_topics(chapters):
     topic2=QuestionTopic(name='Opportunity Cost', chapter=chapters[0])
     topic3=QuestionTopic(name="Factors of Production", chapter=chapters[1])
     topic4=QuestionTopic(name='Economic Systems', chapter=chapters[2])
-    topic5=QuestionTopic(name='PPF', chapter=chapters[3])
+    topic5=QuestionTopic(name='PPF Interpretation', chapter=chapters[3])
+    topic6=QuestionTopic(name='PPF Shifts vs Movement', chapter=chapters[3])
+    topic7=QuestionTopic(name='PPF Opportunity Cost', chapter=chapters[4])
+    
     
 
-    topics = [topic1, topic2, topic3, topic4, topic5]
+    topics = [topic1, topic2, topic3, topic4, topic5, topic6, topic7]
     db.session.add_all(topics)
     db.session.commit()
     return topics
@@ -119,15 +122,22 @@ def seed_questions(chapters, topics):
     question27 = Question(text='Which of the following is an example of Capital as a factor of production?',chapter=chapters[1], topic=topics[2])
     question28 = Question(text='Which of the following statements about factors of production is true?',chapter=chapters[1], topic=topics[2])
     question29 = Question(text='The diagram above shows the production possibilities curve for country D.  Which of the following points represents an obtainable level of output, but inefficient use of resources?',chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF2.png')
-    question30 = Question(text='An increase in the amount of available capital and land in an economy must result in', chapter=chapters[3], topic=topics[4])
+    question30 = Question(text='An increase in the amount of available capital and land in an economy must result in', chapter=chapters[3], topic=topics[5])
     question31 = Question(text='The diagram above shows the production possibilities curve for country D. Which of the following is true about Country D?', chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF2.png')
-    question32 = Question(text='An economy is operating at a point inside its production possibilities curve. Which of the following will most likely cause the economy to move toward the current PPC in the short run?', chapter=chapters[3], topic=topics[4])
-    question33 = Question(text='An outward shift of a production possibilities curve could have been caused by which of the following?', chapter=chapters[3], topic=topics[4])
+    question32 = Question(text='An economy is operating at a point inside its production possibilities curve. Which of the following will most likely cause the economy to move toward the current PPC in the short run?', chapter=chapters[3], topic=topics[5])
+    question33 = Question(text='An outward shift of a production possibilities curve could have been caused by which of the following?', chapter=chapters[3], topic=topics[5])
     question34 = Question(text='Given the production possibilities curve above, which of the following represents a movement from efficiency to inefficiency?', chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF3.png')
-    question35 = Question(text='Improvements in technology for producing all goods must result in', chapter=chapters[3], topic=topics[4])
+    question35 = Question(text='Improvements in technology for producing all goods must result in', chapter=chapters[3], topic=topics[5])
     question36 = Question(text='The diagram above shows the production possibilities curve for Capital City. Which of the following statements is true?', chapter=chapters[3], topic=topics[4], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPFCapCity.png')
     question37 = Question(text='Which of the following is always true about an economy operating at a point on its production possibilities frontier?', chapter=chapters[3], topic=topics[4])
     question38 = Question(text='Any point inside a production possibilities curve is', chapter=chapters[3], topic=topics[4])
+    question39 = Question(text='Which of the following explains why the PPF is depicted as outward bowed (concave) from the origin.',chapter=chapters[4], topic=topics[6], image_url=None)
+    question40 = Question(text='Based on the production possibilities curve for cherries and apples shown above, what is the opportunity cost of producing a cherry?',chapter=chapters[4], topic=topics[6], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/apple_cherry_ppf.png')
+    question41 = Question(text='Two alternative production possibility frontiers for forks and knives are shown in the figures below. As more knives are produced, how will the opportunity cost of producing knives, as represented in figures A and B, be affected?',chapter=chapters[4], topic=topics[6], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/Constant_increasing_PPF.png')
+    question42 = Question(text='The table above shows the maximum output combinations of good A and Good B that Econoworld can produce when using all of its resources efficiently. As the production of good A increases, what happens to the opportunity cost of producing good A?',chapter=chapters[4], topic=topics[6], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF_Opp_cost_table.png')
+    question43 = Question(text='Based on a comparison of points X, Y and Z, the opportunity cost of an additional capital good is',chapter=chapters[4], topic=topics[6], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PPF3.png')
+    question44 = Question(text='Which of the following is an explanation of why we generally represent the production possibilities curve as concave, or outward bowed?',chapter=chapters[4], topic=topics[6], image_url=None)
+    question45 = Question(text='An outward bowed PPC implies that as more of a good is produced, its opportunity cost:',chapter=chapters[4], topic=topics[6], image_url=None)
     
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -141,7 +151,9 @@ def seed_questions(chapters, topics):
                  question28, question29, question30,
                  question31, question32, question33,
                  question34, question35, question36,
-                 question37, question38]
+                 question37, question38, question39,
+                 question40, question41, question42,
+                 question43, question44, question45]
     
     print("questions created")
     db.session.add_all(questions)
@@ -382,6 +394,48 @@ def seed_answers(questions):
     answer38d = Answer(text='Efficient', question=questions[37], is_correct=False)
     answer38e = Answer(text='Associated with changes to technology', question=questions[37], is_correct=False)
 
+    answer39a = Answer(text='The marginal benefit of consuming one more of each good decreases with consumption', question=questions[38], is_correct=False)
+    answer39b = Answer(text='Production of goods and services is limited by the availability of factors of production', question=questions[38], is_correct=False)
+    answer39c = Answer(text='There are only two goods being represented on the diagram', question=questions[38], is_correct=False)
+    answer39d = Answer(text='The opportunity cost of producing one good increases as more of the good is produced', question=questions[38], is_correct=True)
+    answer39e = Answer(text='The law of demand', question=questions[38], is_correct=False)
+
+    answer40a = Answer(text='30 apples', question=questions[39], is_correct=False)
+    answer40b = Answer(text='90 apples', question=questions[39], is_correct=False)
+    answer40c = Answer(text='3 apples', question=questions[39], is_correct=False)
+    answer40d = Answer(text='1/3 of an apple', question=questions[39], is_correct=True)
+    answer40e = Answer(text='1/9 of an apple', question=questions[39], is_correct=False)
+
+    answer41a = Answer(text='A: No change, B: Increase', question=questions[40], is_correct=False)
+    answer41b = Answer(text='A: No change, B: Decrease', question=questions[40], is_correct=False)
+    answer41c = Answer(text='A: Increase, B: No Change', question=questions[40], is_correct=True)
+    answer41d = Answer(text='A: Decrease, B: No Change', question=questions[40], is_correct=False)
+    answer41e = Answer(text='A: Decrease, B: Decrease', question=questions[40], is_correct=False)
+
+    answer42a = Answer(text='It decreases, because the production of good B decreases by greater amounts', question=questions[41], is_correct=False)
+    answer42b = Answer(text='It decreases, because the production of good Y increases by smaller amounts', question=questions[41], is_correct=False)
+    answer42c = Answer(text='It remains constant, because the production of good A increases by the same amount', question=questions[41], is_correct=False)
+    answer42d = Answer(text='It increases, because the production of good B decreases by greater amounts', question=questions[41], is_correct=True)
+    answer42e = Answer(text='It increases, because the production of good B decreases by smaller amount', question=questions[41], is_correct=False)
+
+    answer43a = Answer(text='Highest at point X', question=questions[42], is_correct=True)
+    answer43b = Answer(text='Highest at point Y', question=questions[42], is_correct=False)
+    answer43c = Answer(text='Highest at point Z', question=questions[42], is_correct=False)
+    answer43d = Answer(text='The same at points X, Y, and Z', question=questions[42], is_correct=False)
+    answer43e = Answer(text='It is not possible to determine opportunity cost of an additional capital good from the diagram', question=questions[42], is_correct=False)
+
+    answer44a = Answer(text='Capital is generally more expensive than labor', question=questions[43], is_correct=False)
+    answer44b = Answer(text='One economy produces more than two goods, so we draw an outward bowed PPF to account for the fact that there are more than two products in real economies.', question=questions[43], is_correct=False)
+    answer44c = Answer(text='The opportunity cost of producing of a good increases as more of it is produced.', question=questions[43], is_correct=True)
+    answer44d = Answer(text='The opportunity cost of producing a good decreases as more of it is produced.', question=questions[43], is_correct=False)
+    answer44e = Answer(text='The law of supply.', question=questions[43], is_correct=False)
+
+    answer45a = Answer(text='Is constant', question=questions[44], is_correct=False)
+    answer45b = Answer(text='Increases', question=questions[44], is_correct=True)
+    answer45c = Answer(text='Decreases', question=questions[44], is_correct=False)
+    answer45d = Answer(text='Increases, then remains constant', question=questions[44], is_correct=False)
+    answer45e = Answer(text='Decreases at an increasing rate.', question=questions[44], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1d, answer1e, 
                answer2a, answer2b, answer2c, answer2e, answer2d, 
                answer3a, answer3b, answer3c, answer3d, answer3e, 
@@ -420,6 +474,13 @@ def seed_answers(questions):
                answer36a, answer36b, answer36c, answer36d, answer36e,
                answer37a, answer37b, answer37c, answer37d, answer37e, 
                answer38a, answer38b, answer38c, answer38d, answer38e,
+               answer39a, answer39b, answer39c, answer39d, answer39e,
+               answer40a, answer40b, answer40c, answer40e, answer40d, 
+               answer41a, answer41b, answer41c, answer41d, answer41e,
+               answer42a, answer42b, answer42c, answer42d, answer42e,
+               answer43a, answer43b, answer43c, answer43d, answer43e,
+               answer44a, answer44b, answer44c, answer44d, answer44e, 
+               answer45a, answer45b, answer45c, answer45d, answer45e 
                ]
 
     db.session.add_all(answers)
@@ -428,8 +489,12 @@ def seed_answers(questions):
 
 def seed_progress():
     print("seeding progress")
-    progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=None)
-    progresses = [progress1]
+    progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=100)
+    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=83)
+    progress3 = UserChapterProgress(user_id = 1, chapter_id = 3, video_completed=True, quiz_grade=100)
+    progress4 = UserChapterProgress(user_id = 1, chapter_id = 4, video_completed=True, quiz_grade=83)
+    progress5 = UserChapterProgress(user_id = 1, chapter_id = 5, video_completed=True, quiz_grade=None)
+    progresses = [progress1, progress2, progress3, progress4, progress5]
     db.session.add_all(progresses)
     db.session.commit()
 
@@ -457,7 +522,7 @@ def main():
         questions = seed_questions(chapters, topics)
         seed_answers(questions)
         seed_progress()
-        users[0].current_chapter = chapters[0]
+        users[0].current_chapter = chapters[4]
         db.session.commit()
         
 
