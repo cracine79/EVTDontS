@@ -30,7 +30,7 @@ export const QuizResults = () => {
             numCorrect += 1
         }
     })
-    const percentageScore = (numCorrect/resultsObj.length)*100
+    const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
     const scoreHeader = () => {
         if(percentageScore >= 70){
             return(<p>AMAZING WORK!!!  You crushed these AP style questions.  Honestly, I'm starting to think they're just phoning it in at this point.</p>)

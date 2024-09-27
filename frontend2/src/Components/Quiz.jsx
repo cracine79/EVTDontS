@@ -17,6 +17,9 @@ export const Quiz = () => {
         dispatch(getQuestions(chapter)), [dispatch]
     })
 
+    const whole_chapter = useSelector((state)=>state.chapters[chapter])
+    const chapter_name = whole_chapter.name
+
     const handleOpen = () => {
         dispatch(openQuizModal())
     }
@@ -27,7 +30,7 @@ export const Quiz = () => {
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
-                <div>This is the page for the quiz for Chapter {chapter}</div>
+                <div>This is the page for the quiz for Chapter {chapter_name}</div>
                 <div className='flex justify-around'>
                 <button className='mt-10 
                             border-black 
