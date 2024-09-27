@@ -14,6 +14,7 @@ export const QuestionComponent = ({chapter}) => {
       ...question,
       id: id
     }))
+    const numberOfQuestions = questionsObj.length
     const quizChapterName = useSelector(state=>(state.chapters[chapter].name))
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
@@ -117,9 +118,9 @@ export const QuestionComponent = ({chapter}) => {
           translate
           relative
           w-full
-          md:w-4/6
-          lg:w-3/6
-          xl:w-2/5
+          md:w-5/6
+          lg:w-4/6
+          xl:w-1/2
           my-6
           mx-auto
           h-full
@@ -155,14 +156,14 @@ export const QuestionComponent = ({chapter}) => {
             {questionsObj[questionNumber] ? (
               <div>
                 <div className='flex flex-col items-center mt-6'>
-                  <div className="text-3xl">{quizChapterName}  - Chapter Quiz</div>
+                  <div className="text-3xl px-6">{quizChapterName}  - Chapter Quiz</div>
                 
                 </div>
                 <div className='flex flex-row justify-center mt-4 -mb-4 w-full'>
                   <img src={questionsObj[questionNumber].image_url}/>
 
                 </div>
-                <div className="text-2xl mt-8 ml-8 mr-4 mb-6">{questionNumber + 1} : {questionsObj[questionNumber].text}</div>
+                <div className="text-2xl mt-8 ml-8 mr-4 mb-6">Question {questionNumber + 1} of {numberOfQuestions}: {questionsObj[questionNumber].text}</div>
                 <div className="ml-8 text-xl"><Answers /></div>
 
               </div>
@@ -171,6 +172,23 @@ export const QuestionComponent = ({chapter}) => {
               <div>No question available</div>
             )}
             <div className='flex justify-around mt-10 mb-10'>
+            {questionNumber >= 1 &&
+            <button className='
+                            border-black 
+                            h-1/5 
+                            w-40 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer'>
+              Previous Question
+                            </button>
+              }
               <button className='
                             border-black 
                             h-1/5 
@@ -184,7 +202,7 @@ export const QuestionComponent = ({chapter}) => {
                             hover:bg-slate-500
                             font-medium
                             hover:cursor-pointer'
-                            onClick = {handleSubmit}>Submit</button>
+                            onClick = {handleSubmit}>{questionNumber < numberOfQuestions - 1 ? <>Next Question</>:<>Submit Quiz</>}</button>
               <button className='
                             border-black 
                             h-1/5 
