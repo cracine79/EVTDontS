@@ -21,11 +21,17 @@ export const Progress = () => {
         }))
     }
 
+    const generatePraise = () => {
+        const praise = ['Nailed it ', 'Killed that quiz ', 'Destroyed it ', 'Proved you are a boss ', 'Dayy Bao Bao ', 'Was da bomb ', 'Aced it ', 'Proved your awesomeness ']
+        const num = Math.floor(Math.random()*7)
+        return(praise[num])
+    }
+
     const quizProgress = (chapter) => {
         if(chapter.quiz_grade){
             if(chapter.quiz_grade > 50){
                 return(
-                    <>Crushed it!</>
+                    <div className='text-center w-1/2'>YES!! Score: {chapter.quiz_grade}</div>
                 )
             } else {
                 return(
@@ -49,7 +55,7 @@ export const Progress = () => {
     const vidProgress = (chapter) => {
         if(chapter.video_completed && chapter.video_completed == true){
             return(
-                <>Yeah I watched it!</>
+                <>YES!</>
             )
         } else {
             return(
@@ -72,17 +78,21 @@ export const Progress = () => {
                     const odd = chapterId % 2 == 0
                     return(
                         <div className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
-                            <div className='ml-8 my-2 w-3/5 font-semibold'>
+                            <div className='ml-8 my-2 w-5/12 font-semibold'>
                                 {chapter.name}
+
                             </div>
-                            <div className='justify-around text-xs font-bold flex items-center w-1/5'>
-                                {vidProgress(chapter)}
+                            <div className='w-1/4'>
                                 <div onClick = {()=>navigate('/Video', {state: {chapter:chapterId}})} className=
-                                    'w-1/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
-                                    
-                                    >Watch Video</div>
+                                        'ml-6 w-3/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
+                                        
+                                        >{chapter.video_completed ? <>Watch Video Again!</> : <>Jump To Video</>}</div>
+                                </div>
+                            <div className='justify-around text-xs font-bold flex items-center w-1/6'>
+                                {vidProgress(chapter)}
+                                
                             </div>
-                            <div className='justify-center text-xs font-bold -ml-8 flex items-center w-1/5'>
+                            <div className='justify-center items-center  text-xs font-bold -ml-8 flex items-center w-1/6'>
                                 {quizProgress(chapter)}
                             </div>
                         </div>
