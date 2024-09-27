@@ -108,7 +108,7 @@ class QuizProgress(Resource):
             progress = UserChapterProgress(user_id=user_id, chapter_id=chapter_id)
         
         db.session.commit()
-        
+
         print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
 
         unit_chapters = Chapter.query.filter_by(unit_id=current_unit.id).order_by(Chapter.order).all()
@@ -119,10 +119,13 @@ class QuizProgress(Resource):
             print('lastChapter!!')
             user_units = user.units
             current_unit_index = user_units.index(current_unit)
+            print('currtentUnitIndex!!', current_unit_index)
 
             if current_unit_index +1 < len(user_units):
                 next_unit = user_units[current_unit_index+1]
-                user.current_chapter = next_unit.chapters[0].id
+                print('NEXTUNITTTT!',next_unit)
+                print('NEXTCHAPTER!!', next_unit.chapters[0])
+                user.current_chapter = next_unit.chapters[0]
             else:
                 user.current_chapter = None
                 done = True
