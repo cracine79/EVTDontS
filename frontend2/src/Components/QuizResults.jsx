@@ -63,6 +63,12 @@ export const QuizResults = () => {
         navigate('/Video', {state: {chapter: currentChapter + 1}})
     }
 
+    const lastVideo = ()=>{
+        dispatch(clearQuestions())
+        dispatch(clearUserResults())
+        navigate('/Video', {state: {chapter: currentChapter}})
+    }
+
     
     return(
         <div className='w-screen flex justify-center'>
@@ -102,6 +108,7 @@ export const QuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
+                    {percentageScore > 60 ? 
                     <button className='
                             border-black 
                             h-1/5 
@@ -116,7 +123,23 @@ export const QuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={nextVideo}
-                            >Enough of this.  Let's go to the next Video.</button>
+                            >Enough of this.  Let's go to the next Video.</button> : <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={lastVideo}
+                            >Let me check that last video out again.</button>
+                    
+                    }
                 </div>
                 
             </div>

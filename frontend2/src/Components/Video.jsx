@@ -78,6 +78,7 @@ export const Video = () => {
                             font-medium
                             hover:cursor-pointer
                             mb-6
+                            text-center
                             '>
                     Back to my Dashboard
                 </div>

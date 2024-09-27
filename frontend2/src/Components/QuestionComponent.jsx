@@ -56,6 +56,10 @@ export const QuestionComponent = ({chapter}) => {
       }
     };
 
+    const previousQuestion = () => {
+      setQuestionNumber(prevNumber => prevNumber -1)
+    }
+
 
     const handleSubmit = () => {
       const questionId = questionsObj[questionNumber].id;
@@ -172,7 +176,7 @@ export const QuestionComponent = ({chapter}) => {
               <div>No question available</div>
             )}
             <div className='flex justify-around mt-10 mb-10'>
-            {questionNumber >= 1 &&
+            {questionNumber >= 1 ?
             <button className='
                             border-black 
                             h-1/5 
@@ -185,10 +189,13 @@ export const QuestionComponent = ({chapter}) => {
                             bg-stone-300
                             hover:bg-slate-500
                             font-medium
-                            hover:cursor-pointer'>
+                            hover:cursor-pointer'
+                      onClick={previousQuestion}>
+                              
               Previous Question
-                            </button>
-              }
+                            </button> :
+              <div className='w-40'></div>
+              } 
               <button className='
                             border-black 
                             h-1/5 
