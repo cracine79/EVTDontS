@@ -20,7 +20,7 @@ export const QuestionComponent = ({chapter}) => {
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
-    console.log(submittedAnswers)
+
 
 
     const handleClose = () => {
@@ -31,10 +31,16 @@ export const QuestionComponent = ({chapter}) => {
     }
 
     const handleAnswerSelect = (answerId) => {
-      // console.log("Selected answer:", answerId); // Log selected answer to console
-      setSelectedAnswer(answerId); // Update state
-    };
+      const questionId = questionsObj[questionNumber].id;
+      const selectedAnswerObj = questionsObj[questionNumber].answers[answerId];
+      const isCorrect = selectedAnswerObj.is_correct;
 
+      // Update submittedAnswers immediately with answerId and isCorrect
+      setSubmittedAnswers(prevSubmittedAnswers => ({
+        ...prevSubmittedAnswers,
+        [questionId]: { answerId, isCorrect } // Store both answerId and isCorrect
+      }));
+    };
 
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
@@ -43,8 +49,8 @@ export const QuestionComponent = ({chapter}) => {
           <input type='radio'
                   name={`question-${questionNumber}`}
                   id={`answer-${answerId}`} 
-                  onChange = {()=>handleAnswerSelect(answerId)}
-                  checked={answerId === selectedAnswer} // Check if answer matches
+                  onChange={() => handleAnswerSelect(answerId)} // Update state on change
+                  checked={submittedAnswers[questionsObj[questionNumber].id]?.answerId === answerId} // Pre-select the answer if it's in submittedAnswers
                   value={answerId} // Set value to answerObj.id
           />
          <label className='ml-4' htmlFor={`answer-${answerId}`}>{answer.text}</label>
@@ -63,9 +69,9 @@ export const QuestionComponent = ({chapter}) => {
 
     const handleSubmit = () => {
       const questionId = questionsObj[questionNumber].id;
-      const selectedAnswerObj = questionsObj[questionNumber].answers[selectedAnswer];
-      const answerId = selectedAnswer; // Assuming selectedAnswer is the id of the selected answer
-      const isCorrect = selectedAnswerObj.is_correct;
+      // const selectedAnswerId = submittedAnswers[questionId]; 
+      // const selectedAnswerObj = questionsObj[questionNumber].answers[selectedAnswerId];
+      // const isCorrect = selectedAnswerObj.is_correct;
     
       // Log the answer to submit
       // console.log({
@@ -75,20 +81,27 @@ export const QuestionComponent = ({chapter}) => {
       // });
     
       // Update submittedAnswers as a dictionary
-      setSubmittedAnswers(prevSubmittedAnswers => ({
-        ...prevSubmittedAnswers, // Spread the previous submittedAnswers
-        [questionId]: { answerId, isCorrect } // Add/overwrite the new answer for this question
-      }));
+      // setSubmittedAnswers(prevSubmittedAnswers => ({
+      //   ...prevSubmittedAnswers, // Spread the previous submittedAnswers
+      //   [questionId]: { answerId, isCorrect } // Add/overwrite the new answer for this question
+      // }));
+
+      const selectedAnswer = submittedAnswers[questionId]; // Grab the stored answer for this question
 
       const newSubmittedAnswers = {
         ...submittedAnswers,
-        [questionId]: {answerId, isCorrect}
-      }
+      };
+
+      // const newSubmittedAnswers = {
+      //   ...submittedAnswers,
+      //   [questionId]: {answerId: selectedAnswerId, isCorrect}
+      // }
     
       // Move to the next question or finish the quiz
       if (questionNumber < questionsObj.length - 1) {
         setQuestionNumber(prevNumber => prevNumber + 1);
       } else {
+        console.log("CHEESYBOMBO!" , newSubmittedAnswers)
         dispatch(addResults(newSubmittedAnswers));  // Call dispatch directly with the new state
         dispatch(closeQuizModal());
         setQuestionNumber(0);
