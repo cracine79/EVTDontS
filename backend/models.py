@@ -36,7 +36,9 @@ class User(db.Model):
     current_chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='users')
 
 
-    chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='user')
+    chapter_progress: Mapped[list["UserChapterProgress"]] = relationship(
+        'UserChapterProgress', 
+        back_populates='user')
 
 
     def __repr__(self):
@@ -83,7 +85,7 @@ class Chapter(db.Model):
     topics: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='chapter')
 
 
-    chapter_progress: Mapped["UserChapterProgress"] = relationship('UserChapterProgress', back_populates='chapter')
+    chapter_progress: Mapped[list["UserChapterProgress"]] = relationship('UserChapterProgress', back_populates='chapter')
     # users: Mapped[list["User"]] = relationship(
     #     'User',
     #     back_populates='current_chapter'
