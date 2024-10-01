@@ -6,6 +6,7 @@ import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
 import { finishQuiz } from "../Slices/resultsActions"
 import { clearQuestions } from "../Slices/questionsSlice"
+import { finishChapter } from "../Slices/resultsActions"
 
 export const QuizResults = () => {
     const currentChapter = useSelector(state=>(state.user.currentChapter))
@@ -56,8 +57,8 @@ export const QuizResults = () => {
             chapter_id: currentChapter,
             quiz_score: percentageScore
         }
-
-        dispatch(finishQuiz(quizData))
+        
+        dispatch(finishChapter(quizData))
         dispatch(clearQuestions())
         dispatch(clearUserResults())
         navigate('/Video', {state: {chapter: currentChapter + 1}})

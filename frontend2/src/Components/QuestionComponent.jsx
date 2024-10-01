@@ -4,7 +4,7 @@ import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
-
+import { finishQuiz } from "../Slices/resultsActions";
 
 export const QuestionComponent = ({chapter}) => {
     const navigate = useNavigate();
@@ -20,6 +20,7 @@ export const QuestionComponent = ({chapter}) => {
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
+    const currentChapter = useSelector(state=>(state.user.currentChapter))
 
 
 
@@ -69,22 +70,7 @@ export const QuestionComponent = ({chapter}) => {
 
     const handleSubmit = () => {
       const questionId = questionsObj[questionNumber].id;
-      // const selectedAnswerId = submittedAnswers[questionId]; 
-      // const selectedAnswerObj = questionsObj[questionNumber].answers[selectedAnswerId];
-      // const isCorrect = selectedAnswerObj.is_correct;
-    
-      // Log the answer to submit
-      // console.log({
-      //   questionId,
-      //   answerId,
-      //   isCorrect
-      // });
-    
-      // Update submittedAnswers as a dictionary
-      // setSubmittedAnswers(prevSubmittedAnswers => ({
-      //   ...prevSubmittedAnswers, // Spread the previous submittedAnswers
-      //   [questionId]: { answerId, isCorrect } // Add/overwrite the new answer for this question
-      // }));
+
 
       const selectedAnswer = submittedAnswers[questionId]; // Grab the stored answer for this question
 
@@ -101,8 +87,24 @@ export const QuestionComponent = ({chapter}) => {
       if (questionNumber < questionsObj.length - 1) {
         setQuestionNumber(prevNumber => prevNumber + 1);
       } else {
-        console.log("CHEESYBOMBO!" , newSubmittedAnswers)
-        dispatch(addResults(newSubmittedAnswers));  // Call dispatch directly with the new state
+        let numCorrect=0
+        const answersObj = Object.values(newSubmittedAnswers)
+        answersObj.forEach((result)=>{
+          if(result.isCorrect == true){
+            numCorrect +=1
+          }
+        })
+        const percentageScore = Math.floor((numCorrect/answersObj.length)*100)
+
+        const quizData = {
+          chapter_id: currentChapter,
+          quiz_score: percentageScore,
+          answers: newSubmittedAnswers
+        }
+
+        console.log("QUIZDATA!", quizData)
+   
+        dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
         dispatch(closeQuizModal());
         setQuestionNumber(0);
         navigate('/results')

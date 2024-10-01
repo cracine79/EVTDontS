@@ -1,8 +1,9 @@
 from flask_restx import Namespace, Resource, fields
 from flask import request, jsonify, make_response, session
 from exts import db
-from models import UserChapterProgress, Chapter, User
+from models import UserChapterProgress, Chapter, User, UserPerformance
 from flask_jwt_extended import get_jwt_identity, jwt_required
+from datetime import datetime
 
 progress_ns=Namespace('progress', description="a namespace for updating progress")
 
@@ -51,7 +52,7 @@ class CreateChapterProgress(Resource):
         chapter_id = data.get('chapter_id')
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
-        print(f"progress is {progress} DUDDEORAMMMMMMA")
+
         if progress:
             progress.video_completed = True
         else:
@@ -65,14 +66,7 @@ class CreateChapterProgress(Resource):
             print(f"Error: {e}")
 
         chapter = Chapter.query.filter_by(id=chapter_id).first()
-        print(f"chapte name is {chapter.name}")
-        print(f"chapter is {chapter}")
-        print (f"chapter is {chapter} HOMMMMIE")
-        print(f"name is {chapter.name}")
-        print(chapter.unit_id)
-        print(chapter.video_url)
-        print(progress.video_completed)
-        print(progress.quiz_grade)
+
         chapter_object =  {chapter_id:{
                 "name": chapter.name,
                 'unit_id': chapter.unit_id,
@@ -91,13 +85,36 @@ class QuizProgress(Resource):
         data = request.get_json()
         quiz_grade = data.get('quiz_score')
         chapter_id = data.get('chapter_id')
+        answers = data.get('answers')
 
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
+        
+        print("GRADDE", quiz_grade)
+        print("CHAPTER", chapter_id)
+        print("ANSWERS", answers)
 
         finished_chapter = Chapter.query.get(chapter_id)
         current_unit = finished_chapter.unit
+        answer_response_data = {}
+
+        for question_id, answer_data in answers.items():
+     
+            answer = UserPerformance(
+                user_id = user_id, 
+                question_id = question_id,
+                is_correct=answer_data['isCorrect'], 
+                answered_at=datetime.now() 
+            )
+
+            db.session.add(answer)
+            db.session.flush()
+            answer_response_data[answer.id]={
+                'questionId': question_id, 
+                'isCorrect': answer_data['isCorrect'], 
+                'answerId': answer_data['answerId'],
+                 'answeredAt': answer.answered_at }
         
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
         print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
@@ -111,8 +128,74 @@ class QuizProgress(Resource):
 
         print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
 
+        # unit_chapters = Chapter.query.filter_by(unit_id=current_unit.id).order_by(Chapter.order).all()
+        # print(unit_chapters)
+        # done = False
+
+        # if finished_chapter == unit_chapters[-1]:
+        #     print('lastChapter!!')
+        #     user_units = user.units
+        #     current_unit_index = user_units.index(current_unit)
+        #     print('currtentUnitIndex!!', current_unit_index)
+
+        #     if current_unit_index +1 < len(user_units):
+        #         next_unit = user_units[current_unit_index+1]
+        #         print('NEXTUNITTTT!',next_unit)
+        #         print('NEXTCHAPTER!!', next_unit.chapters[0])
+        #         user.current_chapter = next_unit.chapters[0]
+        #     else:
+        #         user.current_chapter = None
+        #         done = True
+        # else:
+        #     print('NOT LAST CHAPTER')
+        #     next_chapter_index = unit_chapters.index(finished_chapter) + 1
+        #     print(next_chapter_index)
+        #     print(unit_chapters[next_chapter_index])
+        #     user.current_chapter = unit_chapters[next_chapter_index]
+        
+        # db.session.commit()
+
+        if user.current_chapter:
+            current_chapter = user.current_chapter.id
+        else:
+            current_chapter = None
+
+        chapter_dict = {
+            finished_chapter.id: {
+                "name": finished_chapter.name,
+                'unit_id': finished_chapter.unit_id,
+                'video_url': finished_chapter.video_url,
+                'video_completed': True,
+                'quiz_grade': quiz_grade
+            }
+        }
+        return (jsonify({
+            "user":{
+                "username": user.username,
+                "email": user.email,
+                "current_chapter": current_chapter
+                 },
+            "chapters": chapter_dict,
+            # "completed": done,
+            "answers": answer_response_data
+            }
+                ))
+
+@progress_ns.route('/chapter')
+class ChapterProgress(Resource):
+    @jwt_required()
+    def patch(self):
+
+        data=request.get_json()
+
+        chapter_id = data.get('chapter_id')
+        finished_chapter = Chapter.query.get(chapter_id)
+        current_unit = finished_chapter.unit
+        current_user = get_jwt_identity()
+        user = User.query.filter_by(username=current_user).first()
+
         unit_chapters = Chapter.query.filter_by(unit_id=current_unit.id).order_by(Chapter.order).all()
-        print(unit_chapters)
+
         done = False
 
         if finished_chapter == unit_chapters[-1]:
@@ -138,30 +221,10 @@ class QuizProgress(Resource):
         
         db.session.commit()
 
-        if user.current_chapter:
-            current_chapter = user.current_chapter.id
-        else:
-            current_chapter = None
-
-        chapter_dict = {
-            finished_chapter.id: {
-                "name": finished_chapter.name,
-                'unit_id': finished_chapter.unit_id,
-                'video_url': finished_chapter.video_url,
-                'video_completed': True,
-                'quiz_grade': quiz_grade
-            }
-        }
         return (jsonify({
-            "user":{
-                "username": user.username,
-                "email": user.email,
-                "current_chapter": current_chapter
-                 },
-            "chapters": chapter_dict,
-            "completed": done
-            }
-                ))
-
+            'current_chapter':  user.current_chapter.id,
+            'completed': done
+        }))
+   
 
         

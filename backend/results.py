@@ -19,7 +19,7 @@ class AddResults(Resource):
 
         data = request.get_json()
         response_data = {}
-        print(f'data that you RECEIVED is {data}')
+
         for question_id, answer_data in data.items():
      
             answer = UserPerformance(
@@ -40,5 +40,7 @@ class AddResults(Resource):
         
         
         return (jsonify(response_data))
+    
+    
 
         
