@@ -9,7 +9,11 @@ export default {
         '10p': '10%',
         '15p': '15%',
         '20p': '20%',
-      },},
+      },
+      fontSize: {
+        'xxs': '0.625rem', // This is equivalent to 10px (0.625rem * 16 = 10px)
+      }, }, 
+
   },
   plugins: [],
 }

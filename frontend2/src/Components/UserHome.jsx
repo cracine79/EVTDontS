@@ -158,11 +158,11 @@ export const UserHome = () => {
                     </div>
 
             </div>
-            <div className='flex flex-com justify-center w-screen'>
-                <div className='flex flex-row items-center justify-center w-11/12 mt-20'>
+     
+                <div className='flex flex-row items-center justify-center w-full mt-20'>
                     <Progress />
                 </div>
-            </div>
+           
         </div>
     )
 }

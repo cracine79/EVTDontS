@@ -17,7 +17,6 @@ const SignupComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    debugger;
     const response = await csrfFetch('/api/auth/signup', {
       method: 'POST',
       headers: {

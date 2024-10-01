@@ -27,19 +27,31 @@ export const Progress = () => {
         return(praise[num])
     }
 
+    const skillsButton = () => {
+        return(
+            <span className='text-xxs w-1/3 text-center leading-3'>+Click to Expand</span>
+        )
+    }
+
     const quizProgress = (chapter) => {
         if(chapter.quiz_grade){
             if(chapter.quiz_grade > 50){
                 return(
-                    <div className='text-center w-1/2'>YES!! Score: {chapter.quiz_grade}</div>
+                    <>
+                        <div className='text-center w-1/2 text-xxs'>YES!! Score: {chapter.quiz_grade}</div>
+                        {skillsButton()}
+                    </>
                 )
             } else {
                 return(
-                    <div className='flex flex-col justify-center items-center'>
-                    <div className='text-center'> Gave it a shot.
-                    </div>
-                    <div>Need more practice</div>
-                    </div>
+                    <>
+                        <div className='flex flex-col justify-center items-center'>
+                            <div className='text-center '> Gave it a shot.
+                            </div>
+                            <div className='text-center '>Need more practice</div>
+                        </div>
+                        {skillsButton()}
+                    </>
                 )
             }
         } else if (chapter.video_completed){
@@ -126,7 +138,7 @@ export const Progress = () => {
     }
 
     return(
-        <div className='w-4/5 bg-white rounded-3xl shadow-2xl p-5'>
+        <div className='w-11/12 bg-white rounded-3xl shadow-2xl p-5'>
             <h1 className='text-4xl text-center mb-8'>Your Study Plan</h1>
             <div className='flex flex-row justify-around'>
             <div className='w-full'>
