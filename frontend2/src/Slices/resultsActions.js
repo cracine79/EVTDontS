@@ -3,6 +3,7 @@ import { updateUserResults } from "./resultsSlice";
 import { updateUserChapters } from "./chaptersSlice";
 import { updateUser, login } from "./userSlice";
 import { useNavigate } from "react-router-dom";
+import { updateTopicProg } from "./topicProgSlice";
 
 
 export const addResults = (results) => async(dispatch) => {
@@ -46,11 +47,13 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         })
 
         const data = await response.json()
-        console.log(data.user)
+        console.log(data)
         dispatch(updateUserChapters(data.chapters))
         dispatch(login(data.user))
+        console.log(data.answers)
         dispatch(updateUserResults(data.answers))
-        // console.log(data.user_results)
+        dispatch(updateTopicProg(data.topic_progress))
+
         
 
 
@@ -61,7 +64,7 @@ export const finishQuiz = (quizData) => async(dispatch) => {
 
 
 export const finishChapter = (chapterData)  => async(dispatch) => {
-    console.log(chapterData)
+    console.log('Chapter DATA!!', chapterData)
     try{
         const response = await csrfFetch('/api/progress/chapter', {
             method: 'PATCH',

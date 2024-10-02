@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from flask import request, jsonify, make_response, session
 from exts import db
-from models import UserChapterProgress, Chapter, User, UserPerformance, UserTopicProgress
+from models import UserChapterProgress, Chapter, User, UserPerformance, UserTopicProgress, QuestionTopic
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from datetime import datetime
 
@@ -130,6 +130,8 @@ class QuizProgress(Resource):
                 'answerId': answer_data['answerId'],
                  'answeredAt': answer.answered_at }
         
+        topic_progress_dict={}
+
         for topic_id, response_data in topic_response_data.items():
             topic_progress = UserTopicProgress.query.filter_by(user_id=user_id, topic_id=topic_id).first()
             if topic_progress:
@@ -142,6 +144,17 @@ class QuizProgress(Resource):
                     questions_asked = response_data['questions_asked'],
                     answered_correctly = response_data['answered_correctly'])
                 db.session.add(topic_progress)
+                db.session.flush()
+            
+            percent_correct = int((topic_progress.answered_correctly/topic_progress.questions_asked)*100)
+            topic = QuestionTopic.query.get(topic_progress.topic_id)
+            topic_name = topic.name
+
+            topic_progress_dict[topic_progress.id] = {
+                'topic_name': topic_name,
+                'percent_correct': percent_correct,
+                'chapter_id': topic.chapter_id
+            }
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
         print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
@@ -154,33 +167,6 @@ class QuizProgress(Resource):
         db.session.commit()
 
         print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
-
-        # unit_chapters = Chapter.query.filter_by(unit_id=current_unit.id).order_by(Chapter.order).all()
-        # print(unit_chapters)
-        # done = False
-
-        # if finished_chapter == unit_chapters[-1]:
-        #     print('lastChapter!!')
-        #     user_units = user.units
-        #     current_unit_index = user_units.index(current_unit)
-        #     print('currtentUnitIndex!!', current_unit_index)
-
-        #     if current_unit_index +1 < len(user_units):
-        #         next_unit = user_units[current_unit_index+1]
-        #         print('NEXTUNITTTT!',next_unit)
-        #         print('NEXTCHAPTER!!', next_unit.chapters[0])
-        #         user.current_chapter = next_unit.chapters[0]
-        #     else:
-        #         user.current_chapter = None
-        #         done = True
-        # else:
-        #     print('NOT LAST CHAPTER')
-        #     next_chapter_index = unit_chapters.index(finished_chapter) + 1
-        #     print(next_chapter_index)
-        #     print(unit_chapters[next_chapter_index])
-        #     user.current_chapter = unit_chapters[next_chapter_index]
-        
-        # db.session.commit()
 
         if user.current_chapter:
             current_chapter = user.current_chapter.id
@@ -204,7 +190,8 @@ class QuizProgress(Resource):
                  },
             "chapters": chapter_dict,
             # "completed": done,
-            "answers": answer_response_data
+            "answers": answer_response_data,
+            'topic_progress': topic_progress_dict
             }
                 ))
 
