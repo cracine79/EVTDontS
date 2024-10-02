@@ -11,7 +11,8 @@ export const Progress = () => {
     const chaptersEnt = Object.entries(chapters)
     const [expandedUnits, setExpandedUnits] = useState({})
     const navigate = useNavigate()
-
+    const userTopicProg = useSelector((state)=>state.topicProg)
+    const userTopicVals = Object.values(userTopicProg)
 
 
     const toggleUnit = (unitId) => {
@@ -38,8 +39,7 @@ export const Progress = () => {
             if(chapter.quiz_grade > 50){
                 return(
                     <>
-                        <div className='text-center w-1/2 text-xxs'>YES!! Score: {chapter.quiz_grade}</div>
-                        {skillsButton()}
+                        <div className='text-center w-1/2 text-xs align-middle'>YES!! Score: <span className='align-middle font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</span></div>
                     </>
                 )
             } else {
@@ -76,25 +76,57 @@ export const Progress = () => {
         }
     }
 
+    const mastery = (chapterId) => {
+        const chapter_topics = []
+        userTopicVals.forEach(topic => {
+            if(topic.chapter_id==chapterId){
+                chapter_topics.push(topic)
+            }
+        })
+        
+        console.log(chapterId)
+        let sum = 0
+        chapter_topics.forEach(chapter => {
+            sum += chapter.percent_correct
+        })
+        const averagePercentCorrect = chapter_topics.length > 0 ? sum/chapter_topics.length : 0
+
+        let reply=""
+        if(averagePercentCorrect > 75){
+            reply = 'Econo-ninja-level'
+        } else if (averagePercentCorrect > 50){
+            reply = 'Pretty good Padawan'
+        } else {
+            reply = 'Not yet!'
+        }
+
+        return(
+            <>
+                {reply}
+            </>
+        )
+    }
+
     
     const unitChapters = (unitId) => {
         const chaptersUnits = chaptersEnt.filter(([chapterId, chapter])=>chapter.unit_id == unitId)
         return(
             <>
                 <div className='flex bg-green-600 h-8 items-center w-100'>
-                    <div className='ml-8 font-semibold w-2/3 text-s '>Chapter Name</div>
+                    <div className='ml-8 font-semibold w-1/2 text-s'>Chapter Name</div>
                     <div className='w-1/6 font-semibold text-s text-center'>Watched Video?</div>
                     <div className='w-1/6 font-semibold text-s  text-center '>Quiz Taken?</div>
+                    <div className='w-1/6 font-semibold text-s  text-center '> Topics Mastered?</div>
                 </div>
                 {chaptersUnits.map(([chapterId, chapter])=>{
                     const odd = chapterId % 2 == 0
                     return(
                         <div className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
-                            <div className='ml-8 my-2 w-5/12 font-semibold'>
+                            <div className='ml-8 my-2 w-1/3 font-semibold'>
                                 {chapter.name}
 
                             </div>
-                            <div className='w-1/4 '>
+                            <div className='w-1/6'>
                                 <div onClick = {()=>navigate('/Video', {state: {chapter:chapterId}})} className=
                                         'w-3/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
                                         
@@ -106,6 +138,9 @@ export const Progress = () => {
                             </div>
                             <div className='justify-center items-center  text-xs font-bold flex items-center w-1/6'>
                                 {quizProgress(chapter)}
+                            </div>
+                            <div className='justify-center items-center  text-xs font-bold flex items-center w-1/6'>
+                                {mastery(chapterId)}
                             </div>
                         </div>
                     )
