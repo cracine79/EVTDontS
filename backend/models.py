@@ -39,6 +39,11 @@ class User(db.Model):
     chapter_progress: Mapped[list["UserChapterProgress"]] = relationship(
         'UserChapterProgress', 
         back_populates='user')
+    
+    topic_progresses: Mapped[list['UserTopicProgress']] = relationship(
+        'UserTopicProgress',
+        back_populates='user'
+    )
 
 
     def __repr__(self):
@@ -126,6 +131,8 @@ class QuestionTopic(db.Model):
 
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='topic')
     chapter: Mapped["Chapter"] = relationship('Chapter', back_populates='topics')
+
+    user_progresses: Mapped[list['UserTopicProgress']] = relationship('UserTopicProgress', back_populates='topic')
     
     def __repr__(self):
         return f"Topic <{self.name}>"
@@ -172,3 +179,16 @@ class UserChapterProgress(db.Model):
 
     def __repr__(self):
         return f"Progress for user<{self.user_id}> on video in chapter {self.chapter_id}"
+
+
+class UserTopicProgress(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id', name='user_topic_progress_id'), nullable=False)
+    topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id', name='topic_progress_user_id'), nullable=False)
+    questions_asked: Mapped[int] = mapped_column(Integer, default=0)
+    answered_correctly: Mapped[int] = mapped_column(Integer, default=0)
+
+    __table_args__ = (db.UniqueConstraint('user_id', 'topic_id', name='uix_user_topic'),)
+
+    user = relationship('User', back_populates='topic_progresses')
+    topic = relationship('QuestionTopic', back_populates = 'user_progresses')
