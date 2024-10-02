@@ -1,6 +1,6 @@
 from exts import db
 from main import create_app
-from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress
+from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress, UserTopicProgress
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 from config import ProdConfig
@@ -704,13 +704,21 @@ def seed_answers(questions):
 def seed_progress():
     print("seeding progress")
     progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=100)
-    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=83)
-    progress3 = UserChapterProgress(user_id = 1, chapter_id = 3, video_completed=True, quiz_grade=100)
-    progress4 = UserChapterProgress(user_id = 1, chapter_id = 4, video_completed=True, quiz_grade=83)
-    progress5 = UserChapterProgress(user_id = 1, chapter_id = 5, video_completed=True, quiz_grade=100)
-    progress6 = UserChapterProgress(user_id = 1, chapter_id = 6, video_completed=True, quiz_grade=100)
+    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=66)
+    progress3 = UserChapterProgress(user_id = 1, chapter_id = 3, video_completed=False, quiz_grade=None)
+  
     
-    progresses = [progress1, progress2, progress3, progress4, progress5, progress6]
+    progresses = [progress1, progress2, progress3]
+    db.session.add_all(progresses)
+    db.session.commit()
+
+def seed_topic_progress():
+    print('seeding topic progress')
+    progress1 = UserTopicProgress(user_id = 1, topic_id = 1, questions_asked = 3, answered_correctly = 3)
+    progress2 = UserTopicProgress(user_id = 1, topic_id = 2, questions_asked = 3, answered_correctly = 3)
+    progress3 = UserTopicProgress(user_id = 1, topic_id = 3, questions_asked = 6, answered_correctly = 4)
+
+    progresses = [progress1, progress2, progress3]
     db.session.add_all(progresses)
     db.session.commit()
 
@@ -726,6 +734,7 @@ def main():
         db.session.query(Chapter).delete()
         db.session.query(Question).delete()
         db.session.query(UserChapterProgress).delete()
+        db.session.query(UserTopicProgress).delete()
         db.session.commit()
         print("DB Deleted")
 
@@ -738,7 +747,8 @@ def main():
         questions = seed_questions(chapters, topics)
         seed_answers(questions)
         seed_progress()
-        users[0].current_chapter = chapters[6]
+        seed_topic_progress()
+        users[0].current_chapter = chapters[1]
         db.session.commit()
         
 

@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource, fields
-from models import User, UserChapterProgress
+from models import User, UserChapterProgress, UserTopicProgress, QuestionTopic
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -175,6 +175,23 @@ class Login(Resource):
                     } for chapter in user_chapters}
                 units_dict = {unit.id: unit.name for unit in user_units}
 
+                user_topic_progress = UserTopicProgress.query.filter_by(user_id=db_user.id).all()
+                topic_progress_dict = {}
+
+                for topic_progress in user_topic_progress:
+                    topic = QuestionTopic.query.get(topic_progress.topic_id)
+                    topic_name = topic.name
+                    if topic_progress.questions_asked > 0:
+                        percent_correct = int((topic_progress.answered_correctly/topic_progress.questions_asked)*100)
+                    else:
+                        percent_correct = 0
+
+                    topic_progress_dict[topic_progress.id] = {
+                        'topic_name': topic_name,
+                        'percent_correct': percent_correct,
+                        'chapter_id': topic.chapter_id
+                    }
+
                 for chapter_id, progress_data in progress_dict.items():
                     if chapter_id in chapter_dict:
                         chapter_dict[chapter_id].update(progress_data)
@@ -190,10 +207,11 @@ class Login(Resource):
                         "current_chapter": current_chapter
                         },
                     "units": units_dict,
-                    "chapters": chapter_dict
+                    "chapters": chapter_dict,
+                    'topic_progress': topic_progress_dict
                 
                 })
-                # print(user_data)
+                print(user_data)
                 # print(jsonify(user_data))
                 session['access_token'] = access_token
                 return jsonify(user_data)
