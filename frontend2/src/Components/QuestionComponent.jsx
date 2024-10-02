@@ -35,11 +35,12 @@ export const QuestionComponent = ({chapter}) => {
       const questionId = questionsObj[questionNumber].id;
       const selectedAnswerObj = questionsObj[questionNumber].answers[answerId];
       const isCorrect = selectedAnswerObj.is_correct;
+      const topicId = questionsObj[questionNumber].topic_id
 
       // Update submittedAnswers immediately with answerId and isCorrect
       setSubmittedAnswers(prevSubmittedAnswers => ({
         ...prevSubmittedAnswers,
-        [questionId]: { answerId, isCorrect } // Store both answerId and isCorrect
+        [questionId]: { answerId, isCorrect, topicId } // Store both answerId and isCorrect
       }));
     };
 

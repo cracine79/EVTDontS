@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from flask import request, jsonify, make_response, session
 from exts import db
-from models import UserChapterProgress, Chapter, User, UserPerformance
+from models import UserChapterProgress, Chapter, User, UserPerformance, UserTopicProgress
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from datetime import datetime
 
@@ -98,9 +98,21 @@ class QuizProgress(Resource):
         finished_chapter = Chapter.query.get(chapter_id)
         current_unit = finished_chapter.unit
         answer_response_data = {}
+        topic_response_data = {}
 
         for question_id, answer_data in answers.items():
-     
+            
+            topicId = answer_data['topicId']
+            if topicId in topic_response_data:
+                topic_response_data[topicId]['questions_asked'] +=1
+                if answer_data['isCorrect']:
+                    topic_response_data[topicId]['answered_correctly'] +=1
+            else:
+                topic_response_data[topicId] = {
+                    'questions_asked': 1,
+                    'answered_correctly': 1 if answer_data['isCorrect'] else 0
+                }
+
             answer = UserPerformance(
                 user_id = user_id, 
                 question_id = question_id,
@@ -108,14 +120,29 @@ class QuizProgress(Resource):
                 answered_at=datetime.now() 
             )
 
+       
             db.session.add(answer)
             db.session.flush()
+            
             answer_response_data[answer.id]={
                 'questionId': question_id, 
                 'isCorrect': answer_data['isCorrect'], 
                 'answerId': answer_data['answerId'],
                  'answeredAt': answer.answered_at }
         
+        for topic_id, response_data in topic_response_data.items():
+            topic_progress = UserTopicProgress.query.filter_by(user_id=user_id, topic_id=topic_id).first()
+            if topic_progress:
+                topic_progress.questions_asked += response_data['questions_asked']
+                topic_progress.answered_correctly += response_data['answered_correctly']
+            else:
+                topic_progress = UserTopicProgress(
+                    user_id=user_id, 
+                    topic_id=topic_id, 
+                    questions_asked = response_data['questions_asked'],
+                    answered_correctly = response_data['answered_correctly'])
+                db.session.add(topic_progress)
+
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
         print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
 
@@ -199,7 +226,7 @@ class ChapterProgress(Resource):
         done = False
 
         if finished_chapter == unit_chapters[-1]:
-            print('lastChapter!!')
+            print('lastChapter!!') 
             user_units = user.units
             current_unit_index = user_units.index(current_unit)
             print('currtentUnitIndex!!', current_unit_index)
