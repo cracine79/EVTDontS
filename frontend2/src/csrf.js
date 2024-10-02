@@ -19,6 +19,7 @@ export async function csrfFetch(url, options = {}) {
     }
 
     try{
+        
         const response = await fetch(url, options);
         if (!response.ok){
                // Try to parse JSON response if available

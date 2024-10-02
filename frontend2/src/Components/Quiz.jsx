@@ -11,10 +11,18 @@ export const Quiz = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const chapter = location.state?.chapter
+    const type = location.state?.type
+    const topics = location.state?.topics
+
+    const data = {
+        chapter: chapter,
+        type: type,
+        topics: topics
+    }
 
 
     useEffect(()=>{
-        dispatch(getQuestions(chapter)), [dispatch]
+        dispatch(getQuestions(data)), [dispatch]
     })
 
     const whole_chapter = useSelector((state)=>state.chapters[chapter])

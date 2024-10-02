@@ -52,7 +52,7 @@ export const UserHome = () => {
             }
             navigate('/Video', {state: {chapter: currentChapterId}})
         } else {
-            navigate('/Quiz', {state: {chapter: currentChapterId}})
+            navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}})
         }
     }
 

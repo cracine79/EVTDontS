@@ -43,7 +43,7 @@ export const Video = () => {
 
     const completeVid = () => {
         updateVideoProgress(currentChapterId)
-        navigate('/quiz', {state: {chapter: currentChapterId}})
+        navigate('/quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics:[]}})
     }
 
   
