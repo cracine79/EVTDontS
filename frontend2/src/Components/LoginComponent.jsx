@@ -7,6 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { storeUserUnits } from '../Slices/unitsSlice';
 import { storeUserChapters } from '../Slices/chaptersSlice';
+import { storeTopicProg } from '../Slices/topicProgSlice';
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
@@ -41,6 +42,7 @@ const LoginComponent = () => {
     dispatch(login(data.user));
     dispatch(storeUserUnits(data.units))
     dispatch(storeUserChapters(data.chapters))
+    dispatch(storeTopicProg(data.topic_progress))
     dispatch(closeLoginModal()) // Store user in Redux state
     navigate('/userhome')
   } catch (error) {
