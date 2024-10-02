@@ -748,7 +748,7 @@ def main():
         seed_answers(questions)
         seed_progress()
         seed_topic_progress()
-        users[0].current_chapter = chapters[1]
+        users[0].current_chapter = chapters[2]
         db.session.commit()
         
 
