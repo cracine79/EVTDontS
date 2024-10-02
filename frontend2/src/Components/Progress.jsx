@@ -39,7 +39,7 @@ export const Progress = () => {
             if(chapter.quiz_grade > 50){
                 return(
                     <>
-                        <div className='text-center w-1/2 text-xs align-middle'>YES!! Score: <span className='align-middle font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</span></div>
+                        <div className='text-center w-1/2 text-xs align-middle'>Rocked!! Score: <span className='align-middle font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</span></div>
                     </>
                 )
             } else {
@@ -92,18 +92,25 @@ export const Progress = () => {
         const averagePercentCorrect = chapter_topics.length > 0 ? sum/chapter_topics.length : 0
 
         let reply=""
-        if(averagePercentCorrect > 75){
+        if(averagePercentCorrect > 80){
             reply = 'Econo-ninja-level'
-        } else if (averagePercentCorrect > 50){
-            reply = 'Pretty good Padawan'
+        } else if (averagePercentCorrect > 70){
+            reply = 'Fiscal Phenom'
+        } else if (averagePercentCorrect > 60) {
+            reply = 'Curve Whisperer'
+        } else if (averagePercentCorrect > 50) {
+            reply = 'Sort of Chart Challenged'
+        } else if (averagePercentCorrect > 0) {
+            reply = 'Still Econ-fused'
         } else {
-            reply = 'Not yet!'
+            reply = 'Not yet started'
         }
 
         return(
-            <>
-                {reply}
-            </>
+            <div className='flex flex-col'>
+                <div >{reply}</div>
+
+            </div>
         )
     }
 
@@ -115,8 +122,8 @@ export const Progress = () => {
                 <div className='flex bg-green-600 h-8 items-center w-100'>
                     <div className='ml-8 font-semibold w-1/2 text-s'>Chapter Name</div>
                     <div className='w-1/6 font-semibold text-s text-center'>Watched Video?</div>
-                    <div className='w-1/6 font-semibold text-s  text-center '>Quiz Taken?</div>
-                    <div className='w-1/6 font-semibold text-s  text-center '> Topics Mastered?</div>
+                    <div className='w-1/6 font-semibold text-s  text-center '>Quiz Status</div>
+                    <div className='w-1/6 font-semibold text-s  text-center '> Topics Mastery</div>
                 </div>
                 {chaptersUnits.map(([chapterId, chapter])=>{
                     const odd = chapterId % 2 == 0
