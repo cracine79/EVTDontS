@@ -118,7 +118,7 @@ export const Progress = () => {
                             flex 
                             justify-center 
                             items-center
-                            rounded-lg
+                            rounded-sm
                             bg-slate-300
                             hover:bg-slate-500
                             font-medium
