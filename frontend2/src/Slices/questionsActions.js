@@ -19,6 +19,7 @@ export const getQuestions = (data) => async(dispatch) => {
       }
 
       const results = await response.json()
+      console.log('RESULTS', results)
       dispatch(updateQuestions(results))
     } catch (error) {
         console.error(error)
