@@ -76,6 +76,10 @@ export const Progress = () => {
         }
     }
 
+    const openTopicQuiz = (chapterTopics) => {
+        navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapterTopics}})
+    }
+
     const mastery = (chapterId) => {
         const chapter_topics = []
         userTopicVals.forEach(topic => {
@@ -109,7 +113,7 @@ export const Progress = () => {
         return(
             <div className='flex flex-col items-center'>
                 <div >{reply}</div>
-                {reply != 'Not yet started' && <div className=
+                {reply !== 'Not yet started' && <div className=
                             'mt-2 
                             border-black 
                             h-1/12 
@@ -124,7 +128,12 @@ export const Progress = () => {
                             font-medium
                             hover:cursor-pointer
                             
-                            '>Practice</div>}
+                            '
+                            onClick={(event) => {
+                                event.stopPropagation(); // Prevents parent click
+                                openTopicQuiz(chapter_topics);
+                            }}
+                            >Practice</div>}
             </div>
         )
     }

@@ -14,6 +14,8 @@ export const Quiz = () => {
     const type = location.state?.type
     const topics = location.state?.topics
 
+
+
     const data = {
         chapter: chapter,
         type: type,
@@ -24,10 +26,12 @@ export const Quiz = () => {
     useEffect(()=>{
         dispatch(getQuestions(data)), [dispatch]
     })
-
-    const whole_chapter = useSelector((state)=>state.chapters[chapter])
-    const chapter_name = whole_chapter.name
-
+    
+    
+    // const whole_chapter = useSelector((state)=>state.chapters[chapter])
+    // const chapter_name = whole_chapter.name
+    
+    // console.log(type == 'chapterQuiz')
     const handleOpen = () => {
         dispatch(openQuizModal())
     }
@@ -38,7 +42,12 @@ export const Quiz = () => {
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
-                <div>This is the page for the quiz for Chapter {chapter_name}</div>
+                <div>
+                    {type == 'chapterQuiz' && <>This is the page for the quiz for Chapter {chapter_name}</>}
+                </div>
+                <div>
+                    {type == 'topicQuiz' && <>This is the page for the quiz for topic review</>}
+                </div>
                 <div className='flex justify-around'>
                 <button className='mt-10 
                             border-black 
@@ -74,7 +83,7 @@ export const Quiz = () => {
                 </div>
                
             </div>
-            <QuestionComponent chapter={chapter}/>
+            <QuestionComponent chapter={chapter} type={type}/>
         </div>
       
     )
