@@ -107,9 +107,24 @@ export const Progress = () => {
         }
 
         return(
-            <div className='flex flex-col'>
+            <div className='flex flex-col items-center'>
                 <div >{reply}</div>
-
+                {reply != 'Not yet started' && <div className=
+                            'mt-2 
+                            border-black 
+                            h-1/12 
+                            w-1/2 
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-slate-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            
+                            '>Practice</div>}
             </div>
         )
     }
