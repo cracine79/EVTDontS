@@ -4,6 +4,7 @@ import { getQuestions } from "../Slices/questionsActions"
 import { useEffect } from "react"
 import { QuestionComponent } from "./QuestionComponent"
 import { openQuizModal } from "../Slices/modalSlice"
+import { clearQuestions } from "../Slices/questionsSlice"
 
 
 export const Quiz = () => {
@@ -26,16 +27,20 @@ export const Quiz = () => {
     useEffect(()=>{
         dispatch(getQuestions(data)), [dispatch]
     })
-    
-    
-    // const whole_chapter = useSelector((state)=>state.chapters[chapter])
-    // const chapter_name = whole_chapter.name
-    
-    // console.log(type == 'chapterQuiz')
+    const whole_chapter = useSelector((state)=>state.chapters[chapter])
+    const chapter_name = whole_chapter ? whole_chapter.name : ''
+
+    const names = topics.map(topic => topic.topic_name)
+
+    const formattedNames = names.length > 1 
+    ? names.slice(0, -1).join (' and ') + ' and ' + names[names.length -1]    
+    : names[0]
+
     const handleOpen = () => {
         dispatch(openQuizModal())
     }
     const goHome = ()=>{
+        dispatch(clearQuestions())
         navigate('/userhome')
     }
 
@@ -46,7 +51,7 @@ export const Quiz = () => {
                     {type == 'chapterQuiz' && <>This is the page for the quiz for Chapter {chapter_name}</>}
                 </div>
                 <div>
-                    {type == 'topicQuiz' && <>This is the page for the quiz for topic review</>}
+                    {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
                 </div>
                 <div className='flex justify-around'>
                 <button className='mt-10 

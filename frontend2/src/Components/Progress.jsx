@@ -77,6 +77,8 @@ export const Progress = () => {
     }
 
     const openTopicQuiz = (chapterTopics) => {
+        
+        console.log('CHAPTERTOPICS', chapterTopics)
         navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapterTopics}})
     }
 

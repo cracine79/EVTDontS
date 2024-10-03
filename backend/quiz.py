@@ -39,6 +39,8 @@ class AccessQuiz(Resource):
             params_topics = request.args.get('topics')
             decoded_params_topics = unquote(params_topics)
             topics = json.loads(decoded_params_topics)
+
+            print("TOPPPPICCCSS", topics)
         
         question_ids = [question.id for question in questions]
         performances = UserPerformance.query.filter(UserPerformance.user_id == user_id, UserPerformance.question_id.in_(question_ids)).all()

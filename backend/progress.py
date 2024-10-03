@@ -153,7 +153,8 @@ class QuizProgress(Resource):
             topic_progress_dict[topic_progress.id] = {
                 'topic_name': topic_name,
                 'percent_correct': percent_correct,
-                'chapter_id': topic.chapter_id
+                'chapter_id': topic.chapter_id,
+                'topic_id': topic_id
             }
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
