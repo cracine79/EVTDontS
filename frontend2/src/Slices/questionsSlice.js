@@ -11,10 +11,7 @@ const questionsSlice = createSlice({
             return {}
         },
         updateQuestions: (state, action) => {
-            return{
-                ...state,
-                ...action.payload
-            }
+            return action.payload
         }
     }
 })

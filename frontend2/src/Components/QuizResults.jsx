@@ -44,7 +44,7 @@ export const QuizResults = () => {
 
     const retake = () => {
         dispatch(clearUserResults())
-        navigate('/Quiz',  {state: {chapter: currentChapter}})
+        navigate('/Quiz',  {state: {chapter: currentChapter, type: 'chapterQuiz', topics: []}})
         dispatch(openQuizModal())
     }
 

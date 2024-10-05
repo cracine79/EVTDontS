@@ -165,6 +165,16 @@ def seed_questions(chapters, topics):
     question68 = Question(text='The diagram above shows the production possibilities for Factory C and Factory D. Assume both factories use the same amount of resources. Based on the graph, which of the following is correct?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/FacCDGoodAB.png')
     question69 = Question(text='The graph above compares the production capabilities of Factory M and Factory N, which produce tablets and headphones. Using equal resources, which statement about comparative advantage is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/FactoryMNTabletsHeadphones.png')
     question70 = Question(text='The diagram above shows the production possibilities curve for two countries, Country A and Country B, which produce coffee and tea. Assuming both countries use equal resources, which of the following is true?', chapter=chapters[6], topic=topics[8], image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/CountryABCoffeeTea.png')
+    question71 = Question(text='Which of the following best describes Labor as a factor of production?',chapter=chapters[1], topic=topics[2])
+    question72 = Question(text='An businesman starting a new business would be an example of which factor of production?',chapter=chapters[1], topic=topics[2])
+    question73 = Question(text='Which of the following is NOT a factor of production?',chapter=chapters[1], topic=topics[2])
+    question74 = Question(text='The office space rented by a company is an example of which factor of production?',chapter=chapters[1], topic=topics[2])
+    question75 = Question(text='What distinguishes Entrepreneurship from the other factors of production?',chapter=chapters[1], topic=topics[2])
+    question76 = Question(text='Which of the following is an example of Land as a factor of production?',chapter=chapters[1], topic=topics[2])
+    question77 = Question(text='Which of the following factors of production earns wages?',chapter=chapters[1], topic=topics[2])
+    question78 = Question(text='The term "human capital" refers to which factor of production?',chapter=chapters[1], topic=topics[2])
+    question79 = Question(text='Which of the following is an example of Labor as a factor of production?',chapter=chapters[1], topic=topics[2])
+    question80 = Question(text='Which factor of production involves risk-taking and innovation?',chapter=chapters[1], topic=topics[2])
 
 
     questions = [question1, question2, question3, 
@@ -190,7 +200,10 @@ def seed_questions(chapters, topics):
                  question61, question62, question63, 
                  question64, question65, question66, 
                  question67,question68, question69, 
-                 question70,
+                 question70, question71, question72, 
+                 question73, question74, question75,
+                 question76, question77, question78,
+                 question79, question80
                  ]
     
     print("questions created")
@@ -260,8 +273,8 @@ def seed_answers(questions):
 
     answer10a=Answer(text='Everyone’s salary increased by 100%', question=questions[9], is_correct=False)
     answer10b=Answer(text='Market failure were eliminated', question=questions[9], is_correct=False)
-    answer10c=Answer(text='Real wages rose at the same rate as inflation', question=questions[9], is_correct=True)
-    answer10d=Answer(text='Supply of all resources became unlimited', question=questions[9], is_correct=False)
+    answer10c=Answer(text='Real wages rose at the same rate as inflation', question=questions[9], is_correct=False)
+    answer10d=Answer(text='Supply of all resources became unlimited', question=questions[9], is_correct=True)
     answer10e=Answer(text='People stopped consuming and reinvested all income into production of capital', question=questions[9], is_correct=False)
 
     answer11a = Answer(text="Resources are unlimited, and human desires are limited.", question=questions[10], is_correct=False)
@@ -624,6 +637,66 @@ def seed_answers(questions):
     answer70d = Answer(text='Country A should specialize in producing coffee.', question=questions[69], is_correct=False)
     answer70e = Answer(text='Country B has a comparative advantage in producing tea.', question=questions[69], is_correct=False)
 
+    answer71a = Answer(text='The physical effort workers provide', question=questions[70], is_correct=True)
+    answer71b = Answer(text='The machinery used in production', question=questions[70], is_correct=False)
+    answer71c = Answer(text='The land where production occurs', question=questions[70], is_correct=False)
+    answer71d = Answer(text='The financial investment made by owners', question=questions[70], is_correct=False)
+    answer71e = Answer(text='The entrepreneurial skill used to combine other factors', question=questions[70], is_correct=False)
+
+    answer72a = Answer(text='Capital', question=questions[71], is_correct=False)
+    answer72b = Answer(text='Labor', question=questions[71], is_correct=False)
+    answer72c = Answer(text='Entrepreneurship', question=questions[71], is_correct=True)
+    answer72d = Answer(text='Land', question=questions[71], is_correct=False)
+    answer72e = Answer(text='Technology', question=questions[71], is_correct=False)
+
+    answer73a = Answer(text='Labor', question=questions[72], is_correct=False)
+    answer73b = Answer(text='Capital', question=questions[72], is_correct=False)
+    answer73c = Answer(text='Money', question=questions[72], is_correct=True)
+    answer73d = Answer(text='Land', question=questions[72], is_correct=False)
+    answer73e = Answer(text='Entrepreneurship', question=questions[72], is_correct=False)
+
+    answer74a = Answer(text='Capital', question=questions[73], is_correct=False)
+    answer74b = Answer(text='Labor', question=questions[73], is_correct=False)
+    answer74c = Answer(text='Entrepreneurship', question=questions[73], is_correct=False)
+    answer74d = Answer(text='Land', question=questions[73], is_correct=True)
+    answer74e = Answer(text='Human capital', question=questions[73], is_correct=False)
+
+    answer75a = Answer(text='It involves the physical resources of production', question=questions[74], is_correct=False)
+    answer75b = Answer(text='It represents the human effort in the production process', question=questions[74], is_correct=False)
+    answer75c = Answer(text='It combines all other factors and takes risks to create new businesses', question=questions[74], is_correct=True)
+    answer75d = Answer(text='It refers to the natural resources available for production', question=questions[74], is_correct=False)
+    answer75e = Answer(text='It is the financial resources available for production', question=questions[74], is_correct=False)
+
+    answer76a = Answer(text='A factory building', question=questions[75], is_correct=False)
+    answer76b = Answer(text='Crude oil in the Gulf of Mexico', question=questions[75], is_correct=True)
+    answer76c = Answer(text='The machines used to harvest crops', question=questions[75], is_correct=False)
+    answer76d = Answer(text='The workers operating machinery', question=questions[75], is_correct=False)
+    answer76e = Answer(text='The financial capital used to fund production', question=questions[75], is_correct=False)
+
+    answer77a = Answer(text='Capital', question=questions[76], is_correct=False)
+    answer77b = Answer(text='Entrepreneurship', question=questions[76], is_correct=False)
+    answer77c = Answer(text='Labor', question=questions[76], is_correct=True)
+    answer77d = Answer(text='Land', question=questions[76], is_correct=False)
+    answer77e = Answer(text='Technology', question=questions[76], is_correct=False)
+
+    answer78a = Answer(text='Labor', question=questions[77], is_correct=True)
+    answer78b = Answer(text='Entrepreneurship', question=questions[77], is_correct=False)
+    answer78c = Answer(text='Capital', question=questions[77], is_correct=False)
+    answer78d = Answer(text='Land', question=questions[77], is_correct=False)
+    answer78e = Answer(text='Financial capital', question=questions[77], is_correct=False)
+
+    answer79a = Answer(text='The factory building used in production', question=questions[78], is_correct=False)
+    answer79b = Answer(text='A software developer creating a new application', question=questions[78], is_correct=True)
+    answer79c = Answer(text='The farmland owned by a farmer', question=questions[78], is_correct=False)
+    answer79d = Answer(text='The investment used to start a business', question=questions[78], is_correct=False)
+    answer79e = Answer(text='The entrepreneurial skills of a business owner', question=questions[78], is_correct=False)
+
+    answer80a = Answer(text='Capital', question=questions[79], is_correct=False)
+    answer80b = Answer(text='Entrepreneurship', question=questions[79], is_correct=True)
+    answer80c = Answer(text='Labor', question=questions[79], is_correct=False)
+    answer80d = Answer(text='Land', question=questions[79], is_correct=False)
+    answer80e = Answer(text='Technology', question=questions[79], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1d, answer1e, 
                answer2a, answer2b, answer2c, answer2e, answer2d, 
                answer3a, answer3b, answer3c, answer3d, answer3e, 
@@ -694,7 +767,16 @@ def seed_answers(questions):
                answer68a, answer68b, answer68c, answer68d, answer68e,
                answer69a, answer69b, answer69c, answer69d, answer69e,
                answer70a, answer70b, answer70c, answer70e, answer70d, 
-
+               answer71a, answer71b, answer71c, answer71d, answer71e,
+               answer72a, answer72b, answer72c, answer72d, answer72e,
+               answer73a, answer73b, answer73c, answer73d, answer73e,
+               answer74a, answer74b, answer74c, answer74d, answer74e, 
+               answer75a, answer75b, answer75c, answer75d, answer75e,
+               answer76a, answer76b, answer76c, answer76d, answer76e,
+               answer77a, answer77b, answer77c, answer77d, answer77e, 
+               answer78a, answer78b, answer78c, answer78d, answer78e,
+               answer79a, answer79b, answer79c, answer79d, answer79e,
+               answer80a, answer80b, answer80c, answer80d, answer80d, 
                ]
 
     db.session.add_all(answers)
