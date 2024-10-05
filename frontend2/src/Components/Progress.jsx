@@ -107,7 +107,7 @@ export const Progress = () => {
         } else if (averagePercentCorrect > 50) {
             reply = 'Sort of Chart Challenged'
         } else if (averagePercentCorrect > 0) {
-            reply = 'Still Econ-fused'
+            reply = 'A bit Econ-fused'
         } else {
             reply = 'Not yet started'
         }
