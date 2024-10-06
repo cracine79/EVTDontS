@@ -142,8 +142,8 @@ class QuizProgress(Resource):
                 'percent_correct': percent_correct,
                 'chapter_id': topic.chapter_id,
                 'topic_id': topic_id,
-                'questions_asked': topic.questions_asked,
-                'answered_correctly': topic.answered_correctly
+                'questions_asked': topic_progress.questions_asked,
+                'answered_correctly': topic_progress.answered_correctly
 
             }
 
