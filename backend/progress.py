@@ -141,7 +141,10 @@ class QuizProgress(Resource):
                 'topic_name': topic_name,
                 'percent_correct': percent_correct,
                 'chapter_id': topic.chapter_id,
-                'topic_id': topic_id
+                'topic_id': topic_id,
+                'questions_asked': topic.questions_asked,
+                'answered_correctly': topic.answered_correctly
+
             }
 
         return (jsonify({

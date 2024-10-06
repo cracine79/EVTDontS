@@ -190,7 +190,9 @@ class Login(Resource):
                         'topic_name': topic_name,
                         'percent_correct': percent_correct,
                         'chapter_id': topic.chapter_id,
-                        'topic_id': topic.id
+                        'topic_id': topic.id,
+                        'answered_correctly': topic_progress.answered_correctly,
+                        'questions_asked': topic_progress.questions_asked
                     }
 
                 for chapter_id, progress_data in progress_dict.items():
