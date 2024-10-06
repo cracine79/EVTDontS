@@ -54,14 +54,27 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         dispatch(updateUserResults(data.answers))
         dispatch(updateTopicProg(data.topic_progress))
 
-        
-
-
     } catch(error){
         console.log('Error during data submission:', error)
     }
 }
 
+export const finishReviewQuiz = (quizData) => async(dispatch) => {
+    try{
+        const response = await csrfFetch('/api/progress/finishquiz', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(quizData)
+        })
+        const data = await response.json()
+        console.log(data)
+    } catch(error){
+        console.log('Error during data submission:', error)
+    }
+}
+ 
 
 export const finishChapter = (chapterData)  => async(dispatch) => {
     console.log('Chapter DATA!!', chapterData)

@@ -4,9 +4,9 @@ import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
-import { finishQuiz } from "../Slices/resultsActions";
+import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 
-export const QuestionComponent = ({chapter}) => {
+export const QuestionComponent = ({chapter, type}) => {
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions));
@@ -78,11 +78,6 @@ export const QuestionComponent = ({chapter}) => {
       const newSubmittedAnswers = {
         ...submittedAnswers,
       };
-
-      // const newSubmittedAnswers = {
-      //   ...submittedAnswers,
-      //   [questionId]: {answerId: selectedAnswerId, isCorrect}
-      // }
     
       // Move to the next question or finish the quiz
       if (questionNumber < questionsObj.length - 1) {
@@ -104,11 +99,19 @@ export const QuestionComponent = ({chapter}) => {
         }
 
         console.log("QUIZDATA!", quizData)
-   
-        dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
-        dispatch(closeQuizModal());
-        setQuestionNumber(0);
-        navigate('/results')
+        
+        if (type == 'chapterQuiz'){
+          dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
+          dispatch(closeQuizModal());
+          setQuestionNumber(0);
+          navigate('/results')
+        } else if (type = 'reviewQuiz'){
+          dispatch(finishReviewQuiz(quizData))
+          dispatch(closeQuizModal());
+          setQuestionNumber(0);
+          navigate('/rqresults')
+        }
+
     
       }
     };

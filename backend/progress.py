@@ -77,6 +77,80 @@ class CreateChapterProgress(Resource):
       
         return jsonify( chapter_object )
     
+@progress_ns.route('/finishreviewquiz')
+class QuizProgress(Resource):
+    @jwt_required()
+    def put(self):
+        data = request.get_json()
+        answers = data.get('answers')
+        current_user = get_jwt_identity()
+        user = User.query.filter_by(username=current_user).first()
+        user_id = user.id
+        answer_response_data = {}
+
+        for question_id, answer_data in answers.items():
+            
+            topicId = answer_data['topicId']
+            if topicId in topic_response_data:
+                topic_response_data[topicId]['questions_asked'] +=1
+                if answer_data['isCorrect']:
+                    topic_response_data[topicId]['answered_correctly'] +=1
+            else:
+                topic_response_data[topicId] = {
+                    'questions_asked': 1,
+                    'answered_correctly': 1 if answer_data['isCorrect'] else 0
+                }
+
+            answer = UserPerformance(
+                user_id = user_id, 
+                question_id = question_id,
+                is_correct=answer_data['isCorrect'], 
+                answered_at=datetime.now() 
+            )
+
+            db.session.add(answer)
+            db.session.flush()
+            
+            answer_response_data[answer.id]={
+                'questionId': question_id, 
+                'isCorrect': answer_data['isCorrect'], 
+                'answerId': answer_data['answerId'],
+                 'answeredAt': answer.answered_at }
+        
+        topic_progress_dict={}
+
+        for topic_id, response_data in topic_response_data.items():
+            topic_progress = UserTopicProgress.query.filter_by(user_id=user_id, topic_id=topic_id).first()
+            if topic_progress:
+                topic_progress.questions_asked += response_data['questions_asked']
+                topic_progress.answered_correctly += response_data['answered_correctly']
+            else:
+                topic_progress = UserTopicProgress(
+                    user_id=user_id, 
+                    topic_id=topic_id, 
+                    questions_asked = response_data['questions_asked'],
+                    answered_correctly = response_data['answered_correctly'])
+                db.session.add(topic_progress)
+                db.session.flush()
+            
+            percent_correct = int((topic_progress.answered_correctly/topic_progress.questions_asked)*100)
+            topic = QuestionTopic.query.get(topic_progress.topic_id)
+            topic_name = topic.name
+
+            topic_progress_dict[topic_progress.id] = {
+                'topic_name': topic_name,
+                'percent_correct': percent_correct,
+                'chapter_id': topic.chapter_id,
+                'topic_id': topic_id
+            }
+
+        return (jsonify({
+            "answers": answer_response_data,
+            'topic_progress': topic_progress_dict
+            }
+                ))
+
+        
 @progress_ns.route('/finishquiz')
 class QuizProgress(Resource):
     @jwt_required()
@@ -195,6 +269,8 @@ class QuizProgress(Resource):
             'topic_progress': topic_progress_dict
             }
                 ))
+
+
 
 @progress_ns.route('/chapter')
 class ChapterProgress(Resource):
