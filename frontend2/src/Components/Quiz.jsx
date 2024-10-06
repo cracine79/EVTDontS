@@ -88,7 +88,7 @@ export const Quiz = () => {
                 </div>
                
             </div>
-            <QuestionComponent chapter={chapter} type={type}/>
+            <QuestionComponent chapter={chapter} type={type} topics={topics}/>
         </div>
       
     )

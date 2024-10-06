@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
 import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 
-export const QuestionComponent = ({chapter, type}) => {
+export const QuestionComponent = ({chapter, type, topics}) => {
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions));
@@ -109,7 +109,7 @@ export const QuestionComponent = ({chapter, type}) => {
           dispatch(finishReviewQuiz(quizData))
           dispatch(closeQuizModal());
           setQuestionNumber(0);
-          navigate('/rqresults')
+          navigate('/rqresults', {state: {topics}})
         }
 
     
