@@ -87,7 +87,7 @@ class QuizProgress(Resource):
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
         answer_response_data = {}
-
+        topic_response_data = {}
         for question_id, answer_data in answers.items():
             
             topicId = answer_data['topicId']

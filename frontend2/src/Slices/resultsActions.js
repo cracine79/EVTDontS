@@ -61,7 +61,7 @@ export const finishQuiz = (quizData) => async(dispatch) => {
 
 export const finishReviewQuiz = (quizData) => async(dispatch) => {
     try{
-        const response = await csrfFetch('/api/progress/finishquiz', {
+        const response = await csrfFetch('/api/progress/finishreviewquiz', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +69,8 @@ export const finishReviewQuiz = (quizData) => async(dispatch) => {
             body: JSON.stringify(quizData)
         })
         const data = await response.json()
-        console.log(data)
+        dispatch(updateUserResults(data.answers))
+        dispatch(updateTopicProg(data.topic_progress))
     } catch(error){
         console.log('Error during data submission:', error)
     }
