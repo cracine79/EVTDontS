@@ -1,7 +1,11 @@
 import { useLocation } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { openResultsModal } from "../Slices/modalSlice"
+import { ResultsModal } from "./ResultsModal"
+
 
 export const ReviewQuizResults = () => {
+    const dispatch = useDispatch()
     const results = useSelector(state=>(state.results))
     const resultsObj = Object.values(results)
     const location = useLocation()
@@ -22,6 +26,11 @@ export const ReviewQuizResults = () => {
     })
     const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
 
+    const showResults = () => {
+        console.log('f the cowboys')
+        dispatch(openResultsModal())
+    }
+
     const topicMastery = () => {
         return(
             topics.map((topic=>{
@@ -36,6 +45,7 @@ export const ReviewQuizResults = () => {
                             Your current status for {topic.topic_name} mastery is: 
                         </div>
                     </div>
+                
 
                 </>
             )
@@ -70,12 +80,29 @@ export const ReviewQuizResults = () => {
                 <div>
                     {topicMastery()}
                 </div>
+                <div className='flex flex-row justify-around my-10'>
+                    <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={showResults }>Show Me What I Missed</button>
+                            </div>
                 </div>
             </div>
             
             </div>
             </div>
             </div>
+            <ResultsModal />
        
         </>
     )
