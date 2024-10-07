@@ -1,11 +1,13 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
 
 
+
 export const ReviewQuizResults = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const results = useSelector(state=>(state.results))
     const resultsObj = Object.values(results)
     const location = useLocation()
@@ -29,6 +31,10 @@ export const ReviewQuizResults = () => {
     const showResults = () => {
         console.log('f the cowboys')
         dispatch(openResultsModal())
+    }
+
+    const goHome = () => {
+        navigate('/userhome')
     }
 
     const topicMastery = () => {
@@ -95,6 +101,22 @@ export const ReviewQuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={showResults }>Show Me What I Missed</button>
+
+<button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={goHome}
+                           >Back to Dashboard</button>
                             </div>
                 </div>
             </div>
