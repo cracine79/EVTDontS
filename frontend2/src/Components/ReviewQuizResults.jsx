@@ -12,6 +12,7 @@ export const ReviewQuizResults = () => {
     const resultsObj = Object.values(results)
     const location = useLocation()
     const topics = location.state?.topics
+    const topicProg = useSelector(state=>state.topicProg)
     console.log('TOPICS ARE', topics)
 
     const names = topics.map(topic => topic.topic_name)
@@ -42,6 +43,7 @@ export const ReviewQuizResults = () => {
 
     }
 
+
     const topicMastery = () => {
         return(
             topics.map((topic=>{
@@ -50,7 +52,7 @@ export const ReviewQuizResults = () => {
                     <div>
                         {topic.topic_name}
                         <div>
-                            You have faced down {topic.questions_asked} questions on this topic and answered {topic.answered_correctly} correctly
+                            You have faced down {topicProg[topic.topic_id].questions_asked} questions on this topic and answered {topicProg[topic.topic_id].answered_correctly} correctly
                         </div>
                         <div>
                             Your current status for {topic.topic_name} mastery is: 
