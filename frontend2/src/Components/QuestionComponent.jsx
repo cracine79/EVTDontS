@@ -21,7 +21,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
     const currentChapter = useSelector(state=>(state.user.currentChapter))
+    
+    const names = topics.map(topic => topic.topic_name)
 
+    const topicQuizName = names.length > 1 
+    ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
+    : names[0]
 
 
     const handleClose = () => {
@@ -179,7 +184,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             {questionsObj[questionNumber] ? (
               <div>
                 <div className='flex flex-col items-center mt-6'>
-                  <div className="text-3xl px-6">{quizChapterName}  - Chapter Quiz</div>
+                  {type=='chapterQuiz' && 
+                    <div className="text-3xl px-6">{quizChapterName}  - Chapter Quiz</div>
+                  }
+                  {type=='topicQuiz' && 
+                    <div className="text-3xl px-6">{topicQuizName}  - Topic Quiz</div>
+                  }
                 
                 </div>
                 <div className='flex flex-row justify-center mt-4 -mb-4 w-full'>

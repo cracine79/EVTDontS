@@ -12,7 +12,7 @@ export const ReviewQuizResults = () => {
     const resultsObj = Object.values(results)
     const location = useLocation()
     const topics = location.state?.topics
-    console.log(topics)
+    console.log('TOPICS ARE', topics)
 
     const names = topics.map(topic => topic.topic_name)
 
@@ -29,12 +29,17 @@ export const ReviewQuizResults = () => {
     const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
 
     const showResults = () => {
-        console.log('f the cowboys')
+    
         dispatch(openResultsModal())
     }
 
     const goHome = () => {
         navigate('/userhome')
+    }
+
+    const goAgain = () => {
+        navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: topics}})
+
     }
 
     const topicMastery = () => {
@@ -72,7 +77,7 @@ export const ReviewQuizResults = () => {
             <div className='w-screen flex justify-center'>
             <div className="mt-40 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center '>
-                <div className='mt-10 bg-red-100 w-full'>
+                <div className='mt-10 ml-8 w-full'>
 
                 <div >
 
@@ -80,7 +85,7 @@ export const ReviewQuizResults = () => {
                 <div>
                     You scored {percentageScore}% on the quiz
                 </div>
-                <div>
+                <div className="text-4xl">
                     Topic Mastery Breakdown
                 </div>
                 <div>
@@ -116,7 +121,7 @@ export const ReviewQuizResults = () => {
                             hover:bg-slate-500
                             font-medium
                             hover:cursor-pointer' 
-                            onClick={showResults }>Take Another One</button>
+                            onClick={goAgain }>Take Another One</button>
 
                         <button className='
                             border-black 
