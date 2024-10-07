@@ -70,11 +70,11 @@ export const ReviewQuizResults = () => {
             </div>
 
             <div className='w-screen flex justify-center'>
-            <div className="mt-40 w-5/6 h-auto border-black border-2 rounded-lg shadow-2xl">
-                <div className='flex flex-col items-center justify-center'>
-                <div className='mt-10'>
+            <div className="mt-40 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
+                <div className='flex flex-col items-center justify-center '>
+                <div className='mt-10 bg-red-100 w-full'>
 
-                <div>
+                <div >
 
                 This is the results for the topic review quiz on {formattedNames}
                 <div>
@@ -86,7 +86,9 @@ export const ReviewQuizResults = () => {
                 <div>
                     {topicMastery()}
                 </div>
-                <div className='flex flex-row justify-around my-10'>
+                </div>
+                </div>
+                <div className='flex flex-row justify-around my-10 w-full'>
                     <button className='
                             border-black 
                             h-1/5 
@@ -101,8 +103,22 @@ export const ReviewQuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={showResults }>Show Me What I Missed</button>
+                    <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/4
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={showResults }>Take Another One</button>
 
-<button className='
+                        <button className='
                             border-black 
                             h-1/5 
                             w-1/4
@@ -121,9 +137,9 @@ export const ReviewQuizResults = () => {
                 </div>
             </div>
             
+         
             </div>
-            </div>
-            </div>
+     
             <ResultsModal />
        
         </>
