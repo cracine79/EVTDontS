@@ -13,6 +13,7 @@ export const ReviewQuizResults = () => {
     const location = useLocation()
     const topics = location.state?.topics
     const topicProg = useSelector(state=>state.topicProg)
+    const topicProgObj = Object.values(topicProg)
     console.log('TOPICS ARE', topics)
 
     const names = topics.map(topic => topic.topic_name)
@@ -72,6 +73,15 @@ export const ReviewQuizResults = () => {
         }
     }
 
+    const getQuestionsAsked = (topicName) => {
+        const topic = topicProgObj.find(topic => topic.topic_name == topicName)
+        return topic.questions_asked
+    }
+
+    const getQuestionsAnswered = (topicName) => {
+        const topic = topicProgObj.find(topic => topic.topic_name == topicName)
+        return topic.answered_correctly
+    }
 
     const topicMastery = () => {
         return(
@@ -84,10 +94,11 @@ export const ReviewQuizResults = () => {
                                     Topic: {topic.topic_name}
                                 </div>
                                 <div>
-                                    You have faced down&nbsp;
-                                    <span className='font-bold text-lg'>{topicProg[topic.topic_id].questions_asked}</span> 
-                                    &nbsp;questions on this topic and answered&nbsp;
-                                    <span className='font-bold text-lg'>{topicProg[topic.topic_id].answered_correctly} </span>correctly.
+                                    You have faced down&nbsp;<span className='font-bold text-lg'>
+                                        {getQuestionsAsked(topic.topic_name)}
+                                    </span>
+                                    &nbsp;questions on this topic and answered {topicProg[topic.topic_id]}&nbsp;
+                                    <span className='font-bold text-lg'>{getQuestionsAnswered(topic.topic_name)} </span>correctly.
                                 </div>
                                 <div className='mt-2'>
                                     Your current level of understanding of {topic.topic_name} is equivalent to: 
