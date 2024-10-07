@@ -53,21 +53,21 @@ export const ReviewQuizResults = () => {
         } else if (percent > 70) {
             return (
                 <div className='text-lime-600'>
-                'A Werner Herzog Documentary Production Value'
+                A Werner Herzog Documentary Production Value
                 </div>)
         } else if (percent > 60) {
             return (
                 <div className='text-amber-500'>
-                     'An Intern on their Third Cup of Coffee Level Sharpness'
+                     An Intern on their Third Cup of Coffee Level Sharpness
                 </div>
                )
         } else if (percent > 50) {
             return (
                 <div claddName='text-pink-700'>
-                'The depth of the lyrics of an early 2000s Boy Band Song'
+                The depth of the lyrics of an early 2000s Boy Band Song
                 </div>)
         } else {
-            return (<div className='text-red-500'>'Michael Scott Trying to Declare Bankruptcy Level Knowledge'
+            return (<div className='text-red-500'>Michael Scott Trying to Declare Bankruptcy Level Knowledge
             </div>)
         }
     }
@@ -92,7 +92,7 @@ export const ReviewQuizResults = () => {
                                 <div className='mt-2'>
                                     Your current level of understanding of {topic.topic_name} is equivalent to: 
                                 </div>
-                                <div className='font-bold'>
+                                <div className='font-bold mb-4'>
                                     {ranking(topic.percent_correct)}
                                 </div>
 
