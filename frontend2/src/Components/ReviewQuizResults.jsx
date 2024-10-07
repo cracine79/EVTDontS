@@ -31,7 +31,6 @@ export const ReviewQuizResults = () => {
     const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
 
     const showResults = () => {
-    
         dispatch(openResultsModal())
     }
 
@@ -42,6 +41,8 @@ export const ReviewQuizResults = () => {
     }
 
     const goAgain = () => {
+        dispatch(clearUserResults())
+        dispatch(clearQuestions())
         navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: topics}})
 
     }
