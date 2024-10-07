@@ -147,6 +147,7 @@ class QuizProgress(Resource):
 
             }
 
+            db.session.commit()
         return (jsonify({
             "answers": answer_response_data,
             'topic_progress': topic_progress_dict

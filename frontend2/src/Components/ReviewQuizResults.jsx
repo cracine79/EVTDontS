@@ -21,6 +21,32 @@ export const ReviewQuizResults = () => {
         }
     })
     const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
+
+    const topicMastery = () => {
+        return(
+            topics.map((topic=>{
+            return(
+                <>  
+                    <div>
+                        {topic.topic_name}
+                        <div>
+                            You have faced down {topic.questions_asked} questions on this topic and answered {topic.answered_correctly} correctly
+                        </div>
+                        <div>
+                            Your current status for {topic.topic_name} mastery is: 
+                        </div>
+                    </div>
+
+                </>
+            )
+        })
+                
+    )
+        
+
+    )
+
+    }
     return(
         <>
             <div className='h-20'>
@@ -37,6 +63,12 @@ export const ReviewQuizResults = () => {
                 This is the results for the topic review quiz on {formattedNames}
                 <div>
                     You scored {percentageScore}% on the quiz
+                </div>
+                <div>
+                    Topic Mastery Breakdown
+                </div>
+                <div>
+                    {topicMastery()}
                 </div>
                 </div>
             </div>
