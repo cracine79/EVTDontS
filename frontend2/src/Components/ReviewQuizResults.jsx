@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
-
-
+import { clearUserResults } from "../Slices/resultsSlice"
+import { clearQuestions } from "../Slices/questionsSlice"
 
 export const ReviewQuizResults = () => {
     const dispatch = useDispatch()
@@ -36,6 +36,8 @@ export const ReviewQuizResults = () => {
     }
 
     const goHome = () => {
+        dispatch(clearUserResults())
+        dispatch(clearQuestions())
         navigate('/userhome')
     }
 
