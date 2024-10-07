@@ -97,7 +97,7 @@ export const ReviewQuizResults = () => {
                                     You have faced down&nbsp;<span className='font-bold text-lg'>
                                         {getQuestionsAsked(topic.topic_name)}
                                     </span>
-                                    &nbsp;questions on this topic and answered {topicProg[topic.topic_id]}&nbsp;
+                                    &nbsp;questions on this topic and answered&nbsp;
                                     <span className='font-bold text-lg'>{getQuestionsAnswered(topic.topic_name)} </span>correctly.
                                 </div>
                                 <div className='mt-2'>
