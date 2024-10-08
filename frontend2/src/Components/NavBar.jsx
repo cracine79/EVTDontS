@@ -3,6 +3,7 @@ import LoginComponent from "./LoginComponent"
 import SignupComponent from "./SignupComponent"
 import LogoutButton from "./LogoutComponent"
 import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
+import { UserMenu } from "./UserMenu"
 
 
 
@@ -22,7 +23,8 @@ export const NavBar = () => {
 
     const sessionLinks = currentUser ? (
         <div className="mr-8">
-            <LogoutButton/>
+            <UserMenu/>
+            {/* <LogoutButton/> */}
         </div>
     ) : (
         <div className="flex w-32 justify-around mr-10">

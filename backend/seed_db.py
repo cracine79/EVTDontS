@@ -112,7 +112,7 @@ def seed_questions(chapters, topics):
     question15 = Question(text="The concept of scarcity can best be defined as:", chapter=chapters[0], topic=topics[0])
     question16 = Question(text="The opportunity cost of choosing to study instead of working is", chapter=chapters[0], topic=topics[1])
     question17 = Question(text="Which of the following is a defining characteristic of a market economy?", chapter=chapters[2], topic=topics[3])
-    question18 = Question(text="A fundamental difference between a market economy and command economy lies in which of the following?", chapter=chapters[2], topic=topics[3])
+    question18 = Question(text="Which of the following is a key requirement for a market/capitalist econopmy, but not necessarily so for a command economy?", chapter=chapters[2], topic=topics[3])
     question19 = Question(text="Unlike a market economy, a command economy uses", chapter=chapters[2], topic=topics[3])
     question20 = Question(text="Which economic system is characterized by a combination of government intervention and market force?", chapter=chapters[2], topic=topics[3])
     question21 = Question(text="In a market economy, prices are primarily determined by: ", chapter=chapters[2], topic=topics[3])
@@ -175,6 +175,17 @@ def seed_questions(chapters, topics):
     question78 = Question(text='The term "human capital" refers to which factor of production?',chapter=chapters[1], topic=topics[2])
     question79 = Question(text='Which of the following is an example of Labor as a factor of production?',chapter=chapters[1], topic=topics[2])
     question80 = Question(text='Which factor of production involves risk-taking and innovation?',chapter=chapters[1], topic=topics[2])
+    question81 = Question(text='Jeff works part time at a local gas station and earns $15 an hour.  He wants to spend next Thursday afternoon attending a comic book convention. The full price of a convention ticket is $80, but he was able to get a discounted price of $60 online. If Jeff took 4 hours off to go to the convention, what was his opportunity cost of attending the concert?', chapter=chapters[0], topic=topics[1])
+    question82 = Question(text='A linear production possibliites curve suggests which of the following?', chapter=chapters[4], topic=topics[6])
+    question83 = Question(text='An outward bowed production possibliites curve suggests which of the following?', chapter=chapters[4], topic=topics[6])
+    question84 = Question(text="As compared to a command economy, resources in a market economy are more often allocated according to:", chapter=chapters[2], topic=topics[3])
+    question85 = Question(text="Command economies are different from capitalist economies in which of the following ways?", chapter=chapters[2], topic=topics[3])
+    question86 = Question(text="One of the key differences of a command economy as compared to a market economy is:", chapter=chapters[2], topic=topics[3])
+    question87 = Question(text="Which of the following is a common feature of market economies that differentiates them from command economies?", chapter=chapters[2], topic=topics[3])
+    question88 = Question(text="In a command economy, resource allocation decisions are typically made by:", chapter=chapters[2], topic=topics[3])
+    question89 = Question(text="Which of the following characteristics is more associated with a capitalist economy than a command economy?", chapter=chapters[2], topic=topics[3])
+
+
 
 
     questions = [question1, question2, question3, 
@@ -203,7 +214,10 @@ def seed_questions(chapters, topics):
                  question70, question71, question72, 
                  question73, question74, question75,
                  question76, question77, question78,
-                 question79, question80
+                 question79, question80, question81, 
+                 question82, question83, question84,
+                 question85, question86, question87,
+                 question88, question89
                  ]
     
     print("questions created")
@@ -697,6 +711,61 @@ def seed_answers(questions):
     answer80d = Answer(text='Land', question=questions[79], is_correct=False)
     answer80e = Answer(text='Technology', question=questions[79], is_correct=False)
 
+    answer81a = Answer(text='$60', question=questions[80], is_correct=False)
+    answer81b = Answer(text='$75', question=questions[80], is_correct=False)
+    answer81c = Answer(text='$80', question=questions[80], is_correct=False)
+    answer81d = Answer(text='$120', question=questions[80], is_correct=True)
+    answer81e = Answer(text='$140', question=questions[80], is_correct=False)
+
+    answer82a = Answer(text='Constant opportunity cost', question=questions[81], is_correct=True)
+    answer82b = Answer(text='Increasing opportunity cost', question=questions[81], is_correct=False)
+    answer82c = Answer(text='Decreasing opportunity cost', question=questions[81], is_correct=False)
+    answer82d = Answer(text='Increasing returns to scale', question=questions[81], is_correct=False)
+    answer82e = Answer(text='Decreasing returns to scale', question=questions[81], is_correct=False)
+
+    answer83a = Answer(text='Constant opportunity cost', question=questions[82], is_correct=False)
+    answer83b = Answer(text='Increasing opportunity cost', question=questions[82], is_correct=True)
+    answer83c = Answer(text='Decreasing opportunity cost', question=questions[82], is_correct=False)
+    answer83d = Answer(text='Increasing returns to scale', question=questions[82], is_correct=False)
+    answer83e = Answer(text='Decreasing returns to scale', question=questions[82], is_correct=False)
+
+    answer84a = Answer(text="Elections", question=questions[83], is_correct=False)
+    answer84b = Answer(text="Government mandates", question=questions[83], is_correct=False)
+    answer84c = Answer(text="The pricing mechanism", question=questions[83], is_correct=True)
+    answer84d = Answer(text="Traditions and norms", question=questions[83], is_correct=False)
+    answer84e = Answer(text="Congress/Parliament", question=questions[83], is_correct=False)
+
+    answer85a = Answer(text="Command economies tend to charge more for goods like energy or crude oil", question=questions[84], is_correct=False)
+    answer85b = Answer(text="Capitalist economies tend to charge more for goods like energy or crude oil", question=questions[84], is_correct=False)
+    answer85c = Answer(text="Command economies have a higher degree of government ownership and control of resources", question=questions[84], is_correct=True)
+    answer85d = Answer(text="Capitalist economies have a higher degree of government ownership of resources", question=questions[84], is_correct=False)
+    answer85e = Answer(text="Capitalist economies include more planning in the labor market", question=questions[84], is_correct=False)
+
+    answer86a = Answer(text="Consumers and firms are more important in deciding pricing and output decisions.", question=questions[85], is_correct=False)
+    answer86b = Answer(text="Taxes are always higher in command economies", question=questions[85], is_correct=False)
+    answer86c = Answer(text="Resources are allocated according to central planning in command economies", question=questions[85], is_correct=True)
+    answer86d = Answer(text="People have less religious freedom in command economies", question=questions[85], is_correct=False)
+    answer86e = Answer(text="Individuals own resources in command economies", question=questions[85], is_correct=False)
+
+    answer87a = Answer(text="High levels of government control in all industries", question=questions[86], is_correct=False)
+    answer87b = Answer(text="Resource allocation through voluntary exchange", question=questions[86], is_correct=True)
+    answer87c = Answer(text="Decisions are made by a central authority", question=questions[86], is_correct=False)
+    answer87d = Answer(text="Limited availability of consumer goods", question=questions[86], is_correct=False)
+    answer87e = Answer(text="Rigid wage and price controls", question=questions[86], is_correct=False)
+
+    answer88a = Answer(text="Individual consumers", question=questions[87], is_correct=False)
+    answer88b = Answer(text="Firms in competitive markets", question=questions[87], is_correct=False)
+    answer88c = Answer(text="A central government authority", question=questions[87], is_correct=True)
+    answer88d = Answer(text="International trade bodies", question=questions[87], is_correct=False)
+    answer88e = Answer(text="Non-governmental organizations", question=questions[87], is_correct=False)
+
+    answer89a = Answer(text="High degree of government ownership", question=questions[88], is_correct=False)
+    answer89b = Answer(text="Resource allocation by supply and demand", question=questions[88], is_correct=True)
+    answer89c = Answer(text="Strict central planning", question=questions[88], is_correct=False)
+    answer89d = Answer(text="Government control of all prices", question=questions[88], is_correct=False)
+    answer89e = Answer(text="Limited role for consumer choice", question=questions[88], is_correct=False)
+
+
     answers = [answer1a, answer1b, answer1c, answer1d, answer1e, 
                answer2a, answer2b, answer2c, answer2e, answer2d, 
                answer3a, answer3b, answer3c, answer3d, answer3e, 
@@ -776,7 +845,16 @@ def seed_answers(questions):
                answer77a, answer77b, answer77c, answer77d, answer77e, 
                answer78a, answer78b, answer78c, answer78d, answer78e,
                answer79a, answer79b, answer79c, answer79d, answer79e,
-               answer80a, answer80b, answer80c, answer80d, answer80d, 
+               answer80a, answer80b, answer80c, answer80d, answer80e, 
+               answer81a, answer81b, answer81c, answer81d, answer81e, 
+               answer82a, answer82b, answer82c, answer82d, answer82e,
+               answer83a, answer83b, answer83c, answer83d, answer83e,
+               answer84a, answer84b, answer84c, answer84d, answer84e, 
+               answer85a, answer85b, answer85c, answer85d, answer85e,
+               answer86a, answer86b, answer86c, answer86d, answer86e,
+               answer87a, answer87b, answer87c, answer87d, answer87e, 
+               answer88a, answer88b, answer88c, answer88d, answer88e,
+               answer89a, answer89b, answer89c, answer89d, answer89e,
                ]
 
     db.session.add_all(answers)

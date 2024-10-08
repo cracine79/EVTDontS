@@ -88,7 +88,7 @@ export const ReviewQuizResults = () => {
 
     const topicMastery = () => {
         return(
-            <div className='flex justify-between mr-8 mt-6'>
+            <div className='flex justify-around mr-8 mt-6'>
                 {topics.map((topic=>{
                     return(
                         <div className='mx-6  border-2 rounded-lg border-slate-300'>  
