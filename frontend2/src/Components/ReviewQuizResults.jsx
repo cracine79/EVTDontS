@@ -14,10 +14,13 @@ export const ReviewQuizResults = () => {
     const topics = location.state?.topics
     const topicProg = useSelector(state=>state.topicProg)
     const topicProgObj = Object.values(topicProg)
+    const topicIdSet = new Set(topics.map(topic => topic.topic_id))
+    const newTopics = topicProgObj.filter(topic => topicIdSet.has(topic.topic_id))
     console.log('TOPICS ARE', topics)
+    console.log('topigProgOpj', topicProgObj)
 
     const names = topics.map(topic => topic.topic_name)
-
+    
     const formattedNames = names.length > 1 
     ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
     : names[0]
@@ -48,6 +51,7 @@ export const ReviewQuizResults = () => {
     }
 
     const ranking = (percent) => {
+   
         if(percent > 80){
             return(
                 <div className='text-green-700'>
@@ -89,7 +93,7 @@ export const ReviewQuizResults = () => {
     const topicMastery = () => {
         return(
             <div className='flex justify-around mr-8 mt-6'>
-                {topics.map((topic=>{
+                {newTopics.map((topic=>{
                     return(
                         <div className='mx-6  border-2 rounded-lg border-slate-300'>  
                             <div className='mt-4 mx-4'>

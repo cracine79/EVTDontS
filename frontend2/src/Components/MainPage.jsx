@@ -29,8 +29,8 @@ export const MainPage = () => {
 
                 <div>
                     <div className="mt-40 ml-20 flex justify-around items-center">
-                        <div className='w-5/6 mt-20'>
-
+                        <div className='w-5/6 ml-10'>
+                            <img src='/Sampleq.png' className='rounded-xl'></img>
                         </div>
                         <div className='h-100 w-100 flex flex-col items-center -mr-20'>
                             <img src="/Practice.png" alt="Take the Quizzes" className="w-4/6 h-4/6" />
@@ -45,19 +45,21 @@ export const MainPage = () => {
                         <img src="/goofs.png" alt="Watch the Videos" className="w-4/6 h-4/6" />
                         <p className="mt-2 w-4/6 text-2xl text-center">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja.</p>
                     </div>
-                    <div className="w-5/6 flex flex-col items-center">
-                        <div className="w-5/6  rounded-3xl">
-                           
+
+                        <div className="w-5/6  rounded-3xl mr-10 -ml-10">
+                            <img src='/qresults.png' className='rounded-xl'></img>
                         </div>
-                    </div>
+             
                 </div>
 
-                <div>
-                    <div className="mt-40 ml-20 flex justify-around items-center">
-                        <div className='w-5/6 mt-20'>
-
+                <div >
+                    <div className="mt-30 mx-20 flex justify-center items-center">
+                        <div className='mt-20 '>
+                            <video className='w-11/12 h-auto mt-20' autoPlay loop muted>
+                                <source src="whiteEconoWarrior.mp4" />
+                            </video>       
                         </div>
-                        <div className='h-100 w-100 flex flex-col items-center -mr-20'>
+                        <div className='flex flex-col items-center'>
                             <img src="/keepGoing.png" alt="Take the Quizzes" className="w-4/6 h-4/6" />
                             <p className="mt-2 w-4/6 text-2xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>
