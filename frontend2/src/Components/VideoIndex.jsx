@@ -37,10 +37,11 @@ export const VideoIndex = () => {
                     Choose wisely, and don't be like the Nazi guy in the end of Indiana Jones & The Last Crusade!
                     </div>
                     <div className='flex flex-col items-center justify-center mt-10 border'>
-                        <div>
-                            {videoId ? `Video for ${chapterVid(videoId)}`: 'nothing'}
+                        <div className='text-3xl my-4'>
+                            {videoId ? `Video for ${chapterVid(videoId)}`: 'Choose a video already!'}
                         </div>
                         {videoId && (
+                        <>
                         <div>
                             <iframe 
                                 width="920" 
@@ -49,6 +50,10 @@ export const VideoIndex = () => {
                                 allowFullScreen>
                             </iframe>
                         </div>
+                        <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer'>
+                            Jump to Chapter Quiz
+                        </div>
+                        </>
                         )}
                     </div>
                 </div>

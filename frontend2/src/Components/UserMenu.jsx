@@ -23,8 +23,8 @@ export const UserMenu = () => {
     }
 
     const goHome = () => {
-        dispatch(clearQuestions)
-        dispatch(clearUserResults)
+        dispatch(clearQuestions())
+        dispatch(clearUserResults())
         navigate('/userhome')
     }
 

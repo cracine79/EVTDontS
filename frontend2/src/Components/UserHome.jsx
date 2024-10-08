@@ -102,7 +102,7 @@ export const UserHome = () => {
             w-screen 
             bg-slate-50 
             flex-col
-            h-screen'>
+            min-h-screen'>
             <div className='h-100 flex flex-row mt-20 w-3/4'>
                 <div className=
                     'mt-36 
@@ -159,7 +159,7 @@ export const UserHome = () => {
 
             </div>
      
-                <div className='flex flex-row items-center justify-center w-full mt-20'>
+                <div className='flex flex-row items-center justify-center w-full mt-20 mb-20'>
                     <Progress />
                 </div>
            
