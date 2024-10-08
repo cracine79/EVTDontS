@@ -44,6 +44,7 @@ export const UserMenu = () => {
                     <div className='text-right'>
                         <div className="hover:bg-green-400 hover:cursor-pointer w-48 -ml-6 px-4" onClick = {nextThing}>Go to {thing}</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4">Create review quiz</div>
+                        <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {()=>navigate('/videoindex')}>Go to all Videos</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goHome}>User dashboard</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4 my-4">
                             <LogoutButton/>
