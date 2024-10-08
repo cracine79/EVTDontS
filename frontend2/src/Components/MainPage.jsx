@@ -1,6 +1,13 @@
-import LogoutButton from "./LogoutComponent"
+import { openSignupModal } from "../Slices/modalSlice"
+import { useDispatch } from "react-redux"
 
 export const MainPage = () => {
+    const dispatch = useDispatch()
+
+    const handleGetStarted = ()=>{
+        dispatch(openSignupModal())
+    }
+
     return(
         <>
             <div className="flex justify-center">
@@ -65,7 +72,14 @@ export const MainPage = () => {
                         </div>
                     </div>
                 </div>
-          
+                
+            </div>
+            <div className='flex justify-center items-center w-full my-24'>
+                   <div className='px-6 bg-slate-300 hover:cursor-pointer hover:bg-slate-500 py-6 border-black border text-center rounded-xl'
+                   onClick={handleGetStarted}>
+                        <div className='text-3xl '>Sign up to Get Started!</div>
+                        <div className=''>C'mon, what else are you doing right now?</div>
+                    </div> 
             </div>
         </>
     )
