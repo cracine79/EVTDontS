@@ -162,7 +162,7 @@ export const ReviewQuizResults = () => {
 
             </div>
 
-            <div className='w-screen flex justify-center'>
+            <div className='w-screen flex justify-center mb-48'>
             <div className="mt-40 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center '>
                 <div className='mt-10 ml-8 w-full'>
