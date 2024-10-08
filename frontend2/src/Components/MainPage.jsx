@@ -1,12 +1,16 @@
 import { openSignupModal } from "../Slices/modalSlice"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 export const MainPage = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleGetStarted = ()=>{
         dispatch(openSignupModal())
     }
+
+
 
     return(
         <>
@@ -74,11 +78,23 @@ export const MainPage = () => {
                 </div>
                 
             </div>
-            <div className='flex justify-center items-center w-full my-24'>
+            <div className='flex justify-center items-center w-full mt-24 mb-12'>
                    <div className='px-6 bg-slate-300 hover:cursor-pointer hover:bg-slate-500 py-6 border-black border text-center rounded-xl'
                    onClick={handleGetStarted}>
                         <div className='text-3xl '>Sign up to Get Started!</div>
                         <div className=''>C'mon, what else are you doing right now?</div>
+                    </div> 
+            </div>
+            <div className='text-center text-5xl font-bold'>
+                OR
+            </div>
+            <div className='flex justify-center items-center w-full mt-12 mb-12'>
+                   <div className='px-6 bg-slate-300 hover:cursor-pointer hover:bg-slate-500 py-6 border-black border text-center rounded-xl'
+                   onClick={()=> {
+                    navigate('/videoindex')
+                   }}>
+                        <div className='text-3xl '>Jump to Videos</div>
+                        <div className=''>You can always sign up later</div>
                     </div> 
             </div>
         </>
