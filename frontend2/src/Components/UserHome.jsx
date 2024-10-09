@@ -23,14 +23,16 @@ export const UserHome = () => {
     ]
 
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
-    const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
-    console.log('current CHAPPPTER', currentChapter)
+    const currentBookChapter = useSelector((state)=>state.chapters[currentChapterId])
+    const currentUserChapter = useSelector((state)=>state.userChapters[currentChapterId])
+    
+    console.log('current CHAPPPTER', currentUserChapter)
     const workingOn = () =>{
-        if(currentChapter){
+        if(currentBookChapter){
             return (
                 <>
                     <div className="text-xl">You are currently working on:</div>
-                    <div className="text-xl"> Chapter {currentChapter.name.slice(0,3)}: {currentChapter.name.slice(3)}</div>
+                    <div className="text-xl"> Chapter {currentBookChapter.name.slice(0,3)}: {currentBookChapter.name.slice(3)}</div>
                 </>
             )
         } else{
@@ -48,9 +50,9 @@ export const UserHome = () => {
     }
 
     const handleClick = () => {
-        if(currentChapter){
-            if(!currentChapter.video_completed){
-                if(!("video_completed" in currentChapter)){
+        if(currentUserChapter){
+            if(!currentUserChapter.video_completed){
+                if(!("video_completed" in currentUserChapter)){
                     (startChapterProgress(currentChapterId))
                 }
                 navigate('/Video', {state: {chapter: currentChapterId}})
@@ -63,11 +65,11 @@ export const UserHome = () => {
 
 
     const UpNext = () => {
-        if(!currentChapter){
+        if(!currentUserChapter){
             return(
                 <>Get Started</>
             )
-        }else if(!currentChapter.video_completed){
+        }else if(!currentUserChapter.video_completed){
             return(
                 <div onClick={handleClick}><p > Watch the next video </p></div>
             )

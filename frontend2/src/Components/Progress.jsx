@@ -7,7 +7,16 @@ export const Progress = () => {
     const units = useSelector((state)=>state.units)
     // console.log(units)
     const units_names = Object.values(units)
-    const chapters = useSelector((state)=>state.chapters)
+    const bookChapters = useSelector((state)=>state.chapters)
+    const userChapters = useSelector((state)=>state.userChapters)
+    const chapters = 
+        Object.keys(userChapters).reduce((result, key) => {
+            result[key] = bookChapters[key]
+            ?{...userChapters[key], ...bookChapters[key]}
+            : userChapters[key]
+        return result
+        }, {})
+    
     const chaptersObj = Object.values(chapters)
     const chaptersEnt = Object.entries(chapters)
 
