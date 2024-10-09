@@ -8,18 +8,24 @@ import { clearUserResults } from "../Slices/resultsSlice"
 
 export const UserMenu = () => {
     const username = useSelector((state) => state.user.username)
-    const capitalized = username[0].toUpperCase()+username.slice(1)
+    const capitalized = username ? username[0].toUpperCase() + username.slice(1) : "";
     const currentChapterId = useSelector((state) => state.user.currentChapter)
-    const videoWatched = useSelector((state)=>state.chapters[currentChapterId].video_completed)
+    const chapters = useSelector((state) => state.chapters); 
+    console.log("CCID", currentChapterId)
+    const videoWatched = currentChapterId && chapters?.[currentChapterId]?.video_completed ? true : false;
     const navigate = useNavigate()
     const dispatch = useDispatch()
     
     const thing = videoWatched ? "chapter quiz" : "next video"
-    console.log(videoWatched)
 
-    const nextThing = () => {videoWatched ? 
-        navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}}) :
-        navigate('/Video', {state: {chapter: currentChapterId}})
+
+    const nextThing = () => {
+        return (<>Thing</>)
+        if(currentChapterId){
+            videoWatched 
+            ? navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}}) 
+            : navigate('/Video', {state: {chapter: currentChapterId}})
+        }
     }
 
     const goHome = () => {
@@ -29,6 +35,7 @@ export const UserMenu = () => {
     }
 
     return(
+ 
             <div className='relative inline-block group'>
                 <div className='flex flex-col items-center mr-6 mt-2 hover:cursor-pointer text-slate-600 '>
                     <FaUserCircle className='text-3xl '/>

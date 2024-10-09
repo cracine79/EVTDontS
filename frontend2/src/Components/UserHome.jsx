@@ -9,7 +9,8 @@ export const UserHome = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const userName = useSelector((state)=>state.user.username)
-    const userId = useSelector((state)=>state.user.id)
+
+    console.log(userName)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
         "Already back for more?  Guess Netflix isn't cutting it today.",
@@ -23,6 +24,7 @@ export const UserHome = () => {
 
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
     const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
+    console.log('current CHAPPPTER', currentChapter)
     const workingOn = () =>{
         if(currentChapter){
             return (
@@ -46,20 +48,22 @@ export const UserHome = () => {
     }
 
     const handleClick = () => {
-        if(!currentChapter.video_completed){
-            if(!("video_completed" in currentChapter)){
-                (startChapterProgress(currentChapterId, userId))
+        if(currentChapter){
+            if(!currentChapter.video_completed){
+                if(!("video_completed" in currentChapter)){
+                    (startChapterProgress(currentChapterId))
+                }
+                navigate('/Video', {state: {chapter: currentChapterId}})
+            } else {
+                navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}})
             }
-            navigate('/Video', {state: {chapter: currentChapterId}})
-        } else {
-            navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}})
         }
     }
 
 
 
     const UpNext = () => {
-        if(currentChapter==null){
+        if(!currentChapter){
             return(
                 <>Get Started</>
             )
@@ -74,14 +78,14 @@ export const UserHome = () => {
         }
     }
 
-    const startChapterProgress = async(chapterId, userId) => {
+    const startChapterProgress = async(chapterId) => {
         try{
             const response = await csrfFetch('/api/progress/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                   },
-                body: JSON.stringify({ chapter_id: chapterId, user_id: userId }),
+                body: JSON.stringify({ chapter_id: chapterId }),
             });
     
         const data = await response.json()

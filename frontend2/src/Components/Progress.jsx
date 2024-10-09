@@ -90,7 +90,7 @@ export const Progress = () => {
             }
         })
         
-        console.log(chapterId)
+
         let sum = 0
         chapter_topics.forEach(chapter => {
             sum += chapter.percent_correct
