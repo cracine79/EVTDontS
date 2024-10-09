@@ -10,9 +10,10 @@ export const UserMenu = () => {
     const username = useSelector((state) => state.user.username)
     const capitalized = username ? username[0].toUpperCase() + username.slice(1) : "";
     const currentChapterId = useSelector((state) => state.user.currentChapter)
-    const chapters = useSelector((state) => state.chapters); 
+    const bookChapters = useSelector((state) => state.chapters); 
+    const userChapters = useSelector((state) => state.userChapters)
     console.log("CCID", currentChapterId)
-    const videoWatched = currentChapterId && chapters?.[currentChapterId]?.video_completed ? true : false;
+    const videoWatched = currentChapterId && userChapters?.[currentChapterId]?.video_completed ? true : false;
     const navigate = useNavigate()
     const dispatch = useDispatch()
     

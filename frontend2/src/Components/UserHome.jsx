@@ -75,7 +75,7 @@ export const UserHome = () => {
             )
         } else {
             return(
-                <div onClick={handleClick}><p > Go To Review Quiz </p></div>
+                <div onClick={handleClick}><p > Go To Chapter Quiz </p></div>
             )
         }
     }
