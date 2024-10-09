@@ -5,8 +5,7 @@ import { getAllChapters } from "../Slices/chaptersActions"
 
 
 export const VideoIndex = () => {
-    const dispatch = useDispatch
-    dispatch(getAllChapters())
+
 
     const chapters = useSelector(state=>(state.chapters))
     const chaptersObj = Object.values(chapters)
@@ -29,7 +28,7 @@ export const VideoIndex = () => {
                     <div>Video Library</div>
                     {chaptersObj.map(chapter=>{
                         return(
-                            <div className='hover:cursor-pointer' onClick={()=>videoGo(chapter.video_url)}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer' onClick={()=>videoGo(chapter.video_url)}>{chapter.name}</div>
                         )
                     })}
                 </div>

@@ -6,7 +6,7 @@ import { closeLoginModal } from '../Slices/modalSlice';
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { storeUserUnits } from '../Slices/unitsSlice';
-import { storeChapters } from '../Slices/chaptersSlice';
+import { updateChapters } from '../Slices/chaptersSlice';
 import { storeTopicProg } from '../Slices/topicProgSlice';
 import { storeUserChapters } from '../Slices/userChaptersSlice';
 
@@ -42,7 +42,7 @@ const LoginComponent = () => {
     localStorage.setItem('access_token', data.user.access_token);
     dispatch(login(data.user));
     dispatch(storeUserUnits(data.units))
-    dispatch(storeChapters(data.chapters))
+    dispatch(updateChapters(data.chapters))
     dispatch(storeTopicProg(data.topic_progress))
     dispatch(storeUserChapters(data.user_chapters))
     dispatch(closeLoginModal()) // Store user in Redux state

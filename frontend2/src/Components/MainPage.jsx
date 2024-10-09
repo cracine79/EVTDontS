@@ -1,6 +1,7 @@
 import { openSignupModal } from "../Slices/modalSlice"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import { getAllChapters } from "../Slices/chaptersActions"
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -91,6 +92,7 @@ export const MainPage = () => {
             <div className='flex justify-center items-center w-full mt-12 mb-12'>
                    <div className='px-6 bg-slate-300 hover:cursor-pointer hover:bg-slate-500 py-6 border-black border text-center rounded-xl'
                    onClick={()=> {
+                    dispatch(getAllChapters())
                     navigate('/videoindex')
                    }}>
                         <div className='text-3xl '>Jump to Videos</div>

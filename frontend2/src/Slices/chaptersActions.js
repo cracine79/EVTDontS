@@ -2,7 +2,7 @@ import { csrfFetch } from "../csrf"
 import { updateChapters } from "./chaptersSlice";
 
 export const getAllChapters = () => async(dispatch) => {
-
+    console.log('GOING TO GET CHAPTERS')
     try {
         const response = await csrfFetch('api/chapters')
     
@@ -16,7 +16,7 @@ export const getAllChapters = () => async(dispatch) => {
           }
         
           const results = await response.json()
-          dispatch(updateChapters(results))
+          dispatch(updateChapters(results.chapters))
 
     } catch(error){
         console.error(error)
