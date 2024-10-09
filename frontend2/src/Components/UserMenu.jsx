@@ -39,7 +39,6 @@ export const UserMenu = () => {
     const goAllVids = () => {
         dispatch(getAllChapters())
         navigate('/videoindex')
-
     }
 
     return(
@@ -58,7 +57,7 @@ export const UserMenu = () => {
                     <hr className='border-gray-400 w-full my-2'></hr>
                     <div className='text-right'>
                         <div className="hover:bg-green-400 hover:cursor-pointer w-48 -ml-6 px-4" onClick = {nextThing}>Go to {thing}</div>
-                        <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4">Create review quiz</div>
+                        <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {() => {navigate('/quizgenerator')}}>Create review quiz</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goAllVids}>Go to all Videos</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goHome}>User dashboard</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4 my-4">
