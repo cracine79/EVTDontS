@@ -9,8 +9,10 @@ export const UserHome = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const userName = useSelector((state)=>state.user.username)
-
-    console.log(userName)
+    const currentChapterId = useSelector((state)=>state.user.currentChapter)
+    const currentBookChapter = useSelector((state)=>state.chapters[currentChapterId])
+    const currentUserChapter = useSelector((state)=>state.userChapters[currentChapterId])
+    console.log(currentChapterId)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
         "Already back for more?  Guess Netflix isn't cutting it today.",
@@ -22,9 +24,7 @@ export const UserHome = () => {
         "You like us!  You really like us!"
     ]
 
-    const currentChapterId = useSelector((state)=>state.user.currentChapter)
-    const currentBookChapter = useSelector((state)=>state.chapters[currentChapterId])
-    const currentUserChapter = useSelector((state)=>state.userChapters[currentChapterId])
+
     
     console.log('current CHAPPPTER', currentUserChapter)
     const workingOn = () =>{
@@ -52,9 +52,6 @@ export const UserHome = () => {
     const handleClick = () => {
         if(currentUserChapter){
             if(!currentUserChapter.video_completed){
-                if(!("video_completed" in currentUserChapter)){
-                    (startChapterProgress(currentChapterId))
-                }
                 navigate('/Video', {state: {chapter: currentChapterId}})
             } else {
                 navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}})

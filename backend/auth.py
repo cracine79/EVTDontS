@@ -32,6 +32,14 @@ class RefreshUser(Resource):
             chapters = unit.chapters
             user_chapters += chapters
         
+        chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id).all()
+        
+        progress_dict={
+            chapter.chapter_id: {
+                "video_completed": chapter.video_completed,
+                "quiz_grade": chapter.quiz_grade
+            } for chapter in chapter_progress
+        }
         chapter_dict = {
             chapter.id: {
                 "name": chapter.name,
@@ -42,23 +50,39 @@ class RefreshUser(Resource):
         
         units_dict = {unit.id: unit.name for unit in user_units}
 
-        chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id).all()
-        progress_dict={
-            chapter.id: {
-                "video_completed": chapter.video_completed,
-                "quiz_grade": chapter.quiz_grade
-            } for chapter in chapter_progress
-        }
-        
-        for chapter_id, progress_data in progress_dict.items():
-            if chapter_id in chapter_dict:
-                chapter_dict[chapter_id].update(progress_data)
+        user_topic_progress = UserTopicProgress.query.filter_by(user_id=user.id).all()
+        topic_progress_dict = {}
+
+        for topic_progress in user_topic_progress:
+            topic = QuestionTopic.query.get(topic_progress.topic_id)
+            topic_name = topic.name
+            if topic_progress.questions_asked > 0:
+                percent_correct = int((topic_progress.answered_correctly/topic_progress.questions_asked)*100)
             else:
-                chapter_dict[chapter_id] = progress_data            
+                percent_correct = 0
+
+            topic_progress_dict[topic_progress.id] = {
+                'topic_name': topic_name,
+                'percent_correct': percent_correct,
+                'chapter_id': topic.chapter_id,
+                'topic_id': topic.id,
+                'answered_correctly': topic_progress.answered_correctly,
+                'questions_asked': topic_progress.questions_asked
+            }
+
+        chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id).all()
+
+        
+        # for chapter_id, progress_data in progress_dict.items():
+        #     if chapter_id in chapter_dict:
+        #         chapter_dict[chapter_id].update(progress_data)
+        #     else:
+        #         chapter_dict[chapter_id] = progress_data            
         if user.current_chapter:
             current_chapter = user.current_chapter.id
         else:
             current_chapter=None
+
         if user:
 
             return jsonify({
@@ -68,12 +92,14 @@ class RefreshUser(Resource):
                     "current_chapter": current_chapter
                },
                "units": units_dict,
-               "chapters": chapter_dict
+               "chapters": chapter_dict,
+               "topic_progress": topic_progress_dict,
+               "user_chapters": progress_dict
                
                 # Add any other user data you want to return
             })
         else:
-            return jsonify({"message": "User not found"}), 404
+            return jsonify({"message": "No user logged in"}), 200
         
 
 
@@ -172,7 +198,6 @@ class Login(Resource):
                         "name": chapter.name, 
                         "unit_id": chapter.unit_id,
                         "video_url": chapter.video_url,
-                        "video_blurb": chapter.video_blurb
                     } for chapter in user_chapters}
                 units_dict = {unit.id: unit.name for unit in user_units}
 

@@ -1,6 +1,13 @@
-import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { getAllChapters } from "../Slices/chaptersActions"
+
+
+
 export const VideoIndex = () => {
+    const dispatch = useDispatch
+    dispatch(getAllChapters())
+
     const chapters = useSelector(state=>(state.chapters))
     const chaptersObj = Object.values(chapters)
   
