@@ -1,6 +1,6 @@
 import { csrfFetch } from "../csrf";
 import { updateUserResults } from "./resultsSlice";
-import { updateUserChapters } from "./chaptersSlice";
+import { updateUserChapters } from "./userChaptersSlice";
 import { updateUser, login } from "./userSlice";
 import { useNavigate } from "react-router-dom";
 import { updateTopicProg } from "./topicProgSlice";

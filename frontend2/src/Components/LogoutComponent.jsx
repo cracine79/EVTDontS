@@ -3,7 +3,7 @@ import { logout } from '../Slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { clearUserUnits } from '../Slices/unitsSlice';
 import { clearQuestions } from '../Slices/questionsSlice';
-import { clearUserChapters } from '../Slices/chaptersSlice';
+import { clearUserChapters } from '../Slices/userChaptersSlice';
 import { clearUserResults } from '../Slices/resultsSlice';
 import { clearTopicProg } from '../Slices/topicProgSlice';
 

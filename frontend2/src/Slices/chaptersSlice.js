@@ -6,21 +6,21 @@ const chaptersSlice = createSlice({
     name: 'chapters',
     initialState: {},
     reducers: {
-        storeUserChapters: (state, action) => {
+        storeChapters: (state, action) => {
             return action.payload
         },
-        updateUserChapters: (state, action) => {
+        updateChapters: (state, action) => {
             return {
                 ...state,
                 ...action.payload
             }
 
         }, 
-        clearUserChapters: (state) => {
+        clearChapters: (state) => {
             return {}
         }
      }
 })
 
-export const {storeUserChapters, updateUserChapters, clearUserChapters} = chaptersSlice.actions
-export default chaptersSlice.reducer
+export const {storeChapters, updateChapters, clearChapters} = chaptersSlice.actions
+export default chaptersSlice.reducer 

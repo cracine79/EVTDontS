@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useLocation } from "react-router-dom"
 import { csrfFetch } from "../csrf"
-import { updateUserChapters } from "../Slices/chaptersSlice"
+import { updateUserChapters } from "../Slices/userChaptersSlice"
 import { getQuestions } from "../Slices/questionsActions"
 
 

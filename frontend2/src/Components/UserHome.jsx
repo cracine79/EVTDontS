@@ -3,7 +3,7 @@ import { Progress } from "./Progress"
 import { useNavigate } from "react-router-dom"
 import { csrfFetch } from "../csrf"
 import { useDispatch } from "react-redux"
-import { updateUserChapters } from "../Slices/chaptersSlice"
+import { updateUserChapters } from "../Slices/userChaptersSlice"
 
 export const UserHome = () => {
     const dispatch = useDispatch()

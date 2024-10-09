@@ -1,6 +1,6 @@
 import { csrfFetch } from "../csrf";
 import { storeUserUnits } from "./unitsSlice";
-import { storeUserChapters } from "./chaptersSlice";
+import { storeUserChapters } from "./userChaptersSlice";
 import { updateUser } from "./userSlice";
 
 

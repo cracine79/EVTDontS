@@ -69,6 +69,7 @@ class RefreshUser(Resource):
                },
                "units": units_dict,
                "chapters": chapter_dict
+               
                 # Add any other user data you want to return
             })
         else:
@@ -194,12 +195,13 @@ class Login(Resource):
                         'answered_correctly': topic_progress.answered_correctly,
                         'questions_asked': topic_progress.questions_asked
                     }
+                user_chapter_dict = {}
 
-                for chapter_id, progress_data in progress_dict.items():
-                    if chapter_id in chapter_dict:
-                        chapter_dict[chapter_id].update(progress_data)
-                    else:
-                        chapter_dict[chapter_id] = progress_data            
+                # for chapter_id, progress_data in progress_dict.items():
+                #     if chapter_id in chapter_dict:
+                #         chapter_dict[chapter_id].update(progress_data)
+                #     else:
+                #         chapter_dict[chapter_id] = progress_data            
 
                 user_data = ({
                     "user": {
@@ -211,7 +213,8 @@ class Login(Resource):
                         },
                     "units": units_dict,
                     "chapters": chapter_dict,
-                    'topic_progress': topic_progress_dict
+                    'topic_progress': topic_progress_dict,
+                    "user_chapters": progress_dict
                 
                 })
                 print(user_data)
