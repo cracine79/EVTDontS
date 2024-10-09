@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { selectUserChapters } from "../Slices/selectors"
 
 export const Progress = () => {
     const units = useSelector((state)=>state.units)
@@ -9,6 +10,7 @@ export const Progress = () => {
     const chapters = useSelector((state)=>state.chapters)
     const chaptersObj = Object.values(chapters)
     const chaptersEnt = Object.entries(chapters)
+
     const [expandedUnits, setExpandedUnits] = useState({})
     const navigate = useNavigate()
     const userTopicProg = useSelector((state)=>state.topicProg)
