@@ -39,6 +39,7 @@ class AccessQuiz(Resource):
             params_topics = request.args.get('topics')
             decoded_params_topics = unquote(params_topics)
             user_topics = json.loads(decoded_params_topics)
+            print('USERTOPPPPICS', user_topics)
             topic_ids = [topic['topic_id'] for topic in user_topics]
             
             if len(topic_ids)>1:

@@ -35,7 +35,8 @@ export const Progress = () => {
     }, {})
 
     const userTopicVals = Object.values(userTopicProg)
-
+    const userTopicEntries = Object.entries(userTopicProg)
+    console.log('ENTRIES', userTopicEntries)
 
     const toggleUnit = (unitId) => {
         setExpandedUnits((prevState)=>({
@@ -106,13 +107,20 @@ export const Progress = () => {
 
     const mastery = (chapterId) => {
         const chapter_topics = []
-        userTopicVals.forEach(topic => {
-            if(topic.chapter_id==chapterId){
-                chapter_topics.push(topic)
-            }
-        })
         
+        // userTopicVals.forEach(topic => {
+        //     // console.log(topic.chapter_id)
+        //     if(topic.chapter_id==chapterId){
+        //         chapter_topics.push(topic)
+        //     }
+        // })
 
+        userTopicEntries.forEach(([topicId, topic]) => {
+            chapter_topics.push({...topic, topic_id: topicId})
+        }
+    )
+        console.log('topics',chapter_topics)
+        
         let sum = 0
         chapter_topics.forEach(chapter => {
             sum += chapter.percent_correct
