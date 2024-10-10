@@ -116,7 +116,9 @@ export const Progress = () => {
         // })
 
         userTopicEntries.forEach(([topicId, topic]) => {
-            chapter_topics.push({...topic, topic_id: topicId})
+            if(topic.chapter_id==chapterId){
+                chapter_topics.push({...topic, topic_id: topicId})
+            }
         }
     )
         console.log('topics',chapter_topics)
@@ -125,6 +127,7 @@ export const Progress = () => {
         chapter_topics.forEach(chapter => {
             sum += chapter.percent_correct
         })
+        console.log(chapter_topics)
         const averagePercentCorrect = chapter_topics.length > 0 ? sum/chapter_topics.length : 0
 
         let reply=""
