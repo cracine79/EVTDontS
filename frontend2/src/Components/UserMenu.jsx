@@ -49,12 +49,13 @@ export const UserMenu = () => {
                     <div>Menu</div>
                 </div>
                 <div className=
-                    'h-auto w-54 shadow-lg  
+                    'h-auto w-48 shadow-lg  
                     border-slate-900 border 
                     border-solid bg-white 
                     rounded-lg px-6 pt-2 absolute -ml-32 flex flex-col hidden group-hover:block'>
                     <div className = 'font-bold text-lg'>{capitalized}</div>
-                    <hr className='border-gray-400 w-full my-2'></hr>
+                    <div className='text-left'>User Account</div>
+                    <hr className='border-gray-400 w-full mb-2'></hr>
                     <div className='text-right'>
                         <div className="hover:bg-green-400 hover:cursor-pointer w-48 -ml-6 px-4" onClick = {nextThing}>Go to {thing}</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {() => {navigate('/quizgenerator')}}>Create review quiz</div>
