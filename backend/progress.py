@@ -135,7 +135,7 @@ class QuizProgress(Resource):
             topic_progress_dict[topic_id] = {
                 'topic_progress_id': topic_progress.id,
                 'questions_asked': topic_progress.questions_asked,
-                'answered_correctly': topic_progress.answered_correctly
+                'percent_correct': topic_progress.answered_correctly
             }
 
             db.session.commit()
