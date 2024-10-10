@@ -65,13 +65,13 @@ export const MainPage = () => {
                 </div>
 
                 <div >
-                    <div className="mt-30 mx-20 flex justify-center items-center">
-                        <div className='mt-20 '>
+                    <div className="mt-10 mx-20 flex justify-center items-center">
+                        <div >
                             <video className='w-11/12 h-auto mt-20' autoPlay loop muted>
                                 <source src="whiteEconoWarrior.mp4" />
                             </video>       
                         </div>
-                        <div className='flex flex-col items-center'>
+                        <div className='flex flex-col items-center mt-10'>
                             <img src="/keepGoing.png" alt="Take the Quizzes" className="w-4/6 h-4/6" />
                             <p className="mt-2 w-4/6 text-2xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>
