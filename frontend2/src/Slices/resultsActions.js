@@ -4,6 +4,7 @@ import { updateUserChapters } from "./userChaptersSlice";
 import { updateUser, login } from "./userSlice";
 import { useNavigate } from "react-router-dom";
 import { updateTopicProg } from "./topicProgSlice";
+import { updateTopics } from "./topicsSlice";
 
 
 export const addResults = (results) => async(dispatch) => {
@@ -53,6 +54,7 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         console.log(data.answers)
         dispatch(updateUserResults(data.answers))
         dispatch(updateTopicProg(data.topic_progress))
+        dispatch(updateTopics(data.topics))
 
     } catch(error){
         console.log('Error during data submission:', error)

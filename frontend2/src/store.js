@@ -7,6 +7,7 @@ import questionsReducer from './Slices/questionsSlice.js'
 import resultsReducer from './Slices/resultsSlice.js'
 import topicProgReducer from './Slices/topicProgSlice.js'
 import userChaptersReducer from './Slices/userChaptersSlice.js'
+import topicsReducer from './Slices/topicsSlice.js';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     questions: questionsReducer,
     results: resultsReducer,
     topicProg: topicProgReducer,
-    userChapters: userChaptersReducer
+    userChapters: userChaptersReducer,
+    topics: topicsReducer
   },
 });

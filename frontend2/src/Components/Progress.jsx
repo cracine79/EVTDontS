@@ -22,7 +22,18 @@ export const Progress = () => {
 
     const [expandedUnits, setExpandedUnits] = useState({})
     const navigate = useNavigate()
-    const userTopicProg = useSelector((state)=>state.topicProg)
+    const userProg = useSelector((state)=>state.topicProg)
+    const topics = useSelector((state)=>state.topics)
+    const userTopicProg = Object.keys(userProg).reduce((acc, key) => {
+        if(topics[key]) {
+            acc[key] = {
+                ...userProg[key],
+                ...topics[key]
+            }
+        }
+        return acc;
+    }, {})
+
     const userTopicVals = Object.values(userTopicProg)
 
 

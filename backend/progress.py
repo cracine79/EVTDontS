@@ -32,9 +32,6 @@ class CreateChapterProgress(Resource):
 
         return jsonify({
             chapter_id:{
-                "name": chapter.name,
-                'unit_id': chapter.unit_id,
-                'video_url': chapter.video_url,
                 "video_completed": progress.video_completed,
                 "quiz_grade": progress.quiz_grade
             }
@@ -66,11 +63,9 @@ class CreateChapterProgress(Resource):
             print(f"Error: {e}")
 
         chapter = Chapter.query.filter_by(id=chapter_id).first()
+        
 
         chapter_object =  {chapter_id:{
-                "name": chapter.name,
-                'unit_id': chapter.unit_id,
-                'video_url': chapter.video_url,
                 "video_completed": progress.video_completed,
                 "quiz_grade": progress.quiz_grade
             }}
@@ -137,14 +132,10 @@ class QuizProgress(Resource):
             topic = QuestionTopic.query.get(topic_progress.topic_id)
             topic_name = topic.name
 
-            topic_progress_dict[topic_progress.id] = {
-                'topic_name': topic_name,
-                'percent_correct': percent_correct,
-                'chapter_id': topic.chapter_id,
-                'topic_id': topic_id,
+            topic_progress_dict[topic_id] = {
+                'topic_progress_id': topic_progress.id,
                 'questions_asked': topic_progress.questions_asked,
                 'answered_correctly': topic_progress.answered_correctly
-
             }
 
             db.session.commit()
@@ -209,7 +200,7 @@ class QuizProgress(Resource):
                  'answeredAt': answer.answered_at }
         
         topic_progress_dict={}
-
+        topics_dict = {}
         for topic_id, response_data in topic_response_data.items():
             topic_progress = UserTopicProgress.query.filter_by(user_id=user_id, topic_id=topic_id).first()
             if topic_progress:
@@ -228,15 +219,21 @@ class QuizProgress(Resource):
             topic = QuestionTopic.query.get(topic_progress.topic_id)
             topic_name = topic.name
 
-            topic_progress_dict[topic_progress.id] = {
-                'topic_name': topic_name,
+            topic_progress_dict[topic_id] = {
                 'percent_correct': percent_correct,
-                'chapter_id': topic.chapter_id,
-                'topic_id': topic_id
+                'questions_asked': topic_progress.questions_asked,
+                'answered_correctly': topic_progress.answered_correctly,
+                'topic_progress_id': topic_progress.id
             }
 
+            topics_dict[topic_id] = {
+                'chapter_id': topic.chapter_id,
+                'topic_name': topic.name
+            }
+
+
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
-        print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
+        print("TPDICT", topic_progress_dict)
 
         if progress:
             progress.quiz_grade = quiz_grade
@@ -254,9 +251,6 @@ class QuizProgress(Resource):
 
         chapter_dict = {
             finished_chapter.id: {
-                "name": finished_chapter.name,
-                'unit_id': finished_chapter.unit_id,
-                'video_url': finished_chapter.video_url,
                 'video_completed': True,
                 'quiz_grade': quiz_grade
             }
@@ -270,7 +264,8 @@ class QuizProgress(Resource):
             "chapters": chapter_dict,
             # "completed": done,
             "answers": answer_response_data,
-            'topic_progress': topic_progress_dict
+            'topic_progress': topic_progress_dict,
+            'topics': topics_dict
             }
                 ))
 

@@ -6,7 +6,7 @@ import { clearQuestions } from '../Slices/questionsSlice';
 import { clearUserChapters } from '../Slices/userChaptersSlice';
 import { clearUserResults } from '../Slices/resultsSlice';
 import { clearTopicProg } from '../Slices/topicProgSlice';
-
+import { clearTopics } from '../Slices/topicsSlice';
 const LogoutButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const LogoutButton = () => {
     dispatch(clearUserChapters())
     dispatch(clearUserResults())
     dispatch(clearTopicProg())
+    dispatch(clearTopics())
+    
     navigate('/')
   };
 

@@ -203,7 +203,7 @@ class Login(Resource):
 
                 user_topic_progress = UserTopicProgress.query.filter_by(user_id=db_user.id).all()
                 topic_progress_dict = {}
-
+                topic_dict = {}
                 for topic_progress in user_topic_progress:
                     topic = QuestionTopic.query.get(topic_progress.topic_id)
                     topic_name = topic.name
@@ -212,13 +212,16 @@ class Login(Resource):
                     else:
                         percent_correct = 0
 
-                    topic_progress_dict[topic_progress.id] = {
-                        'topic_name': topic_name,
+                    topic_progress_dict[topic.id] = {
                         'percent_correct': percent_correct,
-                        'chapter_id': topic.chapter_id,
-                        'topic_id': topic.id,
+                        'topic_progress_id': topic_progress.id,
                         'answered_correctly': topic_progress.answered_correctly,
                         'questions_asked': topic_progress.questions_asked
+                    }
+
+                    topic_dict[topic.id] = {
+                        'topic_name': topic_name,
+                        'chapter_id': topic.chapter_id,
                     }
                 user_chapter_dict = {}
 
@@ -239,7 +242,8 @@ class Login(Resource):
                     "units": units_dict,
                     "chapters": chapter_dict,
                     'topic_progress': topic_progress_dict,
-                    "user_chapters": progress_dict
+                    "user_chapters": progress_dict,
+                    'topics': topic_dict
                 
                 })
                 print(user_data)

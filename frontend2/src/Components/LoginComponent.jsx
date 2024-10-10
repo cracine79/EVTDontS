@@ -9,6 +9,7 @@ import { storeUserUnits } from '../Slices/unitsSlice';
 import { updateChapters } from '../Slices/chaptersSlice';
 import { storeTopicProg } from '../Slices/topicProgSlice';
 import { storeUserChapters } from '../Slices/userChaptersSlice';
+import { storeTopics } from '../Slices/topicsSlice';
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
@@ -45,6 +46,7 @@ const LoginComponent = () => {
     dispatch(updateChapters(data.chapters))
     dispatch(storeTopicProg(data.topic_progress))
     dispatch(storeUserChapters(data.user_chapters))
+    dispatch(storeTopics(data.topics))
     dispatch(closeLoginModal()) // Store user in Redux state
     navigate('/userhome')
   } catch (error) {
