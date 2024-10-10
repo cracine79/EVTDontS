@@ -23,8 +23,8 @@ export const VideoIndex = () => {
     return(
         <div className = 'mt-24'>
 
-            <div className='h-screen w-100 flex'>
-                <div className='h-full w-1/4 bg-lime-100'>
+            <div className='h-min-screen w-100 flex'>
+                <div className='h-min-screen w-1/4 bg-lime-100'>
                     <div>Video Library</div>
                     {chaptersObj.map(chapter=>{
                         return(
@@ -48,10 +48,9 @@ export const VideoIndex = () => {
                         </div>
                         {videoId && (
                         <>
-                        <div>
+                        <div className='w-11/12 max-w-6xl aspect-video'>
                             <iframe 
-                                width="920" 
-                                height="540" 
+                                className="w-full h-full"
                                 src={videoId} 
                                 allowFullScreen>
                             </iframe>
