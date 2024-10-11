@@ -61,20 +61,20 @@ export const QuizResults = () => {
         dispatch(finishChapter(quizData))
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate('/Video', {state: {chapter: currentChapter + 1}})
+        navigate(`/video/${currentChapter + 1}`)
     }
 
     const lastVideo = ()=>{
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate('/Video', {state: {chapter: currentChapter}})
+        navigate(`/video/${currentChapter}`)
     }
 
     
     return(
-        <div className='w-screen flex justify-center'>
-            <div className="mt-40 w-5/6 h-auto border-black border-2 rounded-lg shadow-2xl">
-                <div className='flex flex-col items-center justify-center'>
+        <div className='w-screen flex justify-center min-h-screen'>
+            <div className="mt-52 w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
+                <div className='flex flex-col items-center justify-center mx-4'>
                     <div className='mt-8 text-4xl'>Results for Chapter {chapterNumber} Review Quiz</div>
                     <div className = 'mt-4 text-2xl'>Topic: {chapterName}</div>
                     <div className = 'mt-4 text-xl'>You answered <span className='font-bold'>{numCorrect} out of a total possible {resultsObj.length} questions</span> correctly.  Your total score on this quiz was <span className = 'font-extrabold'>{percentageScore}%</span></div>

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, useParams } from "react-router-dom"
 import { csrfFetch } from "../csrf"
 import { updateUserChapters } from "../Slices/userChaptersSlice"
 import { getQuestions } from "../Slices/questionsActions"
@@ -13,9 +13,9 @@ export const Video = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     
-    const currentChapterId = location.state?.chapter
+    const {chapterId} = useParams()
     
-    const currentChapter = useSelector((state)=>state.chapters[currentChapterId])
+    const currentChapter = useSelector((state)=>state.chapters[chapterId])
 
     const source = currentChapter.video_url
     const handleClick = () => {
@@ -42,8 +42,8 @@ export const Video = () => {
     }
 
     const completeVid = () => {
-        updateVideoProgress(currentChapterId)
-        navigate('/quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics:[]}})
+        updateVideoProgress(chapterId)
+        navigate('/quiz', {state: {chapter: chapterId, type: 'chapterQuiz', topics:[]}})
     }
     
 
@@ -55,9 +55,9 @@ export const Video = () => {
             <iframe className="w-full h-full" 
                     src={`${source}?modestbranding=1&rel=0&controls=1&autohide=1`}
                     title="title" 
-                    frameborder="0" 
+                    frameBorder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerpolicy="strict-origin-when-cross-origin" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
                     allowfullscreen></iframe>
         </div>
             <div className="whitespace-pre-line">

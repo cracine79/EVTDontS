@@ -36,7 +36,7 @@ export const Progress = () => {
 
     const userTopicVals = Object.values(userTopicProg)
     const userTopicEntries = Object.entries(userTopicProg)
-    console.log('ENTRIES', userTopicEntries)
+
 
     const toggleUnit = (unitId) => {
         setExpandedUnits((prevState)=>({
@@ -121,13 +121,13 @@ export const Progress = () => {
             }
         }
     )
-        console.log('topics',chapter_topics)
+
         
         let sum = 0
         chapter_topics.forEach(chapter => {
             sum += chapter.percent_correct
         })
-        console.log(chapter_topics)
+
         const averagePercentCorrect = chapter_topics.length > 0 ? sum/chapter_topics.length : 0
 
         let reply=""
@@ -193,7 +193,7 @@ export const Progress = () => {
 
                             </div>
                             <div className='w-1/6'>
-                                <div onClick = {()=>navigate('/Video', {state: {chapter:chapterId}})} className=
+                                <div onClick = {()=>navigate(`/video/${chapterId}`)} className=
                                         'w-3/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
                                         
                                         >{chapter.video_completed ? <>Watch Video Again!</> : <>Jump To Video</>}</div>

@@ -25,8 +25,7 @@ export const UserHome = () => {
     ]
 
 
-    
-    console.log('current CHAPPPTER', currentUserChapter)
+
     const workingOn = () =>{
         if(currentBookChapter){
             return (
@@ -52,7 +51,7 @@ export const UserHome = () => {
     const handleClick = () => {
         if(currentUserChapter){
             if(!currentUserChapter.video_completed){
-                navigate('/Video', {state: {chapter: currentChapterId}})
+                navigate(`/video/${currentChapterId}`)
             } else {
                 navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}})
             }

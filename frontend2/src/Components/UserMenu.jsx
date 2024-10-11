@@ -13,7 +13,7 @@ export const UserMenu = () => {
     const currentChapterId = useSelector((state) => state.user.currentChapter)
     const bookChapters = useSelector((state) => state.chapters); 
     const userChapters = useSelector((state) => state.userChapters)
-    console.log("CCID", currentChapterId)
+
     const videoWatched = currentChapterId && userChapters?.[currentChapterId]?.video_completed ? true : false;
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -22,11 +22,10 @@ export const UserMenu = () => {
 
 
     const nextThing = () => {
-        return (<>Thing</>)
         if(currentChapterId){
             videoWatched 
             ? navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}}) 
-            : navigate('/Video', {state: {chapter: currentChapterId}})
+            : navigate(`/video/${currentChapterId}`)
         }
     }
 
