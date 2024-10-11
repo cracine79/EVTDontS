@@ -21,3 +21,14 @@ class GetChapters(Resource):
         return jsonify({
             'chapters': chapter_dict
         })
+
+@chapters_ns.route('/blurb/<int:chapter_id>')
+class GetChatperBlurb(Resource):
+    def get(self, chapter_id):
+        print(chapter_id)
+        chapter = Chapter.query.get_or_404(chapter_id)
+
+        return jsonify({
+            'chapter_id': chapter.id,
+            'video_blurb': chapter.video_blurb
+        })

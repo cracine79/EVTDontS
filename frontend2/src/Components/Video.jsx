@@ -3,6 +3,8 @@ import { useNavigate, useLocation, useParams } from "react-router-dom"
 import { csrfFetch } from "../csrf"
 import { updateUserChapters } from "../Slices/userChaptersSlice"
 import { getQuestions } from "../Slices/questionsActions"
+import { getChapterBlurb } from "../Slices/chaptersActions"
+import { useEffect, useState } from "react"
 
 
 
@@ -12,12 +14,22 @@ export const Video = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
-    
+    const [blurb, setBlurb] = useState(null)
     const {chapterId} = useParams()
     
     const currentChapter = useSelector((state)=>state.chapters[chapterId])
-
     const source = currentChapter.video_url
+
+    useEffect(()=>{
+        const fetchBlurb = async () => {
+            const chapterBlurb = await getChapterBlurb(chapterId)
+            setBlurb(chapterBlurb)
+        }
+        console.log('fetching blurb')
+        fetchBlurb()
+    }, [chapterId])
+
+    console.log(blurb)
     const handleClick = () => {
         navigate('/userhome')
     }
@@ -61,7 +73,7 @@ export const Video = () => {
                     allowfullscreen></iframe>
         </div>
             <div className="whitespace-pre-line">
-                {currentChapter.video_blurb}
+                {blurb}
             </div>
             <div className='flex justify-between w-1/2 mt-6'>
                 <div onClick = {handleClick} className=

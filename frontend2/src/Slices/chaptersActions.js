@@ -2,7 +2,6 @@ import { csrfFetch } from "../csrf"
 import { updateChapters } from "./chaptersSlice";
 
 export const getAllChapters = () => async(dispatch) => {
-    console.log('GOING TO GET CHAPTERS')
     try {
         const response = await csrfFetch('api/chapters')
     
@@ -18,6 +17,29 @@ export const getAllChapters = () => async(dispatch) => {
           const results = await response.json()
           dispatch(updateChapters(results.chapters))
 
+    } catch(error){
+        console.error(error)
+    }
+}
+
+
+export const getChapterBlurb = async(chapterId) => {
+    try {
+        console.log('next')
+        console.log(chapterId)
+        const response = await csrfFetch(`/api/chapters/blurb/${chapterId}`)
+    
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error response status:', response.status);
+        console.error('Error response body: ', errorText);
+        throw new Error(`Error ${response.status}: ${errorText}`);
+        }
+    
+        const results = await response.json()
+
+        return results.video_blurb
+        
     } catch(error){
         console.error(error)
     }
