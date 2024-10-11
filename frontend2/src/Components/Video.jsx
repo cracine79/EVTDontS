@@ -61,18 +61,22 @@ export const Video = () => {
 
   
     return(
-        <div className="w-full flex flex-col justify-center items-center">
-        <div className='mt-40  aspect-video justify-center w-3/4'>
-    
-            <iframe className="w-full h-full" 
-                    src={`${source}?modestbranding=1&rel=0&controls=1&autohide=1`}
-                    title="title" 
-                    frameBorder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    referrerPolicy="strict-origin-when-cross-origin" 
-                    allowfullscreen></iframe>
+        <div className="w-full flex flex-col justify-center items-center mt-24">
+             <div className='text-center text-3xl my-6'>{currentChapter.name}</div>
+        <div className='aspect-video justify-between w-7/12 flex flex-col'>
+           
+            <div className="w-full h-full">
+                <iframe className="w-full h-full" 
+                        src={`${source}?modestbranding=1&rel=0&controls=1&autohide=1`}
+                        title="title" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerPolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen></iframe>
+            </div>
         </div>
-            <div className="whitespace-pre-line">
+
+
+            <div className="whitespace-pre-line w-3/4 mt-10">
                 {blurb}
             </div>
             <div className='flex justify-between w-1/2 mt-6'>
