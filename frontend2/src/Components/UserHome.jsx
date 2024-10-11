@@ -12,7 +12,7 @@ export const UserHome = () => {
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
     const currentBookChapter = useSelector((state)=>state.chapters[currentChapterId])
     const currentUserChapter = useSelector((state)=>state.userChapters[currentChapterId])
-    console.log(currentChapterId)
+
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
         "Already back for more?  Guess Netflix isn't cutting it today.",

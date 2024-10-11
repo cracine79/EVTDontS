@@ -13,7 +13,7 @@ export const getAllTopics = () => async(dispatch) => {
             }
         
         const results = await response.json()
-        console.log(results)
+
         dispatch(updateTopics(results.topics))
 
     } catch(error){
