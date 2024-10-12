@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { getAllTopics } from "../Slices/topicsActions"
-import { useDispatch } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+
 
 
 
@@ -13,6 +13,7 @@ export const QuizGenerator = () => {
 
     const bookTopics = useSelector((state)=>state.topics)
     const userTopics = useSelector((state)=>state.topicProg)
+    const [selectedTopics, setSelectedTopics] = useState()
 
     const topics = 
         Object.keys(bookTopics).reduce((result, key)=>{
@@ -23,9 +24,9 @@ export const QuizGenerator = () => {
         }, {})
     const topicsEntries = Object.entries(topics)
     const userChapters = useSelector((state)=>state.userChapters)
-
+ 
     const studiedIt = (chapter_id) => {
-        if (userChapters[chapter_id].video_completed){
+        if (userChapters[chapter_id] && userChapters[chapter_id].video_completed){
             return<>
                 You betcha
             </>
@@ -34,7 +35,9 @@ export const QuizGenerator = () => {
                 <>Not yet</>
             )
         }
+        return(<>boobs</>)
     }
+    
 
     const ranking = (averagePercentCorrect) => {
    
@@ -115,7 +118,7 @@ export const QuizGenerator = () => {
              pulling teeth and more like... a slightly awkward lecture on interest 
              rates.
              </div>
-            <div className="mt-10 w-5/6 h-full">
+            <div className="mt-10 w-5/6 h-full mb-10">
                 <QuizGeneratorBox />
             </div>
         </div>

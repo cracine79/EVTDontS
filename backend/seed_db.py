@@ -85,10 +85,38 @@ def seed_topics(chapters):
     topic7=QuestionTopic(name='PPF Opportunity Cost', chapter=chapters[4])
     topic8=QuestionTopic(name='Theory of Absolute and Comparative Advantage', chapter = chapters[5])
     topic9=QuestionTopic(name='Comparative Advantage Calculations', chapter=chapters[6])
-    
+    topic10=QuestionTopic(name='The demand curve', chapter=chapters[7])
+    topic11=QuestionTopic(name='Shifts to Demand', chapter=chapters[8])
+    topic12=QuestionTopic(name='The supply curve', chapter=chapters[9])
+    topic13 = QuestionTopic(name='Shifts to supply', chapter=chapters[10])
+    topic14 = QuestionTopic(name='Supply and Demand in Equilibrium', chapter=chapters[11])
+    topic15 = QuestionTopic(name='Shifts to Demand', chapter=chapters[12])
+    topic16 = QuestionTopic(name='Shifts to Supply', chapter=chapters[12])
+    topic16 = QuestionTopic(name='Simultaneous Shifts', chapter=chapters[13])
+    topic17 = QuestionTopic(name='Marginal Utility', chapter=chapters[14])    
+    topic18 = QuestionTopic(name='Marginal Benefit and Demand', chapter = chapters[14])
+    topic19 = QuestionTopic(name='Marginal Cost and Supply', chapter=chapters[15])
+    topic20 = QuestionTopic(name='Consumer Surplus', chapter=chapters[16])
+    topic21 = QuestionTopic(name='Producer Surplus', chapter=chapters[16])
+    topic22 = QuestionTopic(name='Social Surplus', chapter=chapters[16])
+    topic23 = QuestionTopic(name='Allocative Efficiency', chapter = chapters[17])
+    topic24 = QuestionTopic(name='Price Elasticity of Demand Concepts', chapter = chapters[18])
+    topic25 = QuestionTopic(name='PED Calculation', chapter = chapters[18])
+    topic26 = QuestionTopic(name='PED determinants', chapter = chapters[19])
+    topic27 = QuestionTopic(name='PED and Total Revenue', chapter=chapters[20])
+    topic28 = QuestionTopic(name='XED - calculation', chapter = chapters[21])
+    topic29 = QuestionTopic(name='XED - interpretation', chapter = chapters[21])
+    topic30 = QuestionTopic(name='YED - calculation', chapter = chapters[22])
+    topic31 = QuestionTopic(name='YED - interpretation', chapter = chapters[22])
+    topic32 = QuestionTopic(name= 'PES Calculation', chapter = chapters[23])
+    topic33 = QuestionTopic(name='PES - detrerminants', chapter = chapters[23])
     
 
-    topics = [topic1, topic2, topic3, topic4, topic5, topic6, topic7, topic8, topic9]
+
+    topics = [topic1, topic2, topic3, topic4, topic5, topic6, topic7, topic8, topic9, topic10,
+              topic11, topic12, topic13, topic14, topic15, topic16, topic17, topic18, topic19, topic20,
+              topic21, topic22, topic23, topic24, topic25, topic26, topic27, topic28, topic29, topic30,
+              topic31, topic32, topic33]
     db.session.add_all(topics)
     db.session.commit()
     return topics
