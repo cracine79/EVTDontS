@@ -103,8 +103,6 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           answers: newSubmittedAnswers
         }
 
-        console.log("QUIZDATA!", quizData)
-        
         if (type == 'chapterQuiz'){
           dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
           dispatch(closeQuizModal());

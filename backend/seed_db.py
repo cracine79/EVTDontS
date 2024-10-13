@@ -109,7 +109,7 @@ def seed_topics(chapters):
     topic30 = QuestionTopic(name='YED - calculation', chapter = chapters[22])
     topic31 = QuestionTopic(name='YED - interpretation', chapter = chapters[22])
     topic32 = QuestionTopic(name= 'PES Calculation', chapter = chapters[23])
-    topic33 = QuestionTopic(name='PES - detrerminants', chapter = chapters[23])
+    topic33 = QuestionTopic(name='PES - determinants', chapter = chapters[23])
     
 
 
