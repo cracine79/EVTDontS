@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
 import { getAllTopics } from "../Slices/topicsActions"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 
 
 
 export const QuizGenerator = () => {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getAllTopics())
@@ -62,9 +63,11 @@ export const QuizGenerator = () => {
     const makeReviewQuiz = () => {
         const chapter_topics = []
         selectedTopics.forEach(id=>{
-            chapter_topics.push({...bookTopics[id], ...userTopics[id], 'topic_id': id })
+            chapter_topics.push({...bookTopics[id], ...userTopics[id], topic_id: id })
         })
         console.log(chapter_topics)
+        navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapter_topics}})
+    
     }
     
 
