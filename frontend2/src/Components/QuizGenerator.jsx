@@ -58,6 +58,14 @@ export const QuizGenerator = () => {
             prevSelected.length === allTopicIds.length ? [] : allTopicIds
         )
     }
+
+    const makeReviewQuiz = () => {
+        const chapter_topics = []
+        selectedTopics.forEach(id=>{
+            chapter_topics.push({...bookTopics[id], ...userTopics[id], 'topic_id': id })
+        })
+        console.log(chapter_topics)
+    }
     
 
     const ranking = (averagePercentCorrect) => {
@@ -126,8 +134,12 @@ export const QuizGenerator = () => {
                                 })
                             }
                          </div>
+                <div  className='my-8 w-1/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
+                        onClick = {()=>makeReviewQuiz()}>
+                            Create Quiz
                 </div>
-     
+                </div>
+                                       
             </div>
         )
     }
