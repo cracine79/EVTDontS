@@ -15,6 +15,8 @@ export const QuizGenerator = () => {
     const bookTopics = useSelector((state)=>state.topics)
     const userTopics = useSelector((state)=>state.topicProg)
     const [selectedTopics, setSelectedTopics] = useState([])
+
+
     console.log(selectedTopics)
 
     const topics = 
@@ -25,6 +27,7 @@ export const QuizGenerator = () => {
         return result
         }, {})
     const topicsEntries = Object.entries(topics)
+    const allTopicIds = topicsEntries.map(([id])=>id)
     const userChapters = useSelector((state)=>state.userChapters)
  
     const studiedIt = (chapter_id) => {
@@ -48,7 +51,12 @@ export const QuizGenerator = () => {
                 return [...prevSelected, topicId]
             }
         })
-   
+    }
+
+    const handleSelectAll = () => {
+        setSelectedTopics((prevSelected)=> 
+            prevSelected.length === allTopicIds.length ? [] : allTopicIds
+        )
     }
     
 
@@ -81,7 +89,11 @@ export const QuizGenerator = () => {
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
                    <span className='text-3xl font-bold my-6'> Select Topics for Quiz</span>
                     <div className="flex w-full px-10 flex-row justify-between">
-                        <input type='checkbox'/>
+                        <input type='checkbox'
+                                onChange = {()=>handleSelectAll()
+                                }
+                                checked = {selectedTopics.length === allTopicIds.length}
+                                />
                         <div className='w-1/3  text-xl font-bold'>
                             Topic
                         </div>
