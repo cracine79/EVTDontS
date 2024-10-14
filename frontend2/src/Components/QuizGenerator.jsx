@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 
 
 export const QuizGenerator = () => {
+
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getAllTopics())
@@ -13,7 +14,8 @@ export const QuizGenerator = () => {
 
     const bookTopics = useSelector((state)=>state.topics)
     const userTopics = useSelector((state)=>state.topicProg)
-    const [selectedTopics, setSelectedTopics] = useState()
+    const [selectedTopics, setSelectedTopics] = useState([])
+    console.log(selectedTopics)
 
     const topics = 
         Object.keys(bookTopics).reduce((result, key)=>{
@@ -36,6 +38,17 @@ export const QuizGenerator = () => {
             )
         }
         return(<>boobs</>)
+    }
+
+    const handleCheckboxChange = (topicId) => {
+        setSelectedTopics((prevSelected) => {
+            if(prevSelected.includes(topicId)){
+                return(prevSelected.filter(id => id !== topicId));
+            } else {
+                return [...prevSelected, topicId]
+            }
+        })
+   
     }
     
 
@@ -87,7 +100,9 @@ export const QuizGenerator = () => {
                                 topicsEntries.map(([id, topic])=>{
                                     return(
                                     <div className='w-full px-10 flex justify-between'>
-                                        <input type='checkbox'/>
+                                        <input type='checkbox'
+                                                checked = {selectedTopics.includes(id)}
+                                                onChange = {() => handleCheckboxChange(id)}/>
                                         <div key={id} className='w-1/3'>
                                             {topic.topic_name}
                                         </div>

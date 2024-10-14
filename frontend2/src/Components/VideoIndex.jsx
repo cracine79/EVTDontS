@@ -23,8 +23,8 @@ export const VideoIndex = () => {
     return(
         <div className = 'mt-24'>
 
-            <div className='h-min-screen w-100 flex'>
-                <div className='h-min-screen w-1/4 bg-lime-100'>
+            <div className='min-h-screen w-100 flex'>
+                <div className=' w-1/4 bg-lime-100'>
                     <div>Video Library</div>
                     {chaptersObj.map(chapter=>{
                         return(
