@@ -25,7 +25,7 @@ export const MainPage = () => {
                 </video>
        
             </div>
-            <div className="w-screen h-auto bg-gray-50">
+            <div className="w-screen h-auto bg-white">
                 <div className="mt-20 flex justify-around items-center">
                     <div className='h-100 w-100 flex flex-col items-center'>
                         <img src="/Watch.png" alt="Watch the Videos" className="w-4/6 h-4/6" />
@@ -71,7 +71,7 @@ export const MainPage = () => {
                                 <source src="whiteEconoWarrior.mp4" />
                             </video>       
                         </div>
-                        <div className='flex flex-col items-center mt-10'>
+                        <div className='flex flex-col items-center mt-10 -ml-10'>
                             <img src="/keepGoing.png" alt="Take the Quizzes" className="w-4/6 h-4/6" />
                             <p className="mt-2 w-4/6 text-2xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>

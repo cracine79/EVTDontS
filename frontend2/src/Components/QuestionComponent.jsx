@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
 import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 
+
 export const QuestionComponent = ({chapter, type, topics}) => {
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
@@ -194,7 +195,9 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                   <img src={questionsObj[questionNumber].image_url}/>
 
                 </div>
-                <div className="text-2xl mt-8 ml-8 mr-4 mb-6">Question {questionNumber + 1} of {numberOfQuestions}: {questionsObj[questionNumber].text}</div>
+                <div className="text-2xl mt-8 ml-8 mr-4 mb-6">Question {questionNumber + 1} of {numberOfQuestions}:{questionsObj[questionNumber].text.split('<br>').map((line, index) => (
+                      <p key={index}>{line}</p>
+                      ))}</div>
                 <div className="ml-8 text-xl"><Answers /></div>
 
               </div>

@@ -212,7 +212,29 @@ def seed_questions(chapters, topics):
     question87 = Question(text="Which of the following is a common feature of market economies that differentiates them from command economies?", chapter=chapters[2], topic=topics[3])
     question88 = Question(text="In a command economy, resource allocation decisions are typically made by:", chapter=chapters[2], topic=topics[3])
     question89 = Question(text="Which of the following characteristics is more associated with a capitalist economy than a command economy?", chapter=chapters[2], topic=topics[3])
-
+    question90 = Question(text='The amount of good H that must be given up in order to produce one more unit of good G is called:', chapter=chapters[0], topic=topics[1])   
+    question91 = Question(
+    text='An opportunity cost is involved in which of the following decisions? <br><br>'
+         'I. A student decides to attend college full time<br>'
+         'II. An individual uses $3,000 of his savings to buy a 4k big screen TV<br>'
+         'III. A factory decides to produce more iPhone cases and fewer iPad cases',
+    chapter=chapters[0], topic=topics[1]
+    )
+    question92 = Question(
+    text='It takes Mary 30 minutes to complete a math homework and 90 minutes to study for an Economics exam. '
+         'Assuming Mary can only engage in these two activities, what is the opportunity cost to Mary of studying '
+         'for one Economics exam?',
+    chapter=chapters[0], topic=topics[1]
+    )
+    question93 = Question(
+    text='Quinn just graduated from high school and has decided to take a Gap year and travel the world. '
+         'Before making this decision, she was also considering:<br><br>'
+         'I. Going to college<br>'
+         'II. Getting a job<br>'
+         'III. Volunteering locally<br><br>'
+         'Which of the following is an opportunity cost to Quinn and her decision to travel the world?',
+    chapter=chapters[0], topic=topics[1]
+    )
 
 
 
@@ -245,7 +267,8 @@ def seed_questions(chapters, topics):
                  question79, question80, question81, 
                  question82, question83, question84,
                  question85, question86, question87,
-                 question88, question89
+                 question88, question89, question90,
+                 question91, question92, question93
                  ]
     
     print("questions created")
@@ -793,6 +816,31 @@ def seed_answers(questions):
     answer89d = Answer(text="Government control of all prices", question=questions[88], is_correct=False)
     answer89e = Answer(text="Limited role for consumer choice", question=questions[88], is_correct=False)
 
+    answer90a = Answer(text='Marginal benefit', question=questions[89], is_correct=False)
+    answer90b = Answer(text='Marginal cost', question=questions[89], is_correct=False)
+    answer90c = Answer(text='Opportunity cost', question=questions[89], is_correct=True)
+    answer90d = Answer(text='Variable Cost', question=questions[89], is_correct=False)
+    answer90e = Answer(text='Diminishing Marginal Returns', question=questions[89], is_correct=False)
+
+    answer91a = Answer(text='I only', question=questions[90], is_correct=False)
+    answer91b = Answer(text='I and II', question=questions[90], is_correct=False)
+    answer91c = Answer(text='II and III', question=questions[90], is_correct=False)
+    answer91d = Answer(text='I and III', question=questions[90], is_correct=False)
+    answer91e = Answer(text='I, II and III', question=questions[90], is_correct=True)
+
+    answer92a = Answer(text='Completing 1/3 of a math homework assignment', question=questions[91], is_correct=True)
+    answer92b = Answer(text='Completing 3 math homework assignments', question=questions[91], is_correct=False)
+    answer92c = Answer(text='Completing 1 math homework assignment', question=questions[91], is_correct=False)
+    answer92d = Answer(text='It depends upon what grade she gets on the exam', question=questions[91], is_correct=False)
+    answer92e = Answer(text='There is no opportunity cost as exams and homework cannot be compared', question=questions[91], is_correct=False)
+
+    answer93a = Answer(text='Zero', question=questions[92], is_correct=False)
+    answer93b = Answer(text='I only', question=questions[92], is_correct=False)
+    answer93c = Answer(text='I or II but not III', question=questions[92], is_correct=False)
+    answer93d = Answer(text='The sum of I, II, III and any other opportunity she passed up', question=questions[92], is_correct=False)
+    answer93e = Answer(text='I, II, or III, whichever is the next most valuable/beneficial to Quinn', question=questions[92], is_correct=True)
+
+
 
     answers = [answer1a, answer1b, answer1c, answer1d, answer1e, 
                answer2a, answer2b, answer2c, answer2e, answer2d, 
@@ -883,6 +931,10 @@ def seed_answers(questions):
                answer87a, answer87b, answer87c, answer87d, answer87e, 
                answer88a, answer88b, answer88c, answer88d, answer88e,
                answer89a, answer89b, answer89c, answer89d, answer89e,
+               answer90a, answer90b, answer90c, answer90d, answer90e, 
+               answer91a, answer91b, answer91c, answer91d, answer91e, 
+               answer92a, answer92b, answer92c, answer92d, answer92e,
+               answer93a, answer93b, answer93c, answer93d, answer93e 
                ]
 
     db.session.add_all(answers)
