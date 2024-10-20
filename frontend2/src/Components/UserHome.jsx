@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { csrfFetch } from "../csrf"
 import { useDispatch } from "react-redux"
 import { updateUserChapters } from "../Slices/userChaptersSlice"
+import { Tutorial } from "./Tutorial"
 
 export const UserHome = () => {
     const dispatch = useDispatch()
@@ -97,74 +98,76 @@ export const UserHome = () => {
 
     
     return(
-    
-        <div className=
-            'flex 
-            items-center 
-            w-screen 
-            bg-slate-50 
-            flex-col
-            min-h-screen'>
-            <div className='h-100 flex flex-row mt-20 w-3/4'>
-                <div className=
-                    'mt-36 
-                    min-w-96
-                    w-3/5 
-                    h-auto
-                    bg-white 
-                    rounded-3xl 
-                    shadow-2xl 
-                    flex 
-                    flex-row 
-                    items-center
-                    justify-center'>
-                {userName ? (
-                            <div className='flex flex-col items-center justify-center'>
-                                <div className='ml-10 text-5xl '>
-                                    Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
+        <>  
+            <Tutorial />
+            <div className=
+                'flex 
+                items-center 
+                w-screen 
+                bg-slate-50 
+                flex-col
+                min-h-screen'>
+                <div className='h-100 flex flex-row mt-20 w-3/4'>
+                    <div className=
+                        'mt-36 
+                        min-w-96
+                        w-3/5 
+                        h-auto
+                        bg-white 
+                        rounded-3xl 
+                        shadow-2xl 
+                        flex 
+                        flex-row 
+                        items-center
+                        justify-center'>
+                    {userName ? (
+                                <div className='flex flex-col items-center justify-center'>
+                                    <div className='ml-10 text-5xl '>
+                                        Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
+                                    </div>
+                                    <div className='text-xl w-4/5 text-center mt-6'>
+                                        {genMessage()}
+                                    </div>
                                 </div>
-                                <div className='text-xl w-4/5 text-center mt-6'>
-                                    {genMessage()}
-                                </div>
-                            </div>
-                
-                    ) : (
-                        <p className='ml-10 text-5xl'>
-                        </p>
-                    )}
-                </div>
-                <div className="w-1/3 min-w-80 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
-                        <p className="mt-8 text-3xl underline">Progress</p>
-                        <div className = "mt-2 ml-4 mr-2">
-                            {workingOn()}
-                        </div>
-                        <div className=
-                            'mt-10 
-                            border-black 
-                            h-1/5 
-                            w-1/2 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-slate-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            mb-6
-                            '
-                            >
-                            <div onClick={handleClick}><UpNext /></div>
-                        </div>
+                    
+                        ) : (
+                            <p className='ml-10 text-5xl'>
+                            </p>
+                        )}
                     </div>
+                    <div className="w-1/3 min-w-80 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                            <p className="mt-8 text-3xl underline">Progress</p>
+                            <div className = "mt-2 ml-4 mr-2">
+                                {workingOn()}
+                            </div>
+                            <div className=
+                                'mt-10 
+                                border-black 
+                                h-1/5 
+                                w-1/2 
+                                border-2 
+                                flex 
+                                justify-center 
+                                items-center
+                                rounded-lg
+                                bg-slate-300
+                                hover:bg-slate-500
+                                font-medium
+                                hover:cursor-pointer
+                                mb-6
+                                '
+                                >
+                                <div onClick={handleClick}><UpNext /></div>
+                            </div>
+                        </div>
 
-            </div>
-     
-                <div className='flex flex-row items-center justify-center w-full mt-20 mb-20'>
-                    <Progress />
                 </div>
-           
-        </div>
+        
+                    <div className='flex flex-row items-center justify-center w-full mt-20 mb-20'>
+                        <Progress />
+                    </div>
+            
+            </div>
+        </>
     )
 }
