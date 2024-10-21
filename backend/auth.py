@@ -122,7 +122,7 @@ class Signup(Resource):
         print(db_user)
 
         if db_user is not None:
-            return jsonify({"message":f"User with username {username} already exists"})
+            return jsonify({"message"f"User with username {username} already exists"})
 
         new_user = User(
             username=data.get('username'),
@@ -149,24 +149,20 @@ class Signup(Resource):
 class Login(Resource):
     @auth_ns.expect(login_model)
     def post(self):
-        print("starting")
+        # print("starting")
         data = request.get_json()
 
-        print("Request data:", data)  # Print the incoming request data
+        # print("Request data:", data)  # Print the incoming request data
 
         username = data.get('username')
         password = data.get('password')
 
-        print("Username:", username)
-        print("Password:", password)
+        # print("Username:", username)
+        # print("Password:", password)
 
         db_user = User.query.filter_by(username=username).first()
-        if db_user.current_chapter:
-            current_chapter = db_user.current_chapter.id
-            print(f"current_chapter is {current_chapter}")
-        else:
-            current_chapter=None
-            print("no current chapter")
+        
+
 
         if db_user:
             print("User found in database.")
@@ -176,6 +172,13 @@ class Login(Resource):
                 refresh_token = create_refresh_token(db_user.username)
 
                 user_units = db_user.units
+
+                if db_user.current_chapter:
+                    current_chapter = db_user.current_chapter.id
+                    print(f"current_chapter is {current_chapter}")
+                else:
+                    current_chapter=None
+                    print("no current chapter")
                 
                 
                 #extract all relevant chapters for user and send down on login
@@ -252,8 +255,10 @@ class Login(Resource):
                 return jsonify(user_data)
             else:
                 print("Password does not match.")
+                return jsonify({"error": "Password and username do not match"})
         else:
             print("User not found.")
+            return jsonify({"error": "Username not found"})
 
         return jsonify({"error": "problem logging in"})
 
