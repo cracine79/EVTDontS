@@ -4,10 +4,10 @@ export const Tutorial = ({showModal}) => {
 
     useEffect(() => {
         const hasVisited = localStorage.getItem('hasVisitedDashboard');
-        if (showModal) {
-          setModalState(['on', 0]); // Show the modal
+        // if (showModal) {
+          setModalState(['on', 3]); // Show the modal
           localStorage.setItem('hasVisitedDashboard', 'true'); // Set the key
-        }
+        // }
       }, []);
 
       useEffect(() => {
@@ -33,8 +33,11 @@ export const Tutorial = ({showModal}) => {
                 >
                 </div>
                 <div className="absolute  left-1/4 top-56 z-50 w-1/3  bg-slate-100 p-4 rounded-md shadow-lg">
-                                <p className="mb-4 text-center">Welcome to Your User Dashboard!</p>
-                                <p className='mb-4'>Give us a quick second to walk you through the page. We know, we know, you’ve been on a million websites before—you're basically the internet whisperer—but humor us, alright? This isn’t just any page. This is <em>your</em> dashboard, where you can review your progress, videos watched, quiz scores and topic mastery.  Dont worry, no judgment here... okay, maybe just a little. </p>
+                                <p className="mb-4 text-2xl text-center">Welcome to Your User Dashboard!</p>
+                                <div>
+                                    <p className='mb-4'>Give us a quick second to walk you through the page. We know, we know, you’ve been on a million websites before—you're basically the internet whisperer—but humor us, alright? This isn’t just any page. This is <em>your</em> dashboard, where you can review your progress, videos watched, quiz scores and topic mastery.  Dont worry, no judgment here... okay, maybe just a little. </p>
+                              
+                                </div>
                                 <p classHae = 'mb-4'>And don’t worry, we’ll try to keep the jargon and cringe to a minimum. Ready? Cool, let’s do this!</p>
                                 <div className='flex justify-around flex-row mt-6'>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 1])}>Next Stop: Enlightenment</button>
@@ -53,19 +56,19 @@ export const Tutorial = ({showModal}) => {
                     0 100%, 
                     0 230px, /* Move these percentages to change the cutout */
                     58% 230px, 
-                    58% 450px, 
-                    88% 450px, 
+                    58% 470px, 
+                    88% 470px, 
                     88% 230px, 
                     0 230px
                     )`, 
                 }}
                 >
                 </div>
-                <div className="absolute top-10 mt-48 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/5">
-                                <p className='mb-4'>In case you are like Guy Pearce from Memento and you can't remember what you just did - you can find the chapter you are currently working on, as well as access your next assignment here. </p>
+                <div className="absolute top-10 mt-48 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
+                                <p className='mb-4'>Ah, the mighty Progress Box—your personal cheerleader, telling you what chapter you're currently <i>surviving</i>. Whether you're about to watch another mind-blowing video or dive into a quiz that you totally remember all the answers to, this button is your trusty guide. ust click it, and boom—on to your next step toward total mastery (or at least faking it till you make it)!"</p>
                                 <div className='flex justify-around flex-row'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 2])}>Keep it Coming!</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 1])}>Get me outta here.</button>
+                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 2])}>Keep it the magic going!</button>
+                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 1])}>Eh, I'll wing it</button>
                                 </div>
                             </div>
             </>}
@@ -89,8 +92,8 @@ export const Tutorial = ({showModal}) => {
                 }}
                 >
                 </div>
-                <div className="absolute top-10 mt-48 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/5">
-                                <p className='mb-4'>All units that you are studying, past, present and future, can be found here.  As you finish videos that don't suck, and complete quizzes, your progress is logged. </p>
+                <div className="absolute top-10 mt-48 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
+                                <p className='mb-4'>Welcome to your grand master plan... or as we like to call it, 'organized chaos.' Here’s where all your units live, along with a handy tracker to show exactly how much you’ve actually done. Spoiler: It's probably less than you'd like, but hey, progress is progress! </p>
                                 <p> Click on your first unit to expand it.</p>
                                 <div className='flex justify-around flex-row mt-4'>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 3])}>OK, I expanded it</button>
@@ -118,14 +121,21 @@ export const Tutorial = ({showModal}) => {
                 }}
                 >
                 </div>
-                <div className="absolute top-36 mt-48 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/3">
-                                <p className='mb-4'>Details for each chapter in the unit include whether or not you have watched the video, past scores for chapter quizzes, and our assessment of your mastery of the skills for that chapter.</p>
-                                <p> You can always go back to watch a past thrilling video for the animation or the content. </p>
+                <div className="absolute top-36 mt-36 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/3">
                                 
-                                <p>If your skills aren't up to par, you can take on some more practice questions to polish up on the topics and increase your rating.</p>
-                                <div className='flex justify-around flex-row mt-4'>
+                                    <p className='mb-2'>Here’s your chapter breakdown! You’ll see the chapter name (so fancy, right?), whether you’ve watched the video (but no judgment if you want to watch it again, we know they’re that thrilling), and your quiz status with a grade that we promise we’re not judging... much.</p>
+                                <div className='flex flex-row items-'>
+                                    <div className='flex flex-row items-center mb-4'>
+                                    <p> Once you've taken the a quiz, we'll award you with mastery level here, which is our humble attempt to quantify how well you’ve mastered the chapter topics (our algorithm tries its best!).</p>
+
+                                <img src='topicMastery.png' className='w-1/4 object-contain'></img>
+                                    </div>
+                                   
+                                </div>
+                                <p className='mb-4'> Need more practice? Just hit the quiz button and show those questions who’s boss!</p>
+                                    <div className='flex justify-around flex-row mt-4'>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 0])}>I wasn't paying attention. Start over.</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 0])}>I'm ready already</button>
+                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 0])}>Enough talk. Let's go.</button>
                                 </div>
                             </div>
             </>}
