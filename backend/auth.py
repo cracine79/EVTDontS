@@ -24,7 +24,7 @@ class RefreshUser(Resource):
         user = User.query.filter_by(username=current_user).first()
 
         if not user:
-            return jsonify({"message": "User not found"}), 404
+            return jsonify({"message": "User not found"})
         
         user_units = user.units
         user_chapters = []
@@ -162,6 +162,11 @@ class Login(Resource):
 
         db_user = User.query.filter_by(username=username).first()
         
+        if db_user is None:
+            return({"error": "Username not found"}, 404)
+        
+        if not check_password_hash(db_user.password_hash, password):
+            return({"error": "Password does not match username"}, 401)
 
 
         if db_user:
@@ -252,7 +257,8 @@ class Login(Resource):
                 print(user_data)
                 # print(jsonify(user_data))
                 session['access_token'] = access_token
-                return jsonify(user_data)
+                code = 200
+                return (user_data, 200)
             else:
                 print("Password does not match.")
                 return jsonify({"error": "Password and username do not match"})
