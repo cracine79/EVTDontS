@@ -58,7 +58,7 @@ export const SelectUnitsForm = () => {
     const handleSubmit = () => {
         const units = {...microUnits, ...macroUnits}
         dispatch(addUserUnits(units))
-        navigate('/userhome')
+        navigate('/userhome', {state: {showModal: true}})
         
     }
    

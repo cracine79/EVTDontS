@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { Progress } from "./Progress"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { csrfFetch } from "../csrf"
 import { useDispatch } from "react-redux"
 import { updateUserChapters } from "../Slices/userChaptersSlice"
@@ -9,11 +9,13 @@ import { Tutorial } from "./Tutorial"
 export const UserHome = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
     const userName = useSelector((state)=>state.user.username)
     const currentChapterId = useSelector((state)=>state.user.currentChapter)
     const currentBookChapter = useSelector((state)=>state.chapters[currentChapterId])
     const currentUserChapter = useSelector((state)=>state.userChapters[currentChapterId])
-
+    const showModal = location.state?.showModal
+    console.log('showModal:' , showModal)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
         "Already back for more?  Guess Netflix isn't cutting it today.",
@@ -99,7 +101,7 @@ export const UserHome = () => {
     
     return(
         <>  
-            <Tutorial />
+            <Tutorial showModal = {showModal} />
             <div className=
                 'flex 
                 items-center 

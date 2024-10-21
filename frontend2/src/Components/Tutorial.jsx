@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
-export const Tutorial = () => {
+export const Tutorial = ({showModal}) => {
     const [modalState, setModalState] = useState(['off', 0])
 
     useEffect(() => {
         const hasVisited = localStorage.getItem('hasVisitedDashboard');
-        // if (!hasVisited) {
+        if (showModal) {
           setModalState(['on', 0]); // Show the modal
           localStorage.setItem('hasVisitedDashboard', 'true'); // Set the key
-        // }
+        }
       }, []);
 
       useEffect(() => {
@@ -81,8 +81,8 @@ export const Tutorial = () => {
                     0 100%, 
                     0 530px, /* Move these percentages to change the cutout */
                     2% 530px, 
-                    2% 950px, 
-                    98% 950px, 
+                    2% 100%, 
+                    98% 100%, 
                     98% 530px, 
                     0 530px
                     )`, 
@@ -90,10 +90,42 @@ export const Tutorial = () => {
                 >
                 </div>
                 <div className="absolute top-10 mt-48 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/5">
-                                <p className='mb-4'>All units that you are studying, past, present and future, can be found here.  As you finish videos that don't suck, and complete quizzes, your progress is logged.  Click on your first unit to expand it.</p>
-                                <div className='flex justify-around flex-row'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 2])}>OK, I expanded it</button>
+                                <p className='mb-4'>All units that you are studying, past, present and future, can be found here.  As you finish videos that don't suck, and complete quizzes, your progress is logged. </p>
+                                <p> Click on your first unit to expand it.</p>
+                                <div className='flex justify-around flex-row mt-4'>
+                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 3])}>OK, I expanded it</button>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 1])}>I don't feel like it.  I'm out.</button>
+                                </div>
+                            </div>
+            </>}
+
+            {modalState[1]==3 && <>
+                <div
+                className="fixed inset-0 bg-black bg-opacity-60 z-40"
+                style={{
+                    clipPath: `polygon(
+                    0 0, 
+                    100% 0, 
+                    100% 100%, 
+                    0 100%, 
+                    0 700px, /* Move these percentages to change the cutout */
+                    2% 700px, 
+                    2% 780px, 
+                    98% 780px, 
+                    98% 700px, 
+                    0 700px
+                    )`, 
+                }}
+                >
+                </div>
+                <div className="absolute top-36 mt-48 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/3">
+                                <p className='mb-4'>Details for each chapter in the unit include whether or not you have watched the video, past scores for chapter quizzes, and our assessment of your mastery of the skills for that chapter.</p>
+                                <p> You can always go back to watch a past thrilling video for the animation or the content. </p>
+                                
+                                <p>If your skills aren't up to par, you can take on some more practice questions to polish up on the topics and increase your rating.</p>
+                                <div className='flex justify-around flex-row mt-4'>
+                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 0])}>I wasn't paying attention. Start over.</button>
+                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 0])}>I'm ready already</button>
                                 </div>
                             </div>
             </>}
