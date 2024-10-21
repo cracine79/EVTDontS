@@ -21,6 +21,7 @@ import { GetStarted } from './Components/GetStarted';
 import { ReviewQuizResults } from './Components/ReviewQuizResults';
 import { VideoIndex } from './Components/VideoIndex';
 import { QuizGenerator } from './Components/QuizGenerator';
+import { Whoops } from './Components/Whoops';
 
 
 const Layout = () => {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path:'/quizgenerator',
         element: <QuizGenerator />
+      },
+      {
+        path: '/whoops',
+        element: <Whoops />
       }
     ]
   }

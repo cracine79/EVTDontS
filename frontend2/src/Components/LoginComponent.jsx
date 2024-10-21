@@ -52,6 +52,8 @@ const LoginComponent = () => {
   } catch (error) {
     // Log any errors that occur during fetch or processing
     console.error('Error during login:', error);
+    dispatch(closeLoginModal())
+    navigate('/whoops', {state: {'error': error, 'source': 'login'}})
   }
   };
 
