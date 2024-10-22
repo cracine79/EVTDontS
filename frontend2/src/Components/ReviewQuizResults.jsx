@@ -14,13 +14,17 @@ export const ReviewQuizResults = () => {
     const topics = location.state?.topics
     const topicProg = useSelector(state=>state.topicProg)
     const topicProgObj = Object.values(topicProg)
-    const topicIdSet = new Set(topics.map(topic => topic.topic_id))
-    const newTopics = topicProgObj.filter(topic => topicIdSet.has(topic.topic_id))
     console.log('TOPICS ARE', topics)
-    console.log('topigProgOpj', topicProgObj)
+    console.log('topic prog is', topicProg)
+    console.log('progObj', topicProgObj)
+    const mergedTopics = topics.map(topic => {
+        const dictEntry = topicProg[topic.topic_id];
+        return{ ...topic, ...dictEntry}
+    })
+    console.log(mergedTopics)
 
     const names = topics.map(topic => topic.topic_name)
-    
+
     const formattedNames = names.length > 1 
     ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
     : names[0]
@@ -93,7 +97,7 @@ export const ReviewQuizResults = () => {
     const topicMastery = () => {
         return(
             <div className='flex justify-around mr-8 mt-6'>
-                {newTopics.map((topic=>{
+                {mergedTopics.map((topic=>{
                     return(
                         <div className='mx-6  border-2 rounded-lg border-slate-300'>  
                             <div className='mt-4 mx-4'>
@@ -102,10 +106,10 @@ export const ReviewQuizResults = () => {
                                 </div>
                                 <div>
                                     You have faced down&nbsp;<span className='font-bold text-lg'>
-                                        {getQuestionsAsked(topic.topic_name)}
+                                        {topic.questions_asked}
                                     </span>
                                     &nbsp;questions on this topic and answered&nbsp;
-                                    <span className='font-bold text-lg'>{getQuestionsAnswered(topic.topic_name)} </span>correctly.
+                                    <span className='font-bold text-lg'>{topic.answered_correctly} </span>correctly.
                                 </div>
                                 <div className='mt-2'>
                                     Your current level of understanding of {topic.topic_name} is equivalent to: 
@@ -162,7 +166,7 @@ export const ReviewQuizResults = () => {
 
             </div>
 
-            <div className='w-screen flex justify-center mb-48'>
+            <div className='w-screen flex justify-center'>
             <div className="mt-40 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center '>
                 <div className='mt-10 ml-8 w-full'>
