@@ -3,7 +3,6 @@ export const Tutorial = ({showModal}) => {
     const [modalState, setModalState] = useState(['off', 0])
 
     useEffect(() => {
-        const hasVisited = localStorage.getItem('hasVisitedDashboard');
         if (showModal) {
           setModalState(['on', 0]); // Show the modal
           localStorage.setItem('hasVisitedDashboard', 'true'); // Set the key
