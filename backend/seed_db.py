@@ -1,6 +1,6 @@
 from exts import db
 from main import create_app
-from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress, UserTopicProgress
+from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress, UserTopicProgress, Subject
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 from config import ProdConfig
@@ -22,11 +22,25 @@ def seed_users():
 
     return users
 
-def seed_units():
+def seed_subjects():
+    print("Seeding Subjects")
+
+    subject0 = Subject(name='Intro Econ')
+    subject1 = Subject(name='Microeconomics')
+    subject2 = Subject(name='Macroeconomics')
+
+    subjects = [subject0, subject1, subject2]
+    db.session.add_all(subjects)
+    db.session.commit()
+
+    return subjects
+
+
+def seed_units(subjects):
     print("Seeding units")
-    unit1 = Unit(name="Unit 1: Introduction to Economic Concepts", subject="both")
-    unit2 = Unit(name="Unit 2: Supply and Demand", subject="both")
-    unit3 = Unit(name="Unit 3: Elasticity", subject="both")
+    unit1 = Unit(name="Unit 1: Introduction to Economic Concepts", subject = subjects[0])
+    unit2 = Unit(name="Unit 2: Supply and Demand", subject = subjects[1])
+    unit3 = Unit(name="Unit 3: Elasticity", subject =subjects[1])
 
     db.session.add_all([unit1, unit2, unit3])
     db.session.commit()
@@ -980,7 +994,8 @@ def main():
 
 
         users = seed_users()
-        units= seed_units()
+        subjects = seed_subjects()
+        units= seed_units(subjects)
         assign_units_to_users(users, units)
         chapters = seed_chapters(units)
         topics = seed_topics(chapters)

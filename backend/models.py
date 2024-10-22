@@ -74,12 +74,14 @@ class Unit(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(unique=True, nullable=False)
     chapters = relationship('Chapter', back_populates='unit')
+    subject_id: Mapped[int] = mapped_column(ForeignKey('subject.id'), nullable=False)  # Foreign key for Subject
+
     users: Mapped[list["User"]] = relationship(
         'User',
         secondary=user_unit_association,
         back_populates='units'
     )
-    subject: Mapped[str] = mapped_column
+    subject: Mapped['Subject'] = relationship('Subject', back_populates='units')
 
     def __repr__(self):
         return f"Unit <{self.name}>"
@@ -88,6 +90,12 @@ class Unit(db.Model):
         db.session.add(self)
         db.session.commit()
 
+class Subject(db.Model):
+    __tablename__ = 'subject'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    units: Mapped[list["Unit"]] = relationship('Unit', back_populates='subject')
+  
 class Chapter(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
