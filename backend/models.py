@@ -20,6 +20,12 @@ user_unit_association = db.Table(
     db.Column('unit_id', db.Integer, db.ForeignKey('unit.id', name='unit_user_id'), primary_key=True)
 )
 
+user_chapter_association = db.Table(
+    'user_chapter',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id', name='user_chapter_id', primary_key=True)),
+    db.Column('chapter_id', db.Integer, db.ForeignKey('chapter.id', name='chapter_user_id', primary_key=True))
+)
+
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(unique=True)
@@ -29,6 +35,12 @@ class User(db.Model):
     units: Mapped[list["Unit"]] = relationship(
         'Unit',
         secondary=user_unit_association,
+        back_populates='users'
+    )
+
+    chapters: Mapped[list["Chapter"]] = relationship(
+        'Chapter',
+        secondary=user_chapter_association,
         back_populates='users'
     )
 
@@ -89,6 +101,11 @@ class Chapter(db.Model):
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
     topics: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='chapter')
 
+    users: Mapped[list["User"]] = relationship(
+        'User',
+        secondary=user_chapter_association,
+        back_populates='chapters'
+    ) 
 
     chapter_progress: Mapped[list["UserChapterProgress"]] = relationship('UserChapterProgress', back_populates='chapter')
     # users: Mapped[list["User"]] = relationship(
