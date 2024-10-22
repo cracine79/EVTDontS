@@ -22,11 +22,12 @@ const LoginComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await dispatch(loginUser(username, password))
+    dispatch(closeLoginModal())
     if(result.error){
-      dispatch(closeLoginModal());
+      console.log(result.error)
       navigate('/whoops', {state: {error: result.error, source: 'login'}})
     } else {
-      dispatch(closeLoginModal())
+
       navigate('/userhome')
     }
   };

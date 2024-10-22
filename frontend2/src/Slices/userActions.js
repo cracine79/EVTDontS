@@ -76,3 +76,22 @@ export const loginUser = (username, password) => async(dispatch) => {
     return {error: error.message }
   }
   };
+
+  export const signupUser = (username, email, password) => async(dispatch)  => {
+    try{
+      const response = await csrfFetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+      const data = await response.json();
+      console.log('DATA', data)
+      localStorage.setItem('access_token', data.user.access_token);
+      dispatch(login(data.user));
+      return {success: true}
+    } catch (error) {
+      return {error: error.message}
+    }
+  }

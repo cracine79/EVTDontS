@@ -6,6 +6,7 @@ import { closeSignupModal } from '../Slices/modalSlice';
 import { IoMdClose } from 'react-icons/io';
 import { GetStarted } from './GetStarted';
 import { useNavigate } from 'react-router-dom';
+import { signupUser } from '../Slices/userActions';
 
 const SignupComponent = () => {
   const showModal= useSelector(state=>(state.modal.isSignupOpen))
@@ -16,20 +17,14 @@ const SignupComponent = () => {
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await csrfFetch('/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
-
-    const data = await response.json();
-    localStorage.setItem('access_token', data.user.access_token);
+    e.preventDefault(); 
+    const result = await dispatch(signupUser(username, email, password))
     dispatch(closeSignupModal())
-    dispatch(login(data.user));
-    navigate('/getstarted')
+    if(result.error){
+      navigate('/whoops', {state: {error: result.error, source: 'signup'}})
+    } else {
+      navigate('/getstarted')
+    }
   };
 
   const handleClose = ()=>{

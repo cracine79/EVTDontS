@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager, create_access_token, create_refresh_t
 from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
+from email_validator import validate_email, EmailNotValidError
 
 auth_ns=Namespace('auth', description='A namespace for authentication')
 
@@ -99,7 +100,7 @@ class RefreshUser(Resource):
                 # Add any other user data you want to return
             })
         else:
-            return jsonify({"message": "No user logged in"}), 200
+            return ({"message": "No user logged in"}, 200)
         
 
 
@@ -122,11 +123,17 @@ class Signup(Resource):
         print(db_user)
 
         if db_user is not None:
-            return jsonify({"message"f"User with username {username} already exists"})
+            return ({"message":f"Someone is already using the username: {username}"}, 400)
+        email = data.get('email')
+
+        try:
+            validate_email(email)
+        except EmailNotValidError as e:
+            return ({"message": f"Email is not valid: {str(e)}"}, 400)
 
         new_user = User(
-            username=data.get('username'),
-            email=data.get('email'),
+            username=username,
+            email=email,
             password_hash= generate_password_hash(data.get('password'))           
         )
 
@@ -135,15 +142,13 @@ class Signup(Resource):
         access_token = create_access_token(new_user.username)
         refresh_token = create_refresh_token(new_user.username)
         
-        return jsonify({
+        return ({
             "user": {
                 "access_token":access_token,
                 "refresh_token":refresh_token,
                 "email": email,
                 "username": username
-            },
-            "message":f"User {username} successfully signed up",
-            })
+            }}, 200)
     
 @auth_ns.route('/login')
 class Login(Resource):
