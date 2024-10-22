@@ -4,6 +4,7 @@ import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
 import { clearUserResults } from "../Slices/resultsSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
+import { useMemo } from "react"
 
 export const ReviewQuizResults = () => {
     const dispatch = useDispatch()
@@ -14,14 +15,15 @@ export const ReviewQuizResults = () => {
     const topics = location.state?.topics
     const topicProg = useSelector(state=>state.topicProg)
     const topicProgObj = Object.values(topicProg)
-    console.log('TOPICS ARE', topics)
-    console.log('topic prog is', topicProg)
-    console.log('progObj', topicProgObj)
-    const mergedTopics = topics.map(topic => {
-        const dictEntry = topicProg[topic.topic_id];
-        return{ ...topic, ...dictEntry}
-    })
-    console.log(mergedTopics)
+    const mergedTopics = useMemo(() => {
+        return topics.map(topic => {
+            const dictEntry = topicProg[topic.topic_id];
+            return { ...topic, ...dictEntry };
+        });
+    }, [topics, topicProg]);
+    console.log('topics', topics)
+    console.log('topic-prog', topicProg)
+    console.log('merged', mergedTopics)
 
     const names = topics.map(topic => topic.topic_name)
 
