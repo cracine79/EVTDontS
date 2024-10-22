@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { loginUser } from "../Slices/userActions"
+import { loginUser, signupUser } from "../Slices/userActions"
 import { useNavigate } from "react-router-dom"
 
 export const Whoops = () => {
@@ -31,7 +31,14 @@ export const Whoops = () => {
             navigate('/whoops', {state: {error: result.error, source: 'login'}})
             } else {
             navigate('/userhome')
-    }
+            }
+        } else if (source == 'signup') {
+            const result = await dispatch(signupUser(username, email, password))
+            if (result.error){
+                navigate('/whoops', {state: {error: result.error, source: 'signup'}})
+            } else {
+                navigate('/getstarted')
+            }
         }
     }
 
@@ -43,8 +50,8 @@ export const Whoops = () => {
                     <p className = 'my-4 text-2xl'>There was a problem{action}:</p>
                     <p className = 'text-xl'>{problem}</p>
                     <p className = 'text-xl my-2'> Give it another shot</p>
-                        <input type='username' placeholder = 'Username' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange = {(e)=>setUsername(e.target.value)}></input>
                         {source =='signup' &&<input type='email' placeholder = 'Email' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange = {(e)=>setEmail(e.target.value)}></input>}
+                        <input type='username' placeholder = 'Username' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange = {(e)=>setUsername(e.target.value)}></input>
                         <input type='password' placeholder = 'Password' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange = {(e)=>setPassword(e.target.value)}></input>
                         <button type='submit' className='mt-8 mb-16'>{source=='login' ? 'Login' : 'Sign Up'}</button>
                     </form>
