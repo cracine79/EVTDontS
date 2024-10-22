@@ -99,13 +99,13 @@ export const QuizGenerator = () => {
             <div className='h-full w-100'>
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
                    <span className='text-3xl font-bold my-6'> Select Topics for Quiz</span>
-                    <div className="flex w-full px-10 flex-row justify-between">
-                        <input type='checkbox'
+                    <div className="flex w-full px-10 flex-row justify-between items-start">
+                        <input type='checkbox' className='mt-2 -mr-8'
                                 onChange = {()=>handleSelectAll()
                                 }
                                 checked = {selectedTopics.length === allTopicIds.length}
                                 />
-                        <div className='w-1/3  text-xl font-bold'>
+                        <div className='w-1/3  text-xl font-bold -ml-12'>
                             Topic
                         </div>
                         <div className='w-1/5 text-xl font-bold text-center'>
@@ -122,11 +122,11 @@ export const QuizGenerator = () => {
                             {
                                 topicsEntries.map(([id, topic])=>{
                                     return(
-                                    <div className='w-full px-10 flex justify-between'>
-                                        <input type='checkbox'
+                                    <div className='w-full px-10 flex justify-between flex-row items-start'>
+                                        <input type='checkbox' className='mt-2 -mr-8'
                                                 checked = {selectedTopics.includes(id)}
                                                 onChange = {() => handleCheckboxChange(id)}/>
-                                        <div key={id} className='w-1/3'>
+                                        <div key={id} className='w-1/3 -ml-12'>
                                             {topic.topic_name}
                                         </div>
                                         <div className='w-1/5 text-center'> {studiedIt(topic.chapter_id)} </div>

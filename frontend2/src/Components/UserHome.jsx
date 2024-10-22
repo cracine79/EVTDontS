@@ -5,6 +5,7 @@ import { csrfFetch } from "../csrf"
 import { useDispatch } from "react-redux"
 import { updateUserChapters } from "../Slices/userChaptersSlice"
 import { Tutorial } from "./Tutorial"
+import { useEffect } from "react"
 
 export const UserHome = () => {
     const dispatch = useDispatch()
@@ -28,6 +29,9 @@ export const UserHome = () => {
     ]
 
 
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);  // Scroll to top when the component mounts
+    //   }, []);
 
     const workingOn = () =>{
         if(currentBookChapter){
@@ -103,15 +107,15 @@ export const UserHome = () => {
         <>  
             <Tutorial showModal = {showModal} />
             <div className=
-                'flex 
+                {`flex 
                 items-center 
                 w-screen 
                 bg-slate-50 
                 flex-col
-                min-h-screen'>
-                <div className='h-100 flex flex-row mt-20 w-3/4'>
+                min-h-screen`}>
+                <div className='h-100 flex flex-row mt-26 w-3/4'>
                     <div className=
-                        'mt-36 
+                        {`mt-36 
                         min-w-96
                         w-3/5 
                         h-auto
@@ -121,7 +125,7 @@ export const UserHome = () => {
                         flex 
                         flex-row 
                         items-center
-                        justify-center'>
+                        justify-center`}>
                     {userName ? (
                                 <div className='flex flex-col items-center justify-center'>
                                     <div className='ml-10 text-5xl '>
@@ -143,7 +147,7 @@ export const UserHome = () => {
                                 {workingOn()}
                             </div>
                             <div className=
-                                'mt-10 
+                                {`}mt-10 
                                 border-black 
                                 h-1/5 
                                 w-1/2 
@@ -156,9 +160,7 @@ export const UserHome = () => {
                                 hover:bg-slate-500
                                 font-medium
                                 hover:cursor-pointer
-                                mb-6
-                                '
-                                >
+                                mb-6`}>
                                 <div onClick={handleClick}><UpNext /></div>
                             </div>
                         </div>
@@ -167,6 +169,43 @@ export const UserHome = () => {
         
                     <div className='flex flex-row items-center justify-center w-full mt-20 mb-20'>
                         <Progress />
+                    </div>
+
+                    <div className = 'w-full'>
+                        <div className=
+                        {`
+                        ml-20
+                        w-1/3
+                        h-auto
+                        text-center
+                        p-4
+                        rounded-3xl 
+                        shadow-2xl 
+                        flex 
+                        flex-col 
+                        items-center
+                        justify-center`}>
+                            <div className='text-2xl mt-3'>Update Your Study Plan</div>
+                            <p className='my-4'>Not everyone gets it right on the first try - you should see Mr. Racine's last haircut!</p>
+                            <p>Adjust the units/chapters you want to study here and get back on track like the deicsion making pro we all know you are</p>
+                            <button  className={`
+                                mt-4
+                                border-black 
+                                h-1/5 
+                                w-1/2 
+                                border-2 
+                                flex 
+                                justify-center 
+                                items-center
+                                rounded-lg
+                                bg-slate-300
+                                hover:bg-slate-500
+                                font-medium
+                                hover:cursor-pointer
+                                mb-6`}
+                                onClick = {()=>navigate('/updateunits')}
+                                >Fix Life Choices</button>
+                        </div>
                     </div>
             
             </div>

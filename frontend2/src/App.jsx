@@ -22,6 +22,7 @@ import { ReviewQuizResults } from './Components/ReviewQuizResults';
 import { VideoIndex } from './Components/VideoIndex';
 import { QuizGenerator } from './Components/QuizGenerator';
 import { Whoops } from './Components/Whoops';
+import { UpdateUnits } from './Components/UpdateUnits';
 
 
 const Layout = () => {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path: '/whoops',
         element: <Whoops />
+      }, 
+      {
+        path: '/updateunits',
+        element: <UpdateUnits />
       }
     ]
   }
