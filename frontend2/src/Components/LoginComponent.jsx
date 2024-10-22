@@ -10,6 +10,7 @@ import { updateChapters } from '../Slices/chaptersSlice';
 import { storeTopicProg } from '../Slices/topicProgSlice';
 import { storeUserChapters } from '../Slices/userChaptersSlice';
 import { storeTopics } from '../Slices/topicsSlice';
+import { loginUser } from '../Slices/userActions';
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
@@ -20,41 +21,14 @@ const LoginComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-    const response = await csrfFetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (!response.ok) {
-      // Log the status and response text for debugging
-      const errorText = await response.text();
-      console.error('Error response status:', response.status);
-      console.error('Error response body: ', errorText);
-      // Optionally, throw an error to handle it later in the catch block
-      throw new Error(`Error ${response.status}: ${errorText}`);
+    const result = await dispatch(loginUser(username, password))
+    if(result.error){
+      dispatch(closeLoginModal());
+      navigate('/whoops', {state: {error: result.error, source: 'login'}})
+    } else {
+      dispatch(closeLoginModal())
+      navigate('/userhome')
     }
-   
-    const data = await response.json();
-    console.log(data)
-    localStorage.setItem('access_token', data.user.access_token);
-    dispatch(login(data.user));
-    dispatch(storeUserUnits(data.units))
-    dispatch(updateChapters(data.chapters))
-    dispatch(storeTopicProg(data.topic_progress))
-    dispatch(storeUserChapters(data.user_chapters))
-    dispatch(storeTopics(data.topics))
-    dispatch(closeLoginModal()) // Store user in Redux state
-    navigate('/userhome')
-  } catch (error) {
-    // Log any errors that occur during fetch or processing
-    console.error('Error during login:', error);
-    dispatch(closeLoginModal())
-    navigate('/whoops', {state: {'error': error, 'source': 'login'}})
-  }
   };
 
   const handleClose = ()=>{
