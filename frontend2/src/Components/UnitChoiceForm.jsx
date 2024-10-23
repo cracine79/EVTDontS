@@ -20,7 +20,16 @@ export const SelectUnitsForm = () => {
 
     fetchData();
   }, []);
-
+  let subjectsObj = []
+  if (data){
+    const chapters = data.chapters
+    const subjects = data.subjects
+    const units = data.units
+    subjectsObj = Object.keys(subjects).map((key)=>({
+        id: key,
+        ...subjects[key]
+    }))
+  }
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -83,6 +92,12 @@ export const SelectUnitsForm = () => {
     <div className="bg-green-400 w-5/12 p-8 flex justify-center ">
       <div className="w-full mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">I am interested in studying:</h1>
+
+        {subjectsObj.map((subject)=>{
+          return(<div>
+             {subject.name}
+          </div>)
+        })}
 
         {/* Microeconomics Section */}
         <div className="mb-6">
