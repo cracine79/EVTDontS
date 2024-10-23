@@ -1,10 +1,27 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { addUserUnits } from "../Slices/unitsActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { getUnitsAndChapters } from "../Slices/unitsActions";
 
 export const SelectUnitsForm = () => {
+    const[data, setData] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getUnitsAndChapters();
+        const results = await response.json(); 
+        setData(results); 
+      } catch (error) {
+        console.error('Error fetching units and chapters:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [microUnits, setMicroUnits] = useState({

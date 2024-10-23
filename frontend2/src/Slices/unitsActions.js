@@ -37,3 +37,12 @@ export const addUserUnits = (units) => async(dispatch) => {
         console.error('Error during answer submission:', error);
     }
 }
+
+export const getUnitsAndChapters = async() => {
+    try{
+        const results = await csrfFetch('/api/units/')
+        return results
+    } catch(error){
+        console.error('Error during answer submission:', error);
+    }
+}

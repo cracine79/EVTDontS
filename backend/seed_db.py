@@ -25,7 +25,7 @@ def seed_users():
 def seed_subjects():
     print("Seeding Subjects")
 
-    subject0 = Subject(name='Intro Econ')
+    subject0 = Subject(name='Introduction to Economics')
     subject1 = Subject(name='Microeconomics')
     subject2 = Subject(name='Macroeconomics')
 
@@ -38,14 +38,20 @@ def seed_subjects():
 
 def seed_units(subjects):
     print("Seeding units")
-    unit1 = Unit(name="Unit 1: Introduction to Economic Concepts", subject = subjects[0])
-    unit2 = Unit(name="Unit 2: Supply and Demand", subject = subjects[1])
-    unit3 = Unit(name="Unit 3: Elasticity", subject =subjects[1])
+    unit1 = Unit(name="Unit 1: Fundamental Economic Concepts", subject=subjects[0])
+    unit2 = Unit(name="Unit 2: Supply and Demand", subject=subjects[1])
+    unit3 = Unit(name="Unit 3: Elasticity", subject=subjects[1])
+    unit4 = Unit(name="Unit 4: Government Intervention", subject=subjects[1])
+    unit5 = Unit(name="Unit 5: Consumer Theory", subject=subjects[1])
+    unit6 = Unit(name="Unit 6: Producer Theory", subject=subjects[1])
+    unit7 = Unit(name="Unit 7: Macroeconomic Objectives", subject=subjects[2])
+    unit8 = Unit(name="Unit 8: Macroeconomic Models", subject=subjects[2])
+    unit9 = Unit(name='Unit 9: Trade and the Balance of Payments', subject=subjects[2])
 
     db.session.add_all([unit1, unit2, unit3])
     db.session.commit()
     
-    return [unit1, unit2, unit3]
+    return [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9]
 
 def seed_chapters(units):
     print("seeding chapters")

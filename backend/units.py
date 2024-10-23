@@ -1,13 +1,43 @@
 from flask_restx import Namespace, Resource
 from flask import request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models import User, Unit, user_unit_association, UserChapterProgress, Chapter
+from models import User, Unit, user_unit_association, UserChapterProgress, Chapter, Subject
 from exts import db
 
 units_ns = Namespace('units', description='A namespace for User Units')
 
 @units_ns.route('/')
 class AddUnits(Resource):
+    def get(self):
+        subjects = Subject.query.all()
+        chapters = Chapter.query.all()
+        units = Unit.query.all()
+
+        shortened_subjects = {
+            subject.id: {
+                "name": subject.name
+            } for subject in subjects
+        }
+        shortened_chapters = {
+            chapter.id: {
+                "name": chapter.name,
+                "unit_id": chapter.unit_id
+            }
+        for chapter in chapters}
+        shortened_units = {
+            unit.id: {
+                "name": unit.name,
+                "subject_id": unit.subject_id
+            } for unit in units
+        }
+        
+        return jsonify({
+            'subjects': shortened_subjects,
+            'chapters': shortened_chapters,
+            'units': shortened_units
+        })
+
+
     @jwt_required()
     def post(self):
         current_user = get_jwt_identity()
