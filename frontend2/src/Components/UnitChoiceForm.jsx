@@ -13,7 +13,12 @@ export const SelectUnitsForm = () => {
   const [showMicroUnits, setShowMicroUnits] = useState(false);
   const [showMacroUnits, setShowMacroUnits] = useState(false);
   const [showChapters, setShowChapters] = useState({})
-
+  const [microUnits, setMicroUnits] = useState({})
+  const [macroUnits, setMacroUnits] = useState({})
+  const [introUnits, setIntroUnits] = useState({})
+  const [selectedChapters, setSelectedChapters] = useState({})
+  const [selectedUnits, setSelectedUnits] = useState({})
+  const [selectedSubjects, setSelectedSubjects] = useState({})
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,22 +57,7 @@ export const SelectUnitsForm = () => {
   }
 
 
-    const [microUnits, setMicroUnits] = useState({
-        1: false,
-        2: false,
-        3: false,
-        4: false,
-        5: false,
-        6: false,
-        7: false
-      });
 
-      const[macroUnits, setMacroUnits] = useState({
-        8: false,
-        9: false,
-        10: false,
-        11: false
-      })
     
       // State to track whether the microeconomics units are visible
 
@@ -92,6 +82,53 @@ export const SelectUnitsForm = () => {
         }));
       };
 
+      const handleUnitChange = (e) => {
+        const {name, checked} = e.target;
+        const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id==name)
+        const unitChapterIds = unitChapters.map((chapter)=>chapter.id)
+        unitChapterIds.forEach((id)=>{
+          setSelectedChapters((prevSelectedChapters) =>({
+            ...prevSelectedChapters,
+            [id]: checked
+          }))
+        })
+      }
+
+
+    const unitChecked = (unitId) => {
+      const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id==unitId)
+      const unitChapterIds = unitChapters.map((chapter)=>chapter.id)
+      let someChecked = false
+      unitChapterIds.forEach((id)=>{
+        if (selectedChapters[id] == true){
+          someChecked = true
+        }
+   
+      })
+      return someChecked
+    }
+
+      const handleSubjectChange = (e) => {
+        const {name, checked} = e.target;
+        const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==name)
+        const subjectUnitIds = subjectUnits.map((unit)=>unit.id)
+        subjectUnitIds.forEach((id)=>{
+          setSelectedUnits((prevSelectedUnits) => ({
+            ...prevSelectedUnits,
+            [id]: checked
+          }))
+        })
+      }
+
+      const handleChapterChange = (e) => {
+        const {name, checked} = e.target;
+        if(!selectedChapters[name]){
+          setSelectedChapters((prev)=>({...prev, [name]:true}))
+        } else {
+          setSelectedChapters((prev)=>({...prev, [name]:!selectedChapters[name]}))
+        }
+      }
+
     //   const handleMacroSelectAll = (e) => {
     //     const checked = e.target.checked;
     //     setMacroUnits({
@@ -106,6 +143,7 @@ export const SelectUnitsForm = () => {
         
     }
 
+
   
   const unitsDisplay = (subjectId) => {
     const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==subjectId)
@@ -114,12 +152,11 @@ export const SelectUnitsForm = () => {
         if (showChapters[unit.id] == null){
           showChapters[unit.id] = false
         }
-        console.log('dude',typeof unit.id === 'string')
-        console.log(unitIdsWithChapters.has(unit.id))
+
         const hasChapters = unitIdsWithChapters.has(Number(unit.id))
 
-        return(<div>
-          <input type='checkbox' disabled = {!hasChapters}></input>
+        return(<div key = {unit.id}>
+          <input type='checkbox' disabled = {!hasChapters} name={unit.id} onChange={handleUnitChange} checked={unitChecked(unit.id)}></input>
           <span onClick = {()=> setShowChapters(initialState => ({
             ...initialState,
             [unit.id]: !showChapters[unit.id]
@@ -135,8 +172,8 @@ export const SelectUnitsForm = () => {
   const chaptersDisplay = (unitId) => {
     const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id == unitId)
     return(unitChapters.map((chapter)=>{
-      return(<div>
-        <input type='checkbox'></input>
+      return(<div key={chapter.id}>
+        <input type='checkbox' onChange={handleChapterChange} name={chapter.id} checked={selectedChapters[chapter.id]}></input>
         {chapter.name}
       </div>)
     }))
@@ -145,12 +182,12 @@ export const SelectUnitsForm = () => {
   return (
     <div className="bg-green-400 w-5/12 p-8 flex justify-center ">
       <div className="w-full mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">I am interested in studying:</h1>
+        <h1 className="text-2xl font-bold mb-4">I am interested in st udying:</h1>
 
         {subjectsObj.map((subject)=>{
-          return(<div>
+          return(<div key={subject.id}>
             <div className='text-2xl'>
-              <input type='checkbox'></input>
+              <input type='checkbox' onClick = {handleSubjectChange} name={subject.id} checked = {selectedSubjects[subject.id]}></input>
               <span onClick={()=>setShowUnits(prevState => ({
                 ...prevState,
                 [subject.id]: !prevState[subject.id]
