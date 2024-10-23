@@ -5,7 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { getUnitsAndChapters } from "../Slices/unitsActions";
 
 export const SelectUnitsForm = () => {
-    const[data, setData] = useState(null)
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const[data, setData] = useState(null)
+  const [showUnits, setShowUnits] = useState({1: false, 2: false, 3: false});
+  const [showMicroUnits, setShowMicroUnits] = useState(false);
+  const [showMacroUnits, setShowMacroUnits] = useState(false);
+  const [showChapters, setShowChapters] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,19 +27,31 @@ export const SelectUnitsForm = () => {
 
     fetchData();
   }, []);
+  
   let subjectsObj = []
+  let unitsObj = []
+  let chaptersObj=[] 
+  let unitIdsWithChapters = []
   if (data){
     const chapters = data.chapters
     const subjects = data.subjects
-    const units = data.units
+    const units= data.units
+    unitsObj = Object.keys(units).map((key)=>({
+      id: key,
+      ...units[key]
+    }))
     subjectsObj = Object.keys(subjects).map((key)=>({
         id: key,
         ...subjects[key]
     }))
+    chaptersObj = Object.keys(chapters).map((key)=>({
+      id: key,
+      ...chapters[key]
+    }))
+    unitIdsWithChapters = new Set(Object.values(chapters).map(chapter => chapter.unit_id));
   }
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+
     const [microUnits, setMicroUnits] = useState({
         1: false,
         2: false,
@@ -51,8 +70,7 @@ export const SelectUnitsForm = () => {
       })
     
       // State to track whether the microeconomics units are visible
-      const [showMicroUnits, setShowMicroUnits] = useState(false);
-      const [showMacroUnits, setShowMacroUnits] = useState(false);
+
     
       const handleMicroUnitChange = (e) => {
         const { name, checked } = e.target;
@@ -87,6 +105,42 @@ export const SelectUnitsForm = () => {
         navigate('/userhome', {state: {showModal: true}})
         
     }
+
+  
+  const unitsDisplay = (subjectId) => {
+    const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==subjectId)
+
+    return(subjectUnits.map((unit)=>{
+        if (showChapters[unit.id] == null){
+          showChapters[unit.id] = false
+        }
+        console.log('dude',typeof unit.id === 'string')
+        console.log(unitIdsWithChapters.has(unit.id))
+        const hasChapters = unitIdsWithChapters.has(Number(unit.id))
+
+        return(<div>
+          <input type='checkbox' disabled = {!hasChapters}></input>
+          <span onClick = {()=> setShowChapters(initialState => ({
+            ...initialState,
+            [unit.id]: !showChapters[unit.id]
+          }))}>
+            {unit.name.split(':')[1].slice(1)} {hasChapters ? '(expand)' : '(coming soon!)'}
+          </span>
+          {showChapters[unit.id] && 
+          <div className='ml-6'>{chaptersDisplay(unit.id)}</div>
+          }
+        </div>)}))
+  }
+
+  const chaptersDisplay = (unitId) => {
+    const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id == unitId)
+    return(unitChapters.map((chapter)=>{
+      return(<div>
+        <input type='checkbox'></input>
+        {chapter.name}
+      </div>)
+    }))
+  }
    
   return (
     <div className="bg-green-400 w-5/12 p-8 flex justify-center ">
@@ -95,11 +149,26 @@ export const SelectUnitsForm = () => {
 
         {subjectsObj.map((subject)=>{
           return(<div>
-             {subject.name}
+            <div className='text-2xl'>
+              <input type='checkbox'></input>
+              <span onClick={()=>setShowUnits(prevState => ({
+                ...prevState,
+                [subject.id]: !prevState[subject.id]
+              }))}>
+               {subject.name}  (click to expand)
+              </span>
+            </div>
+            {showUnits[subject.id] && <>
+              <div className='ml-6'>
+              {unitsDisplay(subject.id)} 
+              </div>
+            </>}
+     
+             
           </div>)
         })}
 
-        {/* Microeconomics Section */}
+        Microeconomics Section
         <div className="mb-6">
             <div className="ml-6">
             </div>

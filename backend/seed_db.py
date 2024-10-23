@@ -46,12 +46,14 @@ def seed_units(subjects):
     unit6 = Unit(name="Unit 6: Producer Theory", subject=subjects[1])
     unit7 = Unit(name="Unit 7: Macroeconomic Objectives", subject=subjects[2])
     unit8 = Unit(name="Unit 8: Macroeconomic Models", subject=subjects[2])
-    unit9 = Unit(name='Unit 9: Trade and the Balance of Payments', subject=subjects[2])
-
-    db.session.add_all([unit1, unit2, unit3])
+    unit9 = Unit(name='Unit 9: Macroeconomic Policies', subject=subjects[2])
+    unit10 = Unit(name="Unit 10: Trade and the Balance of Payments", subject=subjects[2])
+    
+    units = [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9, unit10]
+    db.session.add_all(units)
     db.session.commit()
     
-    return [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9]
+    return (units)
 
 def seed_chapters(units):
     print("seeding chapters")
