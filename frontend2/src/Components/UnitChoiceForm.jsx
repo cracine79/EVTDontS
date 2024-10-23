@@ -168,8 +168,8 @@ export const SelectUnitsForm = () => {
           </div>)
         })}
 
-        Microeconomics Section
-        <div className="mb-6">
+        {/* Microeconomics Section */}
+        {/* <div className="mb-6">
             <div className="ml-6">
             </div>
              <div className='flex items-center'>
@@ -183,13 +183,13 @@ export const SelectUnitsForm = () => {
                     onClick={() => setShowMicroUnits(!showMicroUnits)}>
                     Microeconomics (click to expand)
                 </label>
-             </div>
+             </div> */}
 
           {/* The checkbox is separate for selecting all, does NOT toggle visibility */}
 
 
           {/* Conditional Rendering: Show units only when clicked */}
-          {showMicroUnits && (
+          {/* {showMicroUnits && (
             <div className="ml-6 mt-2">
               <label className="block text-gray-700">
                 <input
@@ -271,10 +271,10 @@ export const SelectUnitsForm = () => {
               </label>
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Macroeconomics Section */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
             <div className='ml-6'>
             </div>
             <div className='flex items-center'>
@@ -289,9 +289,9 @@ export const SelectUnitsForm = () => {
             <label  onClick={() => setShowMacroUnits(!showMacroUnits)} className="block text-lg font-medium text-gray-700 cursor-pointer">
                 Macroeconomics (click to expand)</label>
                 
-            </div>
+            </div> */}
           {/* Add Macroeconomics units here with similar structure */}
-        </div>
+        {/* </div>
         {showMacroUnits && (
             <div className="ml-6 mt-2">
              <label className="block text-gray-700">
@@ -347,7 +347,7 @@ export const SelectUnitsForm = () => {
               </label>
               
             </div>
-        )}
+        )} */}
 
         {/* Submit Button */}
         <div className="flex justify-start mt-20">
