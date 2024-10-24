@@ -80,8 +80,8 @@ export const Video = () => {
                 {blurb}
             </div>
             <div className='flex justify-between w-1/2 mt-6'>
-                <div onClick = {handleClick} className=
-                            'mt-10 
+                <div onClick = {handleClick} className={
+                            `mt-10 
                             border-black 
                             h-auto 
                             w-1/3
@@ -96,11 +96,11 @@ export const Video = () => {
                             hover:cursor-pointer
                             mb-6
                             text-center
-                            '>
+                            `}>
                     Back to my Dashboard
                 </div>
                 <div onClick = {completeVid} className=
-                            'mt-10 
+                            {`mt-10 
                             flex
                             flex-col
                             border-black 
@@ -116,7 +116,7 @@ export const Video = () => {
                             font-medium
                             hover:cursor-pointer
                             mb-6
-                            '>
+                            `}>
                     <p>Mark as Completed</p>
                     <p>Let's Rock the Quiz</p>
                 </div>

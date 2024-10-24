@@ -147,7 +147,7 @@ export const UserHome = () => {
                                 {workingOn()}
                             </div>
                             <div className=
-                                {`}mt-10 
+                                {`mt-10 
                                 border-black 
                                 h-1/5 
                                 w-1/2 

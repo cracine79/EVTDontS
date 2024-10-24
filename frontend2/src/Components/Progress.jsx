@@ -149,7 +149,7 @@ export const Progress = () => {
             <div className='flex flex-col items-center'>
                 <div >{reply}</div>
                 {reply !== 'Not yet started' && <div className=
-                            'mt-2 
+                            {`mt-2 
                             border-black 
                             h-1/12 
                             w-1/2 
@@ -163,7 +163,7 @@ export const Progress = () => {
                             font-medium
                             hover:cursor-pointer
                             
-                            '
+                            `}
                             onClick={(event) => {
                                 event.stopPropagation(); // Prevents parent click
                                 openTopicQuiz(chapter_topics);
