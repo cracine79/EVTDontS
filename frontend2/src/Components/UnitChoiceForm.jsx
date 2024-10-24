@@ -58,30 +58,30 @@ export const SelectUnitsForm = () => {
   }
 
 
-
+  // console.log(selectedChapters)
     
       // State to track whether the microeconomics units are visible
 
     
-      const handleMicroUnitChange = (e) => {
-        const { name, checked } = e.target;
-        setMicroUnits((prev) => ({ ...prev, [name]: checked }));
-      };
+      // const handleMicroUnitChange = (e) => {
+      //   const { name, checked } = e.target;
+      //   setMicroUnits((prev) => ({ ...prev, [name]: checked }));
+      // };
 
-      const handleMacroUnitChange = (e) => {
-        const {name, checked} = e.target;
-        setMacroUnits((prev)=>({...prev, [name]: checked}))
-      }
+      // const handleMacroUnitChange = (e) => {
+      //   const {name, checked} = e.target;
+      //   setMacroUnits((prev)=>({...prev, [name]: checked}))
+      // }
     
-      const handleMicroSelectAll = (e) => {
-        const checked = e.target.checked;
-        setMicroUnits((prevMicroUnits) => ({
-          ...prevMicroUnits,
-          1: checked,
-          2: checked,
-          3: checked,
-        }));
-      };
+      // const handleMicroSelectAll = (e) => {
+      //   const checked = e.target.checked;
+      //   setMicroUnits((prevMicroUnits) => ({
+      //     ...prevMicroUnits,
+      //     1: checked,
+      //     2: checked,
+      //     3: checked,
+      //   }));
+      // };
 
 
 
@@ -203,8 +203,8 @@ export const SelectUnitsForm = () => {
     //   };
     
     const handleSubmit = () => {
-        const units = {...microUnits, ...macroUnits}
-        dispatch(addUserUnits(units))
+        console.log('CHAPTERSSSSS', selectedChapters)
+        dispatch(addUserUnits(selectedChapters))
         navigate('/userhome', {state: {showModal: true}})
         
     }

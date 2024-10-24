@@ -6,6 +6,7 @@ import { updateUser } from "./userSlice";
 
 
 export const addUserUnits = (units) => async(dispatch) => {
+    console.log(units)
     try{
         const response = await csrfFetch('/api/units/', {
             method: 'POST',

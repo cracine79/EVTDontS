@@ -45,7 +45,7 @@ class User(db.Model):
     )
 
     current_chapter_id: Mapped[Optional[int]] = mapped_column(ForeignKey('chapter.id'), nullable=True)
-    current_chapter: Mapped['Chapter'] = relationship('Chapter', back_populates='users')
+    current_chapter: Mapped['Chapter'] = relationship('Chapter', foreign_keys=[current_chapter_id])
 
 
     chapter_progress: Mapped[list["UserChapterProgress"]] = relationship(
@@ -121,7 +121,6 @@ class Chapter(db.Model):
     #     back_populates='current_chapter'
     # )
 
-    users: Mapped[list["User"]] = relationship('User', back_populates='current_chapter')
     
     def __repr__(self):
         return f"Chapter <{self.name}>"
