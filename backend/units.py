@@ -40,15 +40,16 @@ class AddUnits(Resource):
 
     @jwt_required()
     def post(self):
+
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
 
         data = request.get_json()
-        print('DATAAAAA', data)
+        print('DATTTAAAA', data)
         for chapter_id, selected in data.items():
             chapter = Chapter.query.get(chapter_id)
-
+            print('THIS ONE IS', selected)
             if not chapter: 
                 continue
 
@@ -61,8 +62,11 @@ class AddUnits(Resource):
             
             else:
                 if chapter in user.chapters:
-                    user.units.remove(chapter)
-
+                    user.chapters.remove(chapter)
+                    current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id=user.id).first()
+                    print("FOUNDDDDD IT", current_progress)
+                    current_progress.active = False
+                
         print('USER UNITS ARRRE', user.units)
         db.session.commit()
         user_units = user.units
@@ -90,7 +94,7 @@ class AddUnits(Resource):
 
         units_dict = {unit.id: unit.name for unit in user_units}    
         
-        chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id).all()
+        chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id, active=True).all()
         progress_dict={
             chapter.chapter_id: {
                 "video_completed": chapter.video_completed,

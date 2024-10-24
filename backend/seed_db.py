@@ -965,9 +965,9 @@ def seed_answers(questions):
 
 def seed_progress():
     print("seeding progress")
-    progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=100)
-    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=66)
-    progress3 = UserChapterProgress(user_id = 1, chapter_id = 3, video_completed=False, quiz_grade=None)
+    progress1 = UserChapterProgress(user_id = 1, chapter_id = 1, video_completed=True, quiz_grade=100, active=True)
+    progress2 = UserChapterProgress(user_id = 1, chapter_id = 2, video_completed=True, quiz_grade=66, active=True)
+    progress3 = UserChapterProgress(user_id = 1, chapter_id = 3, video_completed=False, quiz_grade=None, active=True)
   
     
     progresses = [progress1, progress2, progress3]

@@ -1,13 +1,16 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { getUnitsAndChapters } from "../Slices/unitsActions"
+import { addUserUnits } from "../Slices/unitsActions"
+import { useNavigate } from "react-router-dom"
 
 
 export const UpdateUnits = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [data, setData] = useState ()
     const userChapters = useSelector((state)=>state.userChapters)
-    const bookChapters = useSelector((state)=>state. chapters)
+    const bookChapters = useSelector((state)=>state.chapters)
     const userChapterIds = Object.keys(userChapters)
     const chapterIdMap = userChapterIds.reduce((acc, chapterId) => {
         acc[chapterId] = true;
@@ -16,7 +19,6 @@ export const UpdateUnits = () => {
 
     const userUnitIds = {}
 
-    console.log(userChapters)
 
     userChapterIds.forEach((id)=>{
         userUnitIds[bookChapters[id].unit_id] = true
@@ -77,16 +79,23 @@ export const UpdateUnits = () => {
             [id]: checked
           }))
         })
+        
         setSelectedUnits((prev)=>({
             ...prev,
             [name]: checked
           }))
       }
+      const handleSubmit = () => {
+        dispatch(addUserUnits(selectedChapters))
+        navigate('/userhome', {state: {showModal: false}})
+        
+    }
 
     const unitsDisplay = (subjectId) => {
         const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==subjectId)
         
     
+ 
     
         
         return(
@@ -112,6 +121,7 @@ export const UpdateUnits = () => {
             ...prev,
             [name]: checked
           }));
+        console.log(selectedChapters)
     }
 
     const chaptersDisplay = (unitId) => {
@@ -165,6 +175,15 @@ export const UpdateUnits = () => {
                             <div className='mt-4 columns-2 gap-16 p-4 text-left'>
                                 <UnitChoiceForm />
                             </div>
+                            <button
+                                type="button"
+                                className="px-4 py-2 bg-slate-500 text-white font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                                onClick={() => {
+                                handleSubmit()
+                                }}
+                                >
+                                Submit
+                            </button>
             </div>
            
         </div>

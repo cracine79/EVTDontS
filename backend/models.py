@@ -194,6 +194,7 @@ class UserChapterProgress(db.Model):
     chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id', name='chapter_progress_user_id'), nullable=False)
     video_completed: Mapped[bool] = mapped_column(Boolean, default=False)
     quiz_grade: Mapped[int] = mapped_column(Integer, nullable=True)
+    active: Mapped[bool] = mapped_column(Boolean, default = True, nullable=True)
     # completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
 
     __table_args__ = (db.UniqueConstraint('user_id', 'chapter_id', name='uix_user_chapter'),)
