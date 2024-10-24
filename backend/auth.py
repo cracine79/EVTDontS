@@ -28,10 +28,8 @@ class RefreshUser(Resource):
             return jsonify({"message": "User not found"})
         
         user_units = user.units
-        user_chapters = []
-        for unit in user.units:
-            chapters = unit.chapters
-            user_chapters += chapters
+        user_chapters = user.chapters
+        
         
         chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id).all()
         
@@ -193,10 +191,10 @@ class Login(Resource):
                 
                 #extract all relevant chapters for user and send down on login
                 
-                user_chapters = []
-                for unit in user_units:
-                    chapters = unit.chapters
-                    user_chapters += chapters
+                # user_chapters = []
+                # for unit in user_units:
+                #     chapters = unit.chapters
+                #     user_chapters += chapters
 
                 chapter_progress = UserChapterProgress.query.filter_by(user_id=db_user.id).all()
                 progress_dict={
@@ -211,7 +209,7 @@ class Login(Resource):
                         "name": chapter.name, 
                         "unit_id": chapter.unit_id,
                         "video_url": chapter.video_url,
-                    } for chapter in user_chapters}
+                    } for chapter in db_user.chapters}
                 units_dict = {unit.id: unit.name for unit in user_units}
 
                 user_topic_progress = UserTopicProgress.query.filter_by(user_id=db_user.id).all()

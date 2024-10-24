@@ -176,6 +176,8 @@ export const Progress = () => {
     
     const unitChapters = (unitId) => {
         const chaptersUnits = chaptersEnt.filter(([chapterId, chapter])=>chapter.unit_id == unitId)
+        console.log(chaptersUnits)
+        console.log(chaptersEnt)
         return(
             <>
                 <div className='flex bg-green-600 h-8 items-center w-100'>
@@ -184,8 +186,8 @@ export const Progress = () => {
                     <div className='w-1/6 font-semibold text-s  text-center '>Quiz Status</div>
                     <div className='w-1/6 font-semibold text-s  text-center '> Topics Mastery</div>
                 </div>
-                {chaptersUnits.map(([chapterId, chapter])=>{
-                    const odd = chapterId % 2 == 0
+                {chaptersUnits.map(([chapterId, chapter], index)=>{
+                    const odd = index % 2 == 0
                     return(
                         <div className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
                             <div className='ml-8 my-2 w-1/3 font-semibold'>
