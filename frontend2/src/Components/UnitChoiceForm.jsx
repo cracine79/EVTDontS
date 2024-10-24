@@ -3,6 +3,7 @@ import { addUserUnits } from "../Slices/unitsActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUnitsAndChapters } from "../Slices/unitsActions";
+import { SiTrueup } from "react-icons/si";
 
 export const SelectUnitsForm = () => {
 
@@ -82,17 +83,6 @@ export const SelectUnitsForm = () => {
         }));
       };
 
-      const handleUnitChange = (e) => {
-        const {name, checked} = e.target;
-        const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id==name)
-        const unitChapterIds = unitChapters.map((chapter)=>chapter.id)
-        unitChapterIds.forEach((id)=>{
-          setSelectedChapters((prevSelectedChapters) =>({
-            ...prevSelectedChapters,
-            [id]: checked
-          }))
-        })
-      }
 
 
     const unitChecked = (unitId) => {
@@ -108,26 +98,102 @@ export const SelectUnitsForm = () => {
       return someChecked
     }
 
-      const handleSubjectChange = (e) => {
-        const {name, checked} = e.target;
-        const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==name)
-        const subjectUnitIds = subjectUnits.map((unit)=>unit.id)
-        subjectUnitIds.forEach((id)=>{
-          setSelectedUnits((prevSelectedUnits) => ({
-            ...prevSelectedUnits,
-            [id]: checked
-          }))
-        })
-      }
-
-      const handleChapterChange = (e) => {
-        const {name, checked} = e.target;
-        if(!selectedChapters[name]){
-          setSelectedChapters((prev)=>({...prev, [name]:true}))
-        } else {
-          setSelectedChapters((prev)=>({...prev, [name]:!selectedChapters[name]}))
+    const subjectChecked = (subjectId) => {
+      const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==subjectId)
+      const subjectUnitIds = subjectUnits.map((unit) => unit.id)
+      let someChecked = false
+      subjectUnitIds.forEach((id)=>{
+        if(selectedUnits[id] == true){
+          someChecked = true
         }
-      }
+      })
+      return someChecked
+    }
+
+    const handleUnitChange = (e) => {
+      const {name, checked} = e.target;
+      const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id==name)
+      const unitChapterIds = unitChapters.map((chapter)=>chapter.id)
+      unitChapterIds.forEach((id)=>{
+        setSelectedChapters((prevSelectedChapters) =>({
+          ...prevSelectedChapters,
+          [id]: checked
+        }))
+      })
+      setSelectedUnits((prev)=>({
+        ...prev,
+        [name]: checked
+      }))
+    }
+
+
+    const handleSubjectChange = (e) => {
+      const { name, checked } = e.target;
+      const subjectUnits = unitsObj.filter((unit) => unit.subject_id == name);
+      const subjectUnitIds = subjectUnits.map((unit) => unit.id);
+    
+      // Select all units belonging to this subject
+      subjectUnitIds.forEach((unitId) => {
+        setSelectedUnits((prevSelectedUnits) => ({
+          ...prevSelectedUnits,
+          [unitId]: checked
+        }));
+    
+        // Select all chapters belonging to each unit
+        const unitChapters = chaptersObj.filter((chapter) => chapter.unit_id == unitId);
+        unitChapters.forEach((chapter) => {
+          setSelectedChapters((prevSelectedChapters) => ({
+            ...prevSelectedChapters,
+            [chapter.id]: checked
+          }));
+        });
+      });
+    
+      // Set the subject itself
+      setSelectedSubjects((prev) => ({
+        ...prev,
+        [name]: checked
+      }));
+    };
+
+    const handleChapterChange = (e) => {
+      const { name, checked } = e.target;
+      const rightChapter = chaptersObj.filter((chapter) => chapter.id == name);
+      const unitId = rightChapter[0].unit_id;
+      const unitChapters = chaptersObj.filter((chapter) => chapter.unit_id == unitId);
+    
+      // Update the selected chapters state
+      setSelectedChapters((prev) => ({
+        ...prev,
+        [name]: checked
+      }));
+    
+      // Check if there is at least one selected chapter in the unit
+      const someChaptersSelected = unitChapters.some((chapter) => selectedChapters[chapter.id] || checked);
+    
+      // Update unit state based on whether at least one chapter is selected
+      setSelectedUnits((prev) => ({
+        ...prev,
+        [unitId]: someChaptersSelected
+      }));
+    
+      // Now, check if all units for the subject should remain selected
+      const unitSubject = unitsObj.find((unit) => unit.id == unitId);
+      const subjectUnits = unitsObj.filter((unit) => unit.subject_id == unitSubject.subject_id);
+    
+      // Check if any unit within the subject still has selected chapters
+      const someUnitsSelected = subjectUnits.some((unit) => {
+        const unitChapters = chaptersObj.filter((chapter) => chapter.unit_id == unit.id);
+        return unitChapters.some((chapter) => selectedChapters[chapter.id] || (unit.id == unitId && checked)); // Include the current change
+      });
+    
+      // Update subject state based on whether any units remain selected
+      setSelectedSubjects((prev) => ({
+        ...prev,
+        [unitSubject.subject_id]: someUnitsSelected
+      }));
+    };
+    
 
     //   const handleMacroSelectAll = (e) => {
     //     const checked = e.target.checked;
@@ -187,7 +253,7 @@ export const SelectUnitsForm = () => {
         {subjectsObj.map((subject)=>{
           return(<div key={subject.id}>
             <div className='text-2xl'>
-              <input type='checkbox' onClick = {handleSubjectChange} name={subject.id} checked = {selectedSubjects[subject.id]}></input>
+              <input type='checkbox' onClick = {handleSubjectChange} name={subject.id} checked = {subjectChecked(subject.id)}></input>
               <span onClick={()=>setShowUnits(prevState => ({
                 ...prevState,
                 [subject.id]: !prevState[subject.id]
