@@ -52,16 +52,18 @@ export const QuizResults = () => {
         dispatch(openResultsModal())
     }
 
-    const nextVideo = ()=>{
+    const nextVideo = async ()=>{
         const quizData = {
             chapter_id: currentChapter,
             quiz_score: percentageScore
         }
         
-        dispatch(finishChapter(quizData))
+        const data = await(dispatch(finishChapter(quizData)))
+        console.log("DATAAAA", data)
+       
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate(`/video/${currentChapter + 1}`)
+        navigate(`/video/${currentChapter}`)
     }
 
     const lastVideo = ()=>{

@@ -93,9 +93,10 @@ export const finishChapter = (chapterData)  => async(dispatch) => {
         const data = await response.json()
         console.log('Data received from API:', data); // Ensure this logs correctly
         dispatch(updateUser(data))
-        console.log(data)
+        return data
         
     } catch(error){
-        console.log('error during data submission:', error)
+        console.log('error during data submission:', error);
+        return Promise.reject(error)
     }
 }

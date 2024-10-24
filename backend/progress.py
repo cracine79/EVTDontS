@@ -285,30 +285,20 @@ class ChapterProgress(Resource):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
 
-        unit_chapters = Chapter.query.filter_by(unit_id=current_unit.id).order_by(Chapter.order).all()
+        user_chapters = user.chapters
 
         done = False
 
-        if finished_chapter == unit_chapters[-1]:
+        if finished_chapter == user_chapters[-1]:
             print('lastChapter!!') 
-            user_units = user.units
-            current_unit_index = user_units.index(current_unit)
-            print('currtentUnitIndex!!', current_unit_index)
-
-            if current_unit_index +1 < len(user_units):
-                next_unit = user_units[current_unit_index+1]
-                print('NEXTUNITTTT!',next_unit)
-                print('NEXTCHAPTER!!', next_unit.chapters[0])
-                user.current_chapter = next_unit.chapters[0]
-            else:
-                user.current_chapter = None
-                done = True
+            user.current_chapter = None
+            done = True
         else:
             print('NOT LAST CHAPTER')
-            next_chapter_index = unit_chapters.index(finished_chapter) + 1
+            next_chapter_index = user_chapters.index(finished_chapter) + 1
             print(next_chapter_index)
-            print(unit_chapters[next_chapter_index])
-            user.current_chapter = unit_chapters[next_chapter_index]
+            print(user_chapters[next_chapter_index])
+            user.current_chapter = user_chapters[next_chapter_index]
         
         db.session.commit()
 
