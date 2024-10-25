@@ -41,6 +41,9 @@ export const QuizResults = () => {
             return(<p>Oof.  AP style questions can be tricky.  Let's try it again.  Looks like the quiz could use a little more work too. </p>)
         }
     }
+    const nextChapter = () => {
+
+    }
 
     const retake = () => {
         dispatch(clearUserResults())
@@ -60,10 +63,9 @@ export const QuizResults = () => {
         
         const data = await(dispatch(finishChapter(quizData)))
         console.log("DATAAAA", data)
-       
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate(`/video/${currentChapter}`)
+        navigate(`/video/${data.current_chapter}`)
     }
 
     const lastVideo = ()=>{
