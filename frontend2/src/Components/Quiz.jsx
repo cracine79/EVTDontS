@@ -22,7 +22,7 @@ export const Quiz = () => {
         type: type,
         topics: topics
     }
-
+    console.log("NOW TOPICS ARE", topics)
 
     useEffect(()=>{
         dispatch(getQuestions(data)), [dispatch]

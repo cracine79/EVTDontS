@@ -29,9 +29,9 @@ export const UserHome = () => {
     ]
 
 
-    // useEffect(() => {
-    //     window.scrollTo(0, 0);  // Scroll to top when the component mounts
-    //   }, []);
+    useEffect(() => {
+        window.scrollTo(0, 0);  // Scroll to top when the component mounts
+      }, []);
 
     const workingOn = () =>{
         if(currentBookChapter){

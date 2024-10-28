@@ -16,7 +16,8 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       id: id
     }))
     const numberOfQuestions = questionsObj.length
-    const quizChapterName = useSelector(state=>(state.chapters[chapter].name))
+   
+    const quizChapterName = type == 'chapterQuiz' ? useSelector(state=>(state.chapters[chapter].name)) : ""
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
