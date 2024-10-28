@@ -50,18 +50,38 @@ class AddUnits(Resource):
         print('DATTTAAAA', data)
         for chapter_id, selected in data.items():
             chapter = Chapter.query.get(chapter_id)
-            print('THIS ONE IS', selected)
-            if not chapter: 
+            print(chapter.name, 'IS', selected)
+            if not chapter:
+                print('Im outtta here') 
                 continue
+            print('USER CHAPPPIES', user.chapters)
 
             if selected:
+                print("working on ", chapter.name)
                 if chapter.unit not in user.units:
+                    print('not in user units')
                     user.units.append(chapter.unit)
                 if chapter not in user.chapters:
                     user.chapters.append(chapter)
+                    current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
+                    if not current_progress:
+                        current_progress = UserChapterProgress(
+                            user_id = user.id,
+                            chapter_id = chapter.id,
+                            video_completed = False,
+                            quiz_grade = None,
+                            active = True
+                        )
+                        print('adding chapter', chapter)
+                    else:
+                        current_progress.active = True
+                        print('reactivating Chapter', chapter)
                 else:
+                    print('MAKING IT TRUE')
                     current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
                     current_progress.active = True
+                    print(current_progress, 'TRUELIO')
+ 
 
             
             else:
@@ -70,9 +90,10 @@ class AddUnits(Resource):
                     current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id=user.id).first()
                     print("FOUNDDDDD IT", current_progress)
                     current_progress.active = False
-                
-        print('USER UNITS ARRRE', user.units)
+
         db.session.commit()
+        print('USER UNITS ARRRE', user.units)
+
         user_units = user.units
         user_chapters = user.chapters
 
@@ -99,6 +120,7 @@ class AddUnits(Resource):
         units_dict = {unit.id: unit.name for unit in user_units}    
         
         chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id, active=True).all()
+        print('chapter PROGOOO', chapter_progress)
         progress_dict={
             chapter.chapter_id: {
                 "video_completed": chapter.video_completed,
