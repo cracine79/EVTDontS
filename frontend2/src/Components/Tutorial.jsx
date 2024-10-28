@@ -4,7 +4,7 @@ export const Tutorial = ({showModal}) => {
 
     useEffect(() => {
         if (showModal) {
-          setModalState(['on', 0]); // Show the modal
+          setModalState(['on', 4]); // Show the modal
           localStorage.setItem('hasVisitedDashboard', 'true'); // Set the key
         }
       }, []);
@@ -83,17 +83,17 @@ export const Tutorial = ({showModal}) => {
                     100% 0, 
                     100% 100%, 
                     0 100%, 
-                    0 230px, /* Move these percentages to change the cutout */
-                    58% 230px, 
-                    58% 470px, 
-                    88% 470px, 
-                    88% 230px, 
-                    0 230px
+                    0 120px, /* Move these percentages to change the cutout */
+                    58% 120px, 
+                    58% 400px, 
+                    88% 400px, 
+                    88% 120px, 
+                    0 120px
                     )`, 
                 }}
                 >
                 </div>
-                <div className="absolute top-10 mt-48 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
+                <div className="absolute top-10 mt-28 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
                                 <p className='mb-4'>Ah, the mighty Progress Box—your personal cheerleader, telling you what chapter you're currently <i>surviving</i>. Whether you're about to watch another mind-blowing video or dive into a quiz that you totally remember all the answers to, this button is your trusty guide. ust click it, and boom—on to your next step toward total mastery (or at least faking it till you make it)!"</p>
                                 <div className='flex justify-around flex-row'>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 3])}>Keep it the magic going!</button>
@@ -111,17 +111,17 @@ export const Tutorial = ({showModal}) => {
                     100% 0, 
                     100% 100%, 
                     0 100%, 
-                    0 530px, /* Move these percentages to change the cutout */
-                    2% 530px, 
+                    0 430px, /* Move these percentages to change the cutout */
+                    2% 430px, 
                     2% 100%, 
                     98% 100%, 
-                    98% 530px, 
-                    0 530px
+                    98% 430px, 
+                    0 430px
                     )`, 
                 }}
                 >
                 </div>
-                <div className="absolute top-10 mt-48 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
+                <div className="absolute top-10 mt-28 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
                                 <p className='mb-4'>Welcome to your grand master plan... or as we like to call it, 'organized chaos.' Here’s where all your units live, along with a handy tracker to show exactly how much you’ve actually done. Spoiler: It's probably less than you'd like, but hey, progress is progress! </p>
                                 <p> Click on your first unit to expand it.</p>
                                 <div className='flex justify-around flex-row mt-4'>
@@ -140,17 +140,17 @@ export const Tutorial = ({showModal}) => {
                     100% 0, 
                     100% 100%, 
                     0 100%, 
-                    0 700px, /* Move these percentages to change the cutout */
-                    2% 700px, 
-                    2% 780px, 
-                    98% 780px, 
-                    98% 700px, 
-                    0 700px
+                    0 610px, /* Move these percentages to change the cutout */
+                    2% 610px, 
+                    2% 720px, 
+                    98% 720px, 
+                    98% 610px, 
+                    0 610px
                     )`, 
                 }}
                 >
                 </div>
-                <div className="absolute top-36 mt-36 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/3">
+                <div className="absolute top-36 mt-28 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/3">
                                 
                                     <p className='mb-2'>Here’s your chapter breakdown! You’ll see the chapter name (so fancy, right?), whether you’ve watched the video (but no judgment if you want to watch it again, we know they’re that thrilling), and your quiz status with a grade that we promise we’re not judging... much.</p>
                                 <div className='flex flex-row items-'>
