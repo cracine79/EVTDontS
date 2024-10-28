@@ -44,7 +44,8 @@ class AddUnits(Resource):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
-
+        chapters = Chapter.query.all()
+        
         data = request.get_json()
         print('DATTTAAAA', data)
         for chapter_id, selected in data.items():
@@ -58,6 +59,9 @@ class AddUnits(Resource):
                     user.units.append(chapter.unit)
                 if chapter not in user.chapters:
                     user.chapters.append(chapter)
+                else:
+                    current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
+                    current_progress.active = True
 
             
             else:
@@ -109,13 +113,30 @@ class AddUnits(Resource):
         #         chapter_dict[chapter_id] = progress_data      
         
         sorted_chapters = sorted(user_chapters, key=lambda chapter: chapter.order)
-   
-        if user.current_chapter and user.current_chapter.id < sorted_chapters[0].id and user.current_chapter in sorted_chapters:
-            current_chapter = user.current_chapter.id
-        else:
-             current_chapter = sorted_chapters[0].id
-             user.current_chapter = sorted_chapters[0]
-             db.session.commit()
+        print("SORRRTED CHAPPPTERS", sorted_chapters)
+        if user.current_chapter:
+            for chapter in sorted_chapters:
+                print('now checking chapter:', chapter.name)
+                progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
+                print ('progress is', progress)
+                print('grade is', progress.quiz_grade)
+                if not progress or not progress.quiz_grade or progress.quiz_grade <= 60:
+                    current_chapter = chapter.id
+                    user.current_chapter = chapter
+                    break
+        else: 
+            current_chapter = sorted_chapters[0].id
+            user.current_chapter = sorted_chapters[0]
+        
+        db.session.commit()
+
+        print('CURRENT CHAPPPPPPTER ISSS', current_chapter)
+        # if user.current_chapter and user.current_chapter.id < sorted_chapters[0].id and user.current_chapter in sorted_chapters:
+        #     current_chapter = user.current_chapter.id
+        # else:
+        #      current_chapter = sorted_chapters[0].id
+        #      user.current_chapter = sorted_chapters[0]
+        #      db.session.commit()
         
 
         
