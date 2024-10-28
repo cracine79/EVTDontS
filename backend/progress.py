@@ -285,7 +285,7 @@ class ChapterProgress(Resource):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
 
-        user_chapters = user.chapters
+        user_chapters = sorted(user.chapters, key=lambda chapter: chapter.order)
 
         done = False
 
