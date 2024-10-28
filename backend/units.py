@@ -45,6 +45,7 @@ class AddUnits(Resource):
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
         chapters = Chapter.query.all()
+        units = Unit.query.all()
         
         data = request.get_json()
         print('DATTTAAAA', data)
@@ -99,7 +100,11 @@ class AddUnits(Resource):
 
         print('USERCHAPPPPPTERS', user_chapters)
 
+        user_chapter_unit_ids = {chapter.unit_id for chapter in user.chapters}
+        user.units = [unit for unit in user.units if unit.id in user_chapter_unit_ids]
+        db.session.commit()
 
+        user_units = user.units
         chapter_dict = {
             chapter.id: {
                 "name": chapter.name,
