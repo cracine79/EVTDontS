@@ -186,8 +186,8 @@ export const UserHome = () => {
                         items-center
                         justify-center`}>
                             <div className='text-2xl mt-3'>Update Your Study Plan</div>
-                            <p className='my-4'>Not everyone gets it right on the first try - you should see Mr. Racine's last haircut!</p>
-                            <p>Adjust the units/chapters you want to study here and get back on track like the deicsion making pro we all know you are</p>
+                            <p className='my-4'>Not everyone gets it right on the first try - you should see our last haircut!</p>
+                            <p>Adjust the units/chapters you want to study here and get back on track like the decision making pro we all know you are</p>
                             <button  className={`
                                 mt-4
                                 border-black 

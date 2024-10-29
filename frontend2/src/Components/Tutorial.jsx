@@ -4,7 +4,7 @@ export const Tutorial = ({showModal}) => {
 
     useEffect(() => {
         if (showModal) {
-          setModalState(['on', 4]); // Show the modal
+          setModalState(['on', 0]); // Show the modal
           localStorage.setItem('hasVisitedDashboard', 'true'); // Set the key
         }
       }, []);

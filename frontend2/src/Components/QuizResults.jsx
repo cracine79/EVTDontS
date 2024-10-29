@@ -74,6 +74,19 @@ export const QuizResults = () => {
         navigate(`/video/${currentChapter}`)
     }
 
+    const backHome = ()=>{
+        if(percentageScore >= 60){
+            const quizData = {
+                chapter_id: currentChapter,
+                quiz_score: percentageScore
+            }
+            dispatch(finishChapter(quizData))
+        }
+        dispatch(clearQuestions())
+        dispatch(clearUserResults())
+        navigate('/userhome')
+    }
+
     
     return(
         <div className='w-screen flex justify-center min-h-screen'>
@@ -88,7 +101,7 @@ export const QuizResults = () => {
                     <button className='
                             border-black 
                             h-1/5 
-                            w-1/4
+                            w-1/5
                             border-2 
                             flex 
                             justify-center 
@@ -102,7 +115,7 @@ export const QuizResults = () => {
                     <button className='
                             border-black 
                             h-1/5 
-                            w-1/4
+                            w-1/5
                             border-2 
                             flex 
                             justify-center 
@@ -117,7 +130,7 @@ export const QuizResults = () => {
                     <button className='
                             border-black 
                             h-1/5 
-                            w-1/4
+                            w-1/5
                             border-2 
                             flex 
                             justify-center 
@@ -131,7 +144,7 @@ export const QuizResults = () => {
                             >Enough of this.  Let's go to the next Video.</button> : <button className='
                             border-black 
                             h-1/5 
-                            w-1/4
+                            w-1/5
                             border-2 
                             flex 
                             justify-center 
@@ -145,6 +158,20 @@ export const QuizResults = () => {
                             >Let me check that last video out again.</button>
                     
                     }
+                    <button className='
+                            border-black 
+                            h-1/5 
+                            w-1/5
+                            border-2 
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-lg
+                            bg-stone-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer' 
+                            onClick={backHome}>Back to my dashboard please.</button>
                 </div>
                 
             </div>
