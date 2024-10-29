@@ -303,7 +303,7 @@ class ChapterProgress(Resource):
         db.session.commit()
         
         if(user.current_chapter):
-            current_chatper = user.current_chapter.id
+            current_chapter = user.current_chapter.id
         else:
             current_chapter = None
 

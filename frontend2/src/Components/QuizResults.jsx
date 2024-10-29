@@ -16,7 +16,7 @@ export const QuizResults = () => {
     const fullChapterName = chapters[currentChapter].name
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    
     let breakPoint = 0
     while(fullChapterName[breakPoint] != ' '){
         breakPoint +=1
@@ -65,10 +65,12 @@ export const QuizResults = () => {
         console.log("DATAAAA", data)
         dispatch(clearQuestions())
         dispatch(clearUserResults())
+        const newChapter = data.current_chapter
+        console.log('new Chapter', newChapter)
         if(data.completed == true){
             navigate('/finishpage')
         } else {
-            navigate(`/video/${data.current_chapter}`)
+            navigate(`/video/${newChapter}`)
         }
 
     }
