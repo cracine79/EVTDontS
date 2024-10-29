@@ -301,9 +301,14 @@ class ChapterProgress(Resource):
             user.current_chapter = user_chapters[next_chapter_index]
         
         db.session.commit()
+        
+        if(user.current_chapter):
+            current_chatper = user.current_chapter.id
+        else:
+            current_chapter = None
 
         return (jsonify({
-            'current_chapter':  user.current_chapter.id,
+            'current_chapter':  current_chapter,
             'completed': done
         }))
    

@@ -23,6 +23,7 @@ import { VideoIndex } from './Components/VideoIndex';
 import { QuizGenerator } from './Components/QuizGenerator';
 import { Whoops } from './Components/Whoops';
 import { UpdateUnits } from './Components/UpdateUnits';
+import { FinishPage } from './Components/FinishPage';
 
 
 const Layout = () => {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: '/updateunits',
         element: <UpdateUnits />
+      },
+      {
+        path: '/finishpage',
+        element: <FinishPage />
       }
     ]
   }

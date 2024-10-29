@@ -65,7 +65,12 @@ export const QuizResults = () => {
         console.log("DATAAAA", data)
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate(`/video/${data.current_chapter}`)
+        if(data.completed == true){
+            navigate('/finishpage')
+        } else {
+            navigate(`/video/${data.current_chapter}`)
+        }
+
     }
 
     const lastVideo = ()=>{
