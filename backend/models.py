@@ -57,6 +57,10 @@ class User(db.Model):
         back_populates='user'
     )
 
+    performances: Mapped[list['UserPerformance']] = relationship(
+        'UserPerformance', back_populates='user'
+    )
+
 
     def __repr__(self):
         return f"User <{self.username}>"
@@ -183,6 +187,7 @@ class UserPerformance(db.Model):
     question_id: Mapped[int] = mapped_column(ForeignKey('question.id', name='userperformance_qusetion_id'))
     is_correct: Mapped[bool] = mapped_column(Boolean, nullable=False)
     answered_at: Mapped["DateTime"] = mapped_column(DateTime, nullable=False)
+    user: Mapped['User'] = relationship('User', back_populates='performances')
 
     def save(self):
         db.session.add(self)

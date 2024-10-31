@@ -105,24 +105,17 @@ export const Progress = () => {
         navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapterTopics}})
     }
 
+    
+
     const mastery = (chapterId) => {
         const chapter_topics = []
         
-        // userTopicVals.forEach(topic => {
-        //     // console.log(topic.chapter_id)
-        //     if(topic.chapter_id==chapterId){
-        //         chapter_topics.push(topic)
-        //     }
-        // })
-
         userTopicEntries.forEach(([topicId, topic]) => {
             if(topic.chapter_id==chapterId){
                 chapter_topics.push({...topic, topic_id: topicId})
             }
-        }
-    )
+        })
 
-        
         let sum = 0
         chapter_topics.forEach(chapter => {
             sum += chapter.percent_correct
@@ -162,10 +155,9 @@ export const Progress = () => {
                             hover:bg-slate-500
                             font-medium
                             hover:cursor-pointer
-                            
                             `}
                             onClick={(event) => {
-                                event.stopPropagation(); // Prevents parent click
+                                event.stopPropagation(); 
                                 openTopicQuiz(chapter_topics);
                             }}
                             >Practice</div>}

@@ -102,6 +102,10 @@ export const UserHome = () => {
         }
     }
 
+    const goToWeakspotQuiz = () => {
+        navigate('/Quiz', {state: {chapter: currentChapterId, type: 'shortWeakspotQuiz', topics: []}})
+    }
+
     
     return(
         <>  
@@ -171,11 +175,11 @@ export const UserHome = () => {
                         <Progress />
                     </div>
 
-                    <div className = 'w-full'>
+                    <div className = 'w-full flex justify-around'>
                         <div className=
                         {`
-                        ml-20
                         w-1/3
+                        ml-48
                         h-auto
                         text-center
                         p-4
@@ -191,7 +195,7 @@ export const UserHome = () => {
                             <button  className={`
                                 mt-4
                                 border-black 
-                                h-1/5 
+                               
                                 w-1/2 
                                 border-2 
                                 flex 
@@ -205,6 +209,41 @@ export const UserHome = () => {
                                 mb-6`}
                                 onClick = {()=>navigate('/updateunits')}
                                 >Fix Life Choices</button>
+                        </div>
+                        <div className=
+                        {`
+                        mr-48
+                        w-1/3
+                        h-auto
+                        text-center
+                        p-4
+                        rounded-3xl 
+                        shadow-2xl 
+                        flex 
+                        flex-col 
+                        items-center
+                        justify-center`}>
+                            <div className='text-2xl mt-3'>Focus on your Weaknesses</div>
+                            <p className='my-4'>Think you’ve mastered it all? Spoiler: The quiz knows your weak spots better than your Netflix recommendations.</p>
+                            <p> Take a deep breath, dive in, and let’s tackle those tricky bits. (You got this—probably.)</p>
+                           
+                            <button  className={`
+                                mt-4
+                                border-black 
+                                h-1/5 
+                                w-1/2 
+                                border-2 
+                                flex 
+                                justify-center 
+                                items-center
+                                rounded-lg
+                                bg-slate-300
+                                hover:bg-slate-500
+                                font-medium
+                                hover:cursor-pointer
+                                mb-6`}
+                                onClick =  {goToWeakspotQuiz}
+                                >Find My Achilles' Heel</button>
                         </div>
                     </div>
             

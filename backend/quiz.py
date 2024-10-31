@@ -1,8 +1,9 @@
 from flask_restx import Namespace, Resource
-from models import Question, Answer, UserPerformance, User, QuestionTopic
+from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress
 from flask import request, jsonify
 from urllib.parse import unquote
-import json, random
+from collections import defaultdict
+import json, random, math
 
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -51,10 +52,80 @@ class AccessQuiz(Resource):
                 all_topic_questions = Question.query.filter_by(topic_id = topic_ids[0]).offset(3).all()
                 topic_questions = random.sample(all_topic_questions, min(6, len(all_topic_questions)))
                 questions.extend(topic_questions)
+        
+        elif type in['shortWeakspotQuiz','longWeakspotQuiz']:
+            progressArray = user.topic_progresses
+            percentageList = {}
+            numberTopics = 0
+            percentSum = 0
+            for progress in progressArray:
+                percentCorrect = math.floor((progress.answered_correctly/progress.questions_asked)*100)
+                percentageList[progress.topic_id] = (percentCorrect)
+                numberTopics += 1
+                percentSum += percentCorrect
+            averageScore = percentSum/numberTopics
+            topic_ids = []
+            baselineScore = 50
+            print('PERCCCENTAGE', percentageList)
+
+            while len(topic_ids) < 3 and baselineScore <101:
+                for key, value in percentageList.items():            
+                    if value <= baselineScore:
+                        topic_ids.append(key)
+                baselineScore += 10
+            
+            performances = UserPerformance.query.filter_by(user_id=user_id).all()
+
+            for topic_id in topic_ids:
+                all_topic_questions = Question.query.filter_by(topic_id = topic_id).offset(3).all()
+
+                question_ids = {question.id for question in all_topic_questions}
+                question_performances = [performance for performance in performances if performance.question_id in question_ids]
+
+                if(len(question_performances) > 0):
+                    incorrect_counts = defaultdict(int)
+                    total_counts = defaultdict(int)
+                    
+                    for performance in question_performances:
+                        total_counts[performance.question_id] += 1
+                        if not performance.is_correct:
+                            incorrect_counts[performance.question_id] += 1
+
+                    question_ids_with_high_failure_rate = {
+                        question_id
+                        for question_id in total_counts
+                        if incorrect_counts[question_id] / total_counts[question_id] >= 0.5
+                    }
+
+
+
+                    questions_to_go = random.sample(question_ids_with_high_failure_rate, min(2, len(question_ids_with_high_failure_rate)))
+                    for questionId in questions_to_go:
+                        question_to_add = next((obj for obj in all_topic_questions if obj.id == questionId), None)
+                        questions.append(question_to_add)
+                    
+
+                available_questions = [q for q in all_topic_questions if q not in questions]
+                remaining_questions = min(len(available_questions), 4 - len(questions_to_go))
+                while remaining_questions > 0:
+                    print(remaining_questions)
+                    index_number = random.randint(0, len(available_questions) - 1)
+                    selected_question = available_questions[index_number]
+
+                    questions.append(selected_question)
+                    remaining_questions -=1
+
+                    available_questions.pop(index_number)
+                
+                        
+
+
+
+            
 
         print("QUIZZESTIONS", questions)
         question_ids = [question.id for question in questions]
-        performances = UserPerformance.query.filter(UserPerformance.user_id == user_id, UserPerformance.question_id.in_(question_ids)).all()
+        # performances = UserPerformance.query.filter(UserPerformance.user_id == user_id, UserPerformance.question_id.in_(question_ids)).all()
         
         question_dict = {}
         print("THEQUESTIONSARE", questions)
@@ -74,7 +145,7 @@ class AccessQuiz(Resource):
                 "answers": answers
             }
         
-        for performance in performances:
-            question_dict[performance.question_id]['correct'] = performance.is_correct
+        # for performance in performances:
+        #     question_dict[performance.question_id]['correct'] = performance.is_correct
         print ("QD!!!", len(question_dict))
         return question_dict
