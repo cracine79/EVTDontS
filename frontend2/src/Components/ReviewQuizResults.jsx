@@ -13,6 +13,7 @@ export const ReviewQuizResults = () => {
     const resultsObj = Object.values(results)
     const location = useLocation()
     const topics = location.state?.topics
+    const type = location.state?.type
     const topicProg = useSelector(state=>state.topicProg)
     const topicProgObj = Object.values(topicProg)
     const mergedTopics = useMemo(() => {
@@ -98,10 +99,10 @@ export const ReviewQuizResults = () => {
 
     const topicMastery = () => {
         return(
-            <div className='flex justify-around mr-8 mt-6'>
+            <div className='flex flex-wrap justify-start mr-8 mt-6'>
                 {mergedTopics.map((topic=>{
                     return(
-                        <div className='mx-6  border-2 rounded-lg border-slate-300'>  
+                        <div key={topic.id} className=' basis-1/5 mx-6 my-2 border-2 rounded-lg border-slate-300'>  
                             <div className='mt-4 mx-4'>
                                 <div className='mt-2 font-bold text-center text-xl'>
                                     Topic: {topic.topic_name}
@@ -175,7 +176,7 @@ export const ReviewQuizResults = () => {
 
                 <div >
                     <div className='text-3xl text-center'>
-                    Results for  topic review quiz on: <span className='text-blue'>{formattedNames}</span>
+                    Results for {type=="review_quiz" ? "topic review": "weakness improvement"} quiz on: <span className='text-blue'>{formattedNames}</span>
                     </div>
                 <div className='flex'>
                     <div className='text-lg mx-10 mt-10'>
@@ -206,29 +207,31 @@ export const ReviewQuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={showResults }>Show Me What I Missed</button>
+                    {type == 'topicQuiz' &&
                     <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/4
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
-                            onClick={goAgain }>Take Another One</button>
+                    border-black 
+                    h-1/5 
+                    w-1/4
+                    border-2 
+                    flex 
+                    justify-center 
+                    items-center
+                    rounded-lg
+                    bg-stone-300
+                    hover:bg-slate-500
+                    font-medium
+                    hover:cursor-pointer' 
+                    onClick={goAgain }>Take Another One</button>
+                    }
 
                         <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/4
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
+                        border-black 
+                        h-1/5 
+                        w-1/4
+                        border-2 
+                        flex 
+                        justify-center 
+                        items-center
                             rounded-lg
                             bg-stone-300
                             hover:bg-slate-500

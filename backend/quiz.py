@@ -40,7 +40,6 @@ class AccessQuiz(Resource):
             params_topics = request.args.get('topics')
             decoded_params_topics = unquote(params_topics)
             user_topics = json.loads(decoded_params_topics)
-            print('USERTOPPPPICS', user_topics)
             topic_ids = [topic['topic_id'] for topic in user_topics]
             
             if len(topic_ids)>1:
@@ -66,18 +65,16 @@ class AccessQuiz(Resource):
             averageScore = percentSum/numberTopics
             topic_ids = []
             baselineScore = 50
-            print('PERCCCENTAGE', percentageList)
 
             while len(topic_ids) < 3 and baselineScore <101:
                 for key, value in percentageList.items():            
-                    if value <= baselineScore:
+                    if value <= baselineScore and key not in topic_ids:
                         topic_ids.append(key)
                 baselineScore += 10
             
             performances = UserPerformance.query.filter_by(user_id=user_id).all()
-
             for topic_id in topic_ids:
-                all_topic_questions = Question.query.filter_by(topic_id = topic_id).offset(3).all()
+                all_topic_questions = Question.query.filter_by(topic_id = topic_id).all()
 
                 question_ids = {question.id for question in all_topic_questions}
                 question_performances = [performance for performance in performances if performance.question_id in question_ids]
@@ -97,14 +94,13 @@ class AccessQuiz(Resource):
                         if incorrect_counts[question_id] / total_counts[question_id] >= 0.5
                     }
 
-
-
                     questions_to_go = random.sample(question_ids_with_high_failure_rate, min(2, len(question_ids_with_high_failure_rate)))
+                    
                     for questionId in questions_to_go:
                         question_to_add = next((obj for obj in all_topic_questions if obj.id == questionId), None)
                         questions.append(question_to_add)
                     
-
+                print('QUESTIONS THAT ARE ANSWERED WRONG INCLUDE', questions)
                 available_questions = [q for q in all_topic_questions if q not in questions]
                 remaining_questions = min(len(available_questions), 4 - len(questions_to_go))
                 while remaining_questions > 0:
@@ -117,7 +113,7 @@ class AccessQuiz(Resource):
 
                     available_questions.pop(index_number)
                 
-                        
+                print('WITH ADDED QUESTIONS NEW', questions)
 
 
 

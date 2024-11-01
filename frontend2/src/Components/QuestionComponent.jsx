@@ -16,7 +16,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       id: id
     }))
     const numberOfQuestions = questionsObj.length
-   
+  
     const quizChapterName = type == 'chapterQuiz' ? useSelector(state=>(state.chapters[chapter].name)) : ""
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
@@ -29,7 +29,25 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const topicQuizName = names.length > 1 
     ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
     : names[0]
+    const newTopics = []
+    console.log('TYPPPPPEIO IS', type)
+    if (type == 'shortWeakspotQuiz' || type == 'longWeakspotQuiz'){
 
+      const quizTopicIds = [...new Set(questionsObj.map(question=>question.topic_id))]
+      const userProg = useSelector((state)=>state.topicProg)
+      const topics = useSelector((state)=>state.topics)
+      const userTopicProg = {}
+      quizTopicIds.forEach((id)=>{
+        userTopicProg[id]={
+          ...userProg[id],
+          ...topics[id],
+          topic_id: id
+        }
+      })
+      const userTopicEntries = Object.values(userTopicProg)
+
+      userTopicEntries.forEach((entry)=>{newTopics.push(entry)})
+    }
 
     const handleClose = () => {
       dispatch(closeQuizModal())
@@ -50,7 +68,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
         [questionId]: { answerId, isCorrect, topicId } // Store both answerId and isCorrect
       }));
     };
-
+    console.log("FINALLY TOPICS ARE", newTopics)
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
         return Object.entries(questionsObj[questionNumber].answers).map(([answerId, answer]) => (
@@ -89,7 +107,9 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       // Move to the next question or finish the quiz
       if (questionNumber < questionsObj.length - 1) {
         setQuestionNumber(prevNumber => prevNumber + 1);
+      
       } else {
+
         let numCorrect=0
         const answersObj = Object.values(newSubmittedAnswers)
         answersObj.forEach((result)=>{
@@ -104,24 +124,33 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           quiz_score: percentageScore,
           answers: newSubmittedAnswers
         }
-
+        
         if (type == 'chapterQuiz'){
+          console.log('CHAPTPPPTER QUIZ SUBMIT')
           dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
           dispatch(closeQuizModal());
           setQuestionNumber(0);
           navigate('/results')
-        } else if (type = 'reviewQuiz'){
+        } else if (type == 'topicQuiz'){
+          console.log('REVIEWWWW QUIZAA SUBMIT')
           dispatch(finishReviewQuiz(quizData))
           dispatch(closeQuizModal());
           setQuestionNumber(0);
-          navigate('/rqresults', {state: {topics}})
+          navigate('/rqresults', {state: {topics, type}})
+        } else if (type == 'shortWeakspotQuiz'){
+          console.log('WEAKNESS QUIZ SUBMIT', newTopics)
+          dispatch(finishReviewQuiz(quizData))
+          dispatch(closeQuizModal())
+          setQuestionNumber(0);
+          console.log('THE MUTHA CHICKEN NEW TOPICS ARE', newTopics)
+          navigate('/rqresults', {state: {topics : newTopics, type: type}})
         }
-
-    
+        
       }
+    
     };
     
-
+    console.log('final New Topics', newTopics)
     return(
       <div >
 

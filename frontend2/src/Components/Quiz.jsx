@@ -22,6 +22,7 @@ export const Quiz = () => {
     }
 
     console.log("NOW TOPICS ARE", topics)
+    console.log("NOW TYPE IS", type)
 
     useEffect(()=>{
         dispatch(getQuestions(data)), [dispatch]
