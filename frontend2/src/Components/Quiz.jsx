@@ -15,18 +15,18 @@ export const Quiz = () => {
     const type = location.state?.type
     const topics = location.state?.topics
 
-
-
     const data = {
         chapter: chapter,
         type: type,
         topics: topics
     }
+
     console.log("NOW TOPICS ARE", topics)
 
     useEffect(()=>{
         dispatch(getQuestions(data)), [dispatch]
     })
+
     const whole_chapter = useSelector((state)=>state.chapters[chapter])
     const chapter_name = whole_chapter ? whole_chapter.name : ''
 
@@ -49,9 +49,11 @@ export const Quiz = () => {
             <div className='mt-40  aspect-video justify-center w-3/4'>
                 <div>
                     {type == 'chapterQuiz' && <>This is the page for the quiz for Chapter {chapter_name}</>}
+                    {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
+                    {type == 'shortWeakspotQuiz' && <>This is the page to take a quiz that focuses on your weaknesses</>}
                 </div>
                 <div>
-                    {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
+                  
                 </div>
                 <div className='flex justify-around'>
                 <button className='mt-10 
