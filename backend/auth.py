@@ -46,8 +46,16 @@ class RefreshUser(Resource):
                 'video_url': chapter.video_url
             } for chapter in user_chapters
         }
+        units_dict = {}
+        for unit in user_units:
+            unit_chapters = [chapter for chapter in user_chapters if chapter['unit_id'] == unit.id]
+            all_completed = all(progress_dict.get(chapter['id'], {}).get("quiz_grade", 0) > 60 for chapter in unit_chapters)
+            units_dict[unit['id']] = {
+                "name": unit['name'],
+                "complete": all_completed
+            }
         
-        units_dict = {unit.id: unit.name for unit in user_units}
+        # units_dict = {unit.id: unit.name for unit in user_units}
 
         user_topic_progress = UserTopicProgress.query.filter_by(user_id=user.id).all()
         topic_progress_dict = {}
@@ -180,6 +188,7 @@ class Login(Resource):
                 refresh_token = create_refresh_token(db_user.username)
 
                 user_units = db_user.units
+                user_chapters = db_user.chapters
 
                 if db_user.current_chapter:
                     current_chapter = db_user.current_chapter.id
@@ -210,7 +219,26 @@ class Login(Resource):
                         "unit_id": chapter.unit_id,
                         "video_url": chapter.video_url,
                     } for chapter in db_user.chapters}
-                units_dict = {unit.id: unit.name for unit in user_units}
+                # units_dict = {unit.id: unit.name for unit in user_units}
+                units_dict = {}
+                for unit in user_units:
+                    unit_chapters = [chapter for chapter in user_chapters if chapter.unit_id == unit.id]
+                    print('UNIT CHAPPPPIES', unit_chapters)
+                    quiz_grades = []
+                 
+                    for chapter in unit_chapters:
+                        print('TESST', progress_dict[chapter.id]['quiz_grade'])
+                        the_quiz_grade = progress_dict[chapter.id].get("quiz_grade", 0)
+                        if the_quiz_grade is not None:
+                            quiz_grades.append(the_quiz_grade)
+                        else:
+                            quiz_grades.append(0) 
+                    print('GRADDDDES', quiz_grades)
+                    all_completed = all(grade > 60 for grade in quiz_grades)
+                    units_dict[unit.id] = {
+                        "name": unit.name,
+                        "complete": all_completed
+                    }
 
                 user_topic_progress = UserTopicProgress.query.filter_by(user_id=db_user.id).all()
                 topic_progress_dict = {}

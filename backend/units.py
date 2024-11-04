@@ -122,7 +122,8 @@ class AddUnits(Resource):
 
         db.session.commit()
 
-        units_dict = {unit.id: unit.name for unit in user_units}    
+        # units_dict = {unit.id: unit.name for unit in user_units}   
+
         
         chapter_progress = UserChapterProgress.query.filter_by(user_id=user.id, active=True).all()
         print('chapter PROGOOO', chapter_progress)
@@ -138,6 +139,26 @@ class AddUnits(Resource):
         #         chapter_dict[chapter_id].update(progress_data)
         #     else:
         #         chapter_dict[chapter_id] = progress_data      
+
+        units_dict = {}
+        for unit in user_units:
+            unit_chapters = [chapter for chapter in user_chapters if chapter.unit_id == unit.id]
+            print('UNIT CHAPPPPIES', unit_chapters)
+            quiz_grades = []
+            
+            for chapter in unit_chapters:
+                print('TESST', progress_dict[chapter.id]['quiz_grade'])
+                the_quiz_grade = progress_dict[chapter.id].get("quiz_grade", 0)
+                if the_quiz_grade is not None:
+                    quiz_grades.append(the_quiz_grade)
+                else:
+                    quiz_grades.append(0) 
+            print('GRADDDDES', quiz_grades)
+            all_completed = all(grade > 60 for grade in quiz_grades)
+            units_dict[unit.id] = {
+                "name": unit.name,
+                "complete": all_completed
+            } 
         
         sorted_chapters = sorted(user_chapters, key=lambda chapter: chapter.order)
         print("SORRRTED CHAPPPTERS", sorted_chapters)

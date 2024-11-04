@@ -25,7 +25,16 @@ export const UserHome = () => {
         "Back for more?  We promise not to make this TOO interesting.",
         "We've got to stop meeting like this!",
         "We've never felt so loved before.  Except the time our Mom subscribed to our Youtube channel",
-        "You like us!  You really like us!"
+        "You like us!  You really like us!",
+        "Ah, back for another dose of economic enlightenment? Let the knowledge binge begin!",
+        "Look who couldn’t resist the pull of marginal utility. Welcome back to the grind!",
+        "Back so soon? It’s almost like economics is… fun? Nah, couldn’t be.",
+        "Well, well, well… someone’s got a thirst for economic knowledge! Or is it just a slow day?",
+        "Returning already? Looks like you’re about to be the life of the next cocktail party with your newfound econ insights.",
+        "Ah, you’re back! Just when we thought you’d solved the economy overnight.",
+        "Miss us? It’s okay, economic graphs and theories have that effect on people. Probably.",
+        "Guessing you’re back to dive into some high-octane econ thrills. Okay, maybe medium-octane.  Fine, some-octane?",
+        "Welcome back! Clearly, the invisible hand brought you here… or maybe it was your browser history."
     ]
 
 

@@ -5,8 +5,8 @@ import { selectUserChapters } from "../Slices/selectors"
 
 export const Progress = () => {
     const units = useSelector((state)=>state.units)
-    // console.log(units)
-    const units_names = Object.values(units)
+    console.log('UNITOS', units)
+    // const units_names = Object.values(units)
     const bookChapters = useSelector((state)=>state.chapters)
     const userChapters = useSelector((state)=>state.userChapters)
     const chapters = 
@@ -250,7 +250,7 @@ export const Progress = () => {
                                 <div 
                                     className='text-left text-xl cursor-pointer w-2/3'
                                     onClick ={()=>toggleUnit(key)}>
-                                    {expandedUnits[key] ? ' -' : ' +'}  {value}
+                                    {expandedUnits[key] ? ' -' : ' +'}  {value.name}
                                 </div>
                                 <div className='w-1/5 text-center'>
                                     {percentUnitCompleted(key)}
