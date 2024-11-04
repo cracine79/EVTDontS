@@ -67,8 +67,12 @@ export const QuizResults = () => {
         dispatch(clearUserResults())
         const newChapter = data.current_chapter
         console.log('new Chapter', newChapter)
+
+        
         if(data.completed == true){
             navigate('/finishpage')
+        } else if(chapters[currentChapter].unit_id!=chapters[newChapter].unit_id){
+            navigate('/finishunit')
         } else {
             navigate(`/video/${newChapter}`)
         }

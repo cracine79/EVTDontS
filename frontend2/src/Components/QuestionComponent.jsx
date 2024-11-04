@@ -31,7 +31,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
     : names[0]
     const newTopics = []
-    console.log('TYPPPPPEIO IS', type)
+
     if (type == 'shortWeakspotQuiz' || type == 'longWeakspotQuiz'){
 
       const quizTopicIds = [...new Set(questionsObj.map(question=>question.topic_id))]
@@ -70,7 +70,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       }));
     };
 
-    console.log("FINALLY TOPICS ARE", newTopics)
+
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
         return Object.entries(questionsObj[questionNumber].answers).map(([answerId, answer]) => (
@@ -153,8 +153,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       }
     
     };
-    
-    console.log('final New Topics', newTopics)
+
     return(
       <div >
 

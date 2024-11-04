@@ -24,6 +24,7 @@ import { QuizGenerator } from './Components/QuizGenerator';
 import { Whoops } from './Components/Whoops';
 import { UpdateUnits } from './Components/UpdateUnits';
 import { FinishPage } from './Components/FinishPage';
+import { FinishUnit } from './Components/FinishedUnit';
 
 
 const Layout = () => {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: '/finishpage',
         element: <FinishPage />
+      },
+      {
+        path:'/finishunit',
+        element: <FinishUnit />
       }
     ]
   }
