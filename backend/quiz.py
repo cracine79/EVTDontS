@@ -15,15 +15,11 @@ class AccessQuiz(Resource):
         type = request.args.get('type')
         chapter_id = request.args.get('chapter')
 
-        
-
-        print("CHAPPPPTTTER", chapter_id)
-   
-
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
         questions = []
+
         if type == 'chapterQuiz':
             topics = QuestionTopic.query.filter_by(chapter_id=chapter_id).all()
             
@@ -113,6 +109,8 @@ class AccessQuiz(Resource):
 
                     available_questions.pop(index_number)
                 
+                random.shuffle(questions)
+                questions = questions[:12]
                 print('WITH ADDED QUESTIONS NEW', questions)
 
 

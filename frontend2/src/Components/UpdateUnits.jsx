@@ -18,11 +18,14 @@ export const UpdateUnits = () => {
     }, {});
 
     const userUnitIds = {}
+    console.log('UCID', userChapterIds)
+    console.log('BC,', bookChapters)
 
-
-    userChapterIds.forEach((id)=>{
-        userUnitIds[bookChapters[id].unit_id] = true
-    })
+    userChapterIds.forEach((id) => {
+        if (bookChapters[id] && bookChapters[id].unit_id) {
+          userUnitIds[bookChapters[id].unit_id] = true;
+        }
+      });
 
     console.log('THESESAREHTEM', userUnitIds)
     const [selectedChapters, setSelectedChapters] = useState(chapterIdMap)
