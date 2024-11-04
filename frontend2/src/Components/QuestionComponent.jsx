@@ -22,6 +22,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
+    const [selectAnswerPrompt, setSelectAnswerPrompt] = useState(false)
     const currentChapter = useSelector(state=>(state.user.currentChapter))
     
     const names = topics.map(topic => topic.topic_name)
@@ -68,6 +69,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
         [questionId]: { answerId, isCorrect, topicId } // Store both answerId and isCorrect
       }));
     };
+
     console.log("FINALLY TOPICS ARE", newTopics)
     const Answers = () => {
       if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
@@ -90,62 +92,64 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     };
 
     const previousQuestion = () => {
+      setSelectAnswerPrompt(false)
       setQuestionNumber(prevNumber => prevNumber -1)
     }
 
 
     const handleSubmit = () => {
       const questionId = questionsObj[questionNumber].id;
-
-
       const selectedAnswer = submittedAnswers[questionId]; // Grab the stored answer for this question
-
       const newSubmittedAnswers = {
         ...submittedAnswers,
       };
     
       // Move to the next question or finish the quiz
-      if (questionNumber < questionsObj.length - 1) {
-        setQuestionNumber(prevNumber => prevNumber + 1);
-      
-      } else {
-
-        let numCorrect=0
-        const answersObj = Object.values(newSubmittedAnswers)
-        answersObj.forEach((result)=>{
-          if(result.isCorrect == true){
-            numCorrect +=1
+      if(submittedAnswers[questionId]){
+        if (questionNumber < questionsObj.length - 1) {
+          setQuestionNumber(prevNumber => prevNumber + 1);
+        } else {
+          
+          let numCorrect=0
+          const answersObj = Object.values(newSubmittedAnswers)
+          answersObj.forEach((result)=>{
+            if(result.isCorrect == true){
+              numCorrect +=1
+            }
+          })
+          const percentageScore = Math.floor((numCorrect/answersObj.length)*100)
+          
+          const quizData = {
+            chapter_id: currentChapter,
+            quiz_score: percentageScore,
+            answers: newSubmittedAnswers
           }
-        })
-        const percentageScore = Math.floor((numCorrect/answersObj.length)*100)
-
-        const quizData = {
-          chapter_id: currentChapter,
-          quiz_score: percentageScore,
-          answers: newSubmittedAnswers
+          
+          if (type == 'chapterQuiz'){
+            console.log('CHAPTPPPTER QUIZ SUBMIT')
+            dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
+            dispatch(closeQuizModal());
+            setQuestionNumber(0);
+            navigate('/results')
+          } else if (type == 'topicQuiz'){
+            console.log('REVIEWWWW QUIZAA SUBMIT')
+            dispatch(finishReviewQuiz(quizData))
+            dispatch(closeQuizModal());
+            setQuestionNumber(0);
+            navigate('/rqresults', {state: {topics, type}})
+          } else if (type == 'shortWeakspotQuiz'){
+            console.log('WEAKNESS QUIZ SUBMIT', newTopics)
+            dispatch(finishReviewQuiz(quizData))
+            dispatch(closeQuizModal())
+            setQuestionNumber(0);
+            console.log('THE MUTHA CHICKEN NEW TOPICS ARE', newTopics)
+            navigate('/rqresults', {state: {topics : newTopics, type: type}})
+          }
+          
         }
-        
-        if (type == 'chapterQuiz'){
-          console.log('CHAPTPPPTER QUIZ SUBMIT')
-          dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
-          dispatch(closeQuizModal());
-          setQuestionNumber(0);
-          navigate('/results')
-        } else if (type == 'topicQuiz'){
-          console.log('REVIEWWWW QUIZAA SUBMIT')
-          dispatch(finishReviewQuiz(quizData))
-          dispatch(closeQuizModal());
-          setQuestionNumber(0);
-          navigate('/rqresults', {state: {topics, type}})
-        } else if (type == 'shortWeakspotQuiz'){
-          console.log('WEAKNESS QUIZ SUBMIT', newTopics)
-          dispatch(finishReviewQuiz(quizData))
-          dispatch(closeQuizModal())
-          setQuestionNumber(0);
-          console.log('THE MUTHA CHICKEN NEW TOPICS ARE', newTopics)
-          navigate('/rqresults', {state: {topics : newTopics, type: type}})
-        }
-        
+        setSelectAnswerPrompt(false)
+      } else {
+        setSelectAnswerPrompt(true)
       }
     
     };
@@ -235,7 +239,14 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             ) : (
               <div>No question available</div>
             )}
+            {
+              selectAnswerPrompt &&
+              <div className='ml-12 -mb-6 text-red-500 font-bold'>
+                Please select an answer
+              </div>
+            }
             <div className='flex justify-around mt-10 mb-10'>
+           
             {questionNumber >= 1 ?
             <button className='
                             border-black 
@@ -284,8 +295,9 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                             font-medium
                             hover:cursor-pointer'
                             onClick = {handleClose}>Close</button>          
+
             </div>
-         
+    
       </div>
       </div>
       </div>

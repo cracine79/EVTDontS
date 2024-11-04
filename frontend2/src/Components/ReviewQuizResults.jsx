@@ -177,7 +177,7 @@ export const ReviewQuizResults = () => {
                     </div>
                 <div className='flex'>
                     <div className='text-lg mx-10 mt-10'>
-                        You scored {percentageScore}% on the quiz.  &nbsp;
+                        You answered {numCorrect} out of a total {resultsObj.length} questions correctly, for a quiz score of {percentageScore}%.  &nbsp;
                         {scorePraise()}
                     </div>
                 </div>
