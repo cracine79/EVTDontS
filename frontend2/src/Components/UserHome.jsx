@@ -175,7 +175,7 @@ export const UserHome = () => {
                         <Progress />
                     </div>
 
-                    <div className = 'w-full flex justify-around'>
+                    <div className = 'w-full flex justify-around mb-24'>
                         <div className=
                         {`
                         w-1/3
