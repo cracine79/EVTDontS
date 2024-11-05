@@ -162,7 +162,7 @@ def seed_questions(chapters, topics):
     question15 = Question(text="The concept of scarcity can best be defined as:", chapter=chapters[0], topic=topics[0])
     question16 = Question(text="The opportunity cost of choosing to study instead of working is", chapter=chapters[0], topic=topics[1])
     question17 = Question(text="Which of the following is a defining characteristic of a market economy?", chapter=chapters[2], topic=topics[3])
-    question18 = Question(text="Which of the following is a key requirement for a market/capitalist econopmy, but not necessarily so for a command economy?", chapter=chapters[2], topic=topics[3])
+    question18 = Question(text="Which of the following is a key requirement for a market/capitalist economy, but not necessarily so for a command economy?", chapter=chapters[2], topic=topics[3])
     question19 = Question(text="Unlike a market economy, a command economy uses", chapter=chapters[2], topic=topics[3])
     question20 = Question(text="Which economic system is characterized by a combination of government intervention and market force?", chapter=chapters[2], topic=topics[3])
     question21 = Question(text="In a market economy, prices are primarily determined by: ", chapter=chapters[2], topic=topics[3])
