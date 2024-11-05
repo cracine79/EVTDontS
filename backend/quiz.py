@@ -89,29 +89,37 @@ class AccessQuiz(Resource):
                         for question_id in total_counts
                         if incorrect_counts[question_id] / total_counts[question_id] >= 0.5
                     }
-
                     questions_to_go = random.sample(question_ids_with_high_failure_rate, min(2, len(question_ids_with_high_failure_rate)))
-                    
+                    print('TESTING TESTING SHOULD BE EMPTY', questions_to_go)
                     for questionId in questions_to_go:
                         question_to_add = next((obj for obj in all_topic_questions if obj.id == questionId), None)
                         questions.append(question_to_add)
-                    
-                print('QUESTIONS THAT ARE ANSWERED WRONG INCLUDE', questions)
-                available_questions = [q for q in all_topic_questions if q not in questions]
-                remaining_questions = min(len(available_questions), 4 - len(questions_to_go))
-                while remaining_questions > 0:
-                    print(remaining_questions)
+
+                asked_question_ids = {performance.question_id for performance in question_performances}    
+                # print('QUESTIONS THAT ARE ANSWERED WRONG INCLUDE', questions)
+
+                available_questions = [q for q in all_topic_questions if q not in questions and q.id not in asked_question_ids]
+                target_count = 4 - len(questions_to_go)
+                while len(available_questions) < target_count:
+                    question = random.choice(all_topic_questions)
+                    if question not in available_questions:
+                        available_questions.append(question)
+
+
+                while target_count > 0:
+               
                     index_number = random.randint(0, len(available_questions) - 1)
                     selected_question = available_questions[index_number]
 
                     questions.append(selected_question)
-                    remaining_questions -=1
+                    target_count -=1
 
                     available_questions.pop(index_number)
                 
-                random.shuffle(questions)
-                questions = questions[:12]
-                print('WITH ADDED QUESTIONS NEW', questions)
+                
+            random.shuffle(questions)
+            questions = questions[:12]
+            print('WITH ADDED QUESTIONS NEW', questions)
 
 
 
