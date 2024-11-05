@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 export const FinishUnit = () => {
+    const location = useLocation()
     const navigate = useNavigate()
     const currentChapter = useSelector(state=>(state.user.currentChapter))
     const chapters = useSelector(state=>(state.chapters))
@@ -8,8 +9,8 @@ export const FinishUnit = () => {
     const units = useSelector(state=>(state.units))
     const topicProg = useSelector(state=>(state.topicProg))
 
-
-    const currentUnitId = chapters[currentChapter] ? chapters[currentChapter].unit_id -1 : null
+    const {unitId} = location.state || {}
+    const currentUnitId = unitId ? unitId : null
     
     console.log('UC', userChapters)
     // const finishedUnit = chapters[currentChapter.unit_id]
@@ -25,13 +26,24 @@ export const FinishUnit = () => {
         return acc
     }, {})
 
+    const completeChaptersObj = Object.values(completeUserChapters)
+    const currentChapterUnitId = completeChaptersObj[0].unit_id
+    const chapterToSend = Object.entries(chapters).find(
+        ([, chapter]) => chapter.unit_id === currentChapterUnitId
+    )?.[0]
+
     const chapterResults = () => {
         return(
             Object.values(completeUserChapters).map((chapter)=>{
                 return(
-                    <div>
-                        {chapter.name}
-                        {chapter.quiz_grade}
+                    <div className='w-full  flex flex-row align-start justify-between mb-6'>
+                        <div>
+                            {chapter.name}
+                        </div>
+                        <div>
+                            Quiz Grade:  &nbsp;
+                            {chapter.quiz_grade}
+                        </div>
                     </div>
                 )
             })
@@ -46,17 +58,16 @@ export const FinishUnit = () => {
             <div className="mt-52 w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center mx-4'>               
                     <div className='mt-6'>
-                        Congratulations on Finishing {units[currentUnitId]}!
+                        Congratulations on Finishing {units[currentUnitId].name}!
                     </div>
                     <div>
                         You're a beast
                     </div>
-                    <div>
+                    <div className='text-2xl font-bold underline'>
                         Results
                     </div>
-                    <div>
+                    <div className='w-full'>
                         {chapterResults()}
-                        
                     </div>
                     <div>
                         Ready for the unit quiz?  Buckle up bucko, it's a 20 question long marathon without the heavy breathing.  Well . . . actually . . . I guess that depends upon how much you are into econ exams.  Okay, that got weird.  You should take the quiz.  You can take it now or later.   Umm, I'm just going to let myself out while you decide.
@@ -78,7 +89,9 @@ export const FinishUnit = () => {
                                 hover:bg-slate-500
                                 font-medium
                                 hover:cursor-pointer
-                                mb-6`}
+                                mb-6`
+                                }
+                                onClick = {()=>navigate('/Quiz', {state: {chapter: chapterToSend, type: 'unitQuiz', topics: []}})}
                                 >YEAH BRAH UNIT TEST</button>
 
                             <button  className={`

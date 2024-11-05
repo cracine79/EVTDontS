@@ -72,7 +72,8 @@ export const QuizResults = () => {
         if(data.completed == true){
             navigate('/finishpage')
         } else if(chapters[currentChapter].unit_id!=chapters[newChapter].unit_id){
-            navigate('/finishunit')
+            const lastUnitId = chapters[currentChapter].unit_id
+            navigate('/finishunit', {state: {unitId: lastUnitId}})
         } else {
             navigate(`/video/${newChapter}`)
         }

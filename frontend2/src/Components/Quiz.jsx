@@ -20,6 +20,8 @@ export const Quiz = () => {
         type: type,
         topics: topics
     }
+    
+
 
     console.log("NOW TOPICS ARE", topics)
     console.log("NOW TYPE IS", type)
@@ -28,8 +30,10 @@ export const Quiz = () => {
         dispatch(getQuestions(data)), [dispatch]
     })
 
-    const whole_chapter = useSelector((state)=>state.chapters[chapter])
-    const chapter_name = whole_chapter ? whole_chapter.name : ''
+    const wholeChapter = useSelector((state)=>state.chapters[chapter])
+    console.log('WC', chapter)
+    const currentUnit = wholeChapter ? useSelector((state)=>state.units[wholeChapter.unit_id]) : ""
+    const chapterName = wholeChapter ? wholeChapter.name : ''
 
     const names = topics.map(topic => topic.topic_name)
 
@@ -49,9 +53,10 @@ export const Quiz = () => {
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
                 <div>
-                    {type == 'chapterQuiz' && <>This is the page for the quiz for Chapter {chapter_name}</>}
+                    {type == 'chapterQuiz' && <>This is the page for the quiz for Chapter {chapterName}</>}
                     {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
                     {type == 'shortWeakspotQuiz' && <>This is the page to take a quiz that focuses on your weaknesses</>}
+                    {type == 'unitQuiz' && <>This is the page for Unit Quiz on {currentUnit.name}</>}
                 </div>
                 <div>
                   

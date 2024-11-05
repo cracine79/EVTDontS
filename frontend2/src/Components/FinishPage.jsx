@@ -19,7 +19,7 @@ export const FinishPage = () => {
     // const userChaptersObj = Object.values(userChapters)
     const unitsObjWithIds = Object.keys(units).map((key)=>({
         id: key,
-        name: units[key]
+        name: units[key].name
     }))
 
     console.log('uowk', unitsObjWithIds)

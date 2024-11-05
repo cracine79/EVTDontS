@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource
-from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress
+from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress, Chapter, Unit
 from flask import request, jsonify
 from urllib.parse import unquote
 from collections import defaultdict
@@ -47,6 +47,21 @@ class AccessQuiz(Resource):
                 all_topic_questions = Question.query.filter_by(topic_id = topic_ids[0]).offset(3).all()
                 topic_questions = random.sample(all_topic_questions, min(6, len(all_topic_questions)))
                 questions.extend(topic_questions)
+        
+        elif type == 'unitQuiz':
+            current_chapter_id = request.args.get('chapter')
+            current_chapter = Chapter.query.get(current_chapter_id)
+            current_unit = Unit.query.get(current_chapter.unit_id)
+            qnum =int(15/len(current_unit.chapters))
+            unit_chapters = current_unit.chapters
+            print("Unit Chapters", unit_chapters)
+            for chapter in unit_chapters:
+                print("Chapter Topics", chapter.topics)
+                for topic in chapter.topics:
+                    topic_questions = list(Question.query.filter_by(topic_id = topic.id).all())
+                    print('UNIT QUIZ TOPPIE QUSETIONS', topic_questions)
+                    questions_to_add = random.sample(topic_questions, min(qnum, len(topic_questions)))
+                    questions.extend(questions_to_add)
         
         elif type in['shortWeakspotQuiz','longWeakspotQuiz']:
             progressArray = user.topic_progresses

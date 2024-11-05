@@ -111,7 +111,7 @@ class Chapter(db.Model):
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')
-    topics: Mapped["QuestionTopic"] = relationship('QuestionTopic', back_populates='chapter')
+    topics: Mapped[list["QuestionTopic"]] = relationship('QuestionTopic', back_populates='chapter')
 
     users: Mapped[list["User"]] = relationship(
         'User',
