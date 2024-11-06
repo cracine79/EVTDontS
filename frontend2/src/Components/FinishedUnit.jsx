@@ -110,7 +110,7 @@ export const FinishUnit = () => {
                                 hover:cursor-pointer
                                 mb-6`}
                                 onClick = {()=>(navigate('/userhome'))}
-                                >LATER OK? Country Road Take Me Home</button>
+                                >LATER OK? Country Road Take Me Home.</button>
                  </div>
             </div>
         </div>
