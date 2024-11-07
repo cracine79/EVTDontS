@@ -8,11 +8,13 @@ export const FinishUnit = () => {
     const userChapters = useSelector(state=>(state.userChapters))
     const units = useSelector(state=>(state.units))
     const topicProg = useSelector(state=>(state.topicProg))
+     
 
     const {unitId} = location.state || {}
     const currentUnitId = unitId ? unitId : null
     
-    console.log('UC', userChapters)
+    console.log('CUID', currentUnitId)
+
     // const finishedUnit = chapters[currentChapter.unit_id]
 
     const completeUserChapters = Object.keys(userChapters).reduce((acc, key) => {
@@ -31,6 +33,13 @@ export const FinishUnit = () => {
     const chapterToSend = Object.entries(chapters).find(
         ([, chapter]) => chapter.unit_id === currentChapterUnitId
     )?.[0]
+
+    const goToUnitTest = () => {
+        
+        
+        navigate('/Quiz', {state: {chapter: chapterToSend, type: 'unitQuiz', topics: [], unit: currentUnitId}})
+
+    }
 
     const chapterResults = () => {
         return(
@@ -91,7 +100,7 @@ export const FinishUnit = () => {
                                 hover:cursor-pointer
                                 mb-6`
                                 }
-                                onClick = {()=>navigate('/Quiz', {state: {chapter: chapterToSend, type: 'unitQuiz', topics: []}})}
+                                onClick = {goToUnitTest}
                                 >YEAH BRAH UNIT TEST</button>
 
                             <button  className={`

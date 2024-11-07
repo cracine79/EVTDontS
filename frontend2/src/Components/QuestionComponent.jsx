@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
 import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 
@@ -17,13 +17,21 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     }))
     const numberOfQuestions = questionsObj.length
   
+    const location = useLocation()
+
+    const lastUnitId = location.state?.currentUnitId
     const quizChapterName = type == 'chapterQuiz' ? useSelector(state=>(state.chapters[chapter].name)) : "No Name Available"
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
     const [selectAnswerPrompt, setSelectAnswerPrompt] = useState(false)
-    const currentChapter = useSelector(state=>(state.user.currentChapter))
+    const currentChapterId = useSelector(state=>(state.user.currentChapter))
+    const currentChapter = useSelector(state=>state.chapters[currentChapterId])
+    const unitQuizUnitId = location.state?.unit
+    const currentUnitId = currentChapter ? currentChapter.unit_id : 2
+
+
     
     const names = topics.map(topic => topic.topic_name)
 
@@ -120,7 +128,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           const percentageScore = Math.floor((numCorrect/answersObj.length)*100)
           
           const quizData = {
-            chapter_id: currentChapter,
+            chapter_id: currentChapterId,
             quiz_score: percentageScore,
             answers: newSubmittedAnswers
           }
@@ -149,7 +157,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             dispatch(finishReviewQuiz(quizData))
             dispatch(closeQuizModal())
             setQuestionNumber(0)
-            navigate('/uqresults', {state: {topics: newTopics}})
+            navigate('/uqresults', {state: {topics: newTopics, unitId: unitQuizUnitId}})
           }
           
         }

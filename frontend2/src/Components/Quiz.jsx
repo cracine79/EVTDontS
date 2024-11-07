@@ -14,17 +14,15 @@ export const Quiz = () => {
     const chapter = location.state?.chapter
     const type = location.state?.type
     const topics = location.state?.topics
-
+    const unitQuizUnitId = location.state?.unit
+    const units = useSelector(state=>state.units)
     const data = {
         chapter: chapter,
         type: type,
         topics: topics
     }
-    
-
-
-    console.log("NOW TOPICS ARE", topics)
-    console.log("NOW TYPE IS", type)
+     
+    const currentUnit = units[unitQuizUnitId]
 
     useEffect(()=>{
         dispatch(getQuestions(data)), [dispatch]
@@ -32,7 +30,7 @@ export const Quiz = () => {
 
     const wholeChapter = useSelector((state)=>state.chapters[chapter])
     console.log('WC', chapter)
-    const currentUnit = wholeChapter ? useSelector((state)=>state.units[wholeChapter.unit_id]) : ""
+    // const currentUnit = wholeChapter ? useSelector((state)=>state.units[wholeChapter.unit_id]) : ""
     const chapterName = wholeChapter ? wholeChapter.name : ''
 
     const names = topics.map(topic => topic.topic_name)
@@ -96,7 +94,7 @@ export const Quiz = () => {
                 </div>
                
             </div>
-            <QuestionComponent chapter={chapter} type={type} topics={topics}/>
+            <QuestionComponent chapter={chapter} type={type} topics={topics} unit={unitQuizUnitId}/>
         </div>
       
     )
