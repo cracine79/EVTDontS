@@ -17,7 +17,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     }))
     const numberOfQuestions = questionsObj.length
   
-    const quizChapterName = type == 'chapterQuiz' ? useSelector(state=>(state.chapters[chapter].name)) : ""
+    const quizChapterName = type == 'chapterQuiz' ? useSelector(state=>(state.chapters[chapter].name)) : "No Name Available"
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
@@ -32,7 +32,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     : names[0]
     const newTopics = []
 
-    if (type == 'shortWeakspotQuiz' || type == 'longWeakspotQuiz'){
+    if (type == 'shortWeakspotQuiz' || type == 'longWeakspotQuiz' || type == 'unitQuiz'){
 
       const quizTopicIds = [...new Set(questionsObj.map(question=>question.topic_id))]
       const userProg = useSelector((state)=>state.topicProg)
@@ -144,6 +144,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             setQuestionNumber(0);
             console.log('THE MUTHA CHICKEN NEW TOPICS ARE', newTopics)
             navigate('/rqresults', {state: {topics : newTopics, type: type}})
+          } else if (type == 'unitQuiz'){
+            console.log('unit QUIZ')
+            dispatch(finishReviewQuiz(quizData))
+            dispatch(closeQuizModal())
+            setQuestionNumber(0)
+            navigate('/uqresults', {state: {topics: newTopics}})
           }
           
         }

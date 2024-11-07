@@ -25,6 +25,7 @@ import { Whoops } from './Components/Whoops';
 import { UpdateUnits } from './Components/UpdateUnits';
 import { FinishPage } from './Components/FinishPage';
 import { FinishUnit } from './Components/FinishedUnit';
+import { UnitQuizResults } from './Components/UnitQuizResults';
 
 
 const Layout = () => {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path:'/finishunit',
         element: <FinishUnit />
+      },
+      {
+        path:'/uqresults',
+        element: <UnitQuizResults />
       }
     ]
   }
