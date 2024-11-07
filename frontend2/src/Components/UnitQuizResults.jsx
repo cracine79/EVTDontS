@@ -58,7 +58,8 @@ export const UnitQuizResults = () => {
     }
 
     const goHome = () => {
-        dispatch(clearUserResults)
+        dispatch(clearUserResults())
+        dispatch(clearQuestions())
         navigate('/userhome')
     }
     return(

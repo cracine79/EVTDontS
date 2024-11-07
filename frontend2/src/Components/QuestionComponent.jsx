@@ -105,7 +105,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     }
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
       const questionId = questionsObj[questionNumber].id;
       const selectedAnswer = submittedAnswers[questionId]; // Grab the stored answer for this question
       const newSubmittedAnswers = {
@@ -135,10 +135,11 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           
           if (type == 'chapterQuiz'){
             console.log('CHAPTPPPTER QUIZ SUBMIT')
-            dispatch(finishQuiz(quizData));  // Call dispatch directly with the new state
+            const unitFinished = await dispatch(finishQuiz(quizData));  
+      
             dispatch(closeQuizModal());
             setQuestionNumber(0);
-            navigate('/results')
+            navigate('/results', {state: {unitFinished}})
           } else if (type == 'topicQuiz'){
             console.log('REVIEWWWW QUIZAA SUBMIT')
             dispatch(finishReviewQuiz(quizData))

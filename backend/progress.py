@@ -160,16 +160,26 @@ class QuizProgress(Resource):
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
-        
-        print("GRADDE", quiz_grade)
-        print("CHAPTER", chapter_id)
-        print("ANSWERS", answers)
+
 
         finished_chapter = Chapter.query.get(chapter_id)
         current_unit = finished_chapter.unit
         answer_response_data = {}
         topic_response_data = {}
 
+
+        
+        unitChapters = UserChapterProgress.query.filter_by(user_id = user_id, active=True).all()
+        chapter_ids = {unitChapter.chapter_id for unitChapter in unitChapters}
+        chapters = Chapter.query.filter_by(unit_id = current_unit.id).filter(Chapter.id.in_(chapter_ids)).order_by((Chapter.order)).all()
+        print('CHAPTERSSSS', chapters)
+        if chapters and finished_chapter == chapters[-1]:
+            last_chapter = True
+        else:
+            last_chapter = False
+
+
+        print('UNIT FINISHED', last_chapter)
         for question_id, answer_data in answers.items():
             
             topicId = answer_data['topicId']
@@ -266,7 +276,8 @@ class QuizProgress(Resource):
             # "completed": done,
             "answers": answer_response_data,
             'topic_progress': topic_progress_dict,
-            'topics': topics_dict
+            'topics': topics_dict,
+            'last_chapter': last_chapter
             }
                 ))
 

@@ -55,6 +55,8 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         dispatch(updateUserResults(data.answers))
         dispatch(updateTopicProg(data.topic_progress))
         dispatch(updateTopics(data.topics))
+        console.log('The last chapters are', data.last_chapter)
+        return (data.last_chapter)
 
     } catch(error){
         console.log('Error during data submission:', error)

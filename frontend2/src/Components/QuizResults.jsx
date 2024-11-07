@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { clearUserResults } from "../Slices/resultsSlice"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { openQuizModal } from "../Slices/modalSlice"
 import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
@@ -8,7 +8,9 @@ import { finishQuiz } from "../Slices/resultsActions"
 import { clearQuestions } from "../Slices/questionsSlice"
 import { finishChapter } from "../Slices/resultsActions"
 
+
 export const QuizResults = () => {
+    const location = useLocation()
     const currentChapter = useSelector(state=>(state.user.currentChapter))
     const chapters = useSelector(state=>(state.chapters))
     const results = useSelector(state=>(state.results))
@@ -23,8 +25,9 @@ export const QuizResults = () => {
     }
     const chapterNumber = fullChapterName.slice(0,breakPoint)
     const chapterName = fullChapterName.slice(breakPoint +1)
-
-
+    
+    const unitFinished = location.state?.unitFinished
+    console.log('UFF', unitFinished)
     let numCorrect = 0
     resultsObj.forEach((result)=>{
         if (result.isCorrect == true){
@@ -62,7 +65,7 @@ export const QuizResults = () => {
         }
         
         const data = await(dispatch(finishChapter(quizData)))
-        console.log("DATAAAA", data)
+
         dispatch(clearQuestions())
         dispatch(clearUserResults())
         const newChapter = data.current_chapter
@@ -108,6 +111,9 @@ export const QuizResults = () => {
                     <div className = 'mt-4 text-2xl'>Topic: {chapterName}</div>
                     <div className = 'mt-4 text-xl'>You answered <span className='font-bold'>{numCorrect} out of a total possible {resultsObj.length} questions</span> correctly.  Your total score on this quiz was <span className = 'font-extrabold'>{percentageScore}%</span></div>
                     <div className = 'mt-4 text-xl'>{scoreHeader()}</div>
+                    {unitFinished && percentageScore>60 &&  <div className = 'mt-4 text-xl'>
+                            That was the last chapter of the Unit!  You are killing it my dude!
+                    </div>}
                 </div>
                 <div className='flex flex-row justify-around my-10'>
                     <button className='
@@ -138,6 +144,7 @@ export const QuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
+                    
                     {percentageScore > 60 ? 
                     <button className='
                             border-black 
@@ -153,7 +160,7 @@ export const QuizResults = () => {
                             font-medium
                             hover:cursor-pointer' 
                             onClick={nextVideo}
-                            >Enough of this.  Let's go to the next Video.</button> : <button className='
+                            > {!unitFinished ? "Enough of this.  Let's go to the next Video.":"Take me to my Unit Wrapup Party!"}</button> : <button className='
                             border-black 
                             h-1/5 
                             w-1/5
@@ -170,20 +177,23 @@ export const QuizResults = () => {
                             >Let me check that last video out again.</button>
                     
                     }
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/5
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
-                            onClick={backHome}>Back to my dashboard please.</button>
+                    {!unitFinished &&
+
+                        <button className='
+                        border-black 
+                        h-1/5 
+                        w-1/5
+                        border-2 
+                        flex 
+                        justify-center 
+                        items-center
+                        rounded-lg
+                        bg-stone-300
+                        hover:bg-slate-500
+                        font-medium
+                        hover:cursor-pointer' 
+                        onClick={backHome}>Back to my dashboard please.</button>
+                    }
                 </div>
                 
             </div>
