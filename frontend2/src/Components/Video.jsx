@@ -75,9 +75,9 @@ export const Video = () => {
         </div>
 
 
-            <div className="whitespace-pre-line w-3/4 mt-10">
-                {blurb}
-            </div>
+            <p className="whitespace-pre-line w-3/4 mt-10" dangerouslySetInnerHTML={{ __html: blurb }}>
+                {/* {blurb} */}
+            </p>
             <div className='flex justify-between w-1/2 mt-6'>
                 <div onClick = {handleClick} className={
                             `mt-10 
