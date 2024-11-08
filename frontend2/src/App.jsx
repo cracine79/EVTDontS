@@ -45,11 +45,11 @@ const router = createBrowserRouter([
     children:[
       {
         path:"/",
-        element: <MainPage />
+        element: <AuthRoute component={MainPage} />
       },
       {
         path:"/userhome",
-        element: <UserHome />
+        element: <ProtectedRoute component={UserHome} />
       },
       {
         path:"/video/:chapterId",
@@ -57,19 +57,19 @@ const router = createBrowserRouter([
       }, 
       {
         path:"/quiz",
-        element: <Quiz />
+        element: <ProtectedRoute component={Quiz} />
       },
       {
         path:"/results",
-        element: <QuizResults />
+        element: <ProtectedRoute component={QuizResults} />
       },
       {
         path:'/rqresults',
-        element: <ReviewQuizResults />
+        element: <ProtectedRoute component={ReviewQuizResults} />
       },
       {
         path:"/getstarted",
-        element: <GetStarted />
+        element: <ProtectedRoute component={GetStarted} />
       },
       {
         path:'/videoindex',
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/quizgenerator',
-        element: <QuizGenerator />
+        element: <ProtectedRoute component={QuizGenerator} />
       },
       {
         path: '/whoops',
@@ -85,19 +85,19 @@ const router = createBrowserRouter([
       }, 
       {
         path: '/updateunits',
-        element: <UpdateUnits />
+        element: <ProtectedRoute component={UpdateUnits} />
       },
       {
         path: '/finishpage',
-        element: <FinishPage />
+        element: <ProtectedRoute component={FinishPage} />
       },
       {
         path:'/finishunit',
-        element: <FinishUnit />
+        element: <ProtectedRoute component={FinishUnit} />
       },
       {
         path:'/uqresults',
-        element: <UnitQuizResults />
+        element: <ProtectedRoute component={UnitQuizResults} />
       }
     ]
   }
