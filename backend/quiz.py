@@ -167,8 +167,8 @@ class AccessQuiz(Resource):
                 'image_url': question.image_url,
                 "answers": answers
             }
-        quiz_blurb = quiz_blurb or None
-        quiz_blurb_img_url = quiz_blurb_img_url or None
+        quiz_blurb = quiz_blurb if 'quiz_blurb' in locals() else None
+        quiz_blurb_img_url = quiz_blurb_img_url if 'quiz_blurb_img_url' in locals() else None
         # for performance in performances:
         #     question_dict[performance.question_id]['correct'] = performance.is_correct
         print ("QD!!!", len(question_dict))
