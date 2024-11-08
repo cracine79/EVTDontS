@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource
-from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress, Chapter, Unit
+from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress, Chapter, Unit, UserChapterProgress
 from flask import request, jsonify
 from urllib.parse import unquote
 from collections import defaultdict
@@ -54,15 +54,18 @@ class AccessQuiz(Resource):
             current_unit = Unit.query.get(current_chapter.unit_id)
             qnum =int(15/len(current_unit.chapters))
             unit_chapters = current_unit.chapters
-            print("Unit Chapters", unit_chapters)
-            for chapter in unit_chapters:
+            completed_chapters = UserChapterProgress.query.filter_by(user_id=user_id).filter(UserChapterProgress.quiz_grade.isnot(None)).all()
+            completed_chapter_ids = {progress.chapter_id for progress in completed_chapters}
+            completed_unit_chapters = {chapter for chapter in unit_chapters if chapter.id in completed_chapter_ids}
+            print("Unit Chapters", completed_unit_chapters)
+            for chapter in completed_unit_chapters:
                 print("Chapter Topics", chapter.topics)
                 for topic in chapter.topics:
                     topic_questions = list(Question.query.filter_by(topic_id = topic.id).all())
                     print('UNIT QUIZ TOPPIE QUSETIONS', topic_questions)
                     questions_to_add = random.sample(topic_questions, min(qnum, len(topic_questions)))
                     questions.extend(questions_to_add)
-        
+
         elif type in['shortWeakspotQuiz','longWeakspotQuiz']:
             progressArray = user.topic_progresses
             percentageList = {}
@@ -105,7 +108,7 @@ class AccessQuiz(Resource):
                         if incorrect_counts[question_id] / total_counts[question_id] >= 0.5
                     }
                     questions_to_go = random.sample(question_ids_with_high_failure_rate, min(2, len(question_ids_with_high_failure_rate)))
-                    print('TESTING TESTING SHOULD BE EMPTY', questions_to_go)
+
                     for questionId in questions_to_go:
                         question_to_add = next((obj for obj in all_topic_questions if obj.id == questionId), None)
                         questions.append(question_to_add)
