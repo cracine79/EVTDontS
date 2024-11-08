@@ -29,7 +29,6 @@ export const Video = () => {
         fetchBlurb()
     }, [chapterId])
 
-    console.log(blurb)
     const handleClick = () => {
         navigate('/userhome')
     }
@@ -63,7 +62,7 @@ export const Video = () => {
     return(
         <div className="w-full flex flex-col justify-center items-center mt-24">
              <div className='text-center text-3xl my-6'>{currentChapter.name}</div>
-        <div className='aspect-video justify-between w-7/12 flex flex-col'>
+        <div className='aspect-video justify-between w-1/2 flex flex-col'>
            
             <div className="w-full h-full">
                 <iframe className="w-full h-full" 

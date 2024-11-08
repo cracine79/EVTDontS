@@ -181,7 +181,7 @@ export const Progress = () => {
                 {chaptersUnits.map(([chapterId, chapter], index)=>{
                     const odd = index % 2 == 0
                     return(
-                        <div className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
+                        <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
                             <div className='ml-8 my-2 w-1/3 font-semibold'>
                                 {chapter.name}
 
@@ -244,7 +244,7 @@ export const Progress = () => {
                 </div>
                 {Object.entries(units).map(([key, value])=>{
                     return(
-                        <>
+                        < div key={key}>
                             <div className='w-100' key={key}>
                             <div className='flex w-100'>
                                 <div 
@@ -261,7 +261,7 @@ export const Progress = () => {
                             </div>
                             )}
                             </div>
-                        </>
+                        </div>
                     )
                 })}
             </div>

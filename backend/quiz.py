@@ -14,7 +14,7 @@ class AccessQuiz(Resource):
     def get(self):
         type = request.args.get('type')
         chapter_id = request.args.get('chapter')
-
+        
         current_user = get_jwt_identity()
         user = User.query.filter_by(username=current_user).first()
         user_id = user.id
@@ -22,8 +22,10 @@ class AccessQuiz(Resource):
 
         if type == 'chapterQuiz':
             topics = QuestionTopic.query.filter_by(chapter_id=chapter_id).all()
-            
-        
+            chapter = Chapter.query.get(chapter_id)
+            quiz_blurb = chapter.quiz_blurb
+            quiz_blurb_img_url = chapter.quiz_blurb_img_url
+
             if len(topics)>1:
                 for topic in topics:
                     topic_questions = Question.query.filter_by(topic_id=topic.id).limit(3).all()
@@ -31,6 +33,7 @@ class AccessQuiz(Resource):
             else:
                 topic_questions = Question.query.filter_by(topic_id=topics[0].id).limit(6).all()
                 questions.extend(topic_questions)
+
         
         elif type == 'topicQuiz':
             params_topics = request.args.get('topics')
@@ -164,8 +167,13 @@ class AccessQuiz(Resource):
                 'image_url': question.image_url,
                 "answers": answers
             }
-        
+        quiz_blurb = quiz_blurb or None
+        quiz_blurb_img_url = quiz_blurb_img_url or None
         # for performance in performances:
         #     question_dict[performance.question_id]['correct'] = performance.is_correct
         print ("QD!!!", len(question_dict))
-        return question_dict
+        return ({
+            "questions": question_dict,
+            "quiz_blurb": quiz_blurb,
+            "quiz_blurb_img_url": quiz_blurb_img_url
+        })

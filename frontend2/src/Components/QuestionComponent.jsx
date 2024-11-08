@@ -184,7 +184,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
         z-50
         outline-none
         focus:outline-none
-        bg-neutral-800/70
+        bg-slate-200
         ${showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
       `}
     >

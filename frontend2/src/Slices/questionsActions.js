@@ -19,8 +19,15 @@ export const getQuestions = (data) => async(dispatch) => {
       }
 
       const results = await response.json()
+      const questions = results.questions
+      const quiz_blurb = results.quiz_blurb
+      const quiz_blurb_img_url = results.quiz_blurb_img_url
+      dispatch(updateQuestions(questions))
 
-      dispatch(updateQuestions(results))
+      return({
+        quiz_blurb,
+        quiz_blurb_img_url
+      })
     } catch (error) {
         console.error(error)
     }

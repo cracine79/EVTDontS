@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { QuestionComponent } from "./QuestionComponent"
 import { openQuizModal } from "../Slices/modalSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
+import { useState } from "react"
 
 
 export const Quiz = () => {
@@ -16,6 +17,8 @@ export const Quiz = () => {
     const topics = location.state?.topics
     const unitQuizUnitId = location.state?.unit
     const units = useSelector(state=>state.units)
+    const [quizBlurb, setQuizBlurb] = useState("")
+    const [quizBlurbImgUrl, setQuizBlurbImgUrl] = useState("")
     const data = {
         chapter: chapter,
         type: type,
@@ -25,8 +28,17 @@ export const Quiz = () => {
     const currentUnit = units[unitQuizUnitId]
 
     useEffect(()=>{
-        dispatch(getQuestions(data)), [dispatch]
-    })
+        const fetchData = async () => {
+            const results =  await dispatch(getQuestions(data))
+            setQuizBlurb(results.quiz_blurb)
+            setQuizBlurbImgUrl(results.quiz_blurb_img_url)
+        }
+        fetchData()
+        }, [dispatch]
+        
+    )
+    
+    
 
     const wholeChapter = useSelector((state)=>state.chapters[chapter])
     console.log('WC', chapter)
@@ -50,8 +62,24 @@ export const Quiz = () => {
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
-                <div>
-                    {type == 'chapterQuiz' && <>This is the page for the quiz for Chapter {chapterName}</>}
+                <div className='flex justify-center'>
+                    {type == 'chapterQuiz' && 
+                        <div className='items-center flex flex-col'>
+                            <div className='text-2xl text-center'>
+                                <div>
+                                Prepare to Show Your Stuff! 
+                                </div>
+                                <div>
+                                This is the quiz for Chapter {chapterName}
+                                </div>
+                            </div>
+                            <div className ='mt-6 w-5/12'>
+                                <img src = {quizBlurbImgUrl} />
+                            </div>
+                            <div className = 'mt-8 w-3/4 text-center'>
+                                {quizBlurb}
+                            </div>
+                        </div>}
                     {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
                     {type == 'shortWeakspotQuiz' && <>This is the page to take a quiz that focuses on your weaknesses</>}
                     {type == 'unitQuiz' && <>This is the page for Unit Quiz on {currentUnit.name}</>}
