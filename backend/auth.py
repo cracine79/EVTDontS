@@ -48,10 +48,13 @@ class RefreshUser(Resource):
         }
         units_dict = {}
         for unit in user_units:
-            unit_chapters = [chapter for chapter in user_chapters if chapter['unit_id'] == unit.id]
-            all_completed = all(progress_dict.get(chapter['id'], {}).get("quiz_grade", 0) > 60 for chapter in unit_chapters)
-            units_dict[unit['id']] = {
-                "name": unit['name'],
+            unit_chapters = [chapter for chapter in user_chapters if chapter.unit_id == unit.id]
+            all_completed = all(
+                (progress_dict.get(chapter.id, {}).get("quiz_grade") or 0) > 60
+                for chapter in unit_chapters
+            )
+            units_dict[unit.id] = {
+                "name": unit.name,
                 "complete": all_completed
             }
         

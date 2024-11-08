@@ -6,7 +6,7 @@ import LogoutButton from './Components/LogoutComponent';
 import { useEffect } from 'react';
 import { restoreCSRF } from './csrf';
 import './index.css'
-import { AuthRoute } from './Components/routes';
+import { AuthRoute, ProtectedRoute } from './Components/routes';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { NavBar } from './Components/NavBar';
 import { MainPage } from './Components/MainPage';
@@ -26,7 +26,6 @@ import { UpdateUnits } from './Components/UpdateUnits';
 import { FinishPage } from './Components/FinishPage';
 import { FinishUnit } from './Components/FinishedUnit';
 import { UnitQuizResults } from './Components/UnitQuizResults';
-
 
 const Layout = () => {
   return(
