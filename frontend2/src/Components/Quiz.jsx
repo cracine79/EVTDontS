@@ -76,8 +76,8 @@ export const Quiz = () => {
                             <div className ='mt-6 w-5/12'>
                                 <img src = {quizBlurbImgUrl} />
                             </div>
-                            <div className = 'mt-8 w-3/4 text-center'>
-                                {quizBlurb}
+                            <div className = 'mt-8 w-3/4 text-center' dangerouslySetInnerHTML={{__html: quizBlurb}}>
+                                {/* {quizBlurb} */}
                             </div>
                         </div>}
                     {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
