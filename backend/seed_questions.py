@@ -2,7 +2,7 @@
 from exts import db
 from main import create_app
 from config import ProdConfig
-from models import Chapter, QuestionTopic, Unit
+from models import Chapter, QuestionTopic, Unit, Question
 from sqlalchemy.exc import IntegrityError
 
 app = create_app(ProdConfig)
@@ -15,7 +15,8 @@ def seed_unit2_questions():
     demand_curve_topic = unit2_chapters_sorted[0].topics
     shifts_to_demand_topic = unit2_chapters_sorted[1].topics
 
-    
+    question1 = Question(text="Which answer is correct?")
+
 
 def main():
     with app.app_context():
