@@ -15,6 +15,7 @@ from results import results_ns
 from units import units_ns
 from chapters import chapters_ns
 from topics import topics_ns
+from retrievedata import retrieve_ns
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
@@ -40,6 +41,7 @@ def create_app(config):
     api.add_namespace(units_ns)
     api.add_namespace(chapters_ns)
     api.add_namespace(topics_ns)
+    api.add_namespace(retrieve_ns)
 
     @app.shell_context_processor
     def make_shell_context():

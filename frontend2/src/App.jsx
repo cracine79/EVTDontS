@@ -26,6 +26,7 @@ import { UpdateUnits } from './Components/UpdateUnits';
 import { FinishPage } from './Components/FinishPage';
 import { FinishUnit } from './Components/FinishedUnit';
 import { UnitQuizResults } from './Components/UnitQuizResults';
+import { RetrieveData } from './Components/RetrieveData';
 
 const Layout = () => {
   return(
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
       {
         path:'/uqresults',
         element: <ProtectedRoute component={UnitQuizResults} />
+      },
+      {
+        path:'/retrievedata',
+        element: <RetrieveData />
       }
     ]
   }

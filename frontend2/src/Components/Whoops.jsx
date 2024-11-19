@@ -54,6 +54,7 @@ export const Whoops = () => {
                         <input type='username' placeholder = 'Username' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange = {(e)=>setUsername(e.target.value)}></input>
                         <input type='password' placeholder = 'Password' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange = {(e)=>setPassword(e.target.value)}></input>
                         <button type='submit' className='mt-8 mb-16'>{source=='login' ? 'Login' : 'Sign Up'}</button>
+                        {source=='login' && <button className='-mt-8 mb-8' onClick={()=>navigate('/retrievedata', {state:{source: 'forgotPassword'}})}>Forgot Password?</button>}
                     </form>
             </div>
          
