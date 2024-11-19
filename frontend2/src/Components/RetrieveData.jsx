@@ -12,7 +12,6 @@ export const RetrieveData = () => {
 
     const handleSubmit = async () => {
         if(source == 'forgotPassword'){
-            console.log('gogogo')
             const response = await csrfFetch('/api/retrieve/password', {
                 method: 'POST',
                 headers: {
@@ -43,7 +42,7 @@ export const RetrieveData = () => {
                         in 11th grade when I was also trying to figure out my future... 
                         and what the heck that website was.
                     </p>
-                    <input placeholder = 'Submit Email to Reset Password' className='p-2 w-1/2 border-2 border-neutral-300 my-4' ></input>
+                    <input placeholder = 'Submit Email to Reset Password' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
                     <input type="submit" value='Send Password Reset Email' className='my-6'></input>
                 </>
                 }

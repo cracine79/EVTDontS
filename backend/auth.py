@@ -140,6 +140,10 @@ class Signup(Resource):
         except EmailNotValidError as e:
             return ({"message": f"Email is not valid: {str(e)}"}, 400)
 
+        email_user = User.query.filter_by(email=email).first()
+        if email_user is not None:
+            return ({"message":f"Another user has already signed up with the email address {email}"}, 400)
+        
         new_user = User(
             username=username,
             email=email,

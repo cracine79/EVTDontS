@@ -29,7 +29,7 @@ user_chapter_association = db.Table(
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(unique=True)
-    email: Mapped[str]
+    email: Mapped[str]=mapped_column(unique=True)
     password_hash: Mapped[str]
 
     units: Mapped[list["Unit"]] = relationship(
