@@ -34,7 +34,6 @@ export const ResetPassword = () => {
                 navigate("/")
             }
             
-           
         }
         if (token) {
             validateToken()
@@ -44,13 +43,17 @@ export const ResetPassword = () => {
     if (!validToken) return <p className="mt-36">Validating token...</p>
     
     return (
-        <div className='mt-36'>
-            <form>
-          
-                <input type="password" placeholder="New Password" />
-                <input type="password" placeholder="Confirm Password" />
-                <button type="submit">Reset Password</button>
-            </form>
+        <div className='mt-36 flex items-center  flex-col w-100 h-screen -mb-60'>
+            <div className='w-1/3 flex flex-col items-center shadow-2xl rounded-lg mt-36'>
+                <p className='text-2xl mt-10'>Password Reset</p>
+                <p className='my-6'>Enter a new password below to reset and continue on your Econo-quest</p>
+                <form className='flex flex-col items-center'>
+            
+                    <input type="password"  className='text-center my-4 ' placeholder="New Password" />
+                    <input type="password" className='text-center my-4' placeholder="Confirm Password" />
+                    <button type="submit" className='my-4'>Reset Password</button>
+                </form>
+            </div>
     </div>
 )
 }
