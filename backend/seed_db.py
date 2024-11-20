@@ -13,7 +13,7 @@ def seed_users():
     password = "password"
     hashed_password=generate_password_hash(password)
 
-    user1 = User(username="charlee", email="charlee@yahoo.com", password_hash=hashed_password)
+    user1 = User(username="charlee", email="charleelracine@gmail.com", password_hash=hashed_password)
     user2 = User(username="user", email="user2@example.com", password_hash=hashed_password)
 
     users = [user1, user2]

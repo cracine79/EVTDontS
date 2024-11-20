@@ -13,15 +13,19 @@ class Config:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_S3_BUCKET = config('AWS_S3_BUCKET')
     AWS_REGION = config('AWS_REGION')
+    APP_DOMAIN = config('APP_DOMAIN', default='http://localhost:3000')
 
 
 class DevConfig(Config):
     DEBUG=True
     SQLALCHEMY_ECHO=True
     DEVELOPMENT=True
-
+    APP_DOMAIN = config('DEV_APP_DOMAIN', default='http://localhost:3000')
+    
 class ProdConfig(Config):
     DEBUG=False
+    APP_DOMAIN = config('DEV_APP_DOMAIN', default='https://evtds.com')
 
 class TestConfig(Config):
     TESTING=True
+    APP_DOMAIN = config('TEST_APP_DOMAIN', default='http://localhost:3000')

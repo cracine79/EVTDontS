@@ -16,11 +16,17 @@ from units import units_ns
 from chapters import chapters_ns
 from topics import topics_ns
 from retrievedata import retrieve_ns
+from dotenv import load_dotenv
+import os
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
 def create_app(config):
+    load_dotenv()
     app = Flask(__name__)
+
+    SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+    
     CORS(app)
     app.config.from_object(config)
 
