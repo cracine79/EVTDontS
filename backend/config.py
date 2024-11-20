@@ -13,14 +13,14 @@ class Config:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_S3_BUCKET = config('AWS_S3_BUCKET')
     AWS_REGION = config('AWS_REGION')
-    APP_DOMAIN = config('APP_DOMAIN', default='http://localhost:3000')
+    APP_DOMAIN = config('APP_DOMAIN', default='http://localhost:5173')
 
 
 class DevConfig(Config):
     DEBUG=True
     SQLALCHEMY_ECHO=True
     DEVELOPMENT=True
-    APP_DOMAIN = config('DEV_APP_DOMAIN', default='http://localhost:3000')
+    APP_DOMAIN = config('DEV_APP_DOMAIN', default='http://localhost:5173')
     
 class ProdConfig(Config):
     DEBUG=False
@@ -28,4 +28,4 @@ class ProdConfig(Config):
 
 class TestConfig(Config):
     TESTING=True
-    APP_DOMAIN = config('TEST_APP_DOMAIN', default='http://localhost:3000')
+    APP_DOMAIN = config('TEST_APP_DOMAIN', default='http://localhost:5173')
