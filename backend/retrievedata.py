@@ -38,6 +38,15 @@ def send_reset_email(email, token, domain, sender_email, username):
     except Exception as e:
         print(f"Error sending email: {e}")
         raise e
+    
+def verify_reset_token(token, secret_key, salt, max_age=3600):
+    serializer = URLSafeTimedSerializer(secret_key)
+    try:
+        email=serializer.loads(token, salt=salt, max_age=max_age)
+        return email
+    except Exception as e:
+        print(f"Token verification error: {e}")
+        return None
 
 @retrieve_ns.route('/password')
 class RetrievePassword(Resource):
@@ -55,8 +64,19 @@ class RetrievePassword(Resource):
         else:
             username = user.username
             try:
-               
                 send_reset_email(email, token, app_domain, 'admin@evtds.com', username)
                 return ({"message": "Password reset email sent"}), 200
             except Exception as e:
                 return ({"error": "Failed to send email"}), 500
+            
+@retrieve_ns.route('/validate-token')
+class ValidateToken(Resource):
+    def post(self):
+        data = request.get_json()
+        token = data.get('token')
+        email = verify_reset_token(token, secret_key = current_app.config['SECRET_KEY'], salt='password-reset-salt')
+
+        if email:
+            return ({"message": "Token is valid", "email": email}), 200
+        else:
+            return({"error": "Invalid or expired token"}), 400

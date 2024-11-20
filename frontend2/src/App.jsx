@@ -27,6 +27,7 @@ import { FinishPage } from './Components/FinishPage';
 import { FinishUnit } from './Components/FinishedUnit';
 import { UnitQuizResults } from './Components/UnitQuizResults';
 import { RetrieveData } from './Components/RetrieveData';
+import { ResetPassword } from './Components/ResetPassword';
 
 const Layout = () => {
   return(
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
       {
         path:'/retrievedata',
         element: <RetrieveData />
+      },
+      {
+        path:'/reset-password',
+        element: <ResetPassword />
       }
     ]
   }
