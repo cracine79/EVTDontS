@@ -29,8 +29,6 @@ export const addResults = (results) => async(dispatch) => {
       const data = await response.json()
       dispatch(updateUserResults(data))
     //   dispatch(updateUser(user))
-
-      
     } catch(error) {
         console.error('Error during answer submission:', error);
     }
@@ -55,7 +53,6 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         dispatch(updateUserResults(data.answers))
         dispatch(updateTopicProg(data.topic_progress))
         dispatch(updateTopics(data.topics))
-        console.log('The last chapters are', data.last_chapter)
         return (data.last_chapter)
 
     } catch(error){

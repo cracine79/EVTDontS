@@ -45,12 +45,14 @@ class RetrievePassword(Resource):
         email = data.get('email')
 
         user = User.query.filter_by(email = email).first()
-        username = user.username
+
         if user is None:
             print('no user')
-            return({"message": f"There is no current user with the email address: {email} on file.  Please check"})
+            return({"message": f"There is no current user with the email address: {email} on file.  Please check"}), 404
         else:
+            username = user.username
             try:
+               
                 send_reset_email(email, 'admin@evtds.com', username)
                 return ({"message": "Password reset email sent"}), 200
             except Exception as e:

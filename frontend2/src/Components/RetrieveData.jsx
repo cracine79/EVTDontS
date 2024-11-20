@@ -2,51 +2,89 @@ import { useLocation } from "react-router-dom"
 import { useState } from "react"
 import { csrfFetch } from "../csrf"
 
+
 export const RetrieveData = () => {
 
     const location = useLocation()
     const [email, setEmail] = useState("")
-   
+    const [firstBoxStatus, setFirstBoxStatus] = useState(true)
+    const [successBoxStatus, setSuccessBoxStatus] = useState(false)
+    const [errorMessageVisible, setErrorMessageVisible] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+
 
     const source = location.state?.source
 
     const handleSubmit = async () => {
-        if(source == 'forgotPassword'){
-            const response = await csrfFetch('/api/retrieve/password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({email})
-            })
+        try{
+            if(source == 'forgotPassword'){
+                const response = await csrfFetch('/api/retrieve/password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({email})
+                })
+
+                if(!response.ok){
+                    setErrorMessageVisible(true)
+                } else {
+                    setFirstBoxStatus(false)
+                    setSuccessBoxStatus(true)
+                    setErrorMessageVisible(false)
+                }
+                const output = await response.json()
+                console.log("POOP", output)
+            }
+        } catch (error) {
+            console.error('POOP', error)
+            setErrorMessageVisible(true)
         }
+
+    }
+
+    const submitAgain = () => {
+        setFirstBoxStatus(true)
+        setSuccessBoxStatus(false)
     }
     return(
         <div className='mt-48 flex flex-col items-center h-full min-h-screen'>
             <div className='w-2/3 flex flex-col items-center shadow-2xl rounded-lg'>
-            <form className='flex flex-col  items-center w-100' onSubmit ={(event)=>{
-                event.preventDefault()
-                handleSubmit()
-            }}>
-                {source == 'forgotPassword' &&
-                <>
-                    <p className = 'my-4 text-2xl'>
-                        Forgot your password, huh?
-                    </p>
-                    <p className = 'text-xl mx-8 my-2'>No worries. We get it. Trying to remember passwords these days feels like the ending of The Usual Suspects—just staring at the wall, trying to recall if "hang_in_there" is the magical phrase that unlocks the gateway to some weird website I signed up for at 2 a.m. last month.</p>
-                    <p className = 'text-xl mx-8 my-2'>
-                        Just enter the email you signed up with, and we’ll send you a 
-                        lifeline to reset your password. It’s like getting a second chance 
-                        at life—and a way to avoid finding out you signed up for a website 
-                        that sends you daily cat horoscope emails. If only this existed back 
-                        in 11th grade when I was also trying to figure out my future... 
-                        and what the heck that website was.
-                    </p>
-                    <input placeholder = 'Submit Email to Reset Password' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                    <input type="submit" value='Send Password Reset Email' className='my-6'></input>
-                </>
-                }
-            </form>
+            {firstBoxStatus &&<>
+                <form className='flex flex-col  items-center w-100' onSubmit ={(event)=>{
+                    event.preventDefault()
+                    handleSubmit()
+                }}>
+                    {source == 'forgotPassword' &&
+                    <>
+                        <p className = 'my-4 text-2xl'>
+                            Forgot your password, huh?
+                        </p>
+                        <p className = 'text-xl mx-8 my-2'>No worries. We get it. Trying to remember passwords these days feels like the ending of The Usual Suspects—just staring at the wall, trying to recall if "hang_in_there" is the magical phrase that unlocks the gateway to some weird website I signed up for at 2 a.m. last month.</p>
+                        <p className = 'text-xl mx-8 my-2'>
+                            Just enter the email you signed up with, and we’ll send you a 
+                            lifeline to reset your password. It’s like getting a second chance 
+                            at life—and a way to avoid finding out you signed up for a website 
+                            that sends you daily cat horoscope emails. If only this existed back 
+                            in 11th grade when I was also trying to figure out my future... 
+                            and what the heck that website was.
+                        </p>
+                        <input placeholder = 'Submit Email to Reset Password' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
+                        <input type="submit" value='Send Password Reset Email' className='my-6'></input>
+                    </>
+                    }
+                    {errorMessageVisible && <p className="mb-6 text-red-600 text-xs">There was a problem finding your account.  Please check email and try again.</p>}
+                </form>
+            </>
+            }
+            {successBoxStatus && <>
+            <div className='text-xl p-8'>
+                <p>A password reset email has been sent to your email address.  Please check for further instructions</p>
+                <p>Be sure to check your spam folder as well, because your email inbox might hate us for some unfathomable reason.</p>
+            </div>
+            <button className='mb-8' onClick={submitAgain}>Submit email again</button>
+            
+            </>}
             
             </div>
         </div>
