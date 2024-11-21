@@ -40,7 +40,31 @@ def send_reset_email(email, token, domain, sender_email, username):
     except Exception as e:
         print(f"Error sending email: {e}")
         raise e
+
+def send_username_email(email, sender_email, username):
+    message = Mail(
+        from_email = sender_email,
+        to_emails = email,
+        subject="EVTDS Username Retrieval",
+        html_content=f"""
+        <p>Hello,</p>
+        <p>We have recieved a request to retrieve your username for www.evtds.com.  We're not judging you.</p>
+        <p>Your username is:</p>
+        <p>{username}<p>
+        <p>If you did not request an email with your username, then you can safely ignore this email and go about your day.</p>
+        <p>Thanks,</p>
+        <p>EVTDS Help</p>
+        """
+    )
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        print(f"EMail sent!  Status Code: {response.status_code}")
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        raise e
     
+
 def verify_reset_token(token, secret_key, salt, max_age=3600):
     serializer = URLSafeTimedSerializer(secret_key)
     try:
@@ -49,6 +73,23 @@ def verify_reset_token(token, secret_key, salt, max_age=3600):
     except Exception as e:
         print(f"Token verification error: {e}")
         return None
+    
+@retrieve_ns.route('/username')
+class RetrieveUsername(Resource):
+    def post(self):
+        data=request.get_json()
+        email = data.get('email')
+        user = User.query.filter_by(email=email).first()
+
+        if user is None:
+            return({"message": f"There is no current user with the email address: {email} on file.  Please check"}), 404
+        else:
+            username = user.username
+            try:
+                send_username_email(email, 'admin@evtds.com', username)
+                return ({"message": "Username retrieval email sent"}), 200
+            except Exception as e:
+                return ({"error": "Failed to send email"}), 500
 
 @retrieve_ns.route('/password')
 class RetrievePassword(Resource):
@@ -70,6 +111,7 @@ class RetrievePassword(Resource):
                 return ({"message": "Password reset email sent"}), 200
             except Exception as e:
                 return ({"error": "Failed to send email"}), 500
+
             
 @retrieve_ns.route('/validate-token')
 class ValidateToken(Resource):

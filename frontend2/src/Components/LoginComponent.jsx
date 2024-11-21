@@ -36,6 +36,15 @@ const LoginComponent = () => {
     dispatch(closeLoginModal())
   }
 
+  const goToForgot = () => {
+    dispatch(closeLoginModal())
+    navigate('/retrievedata', {state:{source: 'forgotPassword'}})
+  }
+
+  const goToForgotUsername = () => {
+    dispatch(closeLoginModal())
+    navigate('/retrievedata', {state:{source: 'forgotUsername'}})
+  }
 
 
   return (
@@ -136,6 +145,9 @@ const LoginComponent = () => {
                 placeholder="Password"
               />
               <button type="submit">Login</button>
+              <button onClick={goToForgot}>Forgot Password?</button>
+
+              <button onClick={goToForgotUsername}>Forgot Username?</button>
             </form>
           </div>
         </div>

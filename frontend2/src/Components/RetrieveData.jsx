@@ -34,7 +34,27 @@ export const RetrieveData = () => {
                     setErrorMessageVisible(false)
                 }
                 const output = await response.json()
-                console.log("POOP", output)
+
+
+            } else if (source == 'forgotUsername'){
+                const response = await csrfFetch('/api/retrieve/username', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({email})
+                })
+
+
+                if(!response.ok){
+                    setErrorMessageVisible(true)
+                } else {
+                    const data = await response.json()
+                    console.log(data.message)
+                    setFirstBoxStatus(false)
+                    setSuccessBoxStatus(true)
+                    setErrorMessageVisible(false)
+                }
             }
         } catch (error) {
             console.error('POOP', error)
@@ -49,7 +69,7 @@ export const RetrieveData = () => {
     }
     return(
         <div className='mt-48 flex flex-col items-center h-full min-h-screen'>
-            <div className='w-2/3 flex flex-col items-center shadow-2xl rounded-lg'>
+            <div className='w-1/2 flex flex-col items-center shadow-2xl rounded-lg'>
             {firstBoxStatus &&<>
                 <form className='flex flex-col  items-center w-100' onSubmit ={(event)=>{
                     event.preventDefault()
@@ -73,13 +93,29 @@ export const RetrieveData = () => {
                         <input type="submit" value='Send Password Reset Email' className='my-6'></input>
                     </>
                     }
+                    {
+                        source == 'forgotUsername' &&
+                        <>
+                            <p className = 'my-4 text-2xl'>
+                            Forgot your username, huh?
+                        </p>
+                        <p className = 'text-xl mx-8 my-2'>Oh, forgotten your username, have you? Classic. Don’t worry; it happens to the best of us—and by ‘best,’ we mean people who may have a dozen variations of the same username across different platforms. Just pop your email into the box below, and we’ll send your username straight to your inbox. Because who needs memory when you’ve got us?</p>
+                        <input placeholder = 'Submit Email to Retrieve Username' className='p-2 w-1/2 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
+                        <input type="submit" value='Send Username To My Email' className='my-6'></input>
+                        </>
+                    }
                     {errorMessageVisible && <p className="mb-6 text-red-600 text-xs">There was a problem finding your account.  Please check email and try again.</p>}
                 </form>
             </>
             }
             {successBoxStatus && <>
             <div className='text-xl p-8'>
+                {source == 'forgotPassword' && <>
                 <p>A password reset email has been sent to your email address.  Please check for further instructions</p>
+                </>}
+                {source == 'forgotUsername' && <>
+                <p>An email with your username has been sent to your email.</p>
+                </>}
                 <p>Be sure to check your spam folder as well, because your email inbox might hate us for some unfathomable reason.</p>
             </div>
             <button className='mb-8' onClick={submitAgain}>Submit email again</button>
