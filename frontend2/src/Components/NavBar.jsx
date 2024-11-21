@@ -4,10 +4,12 @@ import SignupComponent from "./SignupComponent"
 import LogoutButton from "./LogoutComponent"
 import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
 import { UserMenu } from "./UserMenu"
+import { useNavigate } from "react-router-dom"
 
 
 
 export const NavBar = () => {
+    const navigate = useNavigate()
     let loginFormOpen = useSelector(state=>(state.modal.isLoginOpen))
     let signupFormOpen = useSelector(state=>(state.modal.isSignupOpen))
     const currentUser = useSelector(state=>(state.user.username))
@@ -44,7 +46,10 @@ export const NavBar = () => {
                 sticky
                 top-0">
                 <img src="/Logo.svg" alt="EVTDS Logo" className="w-1/12 ml-12 my-2 md:ml-14 sm:ml-12 lg:ml-16 min-w-20"/>
-                <div>
+                <div className='flex'>
+                    {!currentUser &&
+                        <button className="mr-4" onClick={()=>{navigate('/videoindex')}}>Jump To Videos</button>
+                    }
                     {sessionLinks}
                 </div>
             </nav>

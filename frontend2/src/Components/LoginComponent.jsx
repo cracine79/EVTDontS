@@ -125,29 +125,36 @@ const LoginComponent = () => {
                             w-4/5
                             border-2
                             border-neutral-300
-                            my-5
+                            mt-5
                         '
                 type="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
               />
+              <div className='w-4/5'>
+                <button onClick={goToForgot} className='text-xs text-blue-800 font-bold'>Forgot Password?</button>
+              </div>
               <input
                 className='
                 p-2
                 w-4/5
                 border-2
                 border-neutral-300
-                my-5'
+                mt-5'
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
               />
-              <button type="submit">Login</button>
-              <button onClick={goToForgot}>Forgot Password?</button>
+              <div className='w-4/5'>
 
-              <button onClick={goToForgotUsername}>Forgot Username?</button>
+              <button onClick={goToForgotUsername} className='text-xs text-blue-800 font-bold'>Forgot Username?</button>
+              </div>
+              <button type="submit" className='mt-6'>Login</button>
+
+
+              
             </form>
           </div>
         </div>
