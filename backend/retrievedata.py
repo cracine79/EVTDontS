@@ -5,6 +5,8 @@ from models import User
 from itsdangerous import URLSafeTimedSerializer
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from werkzeug.security import generate_password_hash, check_password_hash
+from exts import db
 
 
 retrieve_ns = Namespace('retrieve', description = 'A namespace for data retrieval')
@@ -80,3 +82,26 @@ class ValidateToken(Resource):
             return ({"message": "Token is valid", "email": email}), 200
         else:
             return({"error": "Invalid or expired token"}), 400
+
+
+@retrieve_ns.route('/reset-password')
+class ResetPassword(Resource):
+    def post(self):
+        data = request.get_json()
+        email = data.get('email')
+        password = data.get('password')
+
+        print("THE DATA IS", data)
+
+        user = User.query.filter_by(email = email).first()
+
+        print("USER DUDE", user)
+
+        if user is None:
+            print('no user')
+            return({"message": f"There is an error finding the user associated with this password reset request"}), 404
+        else:
+            password_hash = generate_password_hash(password)
+            user.password_hash = password_hash
+            db.session.commit()
+            return ({"message": "Password successfully updated!"}), 200
