@@ -13,6 +13,7 @@ email-validator = "*"
 flask-wtf = "*"
 flask-cors = "*"
 sendgrid = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
