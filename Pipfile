@@ -12,6 +12,7 @@ python-decouple = "*"
 email-validator = "*"
 flask-wtf = "*"
 flask-cors = "*"
+sendgrid = "*"
 
 [dev-packages]
 
