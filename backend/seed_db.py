@@ -1,9 +1,9 @@
-from exts import db
-from main import create_app
-from models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress, UserTopicProgress, Subject
+from backend.exts import db
+from backend.main import create_app
+from backend.models import User, Unit, Chapter, Question, QuestionTopic, Answer, UserPerformance, UserChapterProgress, UserTopicProgress, Subject
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
-from config import ProdConfig
+from backend.config import ProdConfig
 from sqlalchemy import text
 
 app = create_app(ProdConfig)

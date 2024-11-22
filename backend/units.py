@@ -1,8 +1,8 @@
 from flask_restx import Namespace, Resource
 from flask import request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models import User, Unit, user_unit_association, UserChapterProgress, Chapter, Subject
-from exts import db
+from backend.models import User, Unit, user_unit_association, UserChapterProgress, Chapter, Subject
+from backend.exts import db
 
 units_ns = Namespace('units', description='A namespace for User Units')
 

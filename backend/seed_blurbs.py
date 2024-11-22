@@ -1,7 +1,7 @@
-from exts import db
-from models import Chapter
-from config import ProdConfig
-from main import create_app
+from backend.exts import db
+from backend.models import Chapter
+from backend.config import ProdConfig
+from backend.main import create_app
 from sqlalchemy.exc import IntegrityError
 
 app = create_app(ProdConfig)

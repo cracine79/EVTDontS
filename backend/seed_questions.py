@@ -1,8 +1,8 @@
 
-from exts import db
-from main import create_app
-from config import ProdConfig
-from models import Chapter, QuestionTopic, Unit, Question, Answer
+from backend.exts import db
+from backend.main import create_app
+from backend.config import ProdConfig
+from backend.models import Chapter, QuestionTopic, Unit, Question, Answer
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 

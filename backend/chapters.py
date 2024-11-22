@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource, fields
-from models import Chapter
+from backend.models import Chapter
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
 

@@ -1,9 +1,9 @@
 from flask_restx import Namespace, Resource
 from flask import request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models import User, UserPerformance
+from backend.models import User, UserPerformance
 from datetime import datetime
-from exts import db
+from backend.exts import db
 
 
 results_ns=Namespace('results', description="A namespace for results")
