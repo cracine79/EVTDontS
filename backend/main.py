@@ -1,7 +1,7 @@
 from flask import Flask, Response, abort, redirect, render_template, request, url_for
 from flask_restx import Api
 from backend.models import User
-from backend.exts import db
+from exts import db
 from flask_jwt_extended import JWTManager
 from backend.auth import auth_ns
 from backend.questions import questions_ns
