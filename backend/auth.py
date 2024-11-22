@@ -324,3 +324,5 @@ class ResetPassword(Resource):
     def post(self):
         email = request.json.get('email')
         print(email)
+
+

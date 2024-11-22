@@ -41,7 +41,7 @@ export const Quiz = () => {
     
 
     const wholeChapter = useSelector((state)=>state.chapters[chapter])
-    console.log('WC', chapter)
+
     // const currentUnit = wholeChapter ? useSelector((state)=>state.units[wholeChapter.unit_id]) : ""
     const chapterName = wholeChapter ? wholeChapter.name : ''
 
@@ -57,6 +57,29 @@ export const Quiz = () => {
     const goHome = ()=>{
         dispatch(clearQuestions())
         navigate('/userhome')
+    }
+
+    const quizTopicList = () => {
+        return(
+            <>
+            {names.map((name)=>{
+                return(<>name</>)
+            })}
+            </>
+        )
+
+
+    }
+
+    const weaknessBlurb = () => {
+        return(
+            <div className='flex flex-col items-center w-3/4'>
+                <p className='text-2xl font-bold mb-4'>Welcome to the Quiz of Reckoning!</p>
+                <p>You’ve bravely clicked your way here, which means you're ready to face the ultimate showdown: you vs. your weak spots. Every wrong answer, every forgotten concept, every question that left you scratching your head is back—like the ghost of marginal utility haunting your economic soul. Don’t be surprised if your quiz is filled with questions from the topics you’d rather forget. Scarcity of knowledge? Let’s fix that. This quiz is designed to hit where it hurts—so we can turn those weaknesses into strengths.</p>
+                <p className='my-6'>Take a deep breath and dive in. Remember, this is not just about acing the quiz—it’s about growth. The more you lean into your weak spots, the more of an econo ninja you’ll become. Every mistake is just another step toward mastery, and every correct answer is one closer to total economic enlightenment. So take the quiz, do your best, and don’t let a few wrong answers derail you. Weakness today, strength tomorrow!</p>
+
+            </div>
+        )
     }
 
     return (
@@ -81,7 +104,7 @@ export const Quiz = () => {
                             </div>
                         </div>}
                     {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
-                    {type == 'shortWeakspotQuiz' && <>This is the page to take a quiz that focuses on your weaknesses</>}
+                    {type == 'shortWeakspotQuiz' && weaknessBlurb()}
                     {type == 'unitQuiz' && <>This is the page for Unit Quiz on {currentUnit.name}</>}
                 </div>
                 <div>
