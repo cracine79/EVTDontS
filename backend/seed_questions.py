@@ -4,18 +4,19 @@ from main import create_app
 from config import ProdConfig
 from models import Chapter, QuestionTopic, Unit, Question, Answer
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 app = create_app(ProdConfig)
 
 def seed_unit2_questions():
     print('Seeding Unit 2 Questions')
     
-    demandCurveTopic = QuestionTopic.query.get(10)
-    demandChapter = Chapter.query.get(8)
-    shiftsDemandTopic = QuestionTopic.query.get(11)
-    shiftsDemandChapter = Chapter.query.get(9)
-    supplyCurveTopic = QuestionTopic.query.get(12)
-    supplyChapter = Chapter.query.get(10)
+    demandCurveTopic = db.session.get(QuestionTopic,10)
+    demandChapter = db.session.get(Chapter, 8)
+    shiftsDemandTopic = db.session.get(QuestionTopic,11)
+    shiftsDemandChapter = db.session.get(Chapter, 9)
+    supplyCurveTopic = db.session.get(QuestionTopic,12)
+    supplyChapter = db.session.get(Chapter, 10)
     
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
@@ -50,7 +51,7 @@ def seed_unit2_questions():
                  question13, question14, question15,
                  question16, question17, question18,
                  question19, question20, question21, 
-                 question22]
+                 question22, question23, question24]
 
     print("questions created")
     db.session.add_all(questions)
@@ -197,11 +198,11 @@ def seed_answers(questions):
     answer23d = Answer(text='The demand for the good will increase', question=questions[22], is_correct=False)
     answer23e = Answer(text='The demand for the good will decrease', question=questions[22], is_correct=False)
     
-    answer24a = Answer(text='Firms will buy fewer inputs if the price of their output increases', question=questions[22], is_correct=False)
-    answer24b = Answer(text='Firms will produce less if workers are more expensive to employ', question=questions[22], is_correct=False)
-    answer24c = Answer(text='Firms will increase price if the quantity supplied in the market increases', question=questions[22], is_correct=False)
-    answer24d = Answer(text='Firms will increase quantity supplied if the market price increases', question=questions[22], is_correct=True)
-    answer24e = Answer(text='Consumers will buy less if the price increases', question=questions[22], is_correct=False)
+    answer24a = Answer(text='Firms will buy fewer inputs if the price of their output increases', question=questions[23], is_correct=False)
+    answer24b = Answer(text='Firms will produce less if workers are more expensive to employ', question=questions[23], is_correct=False)
+    answer24c = Answer(text='Firms will increase price if the quantity supplied in the market increases', question=questions[23], is_correct=False)
+    answer24d = Answer(text='Firms will increase quantity supplied if the market price increases', question=questions[23], is_correct=True)
+    answer24e = Answer(text='Consumers will buy less if the price increases', question=questions[23], is_correct=False)
  
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
@@ -224,7 +225,9 @@ def seed_answers(questions):
                answer19a, answer19b, answer19c, answer19d, answer19e,
                answer20a, answer20b, answer20c, answer20d, answer20e,
                answer21a, answer21b, answer21c, answer21d, answer21e,
-               answer22a, answer22b, answer22c, answer22d, answer22e,]
+               answer22a, answer22b, answer22c, answer22d, answer22e,
+               answer23a, answer23b, answer23c, answer23d, answer23e,
+               answer24a, answer24b, answer24c, answer24d, answer24e,]
 
     db.session.add_all(answers)
     db.session.commit()

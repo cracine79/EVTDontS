@@ -133,7 +133,7 @@ const LoginComponent = () => {
                 placeholder="Username"
               />
               <div className='w-4/5'>
-                <button onClick={goToForgot} className='text-xs text-blue-800 font-bold'>Forgot Password?</button>
+                <button onClick={goToForgot} className='text-xs text-blue-400 font-bold' type='button'>Forgot Password?</button>
               </div>
               <input
                 className='
@@ -149,7 +149,7 @@ const LoginComponent = () => {
               />
               <div className='w-4/5'>
 
-              <button onClick={goToForgotUsername} className='text-xs text-blue-800 font-bold'>Forgot Username?</button>
+              <button onClick={goToForgotUsername} className='text-xs text-blue-400 font-bold' type='button'>Forgot Username?</button>
               </div>
               <button type="submit" className='mt-6'>Login</button>
 

@@ -98,6 +98,7 @@ def assign_units_to_users(users, units):
     db.session.commit()
 
 def seed_topics(chapters):
+    print("seeding topics")
     topic1=QuestionTopic(name="Scarcity", chapter=chapters[0])
     topic2=QuestionTopic(name='Opportunity Cost', chapter=chapters[0])
     topic3=QuestionTopic(name="Factors of Production", chapter=chapters[1])
@@ -114,7 +115,7 @@ def seed_topics(chapters):
     topic14 = QuestionTopic(name='Supply and Demand in Equilibrium', chapter=chapters[11])
     topic15 = QuestionTopic(name='Shifts to Demand', chapter=chapters[12])
     topic16 = QuestionTopic(name='Shifts to Supply', chapter=chapters[12])
-    topic16 = QuestionTopic(name='Simultaneous Shifts', chapter=chapters[13])
+    topic34 = QuestionTopic(name='Simultaneous Shifts', chapter=chapters[13])
     topic17 = QuestionTopic(name='Marginal Utility', chapter=chapters[14])    
     topic18 = QuestionTopic(name='Marginal Benefit and Demand', chapter = chapters[14])
     topic19 = QuestionTopic(name='Marginal Cost and Supply', chapter=chapters[15])
@@ -138,7 +139,7 @@ def seed_topics(chapters):
     topics = [topic1, topic2, topic3, topic4, topic5, topic6, topic7, topic8, topic9, topic10,
               topic11, topic12, topic13, topic14, topic15, topic16, topic17, topic18, topic19, topic20,
               topic21, topic22, topic23, topic24, topic25, topic26, topic27, topic28, topic29, topic30,
-              topic31, topic32, topic33]
+              topic31, topic32, topic33, topic34]
     db.session.add_all(topics)
     db.session.commit()
     return topics
