@@ -1,1 +1,1 @@
-web: gunicorn "backend.run:create_app('config.DevConfig')"
+web: gunicorn "backend.run:app"
