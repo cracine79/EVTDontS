@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 class Config: 
     SECRET_KEY = config('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI= config('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI= config('DATABASE_URL').replace("postgres://", "postgresql://")
     TESTING=False
     DEBUG=False
     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
