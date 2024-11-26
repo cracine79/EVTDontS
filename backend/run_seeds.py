@@ -19,7 +19,7 @@ from seed_questions import main as seed_questions_main
 
 def run_seeds():
     try:
-        print("Running seed_db...")
+        print("Running seed_db...(this one is most of them)")
         seed_db_main()
         print("Finished seeding DB")
 
