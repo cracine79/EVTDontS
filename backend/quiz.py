@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource
-from backend.models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress, Chapter, Unit, UserChapterProgress
+from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress, Chapter, Unit, UserChapterProgress
 from flask import request, jsonify
 from urllib.parse import unquote
 from collections import defaultdict

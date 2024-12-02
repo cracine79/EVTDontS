@@ -1,12 +1,12 @@
 import os
 from flask_restx import Namespace, Resource
 from flask import request, jsonify, current_app
-from backend.models import User
+from models import User
 from itsdangerous import URLSafeTimedSerializer
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from werkzeug.security import generate_password_hash, check_password_hash
-from backend.exts import db
+from exts import db
 
 
 retrieve_ns = Namespace('retrieve', description = 'A namespace for data retrieval')

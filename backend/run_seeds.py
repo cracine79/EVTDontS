@@ -13,9 +13,9 @@
 
 # if __name__=='__main__':
 #     run_seeds()
-from backend.seed_db import main as seed_db_main
-from backend.seed_blurbs import main as seed_blurbs_main
-from backend.seed_questions import main as seed_questions_main
+from seed_db import main as seed_db_main
+from seed_blurbs import main as seed_blurbs_main
+from seed_questions import main as seed_questions_main
 
 def run_seeds():
     try:

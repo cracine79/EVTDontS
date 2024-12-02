@@ -1,5 +1,5 @@
 from flask_restx import Namespace, Resource
-from backend.models import QuestionTopic
+from models import QuestionTopic
 from flask import request, jsonify
 
 topics_ns = Namespace('topics', description='A namespace for topics')

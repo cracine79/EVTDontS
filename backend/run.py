@@ -4,8 +4,8 @@ import os
 # Ensure the backend folder is in the Python path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-from backend.main import create_app
-from backend.config import DevConfig
+from main import create_app
+from config import DevConfig
 
 if __name__=='__main__':
     app=create_app(DevConfig)

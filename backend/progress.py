@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from flask import request, jsonify, make_response, session
-from backend.exts import db
-from backend.models import UserChapterProgress, Chapter, User, UserPerformance, UserTopicProgress, QuestionTopic
+from exts import db
+from models import UserChapterProgress, Chapter, User, UserPerformance, UserTopicProgress, QuestionTopic
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from datetime import datetime
 
