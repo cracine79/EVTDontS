@@ -1,4 +1,4 @@
-from flask import Flask, Response, abort, redirect, render_template, request, url_for, send_from_directory
+from flask import Flask, Response, abort, redirect, render_template, request, url_for, send_from_directory, jsonify
 from flask_restx import Api
 from models import User
 from exts import db
@@ -56,14 +56,18 @@ def create_app(config):
             "user":User
         }   
 
-    if app.config["ENV"] == "production":
-        @app.route('/')
-        def index():
-            return send_from_directory(os.path.join(app.root_path, 'static/build'), 'index.html')
-
+    def serve_frontend(app):
+        @app.route('/', defaults={'path': ''})
         @app.route('/<path:path>')
-        def static_proxy(path):
-            return send_from_directory(os.path.join(app.root_path, 'static/build'), path)
+        def serve(path):
+            static_dir = os.path.join(app.root_path, 'static/build')
+            if path != "" and os.path.exists(os.path.join(static_dir, path)):
+                return send_from_directory(static_dir, path)
+            else:
+                return send_from_directory(static_dir, 'index.html')
+            
+    if app.config["ENV"] == "production":
+        serve_frontend(app)
 
     return app
 
