@@ -57,6 +57,7 @@ def create_app(config):
         }   
 
     def serve_frontend(app):
+        print('In Here Too!!!!')
         @app.route('/', defaults={'path': ''})
         @app.route('/<path:path>')
         def serve(path):
