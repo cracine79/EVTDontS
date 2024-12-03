@@ -21,11 +21,14 @@ class DevConfig(Config):
     SQLALCHEMY_ECHO=True
     DEVELOPMENT=True
     APP_DOMAIN = config('DEV_APP_DOMAIN', default='http://localhost:5173')
+    ENV = 'development'
     
 class ProdConfig(Config):
     DEBUG=False
     APP_DOMAIN = config('DEV_APP_DOMAIN', default='https://evtds.com')
+    ENV = 'production'
 
 class TestConfig(Config):
     TESTING=True
     APP_DOMAIN = config('TEST_APP_DOMAIN', default='http://localhost:5173')
+    ENV = 'testing'
