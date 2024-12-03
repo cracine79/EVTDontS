@@ -21,7 +21,7 @@ import os
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 
-def create_app(config="backend.config.DevConfig"):
+def create_app(config):
     load_dotenv()
     app = Flask(__name__)
 
