@@ -14,4 +14,9 @@ export default defineConfig({
       },
     },
   },
+
+  build: {
+    outDir: '../backend/static/build', // Build output directory for Flask
+    emptyOutDir: true, // Clears the output directory before building
+  },
 })
