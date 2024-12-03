@@ -1,4 +1,4 @@
-from flask import Flask, Response, abort, redirect, render_template, request, url_for
+from flask import Flask, Response, abort, redirect, render_template, request, url_for, send_from_directory
 from flask_restx import Api
 from models import User
 from exts import db
@@ -55,6 +55,15 @@ def create_app(config):
             "db":db,
             "user":User
         }   
+
+    if app.config["ENV"] == "production":
+        @app.route('/')
+        def index():
+            return send_from_directory(os.path.join(app.root_path, 'static/build'), 'index.html')
+
+        @app.route('/<path:path>')
+        def static_proxy(path):
+            return send_from_directory(os.path.join(app.root_path, 'static/build'), path)
 
     return app
 
