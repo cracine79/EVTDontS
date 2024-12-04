@@ -64,6 +64,7 @@ def create_app(config):
         @app.route('/', defaults={'path': ''}) 
         @app.route('/<path:path>')
         def serve(path):
+            print(f"Path: {path}")
             return f'You visited: /{path}'
             # print('WE GOT TO SERVE')
             # static_dir = os.path.join(app.root_path, 'static/build')
