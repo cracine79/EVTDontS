@@ -80,6 +80,7 @@ def create_app(config):
             
     if app.config["ENV"] == "production":
         print("Registering serve_frontend routes for production environment")
+        print(f"Registered routes: {app.url_map}")
         serve_frontend(app)
 
     return app
