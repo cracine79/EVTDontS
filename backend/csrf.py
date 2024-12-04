@@ -5,7 +5,7 @@ from flask import jsonify
 
 csrf_ns = Namespace('csrf', description='A namespace for csrf')
 
-@csrf_ns.route('/')
+@csrf_ns.route('/getit')
 class getCsrf(Resource):
     def get(self):
         csrf_token = generate_csrf()

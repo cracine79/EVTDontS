@@ -6,7 +6,7 @@ from flask import request, jsonify, make_response
 chapters_ns = Namespace('chapters', description='A namespace for chapters')
 
 
-@chapters_ns.route('/')
+@chapters_ns.route('/getall')
 class GetChapters(Resource):
     def get(self):
         chapters = Chapter.query.all()
