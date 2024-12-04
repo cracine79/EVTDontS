@@ -63,7 +63,7 @@ def create_app(config):
         @app.route('/<path:path>')
         def serve(path):
             print('WE GOT TO SERVE')
-            static_dir = os.path.join(app.root_path, '/static/build')
+            static_dir = os.path.join(app.root_path, 'static/build')
             if os.path.exists(static_dir):  # Debugging step to verify directory existence
                 print(f"Static directory exists: {static_dir}")
             else:
