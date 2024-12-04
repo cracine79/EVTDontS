@@ -62,6 +62,11 @@ def create_app(config):
         @app.route('/<path:path>')
         def serve(path):
             static_dir = os.path.join(app.root_path, 'backend/static/build')
+            if os.path.exists(static_dir):  # Debugging step to verify directory existence
+                print(f"Static directory exists: {static_dir}")
+            else:
+                print(f"Static directory not found: {static_dir}")
+
             if path != "" and os.path.exists(os.path.join(static_dir, path)):
                 return send_from_directory(static_dir, path)
             else:
