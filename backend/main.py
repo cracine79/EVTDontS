@@ -79,7 +79,7 @@ def create_app(config):
                 return send_from_directory(static_dir, 'index.html')
             
     if app.config["ENV"] == "production":
-        print("Registering serve_frontend routes for production environment")
+        print("Registering serve_frontend routes for production environment", app.url_map)
         serve_frontend(app)
 
     return app
