@@ -61,9 +61,7 @@ def create_app(config):
         print(f"App root path: {app.root_path}")
 
         
-        @app.route('/', defaults={'path':''}) 
-        def servio():
-            return 'Home homie'
+        @app.route('/', defaults={'path':'/'}) 
         @app.route('/<path:path>')
         def serve(path):
             print(f"Path: {path}")
