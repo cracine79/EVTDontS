@@ -60,24 +60,22 @@ def create_app(config):
         print('In Here Too!!!!')
         print(f"App root path: {app.root_path}")
 
-        @app.route('/test')
-        def test_route():
-            return "Test route works!"
         
-        @app.route('/', defaults={'path': ''})
+        @app.route('/', defaults={'path': ''}) 
         @app.route('/<path:path>')
         def serve(path):
-            print('WE GOT TO SERVE')
-            static_dir = os.path.join(app.root_path, 'static/build')
-            if os.path.exists(static_dir):  # Debugging step to verify directory existence
-                print(f"Static directory exists: {static_dir}")
-            else:
-                print(f"Static directory not found: {static_dir}")
+            return f'You visited: /{path}'
+            # print('WE GOT TO SERVE')
+            # static_dir = os.path.join(app.root_path, 'static/build')
+            # if os.path.exists(static_dir):  # Debugging step to verify directory existence
+            #     print(f"Static directory exists: {static_dir}")
+            # else:
+            #     print(f"Static directory not found: {static_dir}")
 
-            if path != "" and os.path.exists(os.path.join(static_dir, path)):
-                return send_from_directory(static_dir, path)
-            else:
-                return send_from_directory(static_dir, 'index.html')
+            # if path != "" and os.path.exists(os.path.join(static_dir, path)):
+            #     return send_from_directory(static_dir, path)
+            # else:
+            #     return send_from_directory(static_dir, 'index.html')
             
     if app.config["ENV"] == "production":
         print("Registering serve_frontend routes for production environment")
