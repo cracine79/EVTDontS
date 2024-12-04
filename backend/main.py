@@ -34,7 +34,7 @@ def create_app(config):
     JWTManager(app)
     # csrf = CSRFProtect()
     # csrf.init_app(app)
-    api = Api(app, doc=None)
+    api = Api(app, doc=None, prefix='api')
 
     migrate = Migrate(app, db)
 
