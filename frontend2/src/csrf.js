@@ -43,7 +43,8 @@ export async function csrfFetch(url, options = {}) {
   
   // Get CSRF token when app starts
   export async function restoreCSRF() {
-    const response = await fetch('/api/csrf');
+    console.log('fetchingCSRFTOKEN')
+    const response = await fetch('/back_api/csrf');
     const { csrf_token } = await response.json();
     sessionStorage.setItem('X-CSRF-Token', csrf_token);
   }

@@ -34,7 +34,7 @@ def create_app(config):
     JWTManager(app)
     # csrf = CSRFProtect()
     # csrf.init_app(app)
-    api = Api(app, doc=None)
+    api = Api(app, doc='/docs', prefix='/back_api')
 
     migrate = Migrate(app, db)
 
@@ -61,12 +61,9 @@ def create_app(config):
         print(f"App root path: {app.root_path}")
 
         
-        @app.route('/')
-        def serve():
-            return send_from_directory(os.path.join(app.root_path, 'static/build'), 'index.html')
-
+        @app.route('/', defaults={'path': ''})
         @app.route('/<path:path>')
-        def serve_static(path):
+        def serve(path):
             print(f"Path: {path}")
 
             print('WE GOT TO SERVE')
