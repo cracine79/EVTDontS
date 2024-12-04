@@ -61,9 +61,7 @@ def create_app(config):
         print(f"App root path: {app.root_path}")
 
         
-        @app.route('/fun')
-        def serve():
-            return 'its fun'
+        @app.route('/', defaults={'path': ''}) 
         @app.route('/<path:path>')
         def serve(path):
             print(f"Path: {path}")
