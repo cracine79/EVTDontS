@@ -9,7 +9,7 @@ csrf_ns = Namespace('csrf', description='A namespace for csrf')
 class getCsrf(Resource):
     def get(self):
         csrf_token = generate_csrf()
-
+        print('WE BE TOKENING', csrf_token)
         return jsonify({
             'csrf_token':csrf_token
             })
