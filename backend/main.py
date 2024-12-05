@@ -57,21 +57,10 @@ def create_app(config):
         }   
 
     def serve_frontend(app):
-        print('In Here Too test!!!!')
-        print(f"App root path: {app.root_path}")
-
-        
         @app.route('/', defaults={'path': ''})
         @app.route('/<path:path>')
         def serve(path):
-            print(f"Path: {path}")
-
-            print('WE GOT TO SERVE')
             static_dir = os.path.join(app.root_path, 'static/build')
-            if os.path.exists(static_dir):  # Debugging step to verify directory existence
-                print(f"Static directory exists: {static_dir}")
-            else:
-                print(f"Static directory not found: {static_dir}")
 
             if path != "" and os.path.exists(os.path.join(static_dir, path)):
                 return send_from_directory(static_dir, path)
@@ -79,7 +68,7 @@ def create_app(config):
                 return send_from_directory(static_dir, 'index.html')
             
     if app.config["ENV"] == "production":
-        print("Registering serve_frontend routes for production environment", app.url_map)
+
         serve_frontend(app)
 
     return app
