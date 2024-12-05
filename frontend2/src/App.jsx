@@ -117,6 +117,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('UseEffecting . . .')
     restoreCSRF();
     dispatch(restoreUser());
   }, []);
