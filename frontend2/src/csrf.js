@@ -43,8 +43,14 @@ export async function csrfFetch(url, options = {}) {
   
   // Get CSRF token when app starts
   export async function restoreCSRF() {
-    console.log('fetchingCSRFTOKEN')
-    const response = await fetch('/api/csrf/getit');
-    const { csrf_token } = await response.json();
-    sessionStorage.setItem('X-CSRF-Token', csrf_token);
+    try{
+        console.log('fetching CSRF Token . . . ')
+        const response = await fetch('/api/csrf/getit');
+        const data = await response.json()
+        console.log('CSRF Response', data)
+        const { csrf_token } = data;
+        sessionStorage.setItem('X-CSRF-Token', csrf_token);
+    } catch {
+        console.lerror('Error fetching CSRF token:', error)
+    }
   }
