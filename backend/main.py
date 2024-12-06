@@ -20,6 +20,7 @@ from dotenv import load_dotenv
 import os
 
 #to protect a route(require signin), decorate the route with @jwt_required()
+migrate = Migrate()
 
 def create_app(config):
     load_dotenv()
@@ -36,7 +37,7 @@ def create_app(config):
     # csrf.init_app(app)
     api = Api(app, doc='/docs', prefix='/api')
 
-    migrate = Migrate(app, db)
+    migrate.init_app(app, db, directory="backend/migrations")
 
     api.add_namespace(auth_ns)
     api.add_namespace(questions_ns)
@@ -68,7 +69,6 @@ def create_app(config):
                 return send_from_directory(static_dir, 'index.html')
             
     if app.config["ENV"] == "production":
-
         serve_frontend(app)
 
     return app
