@@ -36,8 +36,13 @@ def create_app(config):
     # csrf = CSRFProtect()
     # csrf.init_app(app)
     api = Api(app, doc='/docs', prefix='/api')
-
-    migrate.init_app(app, db, directory="backend/migrations")
+    
+    if app.config["ENV"] == "production":
+        migrate_directory = 'backend/migrations'
+    else:
+        migrate_directory = 'migrations'
+    
+    migrate.init_app(app, db, directory=migrate_directory)
 
     api.add_namespace(auth_ns)
     api.add_namespace(questions_ns)
