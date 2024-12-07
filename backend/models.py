@@ -22,14 +22,15 @@ user_unit_association = db.Table(
 
 user_chapter_association = db.Table(
     'user_chapter',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id', name='user_chapter_id', primary_key=True)),
-    db.Column('chapter_id', db.Integer, db.ForeignKey('chapter.id', name='chapter_user_id', primary_key=True))
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id', name='user_chapter_id'), primary_key=True),
+    db.Column('chapter_id', db.Integer, db.ForeignKey('chapter.id', name='chapter_user_id'), primary_key=True)
 )
 
 class User(db.Model):
-    id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(unique=True)
-    email: Mapped[str]=mapped_column(unique=True)
+    __tablename__='user'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    username: Mapped[str] = mapped_column(String(100), unique=True)
+    email: Mapped[str]=mapped_column(String(255), unique=True)
     password_hash: Mapped[str]
 
     units: Mapped[list["Unit"]] = relationship(
@@ -75,8 +76,8 @@ class User(db.Model):
 class Unit(db.Model):
     __tablename__ = 'unit'
 
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(unique=True, nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     chapters = relationship('Chapter', back_populates='unit')
     subject_id: Mapped[int] = mapped_column(ForeignKey('subject.id'), nullable=False)  # Foreign key for Subject
 
@@ -101,6 +102,7 @@ class Subject(db.Model):
     units: Mapped[list["Unit"]] = relationship('Unit', back_populates='subject')
   
 class Chapter(db.Model):
+    __tablename__='chapter'
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     unit_id: Mapped[int] = mapped_column(ForeignKey('unit.id', name='fk_chapter_unit_id'))
@@ -108,6 +110,7 @@ class Chapter(db.Model):
     video_blurb: Mapped[str] = mapped_column(Text, nullable=True)  
     quiz_blurb: Mapped[str] = mapped_column(Text, nullable=True)
     order: Mapped[int] = mapped_column(Integer, nullable=False)
+
     quiz_blurb_img_url: Mapped[str] = mapped_column(String(255), nullable = True)
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
@@ -195,7 +198,7 @@ class UserPerformance(db.Model):
         db.session.commit()
 
 class UserChapterProgress(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id', name='user_chapter_progress_id'), nullable=False)
     chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id', name='chapter_progress_user_id'), nullable=False)
     video_completed: Mapped[bool] = mapped_column(Boolean, default=False)
@@ -213,7 +216,7 @@ class UserChapterProgress(db.Model):
 
 
 class UserTopicProgress(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id', name='user_topic_progress_id'), nullable=False)
     topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id', name='topic_progress_user_id'), nullable=False)
     questions_asked: Mapped[int] = mapped_column(Integer, default=0)
