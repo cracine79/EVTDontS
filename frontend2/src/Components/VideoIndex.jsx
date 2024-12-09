@@ -24,7 +24,7 @@ export const VideoIndex = () => {
         <div className = 'mt-24'>
 
             <div className='min-h-screen w-100 flex'>
-                <div className=' w-1/4 bg-lime-100'>
+                <div className=' w-1/5 bg-lime-100 text-sm'>
                     <div>Video Library</div>
                     {chaptersObj.map(chapter=>{
                         return(
@@ -33,7 +33,7 @@ export const VideoIndex = () => {
                     })}
                 </div>
                 <div className='w-5/6'>
-                    <div className='text-center mt-10 text-5xl font-bold'>
+                    <div className='text-center mt-10 text-4xl font-bold'>
                     Welcome to the Video Cache!
                     </div>
                     <div className='mx-8 mt-10 text-lg'>
@@ -43,7 +43,7 @@ export const VideoIndex = () => {
                     Choose wisely, and don't be like the Nazi guy in the end of Indiana Jones & The Last Crusade!
                     </div>
                     <div className='flex flex-col items-center justify-center mt-10 border'>
-                        <div className='text-3xl my-4'>
+                        <div className='text-2xl my-4'>
                             {videoId ? `Video for ${chapterVid(videoId)}`: 'Choose a video already!'}
                         </div>
                         {videoId && (

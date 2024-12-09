@@ -30,7 +30,7 @@ export const NavBar = () => {
             {/* <LogoutButton/> */}
         </div>
     ) : (
-        <div className="flex w-32 justify-around mr-10">
+        <div className="flex w-32 justify-around mr-10 text-sm">
             <p className="hover:cursor-pointer" onClick = {handleSignup}>Sign Up</p>
             <p className="hover:cursor-pointer" onClick = {handleLogin} >Log In</p>
         </div>
@@ -54,7 +54,7 @@ export const NavBar = () => {
                 <img src="/Logo.svg" alt="EVTDS Logo" className="w-1/12 ml-12 my-2 md:ml-14 sm:ml-12 lg:ml-16 min-w-20"/>
                 <div className='flex'>
                     {!currentUser &&
-                        <button className="mr-4" onClick={goToVideos}>Jump To Videos</button>
+                        <button className="mr-4 text-sm" onClick={goToVideos}>Jump To Videos</button>
                     }
                     {sessionLinks}
                 </div>

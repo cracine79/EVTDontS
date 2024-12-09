@@ -58,32 +58,6 @@ export const SelectUnitsForm = () => {
   }
 
 
-  // console.log(selectedChapters)
-    
-      // State to track whether the microeconomics units are visible
-
-    
-      // const handleMicroUnitChange = (e) => {
-      //   const { name, checked } = e.target;
-      //   setMicroUnits((prev) => ({ ...prev, [name]: checked }));
-      // };
-
-      // const handleMacroUnitChange = (e) => {
-      //   const {name, checked} = e.target;
-      //   setMacroUnits((prev)=>({...prev, [name]: checked}))
-      // }
-    
-      // const handleMicroSelectAll = (e) => {
-      //   const checked = e.target.checked;
-      //   setMicroUnits((prevMicroUnits) => ({
-      //     ...prevMicroUnits,
-      //     1: checked,
-      //     2: checked,
-      //     3: checked,
-      //   }));
-      // };
-
-
 
     const unitChecked = (unitId) => {
       const unitChapters = chaptersObj.filter((chapter)=>chapter.unit_id==unitId)
@@ -223,7 +197,7 @@ export const SelectUnitsForm = () => {
 
         return(<div key = {unit.id}>
           <input type='checkbox' disabled = {!hasChapters} name={unit.id} onChange={handleUnitChange} checked={unitChecked(unit.id)}></input>
-          <span onClick = {()=> setShowChapters(initialState => ({
+          <span className = 'text-xm' onClick = {()=> setShowChapters(initialState => ({
             ...initialState,
             [unit.id]: !showChapters[unit.id]
           }))}>
@@ -248,11 +222,11 @@ export const SelectUnitsForm = () => {
   return (
     <div className="bg-green-400 w-5/12 p-8 flex justify-center ">
       <div className="w-full mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">I am interested in st udying:</h1>
+        <h1 className="text-xl font-bold mb-2">I am interested in studying:</h1>
 
         {subjectsObj.map((subject)=>{
           return(<div key={subject.id}>
-            <div className='text-2xl'>
+            <div className='text-xl'>
               <input type='checkbox' onClick = {handleSubjectChange} name={subject.id} checked = {subjectChecked(subject.id)}></input>
               <span onClick={()=>setShowUnits(prevState => ({
                 ...prevState,

@@ -46,8 +46,8 @@ export const UserHome = () => {
         if(currentBookChapter){
             return (
                 <>
-                    <div className="text-xl">You are currently working on:</div>
-                    <div className="text-xl"> Chapter {currentBookChapter.name.slice(0,3)}: {currentBookChapter.name.slice(3)}</div>
+                    <div className="text-lg mb-2">You are currently working on:</div>
+                    <div className="text-lg"> Chapter {currentBookChapter.name.slice(0,3)}: {currentBookChapter.name.slice(3)}</div>
                 </>
             )
         } else{
@@ -155,12 +155,12 @@ export const UserHome = () => {
                         )}
                     </div>
                     <div className="w-1/3 min-w-80 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
-                            <p className="mt-8 text-3xl underline">Progress</p>
-                            <div className = "mt-2 ml-4 mr-2">
+                            <p className="mt-8 text-4xl underline">Progress</p>
+                            <div className = "mt-2 ml-4 mr-2 flex flex-col items-center">
                                 {workingOn()}
                             </div>
                             <div className=
-                                {`mt-10 
+                                {`mt-4 
                                 border-black 
                                 h-1/5 
                                 w-1/2 

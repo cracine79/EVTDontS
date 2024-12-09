@@ -8,7 +8,7 @@ export const GetStarted = () => {
                     <div className='text-3xl mt-10'>Welcome to EVTDS: Lowering Your Expectations Since... Well, Now!</div>
                     <div className='flex justify-around flex-row mt-10'>
                         <div className='w-7/12'>
-                            <div className='text-xl  rounded-2xl mr-10'>
+                            <div className='text-lg  rounded-2xl mr-10'>
 
                                 <div>&nbsp;</div>
                                 <div className='mx-4'>Welcome to EVTDS (Economics Videos That Don’t Suck)! 🎉 We can’t believe 
