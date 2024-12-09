@@ -124,7 +124,13 @@ const SignupComponent = () => {
                             border-neutral-300
                             my-5
                         '
-                type="username"
+                type="text"
+                id="username"
+                name="username"
+                required
+                pattern="[A-Za-z0-9_]{3,15}" 
+                title="Username must be 3-15 characters long and can only contain letters, numbers, and underscores."
+                maxlength="15"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
@@ -137,9 +143,17 @@ const SignupComponent = () => {
                 border-neutral-300
                 my-5'
                 type="password"
+                id="password"
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
+                required
+                minlength="8"
+                maxlength="20"        
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}"
+                title='Password must include one uppercase, one lowercase, and one special character?=.*[!@#$%^&*(),.?\, and be beween 8 and 20 chars long'
+                
               />
               <button type="submit">Sign Up</button>
             </form>
