@@ -29,7 +29,7 @@ export const MainPage = () => {
                 <div className="mt-20 flex justify-between items-center">
                     <div className='h-100 w-100 flex flex-col items-center'>
                         <img src="/Watch.png" alt="Watch the Videos" className="w-1/2 h-1/2" />
-                        <p className="mt-2 w-4/6 text-xl text-center">Sseriously, they don’t. We’ve edited out all the parts that flopped, so all you need to do is kick back, press play, and maybe even laugh while learning. (We said maybe.)</p>
+                        <p className="mt-2 w-4/6 text-xl text-center">For real, they don’t. We’ve edited out all the parts that flopped, so all you need to do is kick back, press play, and maybe even laugh while learning. (We said maybe.)</p>
                     </div>
                     <div className="flex flex-col items-center">
                        
