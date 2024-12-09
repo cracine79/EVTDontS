@@ -56,7 +56,7 @@ export const ReviewQuizResults = () => {
         navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: topics}})
 
     }
-
+ 
     const ranking = (percent) => {
    
         if(percent > 80){
