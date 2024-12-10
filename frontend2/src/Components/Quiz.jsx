@@ -82,6 +82,19 @@ export const Quiz = () => {
         )
     }
 
+    const topicQuizBlurb = () => {
+        return(
+            <div className='my-2 flex flex-col'>
+                <div className='mb-2'>
+                Ah, the sweet smell of ambition mixed with just a hint of self-doubt. You’ve decided to tackle specific topics, which is either a bold display of confidence or a creative way to procrastinate on everything else. Either way, here you are, ready to put your economic prowess to the test. If you crush it, your topic ratings will skyrocket, and you'll be strutting around like the Gordon Ramsay of graphs and supply curves. But if things go south, don't worry—we’ll only mock you a <em>little</em> and save the heavy sarcasm for your next attempt. Progress, right?
+                </div>
+                <div>
+                No matter what happens, you’re already ahead of the crowd for showing up and sharpening your skills. (Seriously, do you know how many people just watch cat videos instead of studying?) So pat yourself on the back, get that smirk ready, and dive in. Whether you ace it or faceplant, at least you can say you tried—unlike that kid in the back of class who’s still arguing that opportunity cost is “just a suggestion.” Good luck, quiz champion!
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="w-full flex flex-col justify-center items-center">
             <div className='mt-40  aspect-video justify-center w-3/4'>
@@ -103,7 +116,13 @@ export const Quiz = () => {
                                 {/* {quizBlurb} */}
                             </div>
                         </div>}
-                    {type == 'topicQuiz' && <>This is the page for the quiz to review the topics of of {formattedNames}</>}
+                    {type == 'topicQuiz' && <div className='flex flex-col items-center w-3/4'>
+                                                <div className='text-3xl'>
+                                                Welcome to the "Choose Your Own Quiz Adventure"</div>
+                                                <div className='my-2 text-xl'>Now testing the topics of of {formattedNames}
+                                                </div>
+                                                {topicQuizBlurb()}
+                                            </div>}
                     {type == 'shortWeakspotQuiz' && weaknessBlurb()}
                     {type == 'unitQuiz' && <>This is the page for Unit Quiz on {currentUnit.name}</>}
                 </div>
