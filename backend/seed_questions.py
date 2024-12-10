@@ -21,6 +21,9 @@ def seed_unit2_questions():
     shiftsSupplyChapter = db.session.get(Chapter, 11)
     sdeqTopic = db.session.get(QuestionTopic, 14)
     sdeqChapter = db.session.get(Chapter, 12)
+    disequilibriumDemandShiftTopic = db.session.get(QuestionTopic, 15)
+    disequilbriumSupplyShiftTopic = db.session.get(QuestionTopic, 16)
+    disequilibriumChapter = db.session.get(Chapter, 13)
     
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
@@ -84,6 +87,25 @@ def seed_unit2_questions():
     question57 = Question(text='The above table shows the supply and demand schedule for a perfectly competitive market. If the market price is $2.50, what can be inferred about the market.', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDSchedule2.png")
     question58 = Question(text='The above table shows the supply and demand schedule for a perfectly competitive market.  What is the expected outcome at a market price of $3?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDSchedule2.png")
 
+    question59 = Question(text='Which of the following would most likely result in the decrease in demand for apples?', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+    question60 = Question(text='Assume that people like to eat bread with cheese.  If the price of bread decreased we would expect to see:', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+    question61 = Question(text='In a competitive market for baseballs, a change in the market caused equilibrium price and equilbrium quantity of baseballs to fall.  Which of the following changes could have caused this to happen?', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+    question62 = Question(text='Which of the following will NOT result in an increase in equilibrium price and equilibrium quantity in the market for corn?', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+    question63 = Question(text='If a large study reveals that eating dark chocolate reduces the risk of heart disease, which of the following is the most likely effect on the market for dark chocolate?', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+    question64 = Question(text='Which of the following could cause both the equilibrium price and quantity to increase in the market for electric vehicles?', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+    question65 = Question(text='Which of the following would NOT be expected to cause both the equilibrium price and quantity of energy drinks to rise?', chapter=disequilibriumChapter, topic=disequilibriumDemandShiftTopic)
+
+    question66 = Question(text='An increase in the supply of haircuts in a competitive market would have what expected impact on the market?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question67 = Question(text='If the number of firms producing flip phones decreases from 8 firms to 3 firms, what would the expected impact on the market for flip phones be?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question68 = Question(text='If the market for Pokemon cards saw a simultaneous decrease in equilibrium price and increase in equilibirum quantity, this could have been caused by which of the following changes?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question69 = Question(text='Which of the following is NOT expected to result in an increase in equilibrium price and a decrease in the quantity consumed of paper plates', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question70 = Question(text='A decrease in the supply of electric cars in the market would most likely result in which of the following outcomes?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question71 = Question(text='If the cost of producing chocolate bars decreases significantly, what would the expected impact on the chocolate bar market be?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question72 = Question(text='Which of the following is NOT expected to result in a decrease in equilibrium price and increase in equilibrium quantity in the market for bottled water?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+    question73 = Question(text='An increase in the equilibrium price and decrease in equilibrium quantity of airplane tickets could be caused by which of the following?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
+
+    
+    
 
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -104,7 +126,12 @@ def seed_unit2_questions():
                  question49, question50, question51, 
                  question52, question53, question54,
                  question55, question56, question57,
-                 question58, ]
+                 question58, question59, question60, 
+                 question61, question62, question63,
+                 question64, question65, question66, 
+                 question67, question68, question69,
+                 question70, question71, question72, 
+                 question73, ]
 
     print("questions created")
     db.session.add_all(questions)
@@ -472,6 +499,96 @@ def seed_answers(questions):
     answer58d = Answer(text='A surplus of 70 units', question=questions[57], is_correct=False)
     answer58e = Answer(text='A surplus of 110 units', question=questions[57], is_correct=False)
 
+    answer59a = Answer(text='The weather for growing apples is not as good as it was in previous years', question=questions[58], is_correct=False)
+    answer59b = Answer(text='The price of oranges, a substitute for oranges, is higher than last year', question=questions[58], is_correct=False)
+    answer59c = Answer(text='New medical studies show that if consuming apples can cause infertility and in some cases, temporary blindness, due to a new strain of apple worm', question=questions[58], is_correct=True)
+    answer59d = Answer(text='Consumers income increase and apples are normal goods', question=questions[58], is_correct=False)
+    answer59e = Answer(text='The price of peanut butter, a complement good for apples, falls.', question=questions[58], is_correct=False)
+
+
+    answer60a = Answer(text='The price of cheese will fall and the quantity consumed of cheese will fall', question=questions[59], is_correct=False)
+    answer60b = Answer(text='The price of cheese will rise and the quantity consumed of cheese will fall', question=questions[59], is_correct=False)
+    answer60c = Answer(text='The price of cheese will fall and the quantity consumed of cheese will rise', question=questions[59], is_correct=False)
+    answer60d = Answer(text='The price of cheese will rise and the quantity consumed of cheese will rise', question=questions[59], is_correct=True)
+    answer60e = Answer(text='The quantity consumed of cheese will fall, but the price of cheese could rise or fall.', question=questions[59], is_correct=False)
+
+    answer61a = Answer(text='More firms begin producing baseballs in the market', question=questions[60], is_correct=False)
+    answer61b = Answer(text='The price of tennis balls, a substitute good for baseballs, increases', question=questions[60], is_correct=False)
+    answer61c = Answer(text='Consumer incomes rise and baseballs are normal goods', question=questions[60], is_correct=False)
+    answer61d = Answer(text='Consumers expect the price of baseballs to rise in the future', question=questions[60], is_correct=False)
+    answer61e = Answer(text='The price of bats, a complement for baseballs, increases', question=questions[60], is_correct=True)
+
+    answer62a = Answer(text='Record rainfall make the climate especially good for the growth of corn, doubling farmers output', question=questions[61], is_correct=True)
+    answer62b = Answer(text='A Tiktok trend which takes the nation where teenagers try to buy as much corn as possible and eat it in one sitting. ', question=questions[61], is_correct=False)
+    answer62c = Answer(text='An increase in the price of potatoes, a substitute for corn.', question=questions[61], is_correct=False)
+    answer62d = Answer(text='Incomes fall, and corn is an inferior product', question=questions[61], is_correct=False)
+    answer62e = Answer(text='The size of hte population doubles', question=questions[61], is_correct=False)
+
+    answer63a = Answer(text='The equilibrium price will rise, and the equilibrium quantity will fall', question=questions[62], is_correct=False)
+    answer63b = Answer(text='The equilibrium price will fall, and the equilibrium quantity will rise', question=questions[62], is_correct=False)
+    answer63c = Answer(text='The equilibrium price and equilibrium quantity will both rise', question=questions[62], is_correct=True)
+    answer63d = Answer(text='The equilibrium price and equilibrium quantity will both fall', question=questions[62], is_correct=False)
+    answer63e = Answer(text='The equilibrium price will stay the same, but the equilibrium quantity will rise', question=questions[62], is_correct=False)
+
+    answer64a = Answer(text='The price of gasoline, a substitute for electric vehicles, increases significantly', question=questions[63], is_correct=True)
+    answer64b = Answer(text='Government subsidies for electric vehicle manufacturers decrease', question=questions[63], is_correct=False)
+    answer64c = Answer(text='The cost of batteries for electric vehicles rises sharply', question=questions[63], is_correct=False)
+    answer64d = Answer(text='A major recall decreases consumer confidence in electric vehicles', question=questions[63], is_correct=False)
+    answer64e = Answer(text='The supply of electric vehicles increases due to new manufacturers entering the market', question=questions[63], is_correct=False)
+
+    answer65a = Answer(text='An increase in the popularity of energy drinks among consumers', question=questions[64], is_correct=False)
+    answer65b = Answer(text='A decrease in the price of coffee, a substitute for energy drinks', question=questions[64], is_correct=True)
+    answer65c = Answer(text='A nationwide marketing campaign promoting energy drinks', question=questions[64], is_correct=False)
+    answer65d = Answer(text='A decrease in consumer incomes, assuming energy drinks are normal goods', question=questions[64], is_correct=False)
+    answer65e = Answer(text='An increase in the number of consumers in the market for energy drinks', question=questions[64], is_correct=False)
+    
+    answer66a = Answer(text='Price of haircuts and total quantity haircuts performed fall', question=questions[65], is_correct=False)
+    answer66b = Answer(text='Price of haircuts and total quantity haircuts performed rise', question=questions[65], is_correct=False)
+    answer66c = Answer(text='Price of haircuts rises and total quantity of haircuts performed falls', question=questions[65], is_correct=False)
+    answer66d = Answer(text='Price of haircuts falls and total quantity of haircuts performed rises', question=questions[65], is_correct=True)
+    answer66e = Answer(text='No change to price or quanitty of haircuts performed.', question=questions[65], is_correct=False)
+
+    answer67a = Answer(text='Equilibrium price and quantity of flip phones both rise', question=questions[66], is_correct=False)
+    answer67b = Answer(text='Equilibrium price and quantity of flip phones both fall', question=questions[66], is_correct=False)
+    answer67c = Answer(text='Equilibrium price of flip phones rises and equilibrium quantity falls', question=questions[66], is_correct=True)
+    answer67d = Answer(text='Equilibrium price of flip phones falls and equilibrium quantity rises', question=questions[66], is_correct=False)
+    answer67e = Answer(text='Equilibrium price of flip phones is unchanged and equilibrium quantity rises', question=questions[66], is_correct=False)
+
+    answer68a = Answer(text='A doubling in the total number of Pokemon cards printed and released to the market by the Pokemon manufacturers', question=questions[67], is_correct=True)
+    answer68b = Answer(text='A holiday rush causes a spike in demand for Pokemn cards', question=questions[67], is_correct=False)
+    answer68c = Answer(text='A rival colletor card - Jokedude cards cuts its prices in half', question=questions[67], is_correct=False)
+    answer68d = Answer(text='Incomes fall and Pokemon cards are a luxury good', question=questions[67], is_correct=False)
+    answer68e = Answer(text='A huge shipment of Pokemon cards is lost at sea when a container ship sinks en route from China, decreasing the available number of cards in the market by 40%', question=questions[67], is_correct=False)
+
+    answer69a = Answer(text='An increase in the cost of paper pulp needed in the manufacture of paper plates', question=questions[68], is_correct=False)
+    answer69b = Answer(text='An imposition of business taxes on the producers of paper plates by local government.', question=questions[68], is_correct=False)
+    answer69c = Answer(text='A decrease in the total number of firms producing paper plates', question=questions[68], is_correct=False)
+    answer69d = Answer(text='An intiative by local activists encouraging consumers to buy fewer paper plates', question=questions[68], is_correct=True)
+    answer69e = Answer(text='In increase in the cost of labor employed in the production of paper plates', question=questions[68], is_correct=False)
+    
+    answer70a = Answer(text='Equilibrium price rises, and equilibrium quantity falls.', question=questions[69], is_correct=True)
+    answer70b = Answer(text='Equilibrium price and equilibrium quantity both rise.', question=questions[69], is_correct=False)
+    answer70c = Answer(text='Equilibrium price falls, and equilibrium quantity rises.', question=questions[69], is_correct=False)
+    answer70d = Answer(text='Equilibrium price and equilibrium quantity both fall.', question=questions[69], is_correct=False)
+    answer70e = Answer(text='No change in price or quantity.', question=questions[69], is_correct=False)
+
+    answer71a = Answer(text='Equilibrium price and equilibrium quantity both fall.', question=questions[70], is_correct=False)
+    answer71b = Answer(text='Equilibrium price rises, and equilibrium quantity falls.', question=questions[70], is_correct=False)
+    answer71c = Answer(text='Equilibrium price falls, and equilibrium quantity rises.', question=questions[70], is_correct=True)
+    answer71d = Answer(text='Equilibrium price and equilibrium quantity both rise.', question=questions[70], is_correct=False)
+    answer71e = Answer(text='No change in price or quantity.', question=questions[70], is_correct=False)
+
+    answer72a = Answer(text='Record rainfall increases the water supply available for bottling companies.', question=questions[71], is_correct=False)
+    answer72b = Answer(text='Government decreases taxes on bottled water production.', question=questions[71], is_correct=False)
+    answer72c = Answer(text='Record immigration doubles the labor force available for the production of bottled water.', question=questions[71], is_correct=False)
+    answer72d = Answer(text='Three factories close, halving the supply of bottled water.', question=questions[71], is_correct=True)
+    answer72e = Answer(text='Transportation costs for bottled water decrease significantly.', question=questions[71], is_correct=False)
+
+    answer73a = Answer(text='A rise in fuel costs increases airline operating expenses.', question=questions[72], is_correct=True)
+    answer73b = Answer(text='Airline companies experience record efficiency improvements in operations.', question=questions[72], is_correct=False)
+    answer73c = Answer(text='An increase in subsidies for airlines lowers production costs.', question=questions[72], is_correct=False)
+    answer73d = Answer(text='The number of competitors in the airline market increases significantly.', question=questions[72], is_correct=False)
+    answer73e = Answer(text='Government reduces taxes on airline ticket sales.', question=questions[72], is_correct=False)
 
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
@@ -530,7 +647,22 @@ def seed_answers(questions):
                answer55a, answer55b, answer55c, answer55d, answer55e,
                answer56a, answer56b, answer56c, answer56d, answer56e,
                answer57a, answer57b, answer57c, answer57d, answer57e,
-               answer58a, answer58b, answer58c, answer58d, answer58e,]
+               answer58a, answer58b, answer58c, answer58d, answer58e,
+               answer59a, answer59b, answer59c, answer59d, answer59e,
+               answer60a, answer60b, answer60c, answer60d, answer60e,
+               answer61a, answer61b, answer61c, answer61d, answer61e,
+               answer62a, answer62b, answer62c, answer62d, answer62e,
+               answer63a, answer63b, answer63c, answer63d, answer63e,
+               answer64a, answer64b, answer64c, answer64d, answer64e,
+               answer65a, answer65b, answer65c, answer65d, answer65e,
+               answer66a, answer66b, answer66c, answer66d, answer66e,
+               answer67a, answer67b, answer67c, answer67d, answer67e,
+               answer68a, answer68b, answer68c, answer68d, answer68e,
+               answer69a, answer69b, answer69c, answer69d, answer69e,
+               answer70a, answer70b, answer70c, answer70d, answer70e,
+               answer71a, answer71b, answer71c, answer71d, answer71e,
+               answer72a, answer72b, answer72c, answer72d, answer72e,
+               answer73a, answer73b, answer73c, answer73d, answer73e,]
 
     db.session.add_all(answers)
     db.session.commit()
