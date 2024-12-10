@@ -226,8 +226,8 @@ export const SelectUnitsForm = () => {
 
         {subjectsObj.map((subject)=>{
           return(<div key={subject.id}>
-            <div className='text-xl'>
-              <input type='checkbox' onClick = {handleSubjectChange} name={subject.id} checked = {subjectChecked(subject.id)}></input>
+            <div className='text-xl cursor-pointer'>
+              <input type='checkbox' className='cursor-pointer' onClick = {handleSubjectChange} name={subject.id} checked = {subjectChecked(subject.id)}></input>
               <span onClick={()=>setShowUnits(prevState => ({
                 ...prevState,
                 [subject.id]: !prevState[subject.id]
@@ -236,7 +236,7 @@ export const SelectUnitsForm = () => {
               </span>
             </div>
             {showUnits[subject.id] && <>
-              <div className='ml-6'>
+              <div className='ml-6 cursor-pointer'>
               {unitsDisplay(subject.id)} 
               </div>
             </>}

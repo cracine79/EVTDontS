@@ -152,7 +152,7 @@ const SignupComponent = () => {
                 minlength="8"
                 maxlength="20"        
                 pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}"
-                title='Password must include one uppercase, one lowercase, and one special character?=.*[!@#$%^&*(),.?\, and be beween 8 and 20 chars long'
+                title='Password must include at least one uppercase letter, one lowercase letter, one numeral(0-9), and one special character?=.*[!@#$%^&*(),.?\, and be beween 8 and 20 chars long'
                 
               />
               <button type="submit">Sign Up</button>

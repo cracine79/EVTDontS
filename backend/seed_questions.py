@@ -17,6 +17,10 @@ def seed_unit2_questions():
     shiftsDemandChapter = db.session.get(Chapter, 9)
     supplyCurveTopic = db.session.get(QuestionTopic,12)
     supplyChapter = db.session.get(Chapter, 10)
+    shiftsSupplyTopic = db.session.get(QuestionTopic, 13)
+    shiftsSupplyChapter = db.session.get(Chapter, 11)
+    sdeqTopic = db.session.get(QuestionTopic, 14)
+    sdeqChapter = db.session.get(Chapter, 12)
     
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
@@ -52,6 +56,34 @@ def seed_unit2_questions():
     question31 = Question(text="The market for pencils in the town of Springfield consists of three firms. Each firm’s supply table is shown above. Based on this information, what point is on the market supply curve?", chapter=supplyChapter, topic=supplyCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/ThreeFIrmSupplyTable.png")
     question32 = Question(text='When the price of wine increases in the market, firms are observed to increase their production of wine in the following year.  This phenomenon best illustrates which economic concept?', chapter=supplyChapter, topic=supplyCurveTopic)
     question33 = Question(text='The law of supply can be used to explain which of the following: \n\n I. The upward slope of the supply curve.  \n II.  Why firms are expected to produce more when prices increase. \n III. Why consumers will buy less of a good when prices increase', chapter=supplyChapter, topic=supplyCurveTopic)
+    
+    question34 = Question(text='Which of the following would shift the supply curve for corn to the left?', chapter = shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question35 = Question(text='Which of the following would NOT be expected to result in a shift of the supply curve of bicycles in the city of New York in the short run?', chapter = shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question36 = Question(text='Which of the following would shift the short-run supply curve for blueberries?', chapter = shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question37 = Question(text='A rightward shift in the supply curve of T-shirts could be caused by', chapter = shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question38 = Question(text='An increase in the supply of tea could be caused by', chapter = shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question39 = Question(text='When the supply curve shifts to the right (in a perfectly competitive market), this is an indication that', chapter = shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question40 = Question(text='A leftward shift in the supply curve for wheat could be caused by', chapter=shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question41 = Question(text='Which of the following events is likely to cause a rightward shift in the supply curve for electric cars?', chapter=shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question42 = Question(text='What would cause a decrease in the supply of oranges?', chapter=shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question43 = Question(text='Which of the following would shift the supply curve for laptops to the right?', chapter=shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question44 = Question(text='An increase in the supply of oil is most likely caused by', chapter=shiftsSupplyChapter, topic=shiftsSupplyTopic)
+    question45 = Question(text='Which of the following would NOT shift the supply curve for bananas in the short run?', chapter=shiftsSupplyChapter, topic=shiftsSupplyTopic)
+
+    question46 = Question(text='The above table shows the supply and demand schedule for a perfectly competitive market.   It the price in the market, which of the following is expected?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDSchedule.png")
+    question47 = Question(text='The above table shows the supply and demand schedule for a perfectly competitive market. At which price will a surplus of 250 units occur?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDSchedule.png")
+    question48 = Question(text='The above graph shows the supply and demand curves for a perfectly competitive market.  If the price is $4 in the market, which of the following is expected to occur?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1.png")
+    question49 = Question(text='The above graph shows the supply and demand curves for a perfectly competitive market.  At which price will neither a shortage nor a surplus occur in the market?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1.png")
+    question50 = Question(text='The above graph shows the supply and demand curves for a perfectly competitive market.  The equilibrium price in the market is', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1.png")
+    question51 = Question(text='If the price in a perfectly competitive market is currently below equilibrium price, which of the following is expected?', chapter = sdeqChapter, topic = sdeqTopic)
+    question52 = Question(text='At a price of $5, the quantity demanded of sandwiches is 200 and the quantity supplied is 300.  Which of the following must be true?', chapter = sdeqChapter, topic = sdeqTopic)
+    question53 = Question(text='The above graph shows the supply and demand curves for a perfectly competitive market.  If there currently is a surplus of 320 units in the market, what can be concluded?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1.png")
+    question54 = Question(text='The above graph shows the supply and demand curves for a perfectly competitive market.  What is the expected outcome if the current market price is $10', chapter = sdeqChapter, topic = sdeqTopic)
+    question55 = Question(text='The above graph shows the supply and demand curves for a perfectly competitive market.  If there currently is a surplus in the market, which of the following is a possible market price?', chapter = sdeqChapter, topic = sdeqTopic)
+    question56 = Question(text='At a price of $100, the quantity demanded of earrings is 500 and the quantity supplied is 300.  Which of the following must be true?', chapter = sdeqChapter, topic = sdeqTopic)
+    question57 = Question(text='The above table shows the supply and demand schedule for a perfectly competitive market. If the market price is $2.50, what can be inferred about the market.', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDSchedule2.png")
+    question58 = Question(text='The above table shows the supply and demand schedule for a perfectly competitive market.  What is the expected outcome at a market price of $3?', chapter = sdeqChapter, topic = sdeqTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDSchedule2.png")
+
 
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -63,7 +95,16 @@ def seed_unit2_questions():
                  question22, question23, question24,
                  question25, question26, question27,
                  question28, question29, question30, 
-                 question31, question32, question33]
+                 question31, question32, question33,
+                 question34, question35, question36, 
+                 question37, question38, question39,
+                 question40, question41, question42,
+                 question43, question44, question45,
+                 question46, question47, question48,
+                 question49, question50, question51, 
+                 question52, question53, question54,
+                 question55, question56, question57,
+                 question58, ]
 
     print("questions created")
     db.session.add_all(questions)
@@ -270,6 +311,168 @@ def seed_answers(questions):
     answer33d = Answer(text='I and II', question=questions[32], is_correct=True)
     answer33e = Answer(text='I, II and III', question=questions[32], is_correct=False)
 
+    answer34a = Answer(text='A decrease in consumer incomes', question=questions[33], is_correct=False)
+    answer34b = Answer(text='A decrease in the price of corn', question=questions[33], is_correct=False)
+    answer34c = Answer(text='A decrease in the wages of corn harvesting labor', question=questions[33], is_correct=False)
+    answer34d = Answer(text='An increase in the rental price for corn harvesting equipment', question=questions[33], is_correct=True)
+    answer34e = Answer(text='A decrease in the demand for cucumbers, a substitute in consumption', question=questions[33], is_correct=False)
+
+
+    answer35a = Answer(text='An increase in the cost of steel required to manufacture bicycle frames', question=questions[34], is_correct=False)
+    answer35b = Answer(text='A decrease in the cost of taking taxis, a substitute for bicycles', question=questions[34], is_correct=True)
+    answer35c = Answer(text='A decrease in the number of firms producing bicycles in the city', question=questions[34], is_correct=False)
+    answer35d = Answer(text='A decrease in business taxes on bicycle manufacturers', question=questions[34], is_correct=False)
+    answer35e = Answer(text='An increase in subsidies provided to bicycle manufacturers', question=questions[34], is_correct=False)
+
+
+    answer36a = Answer(text='An increase in the consumption of blueberries', question=questions[35], is_correct=False)
+    answer36b = Answer(text='A decrease in the price of blueberries', question=questions[35], is_correct=False)
+    answer36c = Answer(text='An increase in the cost of employing farmworkers used to pick blueberries', question=questions[35], is_correct=True)
+    answer36d = Answer(text='A decrease in household incomes', question=questions[35], is_correct=False)
+    answer36e = Answer(text='An announcement of a study showing the negative health impacts of eating blueberries', question=questions[35], is_correct=False)
+
+
+    answer37a = Answer(text='a decrease in the price of T-shirts', question=questions[36], is_correct=False)
+    answer37b = Answer(text='an increase in the price of T-shirts', question=questions[36], is_correct=False)
+    answer37c = Answer(text='an increase in the population', question=questions[36], is_correct=False)
+    answer37d = Answer(text='an increase in the cost of materials used to produce T-shirts', question=questions[36], is_correct=False)
+    answer37e = Answer(text='an improvement in technology associated with manufacturing T-shirts', question=questions[36], is_correct=True)
+
+
+    answer38a = Answer(text='a decrease in the cost of land needed to grow tea', question=questions[37], is_correct=True)
+    answer38b = Answer(text='an increase in the price of cookies, a comlement to tea', question=questions[37], is_correct=False)
+    answer38c = Answer(text='a decrease in consumer incomes', question=questions[37], is_correct=False)
+    answer38d = Answer(text='a decrease in the demand for tea', question=questions[37], is_correct=False)
+    answer38e = Answer(text='an increae in the price of tea', question=questions[37], is_correct=False)
+
+
+    answer39a = Answer(text='firms will definitely increase their prices', question=questions[38], is_correct=False)
+    answer39b = Answer(text='firms will definitely decrease their prices', question=questions[38], is_correct=False)
+    answer39c = Answer(text='firms will sell less than before at whatever price is in the market', question=questions[38], is_correct=False)
+    answer39d = Answer(text='firms will sell the same amount if possible', question=questions[38], is_correct=False)
+    answer39e = Answer(text='firms will increase the quantity supplied at every possible market price', question=questions[38], is_correct=True)
+
+
+    answer40a = Answer(text='A decrease in the cost of fertilizers used for wheat production', question=questions[39], is_correct=False)
+    answer40b = Answer(text='A natural disaster damaging large areas of farmland', question=questions[39], is_correct=True)
+    answer40c = Answer(text='An increase in subsidies for wheat farmers', question=questions[39], is_correct=False)
+    answer40d = Answer(text='A decrease in the price of wheat', question=questions[39], is_correct=False)
+    answer40e = Answer(text='An improvement in wheat harvesting technology', question=questions[39], is_correct=False)
+
+    answer41a = Answer(text='An increase in the price of lithium used in batteries', question=questions[40], is_correct=False)
+    answer41b = Answer(text='A decrease in labor costs for factory workers assembling electric cars', question=questions[40], is_correct=True)
+    answer41c = Answer(text='A reduction in consumer demand for electric cars', question=questions[40], is_correct=False)
+    answer41d = Answer(text='An increase in government regulations on electric car manufacturing', question=questions[40], is_correct=False)
+    answer41e = Answer(text='A rise in electricity prices', question=questions[40], is_correct=False)
+
+    answer42a = Answer(text='An improvement in irrigation technology for orange orchards', question=questions[41], is_correct=False)
+    answer42b = Answer(text='A drought affecting major orange-producing regions', question=questions[41], is_correct=True)
+    answer42c = Answer(text='A decrease in the price of pesticides used on orange trees', question=questions[41], is_correct=False)
+    answer42d = Answer(text='A subsidy for farmers growing oranges', question=questions[41], is_correct=False)
+    answer42e = Answer(text='A decrease in the price of oranges', question=questions[41], is_correct=False)
+
+    answer43a = Answer(text='A tax increase on laptop manufacturers', question=questions[42], is_correct=False)
+    answer43b = Answer(text='A decrease in the cost of skilled labor required for assembling laptops', question=questions[42], is_correct=True)
+    answer43c = Answer(text='An increase in consumer incomes', question=questions[42], is_correct=False)
+    answer43d = Answer(text='A decrease in the cost of transportation for laptops', question=questions[42], is_correct=False)
+    answer43e = Answer(text='An increase in the price of laptops', question=questions[42], is_correct=False)
+
+    answer44a = Answer(text='An increase in the efficiency of oil drilling technology', question=questions[43], is_correct=True)
+    answer44b = Answer(text='A rise in the cost of oil drilling equipment', question=questions[43], is_correct=False)
+    answer44c = Answer(text='A decrease in government subsidies for oil production', question=questions[43], is_correct=False)
+    answer44d = Answer(text='A natural disaster affecting oil drilling regions', question=questions[43], is_correct=False)
+    answer44e = Answer(text='An increase in the price of gasoline', question=questions[43], is_correct=False)
+
+    answer45a = Answer(text='An improvement in the shipping logistics for bananas', question=questions[44], is_correct=False)
+    answer45b = Answer(text='A decrease in the price of fertilizer used for banana plants', question=questions[44], is_correct=False)
+    answer45c = Answer(text='A rise in demand for bananas due to a new diet trend', question=questions[44], is_correct=True)
+    answer45d = Answer(text='A decrease in the wages of farmworkers harvesting bananas', question=questions[44], is_correct=False)
+    answer45e = Answer(text='A favorable change in weather conditions for banana cultivation', question=questions[44], is_correct=False)
+
+    answer46a = Answer(text='Market equilibrium', question=questions[45], is_correct=False)
+    answer46b = Answer(text='A shortage of 250 units', question=questions[45], is_correct=True)
+    answer46c = Answer(text='A surplus of 250 units', question=questions[45], is_correct=False)
+    answer46d = Answer(text='A shortage of 500 units', question=questions[45], is_correct=False)
+    answer46e = Answer(text='A surplus of 500 units', question=questions[45], is_correct=False)
+
+
+    answer47a = Answer(text='$50', question=questions[46], is_correct=False)
+    answer47b = Answer(text='$75', question=questions[46], is_correct=False)
+    answer47c = Answer(text='$125', question=questions[46], is_correct=True)
+    answer47d = Answer(text='$150', question=questions[46], is_correct=False)
+    answer47e = Answer(text='No price will yield that result', question=questions[46], is_correct=False)
+
+    answer48a = Answer(text='A shortage of 400 units', question=questions[47], is_correct=False)
+    answer48b = Answer(text='A surplus of 400 units', question=questions[47], is_correct=False)
+    answer48c = Answer(text='A shortage of 200 units', question=questions[47], is_correct=False)
+    answer48d = Answer(text='A surplus of 200 units', question=questions[47], is_correct=True)
+    answer48e = Answer(text='A shortage of $1', question=questions[47], is_correct=False)
+
+
+    answer49a = Answer(text='$1', question=questions[48], is_correct=False)
+    answer49b = Answer(text='$2', question=questions[48], is_correct=False)
+    answer49c = Answer(text='$3', question=questions[48], is_correct=True)
+    answer49d = Answer(text='$4', question=questions[48], is_correct=False)
+    answer49e = Answer(text='$5', question=questions[48], is_correct=False)
+
+    answer50a = Answer(text='Indeterminate, because there are many prices that could be charged in the market', question=questions[49], is_correct=False)
+    answer50b = Answer(text='Less than $3, because $3 is the maximum consumers are willing to pay in this market', question=questions[49], is_correct=False)
+    answer50c = Answer(text='Equal to $3, because $3 is the exact middle price in the market (halfway between $1 and $5)', question=questions[49], is_correct=False)
+    answer50d = Answer(text='Equal to $3, because that is the price where quantity supplied equals quantity demanded', question=questions[49], is_correct=True)
+    answer50e = Answer(text='Greater than $3, because no supplier will sell any output at a price less tahn $3', question=questions[49], is_correct=False)
+
+
+    answer51a = Answer(text='A shortage in the market, which should put upward pressure on prices.', question=questions[50], is_correct=True)
+    answer51b = Answer(text='A shortage in the market, which should downward pressure on prices', question=questions[50], is_correct=False)
+    answer51c = Answer(text='A surplus in the market, which should put upward pressure on prices', question=questions[50], is_correct=False)
+    answer51d = Answer(text='A surplus in the market, which should put downward pressure on prices', question=questions[50], is_correct=False)
+    answer51e = Answer(text='A surplus in the market, which has no impact on market prices', question=questions[50], is_correct=False)
+
+    answer52a = Answer(text='There is a shortage of sandwiches at a price of $5', question=questions[51], is_correct=False)
+    answer52b = Answer(text='The equilibrium price of sandwiches is below $5', question=questions[51], is_correct=True)
+    answer52c = Answer(text='The quantity of sandwiches sold will be 300', question=questions[51], is_correct=False)
+    answer52d = Answer(text='At equilibrium, fewer than 200 sandiwches will be sold', question=questions[51], is_correct=False)
+    answer52e = Answer(text='The sandwich market is in equilibrium', question=questions[51], is_correct=False)
+
+    answer53a = Answer(text='The market could be in equilibrium', question=questions[52], is_correct=False)
+    answer53b = Answer(text='Price is definitely below $3', question=questions[52], is_correct=False)
+    answer53c = Answer(text='Price must be between $1 and $2', question=questions[52], is_correct=False)
+    answer53d = Answer(text='Price must be between $3 and $4', question=questions[52], is_correct=False)
+    answer53e = Answer(text='Price must be between $4 and $5', question=questions[52], is_correct=True)
+
+    answer54a = Answer(text='A shortage of 200 units', question=questions[53], is_correct=True)
+    answer54b = Answer(text='A shortage of 300 units', question=questions[53], is_correct=False)
+    answer54c = Answer(text='A shortage of 500 units', question=questions[53], is_correct=False)
+    answer54d = Answer(text='A surplus of 100 units', question=questions[53], is_correct=False)
+    answer54e = Answer(text='A surplus of greater than 100 units', question=questions[53], is_correct=False)
+
+
+    answer55a = Answer(text='$2.50', question=questions[54], is_correct=False)
+    answer55b = Answer(text='$5.00', question=questions[54], is_correct=False)
+    answer55c = Answer(text='$10.00', question=questions[54], is_correct=False)
+    answer55d = Answer(text='$15.00', question=questions[54], is_correct=True)
+    answer55e = Answer(text='None of the above', question=questions[54], is_correct=False)
+
+
+    answer56a = Answer(text='There is a shortage of earrings at a price of $100', question=questions[55], is_correct=False)
+    answer56b = Answer(text='The quantity sold of earrings will be 500', question=questions[55], is_correct=False)
+    answer56c = Answer(text='At equilibrium, fewer than 500 earrings will be purchased', question=questions[55], is_correct=True)
+    answer56d = Answer(text='The equilibrium price is above $100', question=questions[55], is_correct=True)
+    answer56e = Answer(text='If the price of earrings falls, quantity supplied will also fall', question=questions[55], is_correct=False)
+
+    answer57a = Answer(text='There is definitely a surplus in the market', question=questions[56], is_correct=False)
+    answer57b = Answer(text='There is definitely a shortage in the market', question=questions[56], is_correct=True)
+    answer57c = Answer(text='The market is in equilbrium', question=questions[56], is_correct=False)
+    answer57d = Answer(text='The current price is above equilibrium price', question=questions[56], is_correct=False)
+    answer57e = Answer(text='None of the above', question=questions[56], is_correct=False)
+
+    answer58a = Answer(text='A shortage of 40 units', question=questions[57], is_correct=False)
+    answer58b = Answer(text='A shortage of 30 units', question=questions[57], is_correct=False)
+    answer58c = Answer(text='A surplus of 30 units', question=questions[57], is_correct=True)
+    answer58d = Answer(text='A surplus of 70 units', question=questions[57], is_correct=False)
+    answer58e = Answer(text='A surplus of 110 units', question=questions[57], is_correct=False)
+
+
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -302,7 +505,32 @@ def seed_answers(questions):
                answer30a, answer30b, answer30c, answer30d, answer30e,
                answer31a, answer31b, answer31c, answer31d, answer31e,
                answer32a, answer32b, answer32c, answer32d, answer32e,
-               answer33a, answer33b, answer33c, answer33d, answer33e, ]
+               answer33a, answer33b, answer33c, answer33d, answer33e, 
+               answer34a, answer34b, answer34c, answer34d, answer34e,
+               answer35a, answer35b, answer35c, answer35d, answer35e,
+               answer36a, answer36b, answer36c, answer36d, answer36e,
+               answer37a, answer37b, answer37c, answer37d, answer37e,
+               answer38a, answer38b, answer38c, answer38d, answer38e,
+               answer39a, answer39b, answer39c, answer39d, answer39e,
+               answer40a, answer40b, answer40c, answer40d, answer40e,
+               answer41a, answer41b, answer41c, answer41d, answer41e,
+               answer42a, answer42b, answer42c, answer42d, answer42e,
+               answer43a, answer43b, answer43c, answer43d, answer43e,
+               answer44a, answer44b, answer44c, answer44d, answer44e,
+               answer45a, answer45b, answer45c, answer45d, answer45e,
+               answer46a, answer46b, answer46c, answer46d, answer46e,
+               answer47a, answer47b, answer47c, answer47d, answer47e,
+               answer48a, answer48b, answer48c, answer48d, answer48e,
+               answer49a, answer49b, answer49c, answer49d, answer49e,
+               answer50a, answer50b, answer50c, answer50d, answer50e,
+               answer51a, answer51b, answer51c, answer51d, answer51e,
+               answer52a, answer52b, answer52c, answer52d, answer52e,
+               answer53a, answer53b, answer53c, answer53d, answer53e, 
+               answer54a, answer54b, answer54c, answer54d, answer54e,
+               answer55a, answer55b, answer55c, answer55d, answer55e,
+               answer56a, answer56b, answer56c, answer56d, answer56e,
+               answer57a, answer57b, answer57c, answer57d, answer57e,
+               answer58a, answer58b, answer58c, answer58d, answer58e,]
 
     db.session.add_all(answers)
     db.session.commit()

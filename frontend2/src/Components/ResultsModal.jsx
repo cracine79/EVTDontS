@@ -92,7 +92,7 @@ export const ResultsModal = () => {
                 return(
                     <>
                     <div className="flex items-center justify-center">
-                        {questions[wrongAnswers[answerNumber].questionId].image_url ? <img src={questions[wrongAnswers[answerNumber].questionId].image_url}/>:<></>}
+                        {questions[wrongAnswers[answerNumber].questionId].image_url ? <img className='size-7/12' src={questions[wrongAnswers[answerNumber].questionId].image_url}/>:<></>}
                     </div>
                     {questions[wrongAnswers[answerNumber].questionId].text}
                     </>
@@ -137,7 +137,7 @@ export const ResultsModal = () => {
         items-center
         flex
         overflow-x-hidden
-        overflow-y-auto
+        
         fixed
         inset-0
         z-50
@@ -157,7 +157,7 @@ export const ResultsModal = () => {
           xl:w-3/5
           my-6
           mx-auto
-          h-full
+          max-h-[95vh]
           lg:h-auto
           md:h-auto
           flex
@@ -167,8 +167,9 @@ export const ResultsModal = () => {
       >
         <div
           className={`
+            overflow-y-auto
             translate
-            h-full
+            max-h-[95vh]
             min-h-64
             lg:h-auto
             md:h-auto

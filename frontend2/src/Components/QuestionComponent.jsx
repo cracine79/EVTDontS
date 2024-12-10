@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -8,6 +8,7 @@ import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 
 
 export const QuestionComponent = ({chapter, type, topics}) => {
+    const modalContentRef = useRef(null)
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions));
@@ -116,6 +117,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       if(submittedAnswers[questionId]){
         if (questionNumber < questionsObj.length - 1) {
           setQuestionNumber(prevNumber => prevNumber + 1);
+          if (modalContentRef.current) {
+            modalContentRef.current.scrollTo({
+              top: 0,
+              behavior: 'smooth', // Smooth scrolling animation
+            });
+          }
         } else {
           
           let numCorrect=0
@@ -178,7 +185,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
         items-center
         flex
         overflow-x-hidden
-        overflow-y-auto
+        
         fixed
         inset-0
         z-50
@@ -198,7 +205,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           xl:w-1/2
           my-6
           mx-auto
-          h-full
+         max-h-[95vh]
           lg:h-auto
           md:h-auto
           flex
@@ -207,9 +214,10 @@ export const QuestionComponent = ({chapter, type, topics}) => {
         `}
       >
         <div
+          ref={modalContentRef} 
           className={`
             translate
-            h-full
+            max-h-[95vh]
             min-h-64
             lg:h-auto
             md:h-auto
@@ -225,11 +233,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             focus:outline-none
              transition-transform
             duration-300
+            overflow-y-auto
               
           `}
         >
             {questionsObj[questionNumber] ? (
-              <div>
+              <div className=' h-full'>
                 <div className='flex flex-col items-center mt-6'>
                   {type=='chapterQuiz' && 
                     <div className="text-3xl px-6">{quizChapterName}  - Chapter Quiz</div>
@@ -239,9 +248,8 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                   }
                 
                 </div>
-                <div className='flex flex-row justify-center mt-4 -mb-4 w-full'>
-                  <img src={questionsObj[questionNumber].image_url}/>
-
+                <div className='flex flex-row justify-center mt-4 -mb-4 h-full'>
+                  {questionsObj[questionNumber].image_url && <img className='size-7/12' src={questionsObj[questionNumber].image_url}/>}
                 </div>
                 <div className="text-2xl mt-8 ml-8 mr-4 mb-6">Question {questionNumber + 1} of {numberOfQuestions}:{questionsObj[questionNumber].text.split('<br>').map((line, index) => (
                       <p key={index}>{line}</p>

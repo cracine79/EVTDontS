@@ -106,7 +106,7 @@ export const UpdateUnits = () => {
                 const hasChapters = unitIdsWithChapters.has(Number(unit.id))
                 return(<div key={unit.id} className={`${hasChapters  ? 'mb-6' : ''}`} >
                     <input type='checkbox' className='mx-2' name = {unit.id} onChange = {handleUnitChange} checked = {selectedUnits[unit.id]}disabled={!hasChapters}></input>
-                    <label className={`text-2xl ${hasChapters && 'mt-2'}`}>{unit.name}</label> 
+                    <label className={`text-2xl ${hasChapters && 'mt-2'}`}>{unit.name}</label> <span>{!hasChapters && <span className='text-xs text-gray-600'>(coming soon!)</span>}</span>
                     <div>
                         {hasChapters && <div> {chaptersDisplay(unit.id)}</div>}
                     </div>
@@ -178,15 +178,22 @@ export const UpdateUnits = () => {
                             <div className='mt-4 columns-2 gap-16 p-4 text-left'>
                                 <UnitChoiceForm />
                             </div>
-                            <button
-                                type="button"
-                                className="px-4 py-2 bg-slate-500 text-white font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-                                onClick={() => {
-                                handleSubmit()
-                                }}
+                            <div className='flex flex-col justify-around w-1/4'>
+                                <button
+                                    type="button"
+                                    className="px-4 py-2 bg-slate-500 text-white font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                                    onClick={() => {
+                                        handleSubmit()
+                                    }}
+                                    >
+                                    Submit
+                                </button>
+                                <button  className=" mt-6 px-4 py-2 bg-slate-500 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                                            onClick = {()=>{navigate('/userhome')}}
                                 >
-                                Submit
-                            </button>
+                                    Nevermind. Back to Dashboard.
+                                </button>
+                            </div>
             </div>
            
         </div>

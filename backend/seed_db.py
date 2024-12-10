@@ -50,6 +50,7 @@ def seed_units(subjects):
     unit10 = Unit(name="Unit 10: Trade and the Balance of Payments", subject=subjects[2])
     
     units = [unit1, unit2, unit3, unit4, unit5, unit6, unit7, unit8, unit9, unit10]
+    
     db.session.add_all(units)
     db.session.commit()
     
@@ -90,7 +91,8 @@ def seed_chapters(units):
 
 def assign_units_to_users(users, units):
     print("assigning units")
-    for unit in units:
+    user1Units = units[1:3]
+    for unit in user1Units:
         users[0].units.append(unit)
     
     users[1].units.append(units[0])
@@ -113,9 +115,9 @@ def seed_topics(chapters):
     topic12=QuestionTopic(name='The supply curve', chapter=chapters[9])
     topic13 = QuestionTopic(name='Shifts to supply', chapter=chapters[10])
     topic14 = QuestionTopic(name='Supply and Demand in Equilibrium', chapter=chapters[11])
-    topic15 = QuestionTopic(name='Shifts to Demand', chapter=chapters[12])
-    topic16 = QuestionTopic(name='Shifts to Supply', chapter=chapters[12])
-    topic34 = QuestionTopic(name='Simultaneous Shifts', chapter=chapters[13])
+    topic15 = QuestionTopic(name='Disequlibrium - Shifts to Demand', chapter=chapters[12])
+    topic16 = QuestionTopic(name='Disequlibrium - Shifts to Supply', chapter=chapters[12])
+    topic34 = QuestionTopic(name='Simultaneous Shifts to Supply and Demand', chapter=chapters[13])
     topic17 = QuestionTopic(name='Marginal Utility', chapter=chapters[14])    
     topic18 = QuestionTopic(name='Marginal Benefit and Demand', chapter = chapters[14])
     topic19 = QuestionTopic(name='Marginal Cost and Supply', chapter=chapters[15])
