@@ -99,7 +99,7 @@ export const Quiz = () => {
                             <div className ='mt-6 w-5/12'>
                                 <img src = {quizBlurbImgUrl} />
                             </div>
-                            <div className = 'mt-8 w-3/4 text-center' dangerouslySetInnerHTML={{__html: quizBlurb}}>
+                            <div className = 'whitespace-pre-line mt-8 w-3/4 text-center' dangerouslySetInnerHTML={{__html: quizBlurb}}>
                                 {/* {quizBlurb} */}
                             </div>
                         </div>}

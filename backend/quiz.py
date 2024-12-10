@@ -48,7 +48,9 @@ class AccessQuiz(Resource):
                     questions.extend(topic_questions)
             else:
                 all_topic_questions = Question.query.filter_by(topic_id = topic_ids[0]).offset(3).all()
+                print('ALL TOPIC QUESTIONS', all_topic_questions)
                 topic_questions = random.sample(all_topic_questions, min(6, len(all_topic_questions)))
+                print('TOPIC QUESTIONS AREREREER', topic_questions)
                 questions.extend(topic_questions)
         
         elif type == 'unitQuiz':

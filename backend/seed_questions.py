@@ -43,6 +43,15 @@ def seed_unit2_questions():
     question22 = Question(text="Which of the following will most likely result from a decrease in the price of good Z, a normal good?", chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
     question23 = Question(text="If the price of a good increases, which of the following would be expected in the market?", chapter = supplyChapter, topic=supplyCurveTopic)
     question24 = Question(text="Which of the following explains why supply is assumed to be upward sloping?", chapter = supplyChapter, topic=supplyCurveTopic)
+    question25 = Question(text='According to the law of supply, what would we expect to see happen in the market if the price of salty snacks that firms can sell their product at decreases?', chapter = supplyChapter, topic=supplyCurveTopic)
+    question26 = Question(text="The entire market for chairs in Shermer, Illinois consists of two firms, Firm A and Firm B.  Each firm's supply curve is shown above.  Given the supply curves, which of the following point is on the market supply curve?", chapter = supplyChapter, topic=supplyCurveTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TwoSupplyCurves_3.png")
+    question27 = Question(text='The law of supply is best illustrated by which of the following examples?', chapter = supplyChapter, topic=supplyCurveTopic)
+    question28 = Question(text='Supply is most accurately defined by which of the following?', chapter = supplyChapter, topic=supplyCurveTopic)
+    question29 = Question(text="According to the law of supply, what would we expect to happen if the price of a good increases?", chapter=supplyChapter, topic=supplyCurveTopic)
+    question30 = Question(text="Which of the following best describes the supply curve?", chapter=supplyChapter, topic=supplyCurveTopic)
+    question31 = Question(text="The market for pencils in the town of Springfield consists of three firms. Each firm’s supply table is shown above. Based on this information, what point is on the market supply curve?", chapter=supplyChapter, topic=supplyCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/ThreeFIrmSupplyTable.png")
+    question32 = Question(text='When the price of wine increases in the market, firms are observed to increase their production of wine in the following year.  This phenomenon best illustrates which economic concept?', chapter=supplyChapter, topic=supplyCurveTopic)
+    question33 = Question(text='The law of supply can be used to explain which of the following: \n\n I. The upward slope of the supply curve.  \n II.  Why firms are expected to produce more when prices increase. \n III. Why consumers will buy less of a good when prices increase', chapter=supplyChapter, topic=supplyCurveTopic)
 
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -51,7 +60,10 @@ def seed_unit2_questions():
                  question13, question14, question15,
                  question16, question17, question18,
                  question19, question20, question21, 
-                 question22, question23, question24]
+                 question22, question23, question24,
+                 question25, question26, question27,
+                 question28, question29, question30, 
+                 question31, question32, question33]
 
     print("questions created")
     db.session.add_all(questions)
@@ -204,6 +216,60 @@ def seed_answers(questions):
     answer24d = Answer(text='Firms will increase quantity supplied if the market price increases', question=questions[23], is_correct=True)
     answer24e = Answer(text='Consumers will buy less if the price increases', question=questions[23], is_correct=False)
  
+    answer25a = Answer(text='More firms will leave the market in the short run because the price is lower, benefiting firms that remain', question=questions[24], is_correct=False)
+    answer25b = Answer(text='More firms will enter the market in the short run because the price is lower so they will want to sell more', question=questions[24], is_correct=False)
+    answer25c = Answer(text='More firms still try to make and sell as many as possible, and consumers will buy more', question=questions[24], is_correct=False)
+    answer25d = Answer(text='Firms will reduce the quantity they prouduce and sell, decreasing the total quantity supplied in the market', question=questions[24], is_correct=True)
+    answer25e = Answer(text='The answer depends whether or not the good is an inferior good', question=questions[24], is_correct=False)
+    
+    answer26a = Answer(text='Price: $1, Quantity Supplied: 150', question=questions[25], is_correct=False)
+    answer26b = Answer(text='Price: $2, Quantity Supplied: 450', question=questions[25], is_correct=True)
+    answer26c = Answer(text='Price: $3, Quantity Supplied: 600', question=questions[25], is_correct=False)
+    answer26d = Answer(text='Price: $4, Quantity Supplied: 1600', question=questions[25], is_correct=False)
+    answer26e = Answer(text='None of the above', question=questions[25], is_correct=False)
+
+    answer27a = Answer(text='The price of apples fall, so apple manufacturers reduce the total amount of apples they grow that year', question = questions[26], is_correct=True)
+    answer27b = Answer(text='The price of tea increases, so tea farmers grow less that year because they can sell fewer units of tea and still make the same amount total revenue.', question = questions[26], is_correct=False)
+    answer27c = Answer(text='The price of cars falls so more people buy cars', question = questions[26], is_correct=False)
+    answer27d = Answer(text='When more pizza restaurants open, this causes the price of pizza in the market to fall.', question = questions[26], is_correct=False)
+    answer27e = Answer(text='If there are fewer companies producing Blu-Ray players, the total amount of Blu-Ray players supplied in the market falls.', question = questions[26], is_correct=False)
+    
+    answer28a = Answer(text='The total amount of product for sale in the market at a given time.', question=questions[27], is_correct=False)
+    answer28b = Answer(text='The process by which firms sell their product to consumers.', question=questions[27], is_correct=False)
+    answer28c = Answer(text='The relationship between the possible prices of a good in the market and the total quantity supplied by a firm or firms at those prices', question=questions[27], is_correct=True)
+    answer28d = Answer(text='The total capital value of all firms in a particular industry', question=questions[27], is_correct=False)
+    answer28e = Answer(text='The total amount of product that is sold and purchased in a year', question=questions[27], is_correct=False)
+    
+    answer29a = Answer(text="The quantity supplied will decrease.", question=questions[28], is_correct=False)
+    answer29b = Answer(text="The quantity supplied will increase.", question=questions[28], is_correct=True)
+    answer29c = Answer(text="The quantity demanded will increase.", question=questions[28], is_correct=False)
+    answer29d = Answer(text="The quantity demanded will decrease.", question=questions[28], is_correct=False)
+    answer29e = Answer(text="The market price will stabilize.", question=questions[28], is_correct=False)
+
+    answer30a = Answer(text="It slopes downward from left to right.", question=questions[29], is_correct=False)
+    answer30b = Answer(text="It slopes upward from left to right.", question=questions[29], is_correct=True)
+    answer30c = Answer(text="It is a straight vertical line.", question=questions[29], is_correct=False)
+    answer30d = Answer(text="It is a straight horizontal line.", question=questions[29], is_correct=False)
+    answer30e = Answer(text="It slopes downward from right to left.", question=questions[29], is_correct=False)
+
+    answer31a = Answer(text="Price: $50, Quantity Supplied: 1000", question=questions[30], is_correct=False)
+    answer31b = Answer(text="Price: $75, Quantity Supplied: 1300", question=questions[30], is_correct=False)
+    answer31c = Answer(text="Price: $100, Quantity Supplied: 1500", question=questions[30], is_correct=True)
+    answer31d = Answer(text="Price: $125, Quantity Supplied: 1700", question=questions[30], is_correct=False)
+    answer31e = Answer(text="Price: $150, Quantity Supplied: 2000", question=questions[30], is_correct=False)
+
+    answer32a = Answer(text='The theory of comparative advantage', question=questions[31], is_correct=False)
+    answer32b = Answer(text='The theory of absolute advantage', question=questions[31], is_correct=False)
+    answer32c = Answer(text='The law of Demand', question=questions[31], is_correct=False)
+    answer32d = Answer(text='The law of Supply', question=questions[31], is_correct=True)
+    answer32e = Answer(text='The law of diminishing marginal returns', question=questions[31], is_correct=False)
+
+    answer33a = Answer(text='I only', question=questions[32], is_correct=False)
+    answer33b = Answer(text='II only', question=questions[32], is_correct=False)
+    answer33c = Answer(text='III only', question=questions[32], is_correct=False)
+    answer33d = Answer(text='I and II', question=questions[32], is_correct=True)
+    answer33e = Answer(text='I, II and III', question=questions[32], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -227,7 +293,16 @@ def seed_answers(questions):
                answer21a, answer21b, answer21c, answer21d, answer21e,
                answer22a, answer22b, answer22c, answer22d, answer22e,
                answer23a, answer23b, answer23c, answer23d, answer23e,
-               answer24a, answer24b, answer24c, answer24d, answer24e,]
+               answer24a, answer24b, answer24c, answer24d, answer24e,
+               answer25a, answer25b, answer25c, answer25d, answer25e,
+               answer26a, answer26b, answer26c, answer26d, answer26e,
+               answer27a, answer27b, answer27c, answer27d, answer27e,
+               answer28a, answer28b, answer28c, answer28d, answer28e,
+               answer29a, answer29b, answer29c, answer29d, answer29e,
+               answer30a, answer30b, answer30c, answer30d, answer30e,
+               answer31a, answer31b, answer31c, answer31d, answer31e,
+               answer32a, answer32b, answer32c, answer32d, answer32e,
+               answer33a, answer33b, answer33c, answer33d, answer33e, ]
 
     db.session.add_all(answers)
     db.session.commit()

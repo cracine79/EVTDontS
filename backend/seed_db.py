@@ -72,9 +72,9 @@ def seed_chapters(units):
     chapter2_4 = Chapter(name="2.4 Shifts to Supply and Demand", unit = units[1], video_url="https://www.youtube.com/embed/Cf0J-2dY7Dg", order=13)
     chapter2_5 = Chapter(name="2.5 Simultaneous Shifts to Supply and Demand", unit = units[1], video_url="https://www.youtube.com/embed/ZtEp5B-xeMI", order=14)
     chapter2_6a = Chapter(name="2.6a Marginal Utility, Marginal Benefit, and Demand", unit = units[1], video_url="https://www.youtube.com/embed/9UzdtdrjURY", order=15)
-    chapter2_6b = Chapter(name="2.6b Marginal Cost and Supply", unit = units[1], video_url="https://www.youtube.com/embed/QByejdJI58o", order=16)
-    chapter2_7 = Chapter(name="2.7 Consumer Surplus, Producer Surplus, and Social Surplus", unit = units[1], video_url="https://www.youtube.com/embed/HNhtJYbagF0", order=17)
-    chapter2_8 = Chapter(name="2.8 Allocative Efficiency", unit = units[1], video_url="https://www.youtube.com/embed/kPwEpVKTD0A", order=18)
+    chapter2_6b = Chapter(name="2.6b Marginal Cost and Supply", unit = units[1], video_url="https://www.youtube.com/embed/HNhtJYbagF0", order=16)
+    chapter2_7 = Chapter(name="2.7 Consumer Surplus, Producer Surplus, and Social Surplus", unit = units[1], video_url="https://www.youtube.com/embed/kPwEpVKTD0A", order=17)
+    chapter2_8 = Chapter(name="2.8 Allocative Efficiency", unit = units[1], video_url="https://www.youtube.com/embed/oH_crlyNmtg", order=18)
     chapter3_1 = Chapter(name="3.1 Price Elasticity of Demand (PED)", unit = units[2], video_url="https://www.youtube.com/embed/bYUkZeZfZO8", order=19)
     chapter3_2 = Chapter(name="3.2 Determinants of Price Elasticity of Demand", unit = units[2], video_url="https://www.youtube.com/embed/40ZX1_6ebEY", order=20)
     chapter3_3 = Chapter(name="3.3 PED and Total Revenue", unit = units[2], video_url="https://www.youtube.com/embed/A7MHjOWFTv0", order=21)
@@ -82,7 +82,7 @@ def seed_chapters(units):
     chapter3_5 = Chapter(name="3.5 Income Elasticity of Demand", unit = units[2], video_url="https://www.youtube.com/embed/lZVZYc1yVbY", order=23)
     chapter3_6 = Chapter(name="3.6 Price Elasticity of Supply", unit = units[2], video_url="https://www.youtube.com/embed/4Jpvus1kpr8", order=24)
 
-    chapters = [chapter1_1, chapter1_2, chapter1_3, chapter1_4a, chapter1_4b, chapter1_5, chapter1_5a, chapter2_1, chapter2_1a, chapter2_2, chapter2_2a, chapter2_3, chapter2_5, chapter2_4, chapter2_6a, chapter2_6b, chapter2_7, chapter2_8, chapter3_1, chapter3_2, chapter3_3, chapter3_4, chapter3_5, chapter3_6]
+    chapters = [chapter1_1, chapter1_2, chapter1_3, chapter1_4a, chapter1_4b, chapter1_5, chapter1_5a, chapter2_1, chapter2_1a, chapter2_2, chapter2_2a, chapter2_3, chapter2_4, chapter2_5, chapter2_6a, chapter2_6b, chapter2_7, chapter2_8, chapter3_1, chapter3_2, chapter3_3, chapter3_4, chapter3_5, chapter3_6]
     db.session.add_all(chapters)
     db.session.commit()
 
