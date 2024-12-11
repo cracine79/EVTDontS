@@ -170,6 +170,13 @@ def seed_unit2_questions():
     question122 = Question(text='Given the above supply curve, what is producer surplus if price is $15', chapter=csPsSsChapter, topic=psTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/SupplyPQDash-2.png')
     question123 = Question(text='Given the above supply and demand curve, what is expected to happen to producer surplus if demand increases?', chapter=csPsSsChapter, topic=psTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q.png')
     
+    question124 = Question(text='Social Surplus is defined as', chapter=csPsSsChapter, topic = ssTopic)
+    question125 = Question(text='If the total Social Surplus in a market is calculated to be $400, and Consumer Surplus is $150. The market is in equilibrium, and Social Surplus is maximizied.  Then Producer Surplus must be', chapter=csPsSsChapter, topic = ssTopic)
+    question126 = Question(text='The above diagram illustrates the market supply and demand for a product. What is total social surplus at equilibrium?', chapter=csPsSsChapter, topic = ssTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q.png')
+    question127 = Question(text='The above diagram illustrates the market supply and demand for a product. What is total social surplus at equilibrium?', chapter=csPsSsChapter, topic = ssTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q-3.png')
+    question128 = Question(text='In the market for hats there are buyers and sellers and the market is in equilibirum.  The sum of the differences between what buyers were willing to pay and what they actually paid was $400.  The sum of the differences of the prices that producers actually recieved and the prices they required in order to be willing to sell was $700.  From this information, social surplus is', chapter=csPsSsChapter, topic = ssTopic)
+
+
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
                  question7, question8, question9,
@@ -210,7 +217,9 @@ def seed_unit2_questions():
                  question113, question114, question115,
                  question116, question117, question118,
                  question119, question120, question121, 
-                 question122, question123]
+                 question122, question123, question124,
+                 question125, question126, question127, 
+                 question128]
 
     print("questions created")
     db.session.add_all(questions)
@@ -970,6 +979,36 @@ def seed_answers(questions):
     answer123d = Answer(text='Producer surplus could increase or decrease', question=questions[122], is_correct=False)
     answer123e = Answer(text='More information is needed to answer the question', question=questions[122], is_correct=False)
 
+    answer124a = Answer(text='The sum of consumer surplus and producer surplus', question=questions[123], is_correct = False)
+    answer124b = Answer(text='The sum of the differences between the prices consumers would have been willing to pay and the prices producers would have been willing to accept.', question=questions[123], is_correct = False)
+    answer124c = Answer(text='The total additional benefit to all stakeholders when a good is bought and sold.', question=questions[123], is_correct = False)
+    answer124d = Answer(text='All of the above', question=questions[123], is_correct = True)
+    answer124e = Answer(text='None of the above', question=questions[123], is_correct = False)
+
+    
+    answer125a = Answer(text='$0', question=questions[124], is_correct = False)
+    answer125b = Answer(text='$150', question=questions[124], is_correct = False)
+    answer125c = Answer(text='$250', question=questions[124], is_correct = True)
+    answer125d = Answer(text='$400', question=questions[124], is_correct = False)
+    answer125e = Answer(text='Cannot be determined from available information', question=questions[124], is_correct = False)
+
+    answer126a = Answer(text='$750', question=questions[125], is_correct = False)
+    answer126b = Answer(text='$1500', question=questions[125], is_correct = False)
+    answer126c = Answer(text='$2000', question=questions[125], is_correct = False)
+    answer126d = Answer(text='$2250', question=questions[125], is_correct = True)
+    answer126e = Answer(text='$4500', question=questions[125], is_correct = False)
+
+    answer127a = Answer(text='$135', question=questions[126], is_correct = True)
+    answer127b = Answer(text='$120', question=questions[126], is_correct = False)
+    answer127c = Answer(text='$90', question=questions[126], is_correct = False)
+    answer127d = Answer(text='$45', question=questions[126], is_correct = False)
+    answer127e = Answer(text='$4.50', question=questions[126], is_correct = False)
+
+    answer128a = Answer(text='$300', question=questions[127], is_correct = False)
+    answer128b = Answer(text='$400', question=questions[127], is_correct = False)
+    answer128c = Answer(text='$700', question=questions[127], is_correct = False)
+    answer128d = Answer(text='$1,100', question=questions[127], is_correct = True)
+    answer128e = Answer(text='$280,000', question=questions[127], is_correct = False)
 
 
     
@@ -1095,7 +1134,12 @@ def seed_answers(questions):
                answer120a, answer120b, answer120c, answer120d, answer120e,
                answer121a, answer121b, answer121c, answer121d, answer121e,
                answer122a, answer122b, answer122c, answer122d, answer122e,
-               answer123a, answer123b, answer123c, answer123d, answer123e,]
+               answer123a, answer123b, answer123c, answer123d, answer123e,
+               answer124a, answer124b, answer124c, answer124d, answer124e,
+               answer125a, answer125b, answer125c, answer125d, answer125e,
+               answer126a, answer126b, answer126c, answer126d, answer126e,
+               answer127a, answer127b, answer127c, answer127d, answer127e,
+               answer128a, answer128b, answer128c, answer128d, answer128e,]
 
     db.session.add_all(answers)
     db.session.commit()
