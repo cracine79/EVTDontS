@@ -31,6 +31,10 @@ def seed_unit2_questions():
     muMbDemandChapter = db.session.get(Chapter, 15)
     mcSupplyChapter = db.session.get(Chapter, 16)
     mcSupplyTopic = db.session.get(QuestionTopic, 19)
+    csPsSsChapter = db.session.get(Chapter, 17)
+    csTopic = db.session.get(QuestionTopic, 20)
+    psTopic = db.session.get(QuestionTopic, 21)
+    ssTopic = db.session.get(QuestionTopic, 22)
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
     question2 = Question(text = "The table above lists the monthly individual demahd schedules for pizza for the only three buyers in the market, April, Bob and Charlie.  Which of the following combinations of price and quantity lies on the demand curve?", chapter=demandChapter, topic=demandCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/Screenshot+2024-11-14+at+8.14.41+PM.png")
@@ -151,6 +155,20 @@ def seed_unit2_questions():
     question109 = Question(text='The above diagram shows the total cost to Harold of producing different quantities of truffles.  What is the marginal cost of producing the third truffle?', topic=mcSupplyTopic, chapter=mcSupplyChapter,  image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/TrufflesTC.png')
     question110 = Question(text='The above diagram shows the total cost to Harold of producing different quantities of truffles.  If Harold produced and sold 4 truffles, what market price would be reasonable to expect that he sold them for?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/TrufflesTC.png')
 
+    question111 = Question(text='Given the demand curve above, if prices decrease from $4 to $3 per unit, total consumer surplus will', chapter = csPsSsChapter, topic=csTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/DemandPQDash15100500.png')
+    question112 = Question(text='The above diagram illustrates the market supply and demand for a product.  What is the consumer surplus at equilibrium price?', chapter = csPsSsChapter, topic=csTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q.png')
+    question113 = Question(text='The concept of consumer surplus refers to which of the following?', chapter = csPsSsChapter, topic=csTopic)
+    question114 = Question(text='The difference between what Jaqueline is willing to pay for a new pair of sunglasses and what she actually pays is a measure of her', chapter = csPsSsChapter, topic=csTopic)
+    question115 = Question(text='Consumer surplus exists because', chapter = csPsSsChapter, topic=csTopic)
+    question116 = Question(text='The above diagram illustrates the market supply and demand for a product.  What is the consumer surplus at equilibrium price?', chapter = csPsSsChapter, topic=csTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q-2.png')
+    
+    question117 = Question(text='Given the supply curve above, if prices increase from $2 to $3, total producer surplus will', chapter=csPsSsChapter, topic=psTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SupplyPQDash.png')
+    question118 = Question(text='The above diagram illustrates the market supply and demand for a product.  What is the producer surplus at equilibrium price?', chapter=csPsSsChapter, topic=psTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q.png')
+    question119 = Question(text='The concept of producer surplus refers to which of the following', chapter=csPsSsChapter, topic=psTopic)
+    question120 = Question(text='The difference between the minimum price that Phillip needs to make and sell handcrafted tables and the price he actually gets for his tables is referred to as', chapter=csPsSsChapter, topic=psTopic)
+    question121 = Question(text='Given the above supply curve, if price falls from $15 to $10 producer surplus will', chapter=csPsSsChapter, topic=psTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SupplyPQDash-2.png')
+    question122 = Question(text='Given the above supply curve, what is producer surplus if price is $15', chapter=csPsSsChapter, topic=psTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/SupplyPQDash-2.png')
+    question123 = Question(text='Given the above supply and demand curve, what is expected to happen to producer surplus if demand increases?', chapter=csPsSsChapter, topic=psTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q.png')
     
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -188,7 +206,11 @@ def seed_unit2_questions():
                  question100, question101, question102, 
                  question103, question104, question105, 
                  question106, question107, question108,
-                 question109, question110]
+                 question109, question110, question111, question112,
+                 question113, question114, question115,
+                 question116, question117, question118,
+                 question119, question120, question121, 
+                 question122, question123]
 
     print("questions created")
     db.session.add_all(questions)
@@ -870,6 +892,87 @@ def seed_answers(questions):
     answer110d = Answer(text='$25', question=questions[109], is_correct=True)
     answer110e = Answer(text='$40', question=questions[109], is_correct=False)
 
+    answer111a = Answer(text='increase by $1', question=questions[110], is_correct=False)
+    answer111b = Answer(text='increase by $100', question=questions[110], is_correct=False)
+    answer111c = Answer(text='increase by $150', question=questions[110], is_correct=True)
+    answer111d = Answer(text='increase by $200', question=questions[110], is_correct=False)
+    answer111e = Answer(text='remain constant at 400', question=questions[110], is_correct=False)
+
+    answer112a = Answer(text='$10', question=questions[111], is_correct=False)
+    answer112b = Answer(text='$15', question=questions[111], is_correct=False)
+    answer112c = Answer(text='$750', question=questions[111], is_correct=False)
+    answer112d = Answer(text='$1500', question=questions[111], is_correct=True)
+    answer112e = Answer(text='$2250', question=questions[111], is_correct=False)
+
+    answer113a = Answer(text='The difference between the quantity of a good or service that people purchase and the amount they actually consume.', question=questions[112], is_correct=False)
+    answer113b = Answer(text='The difference between the quantity of a good that is produced and the quantity that is consumed.', question=questions[112], is_correct=False)
+    answer113c = Answer(text='The difference between the cost of production and the price that a good is sold for.', question=questions[112], is_correct=False)
+    answer113d = Answer(text='The sum of the differences between the prices that consumers are willing to pay for a good and what they actually pay for it.', question=questions[112], is_correct=True)
+    answer113e = Answer(text='The sum of the differences between the prices that consumers are willing to pay for a good and the minimum price that producers need to recieve to sell the good', question=questions[112], is_correct=False)
+
+    answer114a = Answer(text='consumer surplus', question=questions[113], is_correct=True)
+    answer114b = Answer(text='producer surplus', question=questions[113], is_correct=False)
+    answer114c = Answer(text='allocative efficiency', question=questions[113], is_correct=False)
+    answer114d = Answer(text='technical efficiency', question=questions[113], is_correct=False)
+    answer114e = Answer(text='economies of scale', question=questions[113], is_correct=False)
+
+    answer115a = Answer(text='many consumers hold on to extra wealth in the form of savings', question=questions[114], is_correct=False)
+    answer115b = Answer(text='producers make profits', question=questions[114], is_correct=False)
+    answer115c = Answer(text='consumers decide not to buy the product if it is too expensive', question=questions[114], is_correct=False)
+    answer115d = Answer(text='some consumers are willing to pay a price higher than the market price', question=questions[114], is_correct=True)
+    answer115e = Answer(text='the fact that substitute goods enable consumers to switch to other products when prices rise', question=questions[114], is_correct=False)
+
+    answer116a = Answer(text='$30', question=questions[115], is_correct=False)
+    answer116b = Answer(text='$105', question=questions[115], is_correct=True)
+    answer116c = Answer(text='$125', question=questions[115], is_correct=False)
+    answer116d = Answer(text='$140', question=questions[115], is_correct=False)
+    answer116e = Answer(text='$210', question=questions[115], is_correct=False)
+
+    answer117a = Answer(text='increase by $900', question=questions[116], is_correct=False)
+    answer117b = Answer(text='increase by $300', question=questions[116], is_correct=False)
+    answer117c = Answer(text='increase by $250', question=questions[116], is_correct=True)
+    answer117d = Answer(text='Increase by $200', question=questions[116], is_correct=False)
+    answer117e = Answer(text='Increase by $50', question=questions[116], is_correct=False)
+
+    answer118a = Answer(text='$5', question=questions[117], is_correct=False)
+    answer118b = Answer(text='$15', question=questions[117], is_correct=False)
+    answer118c = Answer(text='$100', question=questions[117], is_correct=False)
+    answer118d = Answer(text='$150', question=questions[117], is_correct=False)
+    answer118e = Answer(text='$750', question=questions[117], is_correct=True)
+
+    answer119a = Answer(text='Sellers hiring cheaper workers to increase profits', question=questions[118], is_correct=False)
+    answer119b = Answer(text='The sum of the differences between the minimum price sellers need to sell their product and the price they actually receive', question=questions[118], is_correct=True)
+    answer119c = Answer(text='The sum of the differences between the minimum price sellers need to sell their product and the maximum price buyers would be willing to pay for the product', question=questions[118], is_correct=False)
+    answer119d = Answer(text='The total cost of production minus the total revenue from selling output', question=questions[118], is_correct=False)
+    answer119e = Answer(text='The total revenues from selling output minus the total cost of production', question=questions[118], is_correct=False)
+
+    answer120a = Answer(text='economies of scale', question=questions[119], is_correct=False)
+    answer120b = Answer(text='diseconomies of scale', question=questions[119], is_correct=False)
+    answer120c = Answer(text='disequilibrium', question=questions[119], is_correct=False)
+    answer120d = Answer(text='consumer surplus', question=questions[119], is_correct=False)
+    answer120e = Answer(text='producer surplus', question=questions[119], is_correct=True)
+
+    answer121a = Answer(text='fall by $750', question=questions[120], is_correct=True)
+    answer121b = Answer(text='fall by $400', question=questions[120], is_correct=False)
+    answer121c = Answer(text='fall by $200', question=questions[120], is_correct=False)
+    answer121d = Answer(text='fall by $100', question=questions[120], is_correct=False)
+    answer121e = Answer(text='fall by $80', question=questions[120], is_correct=False)
+
+    answer122a = Answer(text='$15', question=questions[121], is_correct=False)
+    answer122b = Answer(text='$400', question=questions[121], is_correct=True)
+    answer122c = Answer(text='$800', question=questions[121], is_correct=False)
+    answer122d = Answer(text='$1200', question=questions[121], is_correct=False)
+    answer122e = Answer(text='Indeterminate, given the available information', question=questions[121], is_correct=False)
+
+    answer123a = Answer(text='Producer surplus will definitely increase', question=questions[122], is_correct=True)
+    answer123b = Answer(text='Producer surplus will definitely decrease', question=questions[122], is_correct=False)
+    answer123c = Answer(text='Producer surplus will remain unchanged', question=questions[122], is_correct=False)
+    answer123d = Answer(text='Producer surplus could increase or decrease', question=questions[122], is_correct=False)
+    answer123e = Answer(text='More information is needed to answer the question', question=questions[122], is_correct=False)
+
+
+
+    
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -979,7 +1082,20 @@ def seed_answers(questions):
                answer107a, answer107b, answer107c, answer107d, answer107e,
                answer108a, answer108b, answer108c, answer108d, answer108e,
                answer109a, answer109b, answer109c, answer109d, answer109e,
-               answer110a, answer110b, answer110c, answer110d, answer110e,]
+               answer110a, answer110b, answer110c, answer110d, answer110e,
+               answer111a, answer111b, answer111c, answer111d, answer111e,
+               answer112a, answer112b, answer112c, answer112d, answer112e,
+               answer113a, answer113b, answer113c, answer113d, answer113e,
+               answer114a, answer114b, answer114c, answer114d, answer114e,
+               answer115a, answer115b, answer115c, answer115d, answer115e,
+               answer116a, answer116b, answer116c, answer116d, answer116e,
+               answer117a, answer117b, answer117c, answer117d, answer117e,
+               answer118a, answer118b, answer118c, answer118d, answer118e,
+               answer119a, answer119b, answer119c, answer119d, answer119e,
+               answer120a, answer120b, answer120c, answer120d, answer120e,
+               answer121a, answer121b, answer121c, answer121d, answer121e,
+               answer122a, answer122b, answer122c, answer122d, answer122e,
+               answer123a, answer123b, answer123c, answer123d, answer123e,]
 
     db.session.add_all(answers)
     db.session.commit()
