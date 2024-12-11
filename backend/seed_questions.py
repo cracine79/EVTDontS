@@ -24,7 +24,13 @@ def seed_unit2_questions():
     disequilibriumDemandShiftTopic = db.session.get(QuestionTopic, 15)
     disequilbriumSupplyShiftTopic = db.session.get(QuestionTopic, 16)
     disequilibriumChapter = db.session.get(Chapter, 13)
-    
+    simultaneousShiftsTopic = db.session.get(QuestionTopic, 34)
+    simultaneousShiftsChapter = db.session.get(Chapter, 14)
+    marginalUtilityTopic = db.session.get(QuestionTopic, 17)
+    marginalBenefitAndDemandTopic = db.session.get(QuestionTopic, 18)
+    muMbDemandChapter = db.session.get(Chapter, 15)
+    mcSupplyChapter = db.session.get(Chapter, 16)
+    mcSupplyTopic = db.session.get(QuestionTopic, 19)
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
     question2 = Question(text = "The table above lists the monthly individual demahd schedules for pizza for the only three buyers in the market, April, Bob and Charlie.  Which of the following combinations of price and quantity lies on the demand curve?", chapter=demandChapter, topic=demandCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/Screenshot+2024-11-14+at+8.14.41+PM.png")
@@ -104,9 +110,48 @@ def seed_unit2_questions():
     question72 = Question(text='Which of the following is NOT expected to result in a decrease in equilibrium price and increase in equilibrium quantity in the market for bottled water?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
     question73 = Question(text='An increase in the equilibrium price and decrease in equilibrium quantity of airplane tickets could be caused by which of the following?', chapter=disequilibriumChapter, topic=disequilbriumSupplyShiftTopic)
 
+    question74 = Question(text='Assume that more wheat is demanded as it is used to produce flour.  At the same time, more effective irrigation techniques allows farmers to produce more wheat.  Which of the following will definitely occur in the wheat market?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question75 = Question(text='The market for olives is in equilibrium.  Assume that the surgeon general announces that eating 20 olives a day will greatly reduce the chances of fatal heart disease.  At the same time, there a draught severely damages the olive crop.  WHich of the following will definitely occur as a result?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question76 = Question(text='Last year 20 thousand tons of rice was sold for $350 per ton.  This year 20 thousand tons of rice was sold for $220 per ton.  Which of the following changes in demand and supply could have caused this outcome?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question77 = Question(text='The above diagram shows the market in equilibrium for milk.  If the demand for milk decreases and simultaneously the supply of milk increases, we know that the new equilibirum point must land somewhere in:', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/SDABCD.png')
+    question78 = Question(text='Assume that the government increases taxes on gasoline, and at the same time people are commuting less as they work from home more.  As a result, the equilibrium price and quantity of gasoline is expeced to change in which of the following ways?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question79 = Question(text='Last month 3,000 boxes were sold for $10 a box.  This month 3,150 boxes were sold for $8 a box.  WHich of the following changes to supply and demand could have resulted in this change to the market?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question80 = Question(text='Assume that less coffee is demanded as consumers switch to tea. At the same time, poor weather conditions reduce the yield of coffee beans. Which of the following will definitely occur in the coffee market?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question81 = Question(text='The market for bicycles is in equilibrium. Assume that a new fitness trend discourages cycling, while a government subsidy significantly increases bicycle production. Which of the following will definitely occur as a result?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question82 = Question(text='Last year, 10 thousand gallons of orange juice were sold for $4 per gallon. This year, 15 thousand gallons were sold for $5 per gallon. Which of the following changes in demand and supply could have caused this outcome?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question83 = Question(text='The above diagram shows the market in equilibrium for bread. If the demand for bread increases and simultaneously the supply of bread decreases, we know that the new equilibrium point must land somewhere in:', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/SDABCD.png')
+    question84 = Question(text='Assume that the government reduces taxes on electricity, and at the same time more people are using electric cars. As a result, the equilibrium price and quantity of electricity is expected to change in which of the following ways?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
+    question85 = Question(text='Last month, 5,000 tickets to a concert were sold for $100 each. This month, 4,500 tickets were sold for $120 each. Which of the following changes to supply and demand could have resulted in this change to the market?', topic=simultaneousShiftsTopic, chapter=simultaneousShiftsChapter)
     
-    
+    question86 = Question(text='The diagram above shows Taylor`s utility function for cotton candy.  Her utility function illustrates the principal of', chapter=muMbDemandChapter, topic=marginalUtilityTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/TotalUtilityGraph.png')
+    question87 = Question(text='When Jason consumes one unit of a good, he gains 50 utils of satisfaction.  The second unit of the good he consumes increases total satisfaction by another 30 utils.  Which of the following is true?', chapter=muMbDemandChapter, topic=marginalUtilityTopic)
+    question88 = Question(text='The above diagram shows Wyatt`s marginal utility from toy cars.  What is his total utility from purchasing three cars?', chapter=muMbDemandChapter, topic=marginalUtilityTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/ToyCarMarginalUtility.png')
+    question89 = Question(text='If a good is available to consume free of charge, an individual will continue to consume it until', chapter=muMbDemandChapter, topic=marginalUtilityTopic)
+    question90 = Question(text='Assume diminishing marginal utility holds true.  If marginal utility is equal to zero, then:', chapter=muMbDemandChapter, topic=marginalUtilityTopic)
+    question91 = Question(text='The above diagram shows Bob`s total utility for consumption of different quantities of Sushi.  Which sushi order has a Marginal Utility of five utils?', chapter=muMbDemandChapter, topic=marginalUtilityTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SushiMU.png')
+    question92 = Question(text='The above diagram shows Bob`s total utility for consumption of different quantities of Sushi. What is the marginal utility of the fifth box of Sushi?', chapter=muMbDemandChapter, topic=marginalUtilityTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SushiMU.png')
+   
+    question93 = Question(text='The above diagram shows Sammy`s dollar value total benefit she receives from buying various quantities of blue jeans.  What is the marginal benefit Sammy recieves from buying the third pair of blue jeans?', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/BlueJeansTB.png')
+    question94 = Question(text='The above diagram shows Bill`s marginal benefit from purchasing different quantities of board games. Calculate Bill`s total benefit when he purchases four board games.', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/BoardGamesMB.png')
+    question95 = Question(text='The above diagram shows Bill`s marginal benefit from purchasing different quantities of board games.  If the price of board games is $10, how many board games will Bill buy?', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/BoardGamesMB.png')
+    question96 = Question(text='If a consumer faces diminishing marginal benefit as quantity consumed increases, then which of the following is true?', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic)
+    question97 = Question(text='The above diagram shows Bill`s marginal benefit from purchasing different quantities of board games. When Bill purchases three board games, which of the following is true?', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/BoardGamesMB.png')
+    question98 = Question(text='The above diagram shows Wes`s dollar value total benefit he receives from buying various quantities of blue jeans. Which pair of blue jeans brings Wes a marginal benefit of $30?', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/BlueJeansTB.png')
+    question99 = Question(text='The Demand Curve and the Marginal Benefit Curve are', chapter=muMbDemandChapter, topic=marginalBenefitAndDemandTopic)
 
+    question100 = Question(text='Marginal cost is defined as the', topic=mcSupplyTopic, chapter=mcSupplyChapter)
+    question101 = Question(text='The above diagram shows the total cost to Harold of producing different quantities of truffles.  What is the marginal cost of producing the fifth truffle?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/TrufflesTC.png')
+    question103 = Question(text='If marginal cost is increasing, this suggests that', topic=mcSupplyTopic, chapter=mcSupplyChapter)
+    question102 = Question(text='The above diagram shows the total cost to Harold of producing different quantities of truffles. If the market price of truffles is $35, how many truffles will Harold produce and sell?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/TrufflesTC.png')
+    question104 = Question(text='The above diagram shows the marginal cost of producing different quantities of candy canes.  What is the total cost of producing 4 candy canes?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/CandyCaneMC.png')
+    question105 = Question(text='The above diagram shows the marginal cost of producing different quantities of candy canes. If the firm produced and sold 3 candy canes, then which of the following could be the market price?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/CandyCaneMC.png')
+    question106 = Question(text='The above diagram shows the marginal cost of producing different quantities of candy canes.  Which quantity of output has a total cost of $10?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/CandyCaneMC.png')
+    question107 = Question(text='The above diagram shows the marginal cost of producing different quantities of candy canes. If the market price is $2, how many candy canes will be sold, and why?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/CandyCaneMC.png')
+    question108 = Question(text='When Jane produces 50 sweaters, the total cost of producing is $500.  When she produces 51 sweaters, the total cost increases to $580.  Which of the following statements is true?', topic=mcSupplyTopic, chapter=mcSupplyChapter)
+    question109 = Question(text='The above diagram shows the total cost to Harold of producing different quantities of truffles.  What is the marginal cost of producing the third truffle?', topic=mcSupplyTopic, chapter=mcSupplyChapter,  image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/TrufflesTC.png')
+    question110 = Question(text='The above diagram shows the total cost to Harold of producing different quantities of truffles.  If Harold produced and sold 4 truffles, what market price would be reasonable to expect that he sold them for?', topic=mcSupplyTopic, chapter=mcSupplyChapter, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/TrufflesTC.png')
+
+    
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
                  question7, question8, question9,
@@ -131,7 +176,19 @@ def seed_unit2_questions():
                  question64, question65, question66, 
                  question67, question68, question69,
                  question70, question71, question72, 
-                 question73, ]
+                 question73, question74, question75,
+                 question76, question77, question78,
+                 question79, question80, question81, 
+                 question82, question83, question84,
+                 question85, question86, question87,
+                 question88, question89, question90, 
+                 question91, question92, question93,
+                 question94, question95, question96, 
+                 question97, question98, question99,
+                 question100, question101, question102, 
+                 question103, question104, question105, 
+                 question106, question107, question108,
+                 question109, question110]
 
     print("questions created")
     db.session.add_all(questions)
@@ -590,6 +647,229 @@ def seed_answers(questions):
     answer73d = Answer(text='The number of competitors in the airline market increases significantly.', question=questions[72], is_correct=False)
     answer73e = Answer(text='Government reduces taxes on airline ticket sales.', question=questions[72], is_correct=False)
 
+    answer74a = Answer(text = 'The price of wheat will increase', question=questions[73], is_correct=False)
+    answer74b = Answer(text = 'The price of wheat will decrease', question=questions[73], is_correct=False)
+    answer74c = Answer(text = 'The quantity of wheat will increase', question=questions[73], is_correct=True)
+    answer74d = Answer(text = 'The quantity of wheat will decrease', question=questions[73], is_correct=False)
+    answer74e = Answer(text = 'The supply of wheat will decrease', question=questions[73], is_correct=False)
+
+    answer75a = Answer(text = 'The supply of olives will increase', question=questions[74], is_correct=False)
+    answer75b = Answer(text = 'The price of olives will increase', question=questions[74], is_correct=True)
+    answer75c = Answer(text = 'The quantity of olives grown will decrease', question=questions[74], is_correct=False)
+    answer75d = Answer(text = 'More olives will be consumed', question=questions[74], is_correct=False)
+    answer75e = Answer(text = 'The demand for olives will fall', question=questions[74], is_correct=False)
+
+
+    answer76a = Answer(text = 'Demand: Decrease, Supply: Decrease', question=questions[75], is_correct=True)
+    answer76b = Answer(text = 'Demand: Decrease, Supply: Increase', question=questions[75], is_correct=False)
+    answer76c = Answer(text = 'Demand: Increase, Supply: Decrease', question=questions[75], is_correct=False)
+    answer76d = Answer(text = 'Demand: No Change, Supply: Increase', question=questions[75], is_correct=False)
+    answer76e = Answer(text = 'Demand: Increase, Supply: No Change', question=questions[75], is_correct=False)
+
+    answer77a = Answer(text = 'Quadrant A, meaning price definitely increases', question=questions[76], is_correct=False)
+    answer77b = Answer(text = 'Quadrant B, meaning quantity definitely increases', question=questions[76], is_correct=False)
+    answer77c = Answer(text = 'Quadrant C, meaning price definitely decreases', question=questions[76], is_correct=True)
+    answer77d = Answer(text = 'Quadrant D meaning quantity definitely decreases', question=questions[76], is_correct=False)
+    answer77e = Answer(text = 'Quadrant D, but we do not know hwat happens to quantity', question=questions[76], is_correct=False)
+
+    answer78a = Answer(text = 'Price: Increase, Quantity: Decrease', question=questions[77], is_correct=False)
+    answer78b = Answer(text = 'Price: Decrease, Quantity: Decrease', question=questions[77], is_correct=False)
+    answer78c = Answer(text = 'Price: Decrease, Quantity: Decrease', question=questions[77], is_correct=False)
+    answer78d = Answer(text = 'Price: Decrease, Quantity: Indeterminate', question=questions[77], is_correct=False)
+    answer78e = Answer(text = 'Price: Indeterminate, Quantity: Decrease', question=questions[77], is_correct=True)
+
+    answer79a = Answer(text = 'Only an decrease in demand', question=questions[78], is_correct=False)
+    answer79b = Answer(text = 'Only an decrease in supply', question=questions[78], is_correct=False)
+    answer79c = Answer(text = 'An increase in supply and a decrease in demand', question=questions[78], is_correct=True)
+    answer79d = Answer(text = 'An increase in demand and a decrease in supply', question=questions[78], is_correct=False)
+    answer79e = Answer(text = 'An decrease in demand and a decrease in supply', question=questions[78], is_correct=False)
+
+    answer80a = Answer(text='The price of coffee will increase', question=questions[79], is_correct=False)
+    answer80b = Answer(text='The price of coffee will decrease', question=questions[79], is_correct=False)
+    answer80c = Answer(text='The quantity of coffee will increase', question=questions[79], is_correct=False)
+    answer80d = Answer(text='The quantity of coffee will decrease', question=questions[79], is_correct=True)
+    answer80e = Answer(text='The demand for coffee will increase', question=questions[79], is_correct=False)
+
+    answer81a = Answer(text='The price of bicycles will increase', question=questions[80], is_correct=False)
+    answer81b = Answer(text='The price of bicycles will decrease', question=questions[80], is_correct=True)
+    answer81c = Answer(text='The quantity of bicycles will increase', question=questions[80], is_correct=False)
+    answer81d = Answer(text='The quantity of bicycles will decrease', question=questions[80], is_correct=False)
+    answer81e = Answer(text='The supply of bicycles will decrease', question=questions[80], is_correct=False)
+
+    answer82a = Answer(text='Demand: Increase, Supply: Increase', question=questions[81], is_correct=True)
+    answer82b = Answer(text='Demand: Decrease, Supply: Increase', question=questions[81], is_correct=False)
+    answer82c = Answer(text='Demand: Decrease, Supply: Decrease', question=questions[81], is_correct=False)
+    answer82d = Answer(text='Demand: No Change, Supply: Decrease', question=questions[81], is_correct=False)
+    answer82e = Answer(text='Demand: Decrease, Supply: No Change', question=questions[81], is_correct=False)
+
+    answer83a = Answer(text='Quadrant A, meaning price definitely increases', question=questions[82], is_correct=True)
+    answer83b = Answer(text='Quadrant B, meaning quantity definitely increases', question=questions[82], is_correct=False)
+    answer83c = Answer(text='Quadrant C, meaning price definitely decreases', question=questions[82], is_correct=False)
+    answer83d = Answer(text='Quadrant D, meaning quantity definitely decreases', question=questions[82], is_correct=False)
+    answer83e = Answer(text='Quadrant B, but we do not know what happens to price', question=questions[82], is_correct=False)
+
+    answer84a = Answer(text='Price: Decrease, Quantity: Increase', question=questions[83], is_correct=False)
+    answer84b = Answer(text='Price: Increase, Quantity: Increase', question=questions[83], is_correct=False)
+    answer84c = Answer(text='Price: Increase, Quantity: Indeterminate', question=questions[83], is_correct=False)
+    answer84d = Answer(text='Price: Indeterminate, Quantity: Increase', question=questions[83], is_correct=True)
+    answer84e = Answer(text='Price: Indeterminate, Quantity: Decrease', question=questions[83], is_correct=False)
+
+    answer85a = Answer(text='Only an increasein demand', question=questions[84], is_correct=False)
+    answer85b = Answer(text='Only an increase in supply', question=questions[84], is_correct=False)
+    answer85c = Answer(text='A decrease in supply and an increase in demand', question=questions[84], is_correct=True)
+    answer85d = Answer(text='An increase in supply and an increase in demand', question=questions[84], is_correct=False)
+    answer85e = Answer(text='An increase in supply and a decrease in demand', question=questions[84], is_correct=False)
+
+    answer86a = Answer(text='The income effect', question=questions[85], is_correct=False)
+    answer86b = Answer(text='The substitution effect', question=questions[85], is_correct=False)
+    answer86c = Answer(text='Trade-offs when making choices', question=questions[85], is_correct=False)
+    answer86d = Answer(text='Increasing opporunity cost', question=questions[85], is_correct=False)
+    answer86e = Answer(text='Diminishing marginal utility', question=questions[85], is_correct=True)
+
+    answer87a = Answer(text='The marginal utility of the first unit is 30', question=questions[86], is_correct=False)
+    answer87b = Answer(text='The marginal utility of the second unit is 20', question=questions[86], is_correct=False)
+    answer87c = Answer(text='The marginal utility of the second unit is 80', question=questions[86], is_correct=False)
+    answer87d = Answer(text='The total utility of consuming two units is 80', question=questions[86], is_correct=True)
+    answer87e = Answer(text='The total utility of consumin gone unit is greater than the total utility of consuming two units', question=questions[86], is_correct=False)
+
+    answer88a = Answer(text='2 utils', question=questions[87], is_correct=False)
+    answer88b = Answer(text='6 utils', question=questions[87], is_correct=False)
+    answer88c = Answer(text='14 utils', question=questions[87], is_correct=False)
+    answer88d = Answer(text='24 utils', question=questions[87], is_correct=True)
+    answer88e = Answer(text='30 utils', question=questions[87], is_correct=False)
+
+    answer89a = Answer(text='Marginal utility is zero', question=questions[88], is_correct=True)
+    answer89b = Answer(text='Total utility is zero', question=questions[88], is_correct=False)
+    answer89c = Answer(text='Marginal utility is mazimized', question=questions[88], is_correct=False)
+    answer89d = Answer(text='Marginal utility starts to decrease', question=questions[88], is_correct=False)
+    answer89e = Answer(text='Total utility starts to increase', question=questions[88], is_correct=False)
+    
+    answer90a = Answer(text='Total utility is also zero', question=questions[89], is_correct=False)
+    answer90b = Answer(text='Total utility is maximized', question=questions[89], is_correct=True)
+    answer90c = Answer(text='Marginal utility will rise if more is consumed', question=questions[89], is_correct=False)
+    answer90d = Answer(text='Marginal utility will fall if less is consumed', question=questions[89], is_correct=False)
+    answer90e = Answer(text='Marginal benefit is maximized', question=questions[89], is_correct=False)
+
+    answer91a = Answer(text='The first sushi order', question=questions[90], is_correct=False)
+    answer91b = Answer(text='The second sushi order', question=questions[90], is_correct=True)
+    answer91c = Answer(text='The third sushi order', question=questions[90], is_correct=False)
+    answer91d = Answer(text='The fourth sushi order', question=questions[90], is_correct=False)
+    answer91e = Answer(text='The fifth sushi order', question=questions[90], is_correct=False)
+
+    answer92a = Answer(text='0 utils', question=questions[91], is_correct=False)
+    answer92b = Answer(text='1 util', question=questions[91], is_correct=False)
+    answer92c = Answer(text='3 utils', question=questions[91], is_correct=False)
+    answer92d = Answer(text='15 utils', question=questions[91], is_correct=False)
+    answer92e = Answer(text='-1 utils', question=questions[91], is_correct=True)
+
+    answer93a = Answer(text='$40', question=questions[92], is_correct=True )
+    answer93b = Answer(text='$45', question=questions[92], is_correct=False )
+    answer93c = Answer(text='$50', question=questions[92], is_correct=False )
+    answer93d = Answer(text='$90', question=questions[92], is_correct=False )
+    answer93e = Answer(text='$135', question=questions[92], is_correct=False )
+
+    answer94a = Answer(text='$5', question=questions[93], is_correct=False )
+    answer94b = Answer(text='$25', question=questions[93], is_correct=False )
+    answer94c = Answer(text='$40', question=questions[93], is_correct=False )
+    answer94d = Answer(text='$70', question=questions[93], is_correct=True )
+    answer94e = Answer(text='$90', question=questions[93], is_correct=False )
+
+    answer95a = Answer(text='Two board games, because only the fifth and fourth board game have loewr marginal benefit than price', question=questions[94], is_correct=False )
+    answer95b = Answer(text='Two board games, because when quantity is two, marginal benefit is $20, and $20/2 = 10.', question=questions[94], is_correct=False )
+    answer95c = Answer(text='Four board games, because the fourth board game brings the same additional benefit as price, but the fifth board game brings less additional benefit than price.', question=questions[94], is_correct=True )
+    answer95d = Answer(text='Five board games, because the price is greater than the marginal benefit of the fifth board game.', question=questions[94], is_correct=False )
+    answer95e = Answer(text='Not enough information is given to answer this question.', question=questions[94], is_correct=False )
+
+    answer96a = Answer(text='Total benefit decreases as each additional unit is consumed.', question=questions[95], is_correct=False )
+    answer96b = Answer(text='Total benefit increases as long as marginal benefit is positive', question=questions[95], is_correct=True )
+    answer96c = Answer(text='The consumer will never purchase any units', question=questions[95], is_correct=False )
+    answer96d = Answer(text='The consumer is willing to pay a higher price with each subsequent unit purchased', question=questions[95], is_correct=False )
+    answer96e = Answer(text='Total benefit will always be negative', question=questions[95], is_correct=False )
+
+    answer97a = Answer(text='Marginal benefit is decreasing and negative', question=questions[96], is_correct=False )
+    answer97b = Answer(text='Total benefit is $60', question=questions[96], is_correct=True )
+    answer97c = Answer(text='Total benefit is $5', question=questions[96], is_correct=False )
+    answer97d = Answer(text='If the price is $10, Bill will not increase the quantity he consumes.', question=questions[96], is_correct=False )
+    answer97e = Answer(text='The third board game brings greater additional benefit than the second.', question=questions[96], is_correct=False )
+
+    answer98a = Answer(text='The second pair', question=questions[97], is_correct=False )
+    answer98b = Answer(text='The third pair', question=questions[97], is_correct=False )
+    answer98c = Answer(text='The fourth pair', question=questions[97], is_correct=False )
+    answer98d = Answer(text='The fifth pair', question=questions[97], is_correct=True )
+    answer98e = Answer(text='The sixth pair', question=questions[97], is_correct=False )
+
+    answer99a = Answer(text='The same curve, because the price people will pay for a good is equal to the additional benefit they gain from consuming that last unit.', question=questions[98], is_correct=False )
+    answer99b = Answer(text='The same curve, because there is no difference between marginal benefit and price', question=questions[98], is_correct=False )
+    answer99c = Answer(text='Two distinct curves, with the marginal benefit curve lying below the demand curve', question=questions[98], is_correct=False )
+    answer99d = Answer(text='Two distinct curves, with the marignal benefit curve lying above the demand curve', question=questions[98], is_correct=False )
+    answer99e = Answer(text='Two distinct curves, the demand curve downward sloping and the marginal benefit curve upward sloping', question=questions[98], is_correct=False )
+
+    answer100a = Answer(text='change in total cost resulting from producing an additional unit of output', question=questions[99], is_correct=True)
+    answer100b = Answer(text='change in total cost resulting from using an additional unit of input', question=questions[99], is_correct=False)
+    answer100c = Answer(text='change in price when consumers buy one more unit', question=questions[99], is_correct=False)
+    answer100d = Answer(text='change in price when demand changes', question=questions[99], is_correct=False)
+    answer100e = Answer(text='difference between price consumers pay and producers charge', question=questions[99], is_correct=False)
+
+    answer101a = Answer(text='$20', question=questions[100], is_correct=False)
+    answer101b = Answer(text='$25', question=questions[100], is_correct=False)
+    answer101c = Answer(text='$30', question=questions[100], is_correct=True)
+    answer101d = Answer(text='$170', question=questions[100], is_correct=False)
+    answer101e = Answer(text='$280', question=questions[100], is_correct=False)
+
+    answer103a = Answer(text='Consumers consider the product to be a necessity', question=questions[102], is_correct=False)
+    answer103b = Answer(text='Consumers consider the product to be a luxury', question=questions[102], is_correct=False)
+    answer103c = Answer(text='Each additional unit produced increases total costs by more than the previous unit produced', question=questions[102], is_correct=True)
+    answer103d = Answer(text='Each additional unit produced increases total costs by less than the previous unit produced', question=questions[102], is_correct=False)
+    answer103e = Answer(text='Marginal benefit of consuming the good is also increasing', question=questions[102], is_correct=False)
+
+    answer102a = Answer(text='1 Truffle', question=questions[101], is_correct=False)
+    answer102b = Answer(text='2 Truffles', question=questions[101], is_correct=False)
+    answer102c = Answer(text='4 Truffles', question=questions[101], is_correct=True)
+    answer102d = Answer(text='5 Truffles', question=questions[101], is_correct=False)
+    answer102e = Answer(text='It cannot be determined from the informatino provided', question=questions[101], is_correct=False)
+
+    answer104a = Answer(text='$0.50', question=questions[103], is_correct=False)
+    answer104b = Answer(text='$2.50', question=questions[103], is_correct=False)
+    answer104c = Answer(text='$7.00', question=questions[103], is_correct=True)
+    answer104d = Answer(text='$8.50', question=questions[103], is_correct=False)
+    answer104e = Answer(text='$10.00', question=questions[103], is_correct=False)
+
+    answer105a = Answer(text='$1.40', question=questions[104], is_correct=False)
+    answer105b = Answer(text='$1.60', question=questions[104], is_correct=False)
+    answer105c = Answer(text='$1.90', question=questions[104], is_correct=False)
+    answer105d = Answer(text='$2.10', question=questions[104], is_correct=True)
+    answer105e = Answer(text='$2.60', question=questions[104], is_correct=False)
+
+    answer106a = Answer(text='1 candy cane', question=questions[105], is_correct=False)
+    answer106b = Answer(text='2 candy canes', question=questions[105], is_correct=False)
+    answer106c = Answer(text='3 candy canes', question=questions[105], is_correct=False)
+    answer106d = Answer(text='4 candy canes', question=questions[105], is_correct=False)
+    answer106e = Answer(text='5 candy canes', question=questions[105], is_correct=True)
+
+    answer107a = Answer(text='5 candy canes if possible, because firms always try to sell as much as possible', question=questions[106], is_correct=False)
+    answer107b = Answer(text='4 candy canes, because the total cost of producing is $10, a nice round number', question=questions[106], is_correct=False)
+    answer107c = Answer(text='3 candy canes, because firms will always produce and sell as long as the additional cost of producing one more is less than the price they receive for selling it', question=questions[106], is_correct=True)
+    answer107d = Answer(text='2 candy canes, because it is profitable to sell at a price of $2 and have a marginal cost of only $1.50', question=questions[106], is_correct=False)
+    answer107e = Answer(text='It is not possible to determine from the information provided', question=questions[106], is_correct=False)
+
+    answer108a = Answer(text='The marginal cost of the 51st sweater is $80', question=questions[107], is_correct=True)
+    answer108b = Answer(text='The marginal cost of the 51st sweater is $580', question=questions[107], is_correct=False)
+    answer108c = Answer(text='Marginal cost is definitely increasing', question=questions[107], is_correct=False)
+    answer108d = Answer(text='Marginal cost is definitely decreasing ', question=questions[107], is_correct=False)
+    answer108e = Answer(text='Jane should not make the 51st sweater', question=questions[107], is_correct=False)
+
+    answer109a = Answer(text='$15', question=questions[108], is_correct=False)
+    answer109b = Answer(text='$20', question=questions[108], is_correct=True)
+    answer109c = Answer(text='$45', question=questions[108], is_correct=False)
+    answer109d = Answer(text='$80', question=questions[108], is_correct=False)
+    answer109e = Answer(text='$145', question=questions[108], is_correct=False)
+
+    answer110a = Answer(text='$10', question=questions[109], is_correct=False)
+    answer110b = Answer(text='$15', question=questions[109], is_correct=False)
+    answer110c = Answer(text='$20', question=questions[109], is_correct=False)
+    answer110d = Answer(text='$25', question=questions[109], is_correct=True)
+    answer110e = Answer(text='$40', question=questions[109], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -662,7 +942,44 @@ def seed_answers(questions):
                answer70a, answer70b, answer70c, answer70d, answer70e,
                answer71a, answer71b, answer71c, answer71d, answer71e,
                answer72a, answer72b, answer72c, answer72d, answer72e,
-               answer73a, answer73b, answer73c, answer73d, answer73e,]
+               answer73a, answer73b, answer73c, answer73d, answer73e,
+               answer74a, answer74b, answer74c, answer74d, answer74e,
+               answer75a, answer75b, answer75c, answer75d, answer75e,
+               answer76a, answer76b, answer76c, answer76d, answer76e,
+               answer77a, answer77b, answer77c, answer77d, answer77e,
+               answer78a, answer78b, answer78c, answer78d, answer78e,
+               answer79a, answer79b, answer79c, answer79d, answer79e,
+               answer80a, answer80b, answer80c, answer80d, answer80e,
+               answer81a, answer81b, answer81c, answer81d, answer81e,
+               answer82a, answer82b, answer82c, answer82d, answer82e,
+               answer83a, answer83b, answer83c, answer83d, answer83e,
+               answer84a, answer84b, answer84c, answer84d, answer84e,
+               answer85a, answer85b, answer85c, answer85d, answer85e,
+               answer86a, answer86b, answer86c, answer86d, answer86e,
+               answer87a, answer87b, answer87c, answer87d, answer87e,
+               answer88a, answer88b, answer88c, answer88d, answer88e,
+               answer89a, answer89b, answer89c, answer89d, answer89e,
+               answer90a, answer90b, answer90c, answer90d, answer90e,
+               answer91a, answer91b, answer91c, answer91d, answer91e,
+               answer92a, answer92b, answer92c, answer92d, answer92e,
+               answer93a, answer93b, answer93c, answer93d, answer93e,
+               answer94a, answer94b, answer94c, answer94d, answer94e,
+               answer95a, answer95b, answer95c, answer95d, answer95e,
+               answer96a, answer96b, answer96c, answer96d, answer96e,
+               answer97a, answer97b, answer97c, answer97d, answer97e,
+               answer98a, answer98b, answer98c, answer98d, answer98e,
+               answer99a, answer99b, answer99c, answer99d, answer99e,
+               answer100a, answer100b, answer100c, answer100d, answer100e,
+               answer101a, answer101b, answer101c, answer101d, answer101e,
+               answer102a, answer102b, answer102c, answer102d, answer102e,
+               answer103a, answer103b, answer103c, answer103d, answer103e,
+               answer104a, answer104b, answer104c, answer104d, answer104e,
+               answer105a, answer105b, answer105c, answer105d, answer105e,
+               answer106a, answer106b, answer106c, answer106d, answer106e,
+               answer107a, answer107b, answer107c, answer107d, answer107e,
+               answer108a, answer108b, answer108c, answer108d, answer108e,
+               answer109a, answer109b, answer109c, answer109d, answer109e,
+               answer110a, answer110b, answer110c, answer110d, answer110e,]
 
     db.session.add_all(answers)
     db.session.commit()
