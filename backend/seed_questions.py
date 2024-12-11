@@ -35,6 +35,11 @@ def seed_unit2_questions():
     csTopic = db.session.get(QuestionTopic, 20)
     psTopic = db.session.get(QuestionTopic, 21)
     ssTopic = db.session.get(QuestionTopic, 22)
+    allocativeEfficiencyChapter = db.session.get(Chapter, 18)
+    allocativeEffiencyTopic = db.session.get(QuestionTopic, 23)
+    PEDChapter = db.session.get(Chapter, 19)
+    PEDConceptTopic = db.session.get(QuestionTopic, 24)
+    PEDCalculationTopic = db.session.get(QuestionTopic, 25)
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
     question2 = Question(text = "The table above lists the monthly individual demahd schedules for pizza for the only three buyers in the market, April, Bob and Charlie.  Which of the following combinations of price and quantity lies on the demand curve?", chapter=demandChapter, topic=demandCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/Screenshot+2024-11-14+at+8.14.41+PM.png")
@@ -176,6 +181,39 @@ def seed_unit2_questions():
     question127 = Question(text='The above diagram illustrates the market supply and demand for a product. What is total social surplus at equilibrium?', chapter=csPsSsChapter, topic = ssTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/SD1P1Q-3.png')
     question128 = Question(text='In the market for hats there are buyers and sellers and the market is in equilibirum.  The sum of the differences between what buyers were willing to pay and what they actually paid was $400.  The sum of the differences of the prices that producers actually recieved and the prices they required in order to be willing to sell was $700.  From this information, social surplus is', chapter=csPsSsChapter, topic = ssTopic)
 
+    question129 = Question(text='Which of the following conditions would suggest the market has achieved allocative efficiency (no externalities are present)', chapter = allocativeEfficiencyChapter, topic = allocativeEffiencyTopic)
+    question130 = Question(text='The above diagram shows the supply/Marginal Cost and demand/Marginal Benefit curves for a market.  If 80 units of output are produced, does the market achieve allocative efficiency?', chapter = allocativeEfficiencyChapter, topic = allocativeEffiencyTopic, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/SDMBMC.png")
+    question131 = Question(text='When a market achieves allocative efficiency, it produces at the quantity that maximizes', chapter = allocativeEfficiencyChapter, topic = allocativeEffiencyTopic)
+    question132 = Question(text='The above diagram shows the supply/MC and demand/MB curves for a market.  Which quantity of output is allocatively efficient?', chapter = allocativeEfficiencyChapter, topic = allocativeEffiencyTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/SDMBMC2.png")
+    question133 = Question(text='The above diagram shows the supply/MC and demand/MB curves for a market. When 20 units are sold', chapter = allocativeEfficiencyChapter, topic = allocativeEffiencyTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/SDMBMC2.png")
+    question134 = Question(text='Consumer surplus in a market is $400, producer surplus is $300.  No externalities exist in the market. Which of the following is certainly true?', chapter = allocativeEfficiencyChapter, topic = allocativeEffiencyTopic)
+    question135 = Question(text='Which of the following statements best describes the concept of allocative efficiency?', chapter=allocativeEfficiencyChapter, topic=allocativeEffiencyTopic)
+    question136 = Question(text='Allocative efficiency occurs when which of the following conditions is met?', chapter=allocativeEfficiencyChapter, topic=allocativeEffiencyTopic)
+    question137 = Question(text='Why is allocative efficiency considered a desirable outcome in a market economy?', chapter=allocativeEfficiencyChapter, topic=allocativeEffiencyTopic)
+
+    question138 = Question(text='Suppose the demand for gasoline is price inelastic.  If the price of gasoline increases by 10 percent, the quantity of gasoline demanded would', chapter=PEDChapter, topic=PEDConceptTopic)
+    question139 = Question(text='If a 10 percent decrease in the price of a good leads to a 30 percent increase in the quantity demanded, demand is', chapter=PEDChapter, topic=PEDConceptTopic)
+    question140 = Question(text='Moving from right to left upwards along a downward sloping linear demand curves, in which way does price elasticity of demand vary?', chapter=PEDChapter, topic=PEDConceptTopic)
+    question141 = Question(text='Assume that the demand for cheese is price elastic.  If the supply of cheese were to decrease, which of the following would result?', chapter=PEDChapter, topic=PEDConceptTopic)
+    question142 = Question(text='For the above demand curve, demand is', chapter=PEDChapter, topic=PEDConceptTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/PerfectlyElasticDemand.png')
+    question143 = Question(text='For the above demand curve, demand is', chapter=PEDChapter, topic=PEDConceptTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/PerfectlyInelasticDemand.png')
+    question144 = Question(text='What does it mean for a good to have perfectly inelastic demand?', chapter=PEDChapter, topic=PEDConceptTopic)
+    question145 = Question(text='If demand for a good is price elastic, how does the quantity demanded respond to a price change?', chapter=PEDChapter, topic=PEDConceptTopic)
+    question146 = Question(text='What does it mean if demand for a good is relatively inelastic?', chapter=PEDChapter, topic=PEDConceptTopic)
+
+    question147 = Question(text='For the above demand curve, the value of the (absolute value of the) PED coefficient is:', chapter=PEDChapter, topic=PEDCalculationTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/PerfectlyInelasticDemand.png')
+    question148 = Question(text='The quantity demanded of hampsters increased from 800 to 1200 when the price of hampsters decreased from $20 to $18.  The price elasticity of demand for hampsters over this range is', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question149 = Question(text='Assume that the PED coefficient for vacuums is 0.8.  If a decrease in price was known to increase quantity demanded by 40%, how large was the decrease in price?', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question150 = Question(text='Promoters of a boxing match know that if they charged $10 a ticket, 4,000 people would buy tickets, and if they charged $5 a ticket, 10,000 people would buy tickets.  Over this price range, the demand for tickets is', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question151 = Question(text='In the diagram above, at which point is demand most inelastic?', chapter=PEDChapter, topic=PEDConceptTopic)
+    question152= Question(text='Assume that demand for insulin is relatively inelastic.  When the price of insulin was $10 a unit, quantity demanded was 100.  When the price of insulin increased to $11, what is a possible new quantity demanded for insulin?', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question153 = Question(text='If the price of apples decreases from $3.00 to $2.00, and the quantity demanded increases from 500 to 600, then demand for apples is', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question154 = Question(text='A price increase of 25 percent leads to a 10 percent decrease in quantity demanded for a certain good. What is the price elasticity of demand?', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question155 = Question(text='The quantity demanded of oranges increased by 20% when the price of oranges decreased by 10%. What is the price elasticity of demand for oranges?', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question156 = Question(text='When the price of milk increased from $4 to $5, the quantity demanded decreased from 1,000 liters to 600 liters. Demand for milk is', chapter=PEDChapter, topic=PEDCalculationTopic)
+    question157 = Question(text='The PED coefficient for a product is calculated as 1.5. If the price of the product increases by 20%, what would be the expected percentage change in quantity demanded?', chapter=PEDChapter, topic=PEDCalculationTopic)
+    
+
 
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -219,7 +257,16 @@ def seed_unit2_questions():
                  question119, question120, question121, 
                  question122, question123, question124,
                  question125, question126, question127, 
-                 question128]
+                 question128, question129, question130, 
+                 question131, question132, question133,
+                 question134, question135, question136, 
+                 question137, question138, question139,
+                 question140, question141, question142,
+                 question143, question144, question145,
+                 question146, question147, question148,
+                 question149, question150, question151, 
+                 question152, question153, question154,
+                 question155, question156, question157,]
 
     print("questions created")
     db.session.add_all(questions)
@@ -1010,6 +1057,182 @@ def seed_answers(questions):
     answer128d = Answer(text='$1,100', question=questions[127], is_correct = True)
     answer128e = Answer(text='$280,000', question=questions[127], is_correct = False)
 
+    answer129a = Answer(text='Equilibrium price = Equilibrium quantity', question=questions[128], is_correct=False)
+    answer129b = Answer(text='Marginal Benefit = Marginal Cost', question=questions[128], is_correct=True)
+    answer129c = Answer(text='Marginal Benefit > Marginal Cost', question=questions[128], is_correct=False)
+    answer129d = Answer(text='Total Revenues = Total Costs', question=questions[128], is_correct=False)
+    answer129e = Answer(text='Marginal Utility = Marginal Cost', question=questions[128], is_correct=False)
+
+
+    answer130a = Answer(text='Yes, because the total amount sold is greater than 60 units', question=questions[129], is_correct=False)
+    answer130b = Answer(text='Yes, because allocative efficiency is always achieved in markets', question=questions[129], is_correct=False)
+    answer130c = Answer(text='No, because allocative efficiency is only achieved when total costs = total revenues', question=questions[129], is_correct=False)
+    answer130d = Answer(text='No, because at a quantity of 80, marginal cost is greater than marginal benefit', question=questions[129], is_correct=True)
+    answer130e = Answer(text='Indeterminant from given information - need more information about sellers average total costs', question=questions[129], is_correct=False)
+
+    answer131a = Answer(text='total consumer surplus', question=questions[130], is_correct=False)
+    answer131b = Answer(text='total producer surplus', question=questions[130], is_correct=False)
+    answer131c = Answer(text='total social surplus', question=questions[130], is_correct=True)
+    answer131d = Answer(text='total revenue', question=questions[130], is_correct=False)
+    answer131e = Answer(text='total external benefits', question=questions[130], is_correct=False)
+
+    answer132a = Answer(text='All quantities will yield allocative efficiency', question=questions[131], is_correct=False)
+    answer132b = Answer(text='No quantities will achieve allocative efficiency', question=questions[131], is_correct=False)
+    answer132c = Answer(text='90 units', question=questions[131], is_correct=False)
+    answer132d = Answer(text='60 units', question=questions[131], is_correct=True)
+    answer132e = Answer(text='20 units', question=questions[131], is_correct=False)
+
+    answer133a = Answer(text='MC = 60, MB = 60, allocative efficiency is achieved', question=questions[132], is_correct=False)
+    answer133b = Answer(text='MB = $40, MC = $10, alocative efficiency is not achieved', question=questions[132], is_correct=True)
+    answer133c = Answer(text='MB = $10, MC = $40, allocative efficiency is not achieved', question=questions[132], is_correct=False)
+    answer133d = Answer(text='MC = $5, MB = $50, allocative efficiency is not achieved', question=questions[132], is_correct=False)
+    answer133e = Answer(text='MC = $5, MB=$50, allocative efficiency is achieved', question=questions[132], is_correct=False)
+    
+    answer134a = Answer(text='Allocative efficiency is not achieved because consumer surplus is greater than producer surplus', question=questions[133], is_correct=False)
+    answer134b = Answer(text='Allocative efficiency is achieved because consumer surplus plus producer surplus is positive', question=questions[133], is_correct=False)
+    answer134c = Answer(text='Allocative efficiency is achieved because consumer surplus is positive', question=questions[133], is_correct=False)
+    answer134d = Answer(text='Social surplus is maximized', question=questions[133], is_correct=False)
+    answer134e = Answer(text='Social surplus is $700', question=questions[133], is_correct=True)
+
+    answer135a = Answer(text='It occurs when total revenue equals total cost.', question=questions[134], is_correct=False)
+    answer135b = Answer(text='It occurs when resources are allocated to maximize total social surplus.', question=questions[134], is_correct=True)
+    answer135c = Answer(text='It occurs when producers minimize costs of production.', question=questions[134], is_correct=False)
+    answer135d = Answer(text='It occurs when marginal utility equals total utility.', question=questions[134], is_correct=False)
+    answer135e = Answer(text='It occurs when consumer surplus equals producer surplus.', question=questions[134], is_correct=False)
+
+    answer136a = Answer(text='Marginal Benefit > Marginal Cost.', question=questions[135], is_correct=False)
+    answer136b = Answer(text='Marginal Benefit < Marginal Cost.', question=questions[135], is_correct=False)
+    answer136c = Answer(text='Marginal Benefit = Marginal Cost.', question=questions[135], is_correct=True)
+    answer136d = Answer(text='Total revenue equals total surplus.', question=questions[135], is_correct=False)
+    answer136e = Answer(text='Producers maximize profits.', question=questions[135], is_correct=False)
+
+    answer137a = Answer(text='Because it ensures producers always maximize profits.', question=questions[136], is_correct=False)
+    answer137b = Answer(text='Because it ensures resources are distributed to maximize social well-being.', question=questions[136], is_correct=True)
+    answer137c = Answer(text='Because it eliminates all market failures.', question=questions[136], is_correct=False)
+    answer137d = Answer(text='Because it guarantees equal distribution of goods and services.', question=questions[136], is_correct=False)
+    answer137e = Answer(text='Because it reduces the cost of production for firms.', question=questions[136], is_correct=False)
+
+    answer138a = Answer(text='increase by 10 percent', question=questions[137], is_correct=False)
+    answer138b = Answer(text='increase by more than 10 percent', question=questions[137], is_correct=False)
+    answer138c = Answer(text='increase by less than 10 percent', question=questions[137], is_correct=False)
+    answer138d = Answer(text='decrease by more than 10 percent', question=questions[137], is_correct=False)
+    answer138e = Answer(text='decrease by less than 10 percent', question=questions[137], is_correct=True)
+
+    answer139a = Answer(text='relatively elastic', question=questions[138], is_correct=True)
+    answer139b = Answer(text='relatively inelastic', question=questions[138], is_correct=False)
+    answer139c = Answer(text='unit elastic', question=questions[138], is_correct=False)
+    answer139d = Answer(text='perfectly elastic', question=questions[138], is_correct=False)
+    answer139e = Answer(text='perfectly inelastic', question=questions[138], is_correct=False)
+
+    answer140a = Answer(text='First elastic, then unit elastic, then inelastic', question=questions[139], is_correct=False)
+    answer140b = Answer(text='First unit elastic, then elastic, then inelastic', question=questions[139], is_correct=False)
+    answer140c = Answer(text='First elastic, then inelastic, then unit elastic', question=questions[139], is_correct=False)
+    answer140d = Answer(text='First inelastic, then unit elastic, then elastic', question=questions[139], is_correct=True)
+    answer140e = Answer(text='First inelastic, then elastic, then unit elastic', question=questions[139], is_correct=False)
+
+    answer141a = Answer(text='A decrease in price, leading to a relatively larger increase in quantity demanded of cheese', question=questions[140], is_correct=False)
+    answer141b = Answer(text='A decrease in price, leading to a relatively smaller increase in quantity demanded of cheese', question=questions[140], is_correct=True)
+    answer141c = Answer(text='An excess demand for bottled water', question=questions[140], is_correct=False)
+    answer141d = Answer(text='An increase in price, leading to a relatively smaller decrease in quantity demanded of cheese', question=questions[140], is_correct=False)
+    answer141e = Answer(text='A relatively small decrease in price and no change in equilibrium quantity', question=questions[140], is_correct=False)
+
+    answer142a = Answer(text='Relatively elastic', question=questions[141], is_correct=False)
+    answer142b = Answer(text='Relatively inelastic', question=questions[141], is_correct=False)
+    answer142c = Answer(text='Unit elastic', question=questions[141], is_correct=False)
+    answer142d = Answer(text='Perfectly elastic', question=questions[141], is_correct=False)
+    answer142e = Answer(text='Perfectly inelastic', question=questions[141], is_correct=True)
+
+    answer143a = Answer(text='Relatively elastic', question=questions[142], is_correct=False)
+    answer143b = Answer(text='Relatively inelastic', question=questions[142], is_correct=False)
+    answer143c = Answer(text='Unit elastic', question=questions[142], is_correct=False)
+    answer143d = Answer(text='Perfectly elastic', question=questions[142], is_correct=True)
+    answer143e = Answer(text='Perfectly inelastic', question=questions[142], is_correct=False)
+
+    answer144a = Answer(text='The quantity demanded changes significantly when price changes.', question=questions[143], is_correct=False)
+    answer144b = Answer(text='The quantity demanded does not change regardless of price changes.', question=questions[143], is_correct=True)
+    answer144c = Answer(text='The good has many substitutes.', question=questions[143], is_correct=False)
+    answer144d = Answer(text='The demand curve is horizontal.', question=questions[143], is_correct=False)
+    answer144e = Answer(text='Demand is highly responsive to changes in consumer income.', question=questions[143], is_correct=False)
+
+    answer145a = Answer(text='The quantity demanded changes by a smaller percentage than the price change.', question=questions[144], is_correct=False)
+    answer145b = Answer(text='The quantity demanded changes by the same percentage as the price change.', question=questions[144], is_correct=False)
+    answer145c = Answer(text='The quantity demanded changes by a larger percentage than the price change.', question=questions[144], is_correct=True)
+    answer145d = Answer(text='The quantity demanded does not change at all.', question=questions[144], is_correct=False)
+    answer145e = Answer(text='The demand curve is vertical.', question=questions[144], is_correct=False)
+
+    answer146a = Answer(text='The quantity demanded changes only slightly in response to price changes.', question=questions[145], is_correct=True)
+    answer146b = Answer(text='The quantity demanded changes significantly in response to price changes.', question=questions[145], is_correct=False)
+    answer146c = Answer(text='Demand is highly responsive to changes in income.', question=questions[145], is_correct=False)
+    answer146d = Answer(text='The demand curve is horizontal.', question=questions[145], is_correct=False)
+    answer146e = Answer(text='The quantity demanded increases at a constant rate.', question=questions[145], is_correct=False)
+
+
+    answer147a = Answer(text='equal to 0', question=questions[146], is_correct=True)
+    answer147b = Answer(text='less than 0', question=questions[146], is_correct=False)
+    answer147c = Answer(text='greater than 0', question=questions[146], is_correct=False)
+    answer147d = Answer(text='greater than 1', question=questions[146], is_correct=False)
+    answer147e = Answer(text='infinity', question=questions[146], is_correct=False)
+
+    answer148a = Answer(text='elastic', question=questions[147], is_correct=False)
+    answer148b = Answer(text='inelastic', question=questions[147], is_correct=True)
+    answer148c = Answer(text='unit elastic', question=questions[147], is_correct=False)
+    answer148d = Answer(text='perfectly elastic', question=questions[147], is_correct=False)
+    answer148e = Answer(text='perfectly inelastic', question=questions[147], is_correct=False)
+
+    answer149a = Answer(text='30%', question=questions[148], is_correct=False)
+    answer149b = Answer(text='36%', question=questions[148], is_correct=False)
+    answer149c = Answer(text='40%', question=questions[148], is_correct=False)
+    answer149d = Answer(text='50%', question=questions[148], is_correct=True)
+    answer149e = Answer(text='80%', question=questions[148], is_correct=False)
+    
+    answer150a = Answer(text='elastic', question=questions[149], is_correct=True)
+    answer150b = Answer(text='inelastic', question=questions[149], is_correct=False)
+    answer150c = Answer(text='unit elastic', question=questions[149], is_correct=False)
+    answer150d = Answer(text='perfectly elastic', question=questions[149], is_correct=False)
+    answer150e = Answer(text='perfectly inelastic', question=questions[149], is_correct=False)
+
+    answer151a = Answer(text='A', question=questions[150], is_correct=False)
+    answer151b = Answer(text='B', question=questions[150], is_correct=False)
+    answer151c = Answer(text='C', question=questions[150], is_correct=True)
+    answer151d = Answer(text='Elasticity is equal at all points', question=questions[150], is_correct=False)
+    answer151e = Answer(text='Not enough information is available to determine', question=questions[150], is_correct=False)
+
+
+    answer152a = Answer(text='110 units', question=questions[151], is_correct=False)
+    answer152b = Answer(text='100 units', question=questions[151], is_correct=False)
+    answer152c = Answer(text='97 units', question=questions[151], is_correct=True)
+    answer152d = Answer(text='50 units', question=questions[151], is_correct=False)
+    answer152e = Answer(text='0 units', question=questions[151], is_correct=False)
+
+    answer153a = Answer(text='perfectly inelastic', question=questions[152], is_correct=False)
+    answer153b = Answer(text='perfectly elastic', question=questions[152], is_correct=False)
+    answer153c = Answer(text='relatively inelastic', question=questions[152], is_correct=False)
+    answer153d = Answer(text='relatively elastic', question=questions[152], is_correct=True)
+    answer153e = Answer(text='unitary elastic', question=questions[152], is_correct=False)
+
+    answer154a = Answer(text='0.4', question=questions[153], is_correct=True)
+    answer154b = Answer(text='0.6', question=questions[153], is_correct=False)
+    answer154c = Answer(text='1.0', question=questions[153], is_correct=False)
+    answer154d = Answer(text='2.5', question=questions[153], is_correct=False)
+    answer154e = Answer(text='4.0', question=questions[153], is_correct=False)
+
+    answer155a = Answer(text='0.5', question=questions[154], is_correct=False)
+    answer155b = Answer(text='1.0', question=questions[154], is_correct=False)
+    answer155c = Answer(text='2.0', question=questions[154], is_correct=True)
+    answer155d = Answer(text='2.5', question=questions[154], is_correct=False)
+    answer155e = Answer(text='5.0', question=questions[154], is_correct=False)
+
+    answer156a = Answer(text='perfectly inelastic', question=questions[155], is_correct=False)
+    answer156b = Answer(text='perfectly elastic', question=questions[155], is_correct=False)
+    answer156c = Answer(text='relatively inelastic', question=questions[155], is_correct=False)
+    answer156d = Answer(text='relatively elastic', question=questions[155], is_correct=True)
+    answer156e = Answer(text='unitary elastic', question=questions[155], is_correct=False)
+
+    answer157a = Answer(text='+10%', question=questions[156], is_correct=False)
+    answer157b = Answer(text='+20%', question=questions[156], is_correct=False)
+    answer157c = Answer(text='+30%', question=questions[156], is_correct=False)
+    answer157d = Answer(text='-30%', question=questions[156], is_correct=True)
+    answer157e = Answer(text='-20%', question=questions[156], is_correct=False)
 
     
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
@@ -1139,7 +1362,36 @@ def seed_answers(questions):
                answer125a, answer125b, answer125c, answer125d, answer125e,
                answer126a, answer126b, answer126c, answer126d, answer126e,
                answer127a, answer127b, answer127c, answer127d, answer127e,
-               answer128a, answer128b, answer128c, answer128d, answer128e,]
+               answer128a, answer128b, answer128c, answer128d, answer128e,
+               answer129a, answer129b, answer129c, answer129d, answer129e,
+               answer130a, answer130b, answer130c, answer130d, answer130e,
+               answer131a, answer131b, answer131c, answer131d, answer131e,
+               answer132a, answer132b, answer132c, answer132d, answer132e,
+               answer133a, answer133b, answer133c, answer133d, answer133e,
+               answer134a, answer134b, answer134c, answer134d, answer134e,
+               answer135a, answer135b, answer135c, answer135d, answer135e,
+               answer136a, answer136b, answer136c, answer136d, answer136e,
+               answer137a, answer137b, answer137c, answer137d, answer137e,
+               answer138a, answer138b, answer138c, answer138d, answer138e,
+               answer139a, answer139b, answer139c, answer139d, answer139e,
+               answer140a, answer140b, answer140c, answer140d, answer140e,
+               answer141a, answer141b, answer141c, answer141d, answer141e,
+               answer142a, answer142b, answer142c, answer142d, answer142e,
+               answer143a, answer143b, answer143c, answer143d, answer143e,
+               answer144a, answer144b, answer144c, answer144d, answer144e,
+               answer145a, answer145b, answer145c, answer145d, answer145e,
+               answer146a, answer146b, answer146c, answer146d, answer146e,
+               answer147a, answer147b, answer147c, answer147d, answer147e,
+               answer148a, answer148b, answer148c, answer148d, answer148e,
+               answer149a, answer149b, answer149c, answer149d, answer149e,
+               answer150a, answer150b, answer150c, answer150d, answer150e,
+               answer151a, answer151b, answer151c, answer151d, answer151e,
+               answer152a, answer152b, answer152c, answer152d, answer152e,
+               answer153a, answer153b, answer153c, answer153d, answer153e, 
+               answer154a, answer154b, answer154c, answer154d, answer154e,
+               answer155a, answer155b, answer155c, answer155d, answer155e,
+               answer156a, answer156b, answer156c, answer156d, answer156e,
+               answer157a, answer157b, answer157c, answer157d, answer157e,]
 
     db.session.add_all(answers)
     db.session.commit()
