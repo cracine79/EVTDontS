@@ -25,8 +25,8 @@ export const Video = () => {
             const chapterBlurb = await getChapterBlurb(chapterId)
             setBlurb(chapterBlurb)
         }
-        console.log('fetching blurb')
         fetchBlurb()
+        window.scrollTo(0,0)
     }, [chapterId])
 
     const handleClick = () => {

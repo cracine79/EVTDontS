@@ -34,6 +34,7 @@ export const Quiz = () => {
             setQuizBlurbImgUrl(results.quiz_blurb_img_url)
         }
         fetchData()
+        window.scrollTo(0,0)
         }, [dispatch]
         
     )
