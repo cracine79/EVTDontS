@@ -44,6 +44,13 @@ def seed_unit2_questions():
     PEDDriversChapter = db.session.get(Chapter, 20)
     PEDRevenueTopic = db.session.get(QuestionTopic, 27)
     PEDRevenueChapter = db.session.get(Chapter, 21)
+    XEDChapter = db.session.get(Chapter, 22)
+    XEDCalculationTopic = db.session.get(QuestionTopic, 28)
+    XEDInterpretationTopic = db.session.get(QuestionTopic, 29)
+    YEDChapter = db.session.get(Chapter, 23)
+    YEDCalculationTopic = db.session.get(QuestionTopic, 30)
+    YEDInterpretationTopic = db.sesion.get(QuestionTopic, 31)
+
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
     question2 = Question(text = "The table above lists the monthly individual demahd schedules for pizza for the only three buyers in the market, April, Bob and Charlie.  Which of the following combinations of price and quantity lies on the demand curve?", chapter=demandChapter, topic=demandCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/Screenshot+2024-11-14+at+8.14.41+PM.png")
@@ -55,6 +62,7 @@ def seed_unit2_questions():
     question8 = Question(text="The above graphs show Frank's demand for hot dogs and Sam's demand for hot dogs.  Suppose Frank and Sam are the only two consumers in the market.  Which of the following is a point on the market demand curve for hot dogs?", chapter=demandChapter, topic=demandCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/HDDemands.png")
     question9 = Question(text="According to the law of demand, an increase in the price of peanut butter will result in", chapter=demandChapter, topic=demandCurveTopic)
     question10 = Question(text="Which of the following best describes the law of demand?", chapter=demandChapter, topic=demandCurveTopic)
+
     question11 = Question(text="All of the following cause a leftward shift in the demand for a normal good EXCEPT", chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
     question12 = Question(text="Jake consumes both pizza and hamburgers.  For Jake, pizza is a normal good, and hamburgers are an inferior good.  If Jake's income increases, which of the following will be the immediate impact on his consumption?", chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
     question13 = Question(text="An increase in the price of good X results in a decrease in the quantity demanded of good Y.  It can be inferred that good X and good Y are:" , chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
@@ -67,6 +75,7 @@ def seed_unit2_questions():
     question20 = Question(text="If a new study shows that consuming good Y has significant health benefits, how will this likely affect the demand for good Y?", chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
     question21 = Question(text="An increase in the population of a city is most likely to affect the demand for which of the following goods?", chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
     question22 = Question(text="Which of the following will most likely result from a decrease in the price of good Z, a normal good?", chapter=shiftsDemandChapter, topic=shiftsDemandTopic)
+
     question23 = Question(text="If the price of a good increases, which of the following would be expected in the market?", chapter = supplyChapter, topic=supplyCurveTopic)
     question24 = Question(text="Which of the following explains why supply is assumed to be upward sloping?", chapter = supplyChapter, topic=supplyCurveTopic)
     question25 = Question(text='According to the law of supply, what would we expect to see happen in the market if the price of salty snacks that firms can sell their product at decreases?', chapter = supplyChapter, topic=supplyCurveTopic)
@@ -240,6 +249,33 @@ def seed_unit2_questions():
     question177 = Question(text='Assume the demand for a luxury car is highly elastic. A decrease in price will result in which of the following?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
     question178 = Question(text='If a price increase for a product with inelastic demand is observed, what happens to total revenue?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
    
+    question179 = Question(text='Which of the following is true about cross price elasticity of demand?', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question180 = Question(text='If cross price elasticity between good X and good Y is positive, which of the following must be true about good X and good Y', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question181 = Question(text='The cross price elasticity of demand between good A and good B measures the percentage change in quantity demanded of good A that is brought on as a result of a percentage change in', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question182 = Question(text='In order to determine whether two goods are substitute goods, one would calculate', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question183 = Question(text='When the price of good X increased, quantity demanded of good Y decreased.  Which of the following is true?', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question184 = Question(text='If the cross-price elasticity of demand between good X and good Y is zero, which of the following must be true?', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question185 = Question(text='Which of the following is true about the relationship between two goods if the cross-price elasticity of demand is negative?', chapter=XEDChapter, topic=XEDInterpretationTopic)
+    question186 = Question(text='If the cross-price elasticity of demand between two goods is positive, it means that the goods are', chapter=XEDChapter, topic=XEDInterpretationTopic)
+
+    question187 = Question(text='When the price of potatoes goes up by 10%, quantity demanded of peas decreases by 4%.  What is cross-price elasticity of demand between potatoes and peas?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question188 = Question(text='Cross price elasticity between mustard and ketchup is calculated to be 0.4.  If the price of ketchup increased by 30%, which of the following is true?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question189 = Question(text='The above table shows the price of good A and quantity of demanded of good Y in two different time periods.  Based upon the table, it can be inferred that good A and good B are', chapter=XEDChapter, topic=XEDCalculationTopic, image_url='https://evtds-seeds.s3.us-east-2.amazonaws.com/XEDTable.png')
+    question190 = Question(text='The cross price elasticity of demand coefficient for hamburgers and hot dogs is calculated to be 0.5.  Based on this information, hamburgers and hot dogs are considered to be:', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question191 = Question(text='If a 20 percent decrease in the price of good X leads to a 10 percent increase in quantity demanded of good Y, which of the following is true?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question192 = Question(text='If the price of tea decreases by 20 percent and the quantity demanded of coffee decreases by 10 percent, what is the cross-price elasticity of demand between tea and coffee?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question193 = Question(text='The cross-price elasticity of demand for shoes and socks is calculated as -0.8. If the price of shoes increases by 25%, what is the expected percentage change in the quantity demanded of socks?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question194 = Question(text='If the cross-price elasticity of demand for butter and margarine is 1.2, and the price of margarine increases by 15%, what will happen to the quantity demanded of butter?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question195 = Question(text='The price of product X increases by 10%, leading to a 5 percent increase in the quantity demanded of product Y. What is the cross-price elasticity of demand between X and Y?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question196 = Question(text='When the price of ice cream decreases by 20%, the quantity demanded of frozen yogurt decreases by 12%. What is the cross-price elasticity of demand between these two goods?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question197 = Question(text='The cross-price elasticity of demand for pencils and erasers is -0.6. If the price of pencils increases by 30%, how will the quantity demanded of erasers change?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question198 = Question(text='If the price of energy drinks increases by 25 percent and the quantity demanded of sports drinks increases by 10 percent, what is the cross-price elasticity of demand between energy drinks and sports drinks?', chapter=XEDChapter, topic=XEDCalculationTopic)
+    question199 = Question(text='The cross-price elasticity of demand for tablets and smartphones is -0.75. If the price of tablets decreases by 20%, what is the percentage change in the quantity demanded of smartphones?', chapter=XEDChapter, topic=XEDCalculationTopic)
+
+    question =
+ 
+    
+
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
                  question7, question8, question9,
@@ -298,7 +334,14 @@ def seed_unit2_questions():
                  question167, question168, question169,
                  question170, question171, question172, 
                  question173, question174, question175,
-                 question176, question177, question178,]
+                 question176, question177, question178,
+                 question179, question180, question181, 
+                 question182, question183, question184,
+                 question185, question186,question187,
+                 question188, question189, question190, 
+                 question191, question192, question193,
+                 question194, question195, question196, 
+                 question197, question198, question199,]
 
     print("questions created")
     db.session.add_all(questions)
@@ -1393,6 +1436,134 @@ def seed_answers(questions):
     answer178d = Answer(text='Total revenue decreases because demand is elastic', question=questions[177], is_correct=False)
     answer178e = Answer(text='Total revenue is independent of price changes', question=questions[177], is_correct=False)
 
+    answer179a = Answer(text='It can determine whether a good is a luxury or a necessity', question=questions[178], is_correct=False)
+    answer179b = Answer(text='It can determine if a good is a normal good or inferior good', question=questions[178], is_correct=False)
+    answer179c = Answer(text='If it is close to zero, the two goods are closely related', question=questions[178], is_correct=False)
+    answer179d = Answer(text='It is negative for goods that are complements', question=questions[178], is_correct=True)
+    answer179e = Answer(text='It decreases as incomes decrease', question=questions[178], is_correct=False)
+
+    answer180a = Answer(text='X is a normal good, Y is an inferior good', question=questions[179], is_correct=False)
+    answer180b = Answer(text='Y is a normal good, X is an inferior good', question=questions[179], is_correct=False)
+    answer180c = Answer(text='X and Y are substitute goods', question=questions[179], is_correct=True)
+    answer180d = Answer(text='X and Y are complement goods', question=questions[179], is_correct=False)
+    answer180e = Answer(text='X and Y are luxury goods', question=questions[179], is_correct=False)
+
+    answer181a = Answer(text='consumer incomes', question=questions[180], is_correct=False)
+    answer181b = Answer(text='business taxes', question=questions[180], is_correct=False)
+    answer181c = Answer(text='demand for good B', question=questions[180], is_correct=False)
+    answer181d = Answer(text='supply of good B', question=questions[180], is_correct=False)
+    answer181e = Answer(text='price of good B', question=questions[180], is_correct=True)
+
+    answer182a = Answer(text='price elasticity of supply', question=questions[181], is_correct=False)
+    answer182b = Answer(text='price elasticity of demand', question=questions[181], is_correct=False)
+    answer182c = Answer(text='income elasticity of demand', question=questions[181], is_correct=False)
+    answer182d = Answer(text='cross-price elasticity of demand', question=questions[181], is_correct=True)
+    answer182e = Answer(text='elasticity of inputs', question=questions[181], is_correct=False)
+
+    answer183a = Answer(text='Good X and good Y are substitutes and XED > 0', question=questions[182], is_correct=False)
+    answer183b = Answer(text='Good X and good Y are substitutes and XED < 0', question=questions[182], is_correct=False)
+    answer183c = Answer(text='Good X and good Y are complements and XED > 0', question=questions[182], is_correct=False)
+    answer183d = Answer(text='Good X and good Y are complements and XED < 0', question=questions[182], is_correct=True)
+    answer183e = Answer(text='Good X and good Y are complements and XED = 0', question=questions[182], is_correct=False)
+
+    answer184a = Answer(text='The two goods are complements', question=questions[183], is_correct=False)
+    answer184b = Answer(text='The two goods are substitutes', question=questions[183], is_correct=False)
+    answer184c = Answer(text='The two goods are unrelated', question=questions[183], is_correct=True)
+    answer184d = Answer(text='A change in the price of one good has an effect on the demand for the other good', question=questions[183], is_correct=False)
+    answer184e = Answer(text='One good is a luxury and the other is a necessity', question=questions[183], is_correct=False)
+
+    answer185a = Answer(text='The two goods are substitutes', question=questions[184], is_correct=False)
+    answer185b = Answer(text='The two goods are complements', question=questions[184], is_correct=True)
+    answer185c = Answer(text='The two goods are unrelated', question=questions[184], is_correct=False)
+    answer185d = Answer(text='Both goods must be luxury goods', question=questions[184], is_correct=False)
+    answer185e = Answer(text='Both goods must be inferior goods', question=questions[184], is_correct=False)
+
+    answer186a = Answer(text='unrelated', question=questions[185], is_correct=False)
+    answer186b = Answer(text='definitely normal goods', question=questions[185], is_correct=False)
+    answer186c = Answer(text='complements', question=questions[185], is_correct=False)
+    answer186d = Answer(text='substitutes', question=questions[185], is_correct=True)
+    answer186e = Answer(text='definitely luxury goods', question=questions[185], is_correct=False)
+
+    answer187a = Answer(text='40', question=questions[186], is_correct=False)
+    answer187b = Answer(text='0.4', question=questions[186], is_correct=False)
+    answer187c = Answer(text='-0.4', question=questions[186], is_correct=True)
+    answer187d = Answer(text='2.5', question=questions[186], is_correct=False)
+    answer187e = Answer(text='-2.5', question=questions[186], is_correct=False)
+
+    answer188a = Answer(text='The price of mustard is expected to fall by 40%', question=questions[187], is_correct=False)
+    answer188b = Answer(text='The price of mustard is expected to fall by 12%', question=questions[187], is_correct=True)
+    answer188c = Answer(text='The price of mustard is expected to fall by 4%', question=questions[187], is_correct=False)
+    answer188d = Answer(text='The price of mustard is expected to rise by 4%', question=questions[187], is_correct=False)
+    answer188e = Answer(text='The price of mustard is expected to rise by 12%', question=questions[187], is_correct=False)
+
+    answer189a = Answer(text='XED > 0, good A and good B are complements', question=questions[188], is_correct=False)
+    answer189b = Answer(text='XED > 0, good A and good B are substitutes', question=questions[188], is_correct=True)
+    answer189c = Answer(text='XED < 0, good A and good B are substitutes', question=questions[188], is_correct=False)
+    answer189d = Answer(text='XED < 0, good A and good B are complements', question=questions[188], is_correct=False)
+    answer189e = Answer(text='XED = -1, good A and good B are luxury goods', question=questions[188], is_correct=False)
+    
+    answer190a = Answer(text='Luxury goods', question=questions[189], is_correct=False)
+    answer190b = Answer(text='Inferior goods', question=questions[189], is_correct=False)
+    answer190c = Answer(text='Normal goods', question=questions[189], is_correct=False)
+    answer190d = Answer(text='Complement goods', question=questions[189], is_correct=True)
+    answer190e = Answer(text='Substitute goods', question=questions[189], is_correct=False)
+
+    answer191a = Answer(text='Good X and Good Y are complementary goods and XED between them is -0.5', question=questions[190], is_correct=True)
+    answer191b = Answer(text='Good X and Good Y are complementary goods and XED between them is -2', question=questions[190], is_correct=False)
+    answer191c = Answer(text='Good X and Good Y are substitute goods and XED between them is -0.5', question=questions[190], is_correct=False)
+    answer191d = Answer(text='Good X and Good Y are substitute goods and XED between them is -2', question=questions[190], is_correct=False)
+    answer191e = Answer(text='Good X and Good Y are substitute goods and XED between them is +0.5', question=questions[190], is_correct=False)
+    
+    answer192a = Answer(text='-2.0', question=questions[191], is_correct=False)
+    answer192b = Answer(text='-0.5', question=questions[191], is_correct=False)
+    answer192c = Answer(text='0.5', question=questions[191], is_correct=True)
+    answer192d = Answer(text='2.0', question=questions[191], is_correct=False)
+    answer192e = Answer(text='0', question=questions[191], is_correct=False)
+
+    answer193a = Answer(text='Quantity demanded of socks will increase by 20%', question=questions[192], is_correct=False)
+    answer193b = Answer(text='Quantity demanded of socks will decrease by 20%', question=questions[192], is_correct=True)
+    answer193c = Answer(text='Quantity demanded of socks will increase by 10%', question=questions[192], is_correct=False)
+    answer193d = Answer(text='Quantity demanded of socks will decrease by 10%', question=questions[192], is_correct=False)
+    answer193e = Answer(text='Quantity demanded of socks will remain unchanged', question=questions[192], is_correct=False)
+
+    answer194a = Answer(text='Quantity demanded of butter will increase by 12%', question=questions[193], is_correct=False)
+    answer194b = Answer(text='Quantity demanded of butter will decrease by 18%', question=questions[193], is_correct=False)
+    answer194c = Answer(text='Quantity demanded of butter will increase by 18%', question=questions[193], is_correct=True)
+    answer194d = Answer(text='Quantity demanded of butter will decrease by 12%', question=questions[193], is_correct=False)
+    answer194e = Answer(text='Quantity demanded of butter will remain unchanged', question=questions[193], is_correct=False)
+
+    answer195a = Answer(text='The cross-price elasticity of demand is 0.5', question=questions[194], is_correct=True)
+    answer195b = Answer(text='The cross-price elasticity of demand is -0.5', question=questions[194], is_correct=False)
+    answer195c = Answer(text='The cross-price elasticity of demand is 2.0', question=questions[194], is_correct=False)
+    answer195d = Answer(text='The cross-price elasticity of demand is -2.0', question=questions[194], is_correct=False)
+    answer195e = Answer(text='The cross-price elasticity of demand is 0', question=questions[194], is_correct=False)
+
+    answer196a = Answer(text='The cross-price elasticity of demand is -0.6', question=questions[195], is_correct=False)
+    answer196b = Answer(text='The cross-price elasticity of demand is 0.6', question=questions[195], is_correct=True)
+    answer196c = Answer(text='The cross-price elasticity of demand is -2.0', question=questions[195], is_correct=False)
+    answer196d = Answer(text='The cross-price elasticity of demand is 2.0', question=questions[195], is_correct=False)
+    answer196e = Answer(text='The cross-price elasticity of demand is 0', question=questions[195], is_correct=False)
+
+    answer197a = Answer(text='Quantity demanded of erasers will increase by 18%', question=questions[196], is_correct=False)
+    answer197b = Answer(text='Quantity demanded of erasers will decrease by 18%', question=questions[196], is_correct=True)
+    answer197c = Answer(text='Quantity demanded of erasers will increase by 30%', question=questions[196], is_correct=False)
+    answer197d = Answer(text='Quantity demanded of erasers will decrease by 30%', question=questions[196], is_correct=False)
+    answer197e = Answer(text='Quantity demanded of erasers will remain unchanged', question=questions[196], is_correct=False)
+
+    answer198a = Answer(text='The cross-price elasticity of demand is 0.4', question=questions[197], is_correct=True)
+    answer198b = Answer(text='The cross-price elasticity of demand is 0.75', question=questions[197], is_correct=False)
+    answer198c = Answer(text='The cross-price elasticity of demand is 0.6', question=questions[197], is_correct=False)
+    answer198d = Answer(text='The cross-price elasticity of demand is -0.6', question=questions[197], is_correct=False)
+    answer198e = Answer(text='The cross-price elasticity of demand is -0.75', question=questions[197], is_correct=False)
+
+    answer199a = Answer(text='Quantity demanded of smartphones will increase by 15%', question=questions[198], is_correct=True)
+    answer199b = Answer(text='Quantity demanded of smartphones will increase by 10%', question=questions[198], is_correct=False)
+    answer199c = Answer(text='Quantity demanded of smartphones will increase by 14%', question=questions[198], is_correct=False)
+    answer199d = Answer(text='Quantity demanded of smartphones will increase by 7.5%', question=questions[198], is_correct=False)
+    answer199e = Answer(text='Quantity demanded of smartphones will remain unchanged', question=questions[198], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
     # answer = Answer(text='', question=questions[], is_correct=False)
     # answer = Answer(text='', question=questions[], is_correct=False)
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
@@ -1572,7 +1743,28 @@ def seed_answers(questions):
                answer175a, answer175b, answer175c, answer175d, answer175e,
                answer176a, answer176b, answer176c, answer176d, answer176e,
                answer177a, answer177b, answer177c, answer177d, answer177e,
-               answer178a, answer178b, answer178c, answer178d, answer178e,]
+               answer178a, answer178b, answer178c, answer178d, answer178e,
+               answer179a, answer179b, answer179c, answer179d, answer179e,
+               answer180a, answer180b, answer180c, answer180d, answer180e,
+               answer181a, answer181b, answer181c, answer181d, answer181e,
+               answer182a, answer182b, answer182c, answer182d, answer182e,
+               answer183a, answer183b, answer183c, answer183d, answer183e,
+               answer184a, answer184b, answer184c, answer184d, answer184e,
+               answer185a, answer185b, answer185c, answer185d, answer185e,
+               answer186a, answer186b, answer186c, answer186d, answer186e,
+               answer187a, answer187b, answer187c, answer187d, answer187e,
+               answer188a, answer188b, answer188c, answer188d, answer188e,
+               answer189a, answer189b, answer189c, answer189d, answer189e,
+               answer190a, answer190b, answer190c, answer190d, answer190e,
+               answer191a, answer191b, answer191c, answer191d, answer191e,
+               answer192a, answer192b, answer192c, answer192d, answer192e,
+               answer193a, answer193b, answer193c, answer193d, answer193e,
+               answer194a, answer194b, answer194c, answer194d, answer194e,
+               answer195a, answer195b, answer195c, answer195d, answer195e,
+               answer196a, answer196b, answer196c, answer196d, answer196e,
+               answer197a, answer197b, answer197c, answer197d, answer197e,
+               answer198a, answer198b, answer198c, answer198d, answer198e,
+               answer199a, answer199b, answer199c, answer199d, answer199e,]
 
     db.session.add_all(answers)
     db.session.commit()
