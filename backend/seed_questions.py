@@ -49,7 +49,7 @@ def seed_unit2_questions():
     XEDInterpretationTopic = db.session.get(QuestionTopic, 29)
     YEDChapter = db.session.get(Chapter, 23)
     YEDCalculationTopic = db.session.get(QuestionTopic, 30)
-    YEDInterpretationTopic = db.sesion.get(QuestionTopic, 31)
+    YEDInterpretationTopic = db.session.get(QuestionTopic, 31)
 
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
@@ -272,8 +272,24 @@ def seed_unit2_questions():
     question198 = Question(text='If the price of energy drinks increases by 25 percent and the quantity demanded of sports drinks increases by 10 percent, what is the cross-price elasticity of demand between energy drinks and sports drinks?', chapter=XEDChapter, topic=XEDCalculationTopic)
     question199 = Question(text='The cross-price elasticity of demand for tablets and smartphones is -0.75. If the price of tablets decreases by 20%, what is the percentage change in the quantity demanded of smartphones?', chapter=XEDChapter, topic=XEDCalculationTopic)
 
-    question =
- 
+    question200 = Question(text='If income elastity for good X is 0.5 and for good Y is 1.2, which of the following is true?', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question201 = Question(text='Jake consumes both instant noodles and entertainment.  For Jake, instant noodles are inferior goods and entertainment is a normal good.  If Jake’s income decreases, which of the following will be the immediate impact on his consumption?', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question202 = Question(text='For Bella, high speed WiFi is a luxury good. Which of the following could be the value of Bella’s income elasticity of demand coefficient?', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question203 = Question(text='To determine whether a good is a necessity or a luxury, one would calculate', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question204 = Question(text='Which of the following goods is most likely to have a positive income elasticity of demand greater than 1?', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question205 = Question(text='A good with an income elasticity of demand less than 1 but greater than 0 is most likely classified as:', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question206 = Question(text='Which of the following would indicate that a good is an inferior good?', chapter=YEDChapter, topic=YEDInterpretationTopic)
+    question207 = Question(text='If income elasticity of demand for a good is negative, this implies that:', chapter=YEDChapter, topic=YEDInterpretationTopic)
+
+    question208 = Question(text='If a 20 percent increase in consumer incomes results in a 30 percent increase in quantity demanded for electric scooters, which of the following is true?', chapter=YEDChapter, topic=YEDCalculationTopic)
+    question209 = Question(text='Income elasticity of demand for bus tickets is 0.4.  If incomes rise by 20%, what is the expected impact on quantity demanded of bus tickets?', topic=YEDCalculationTopic, chapter=YEDChapter)
+    question210 = Question(text='Generic brand soda is an inferior good.  If incomes increase by 10%, which of the following could be true?', topic=YEDCalculationTopic, chapter=YEDChapter)
+    question211 = Question(text='When consumer incomes fell by 40%, demand for yellow wigs rose by 30%.  Based upon this information, which of the following is correct?', topic=YEDCalculationTopic, chapter=YEDChapter)
+    question212 = Question(text='A 10 percent decrease in consumer incomes leads to a 20 percent decrease in quantity demanded for organic vegetables. Which of the following is true?', chapter=YEDChapter, topic=YEDCalculationTopic)
+    question213 = Question(text='Income elasticity of demand for online courses is -0.8. If incomes rise by 15%, what will happen to quantity demanded for online courses?', chapter=YEDChapter, topic=YEDCalculationTopic)
+    question214 = Question(text='Designer handbags have an income elasticity of demand of 2. If incomes increase by 25%, what is the expected change in quantity demanded for designer handbags?', chapter=YEDChapter, topic=YEDCalculationTopic)
+    question215 = Question(text='If a 30 percent increase in incomes results in a 15 percent decrease in quantity demanded for fast food, which of the following can be inferred?', chapter=YEDChapter, topic=YEDCalculationTopic)
+
     
 
     questions = [question1, question2, question3, 
@@ -341,7 +357,12 @@ def seed_unit2_questions():
                  question188, question189, question190, 
                  question191, question192, question193,
                  question194, question195, question196, 
-                 question197, question198, question199,]
+                 question197, question198, question199,
+                 question200, question201, question202, 
+                 question203, question204, question205, 
+                 question206, question207, question208,
+                 question209, question210, question211, question212,
+                 question213, question214, question215,]
 
     print("questions created")
     db.session.add_all(questions)
@@ -1561,11 +1582,103 @@ def seed_answers(questions):
     answer199c = Answer(text='Quantity demanded of smartphones will increase by 14%', question=questions[198], is_correct=False)
     answer199d = Answer(text='Quantity demanded of smartphones will increase by 7.5%', question=questions[198], is_correct=False)
     answer199e = Answer(text='Quantity demanded of smartphones will remain unchanged', question=questions[198], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
+
+    answer200a = Answer(text='Good X is a normal good, Good Y is an inferior good', question=questions[199], is_correct=False)
+    answer200b = Answer(text='Good X is an inferior good, Good Y is a normal goo', question=questions[199], is_correct=False)
+    answer200c = Answer(text='Both goods are normal goods', question=questions[199], is_correct=True)
+    answer200d = Answer(text='Both goods are inferior goods', question=questions[199], is_correct=False)
+    answer200e = Answer(text='None of the above', question=questions[199], is_correct=False)
+
+    answer201a = Answer(text='Entertainment: Decrease, Instant Noodles: Decrease', question=questions[200], is_correct=False)
+    answer201b = Answer(text='Entertainment: Increase, Instant Noodles: No Change', question=questions[200], is_correct=False)
+    answer201c = Answer(text='No Change: Decrease, Instant Noodles: Increase', question=questions[200], is_correct=False)
+    answer201d = Answer(text='Entertainment: Decrease, Instant Noodles: Increase', question=questions[200], is_correct=True)
+    answer201e = Answer(text='Entertainment: Increase, Instant Noodles: Increase', question=questions[200], is_correct=False)
+
+    answer202a = Answer(text='-1.5', question=questions[201], is_correct=False)
+    answer202b = Answer(text='-0.7', question=questions[201], is_correct=False)
+    answer202c = Answer(text='0', question=questions[201], is_correct=False)
+    answer202d = Answer(text='0.7', question=questions[201], is_correct=False)
+    answer202e = Answer(text='1.5', question=questions[201], is_correct=True)
+
+    answer203a = Answer(text='Income Elasticity of Demand', question=questions[202], is_correct=True)
+    answer203b = Answer(text='Cross Price Elasticity of Demand', question=questions[202], is_correct=False)
+    answer203c = Answer(text='Price Elasticity of Demand', question=questions[202], is_correct=False)
+    answer203d = Answer(text='Price Elasticity of Supply', question=questions[202], is_correct=False)
+    answer203e = Answer(text='None of the above', question=questions[202], is_correct=False)
+
+    answer204a = Answer(text='Luxury cars', question=questions[203], is_correct=True)
+    answer204b = Answer(text='Bread', question=questions[203], is_correct=False)
+    answer204c = Answer(text='Water', question=questions[203], is_correct=False)
+    answer204d = Answer(text='Bus tickets', question=questions[203], is_correct=False)
+    answer204e = Answer(text='None of the above', question=questions[203], is_correct=False)
+
+    answer205a = Answer(text='A necessity', question=questions[204], is_correct=True)
+    answer205b = Answer(text='A luxury', question=questions[204], is_correct=False)
+    answer205c = Answer(text='An inferior good', question=questions[204], is_correct=False)
+    answer205d = Answer(text='A Giffen good', question=questions[204], is_correct=False)
+    answer205e = Answer(text='None of the above', question=questions[204], is_correct=False)
+
+    answer206a = Answer(text='Its income elasticity is greater than 1', question=questions[205], is_correct=False)
+    answer206b = Answer(text='Its income elasticity is between 0 and 1', question=questions[205], is_correct=False)
+    answer206c = Answer(text='Its income elasticity is negative', question=questions[205], is_correct=True)
+    answer206d = Answer(text='Its income elasticity is exactly 0', question=questions[205], is_correct=False)
+    answer206e = Answer(text='Its income elasticity is indeterminate', question=questions[205], is_correct=False)
+
+    answer207a = Answer(text='The good is an inferior good', question=questions[206], is_correct=True)
+    answer207b = Answer(text='The good is a normal good', question=questions[206], is_correct=False)
+    answer207c = Answer(text='The good is a luxury good', question=questions[206], is_correct=False)
+    answer207d = Answer(text='The good is a necessity', question=questions[206], is_correct=False)
+    answer207e = Answer(text='None of the above', question=questions[206], is_correct=False)
+
+    answer208a = Answer(text='Income elasticity of demand for electric scooters is 1.5 and scooters are luxury goods', question=questions[207], is_correct=True)
+    answer208b = Answer(text='Income elasticity of demand for electric scooters is approximately 0.67 and scooters are necessities', question=questions[207], is_correct=False)
+    answer208c = Answer(text='Income elasticity of demand for electric scooters is -0.67 and scooters are inferior goods', question=questions[207], is_correct=False)
+    answer208d = Answer(text='Price elasticity of demand for scooters is 1.5', question=questions[207], is_correct=False)
+    answer208e = Answer(text='Price elasticity of demand for scooters is -1.5', question=questions[207], is_correct=False)
+
+    answer209a = Answer(text='Quantity demanded of bus tickets will rise by 4%', question=questions[208], is_correct=False)
+    answer209b = Answer(text='Quantity demanded of bus tickets will rise by 8%', question=questions[208], is_correct=True)
+    answer209c = Answer(text='Quantity demande of bus tickets will rise by 80%', question=questions[208], is_correct=False)
+    answer209d = Answer(text='Quantity demanded of bus tickets will not change', question=questions[208], is_correct=False)
+    answer209e = Answer(text='Quantity demanded of bus tickets will fall by an indeterminate amount', question=questions[208], is_correct=False)
+
+    answer210a = Answer(text='Quantity demanded of generic soda rose by 10%, so YED = 1', question=questions[209], is_correct=False)
+    answer210b = Answer(text='Quantity demanded of generic soda rose by 10%, so YED = -1', question=questions[209], is_correct=False)
+    answer210c = Answer(text='Quantity demanded of generic soda did not change', question=questions[209], is_correct=False)
+    answer210d = Answer(text='Quantity demanded of generic soda fell by 5%, so YED = 0.5', question=questions[209], is_correct=False)
+    answer210e = Answer(text='Quantity demanded of generic soda fell by 5%, so YED = -0.5', question=questions[209], is_correct=True)
+
+    answer211a = Answer(text='Yellow wigs are normal goods and Income Elasticity of Demand (YED)=0.75 ', question=questions[210], is_correct=False)
+    answer211b = Answer(text='Yellow wigs are luxury goods, and YED = 1.33', question=questions[210], is_correct=False)
+    answer211c = Answer(text='Yellow wigs are inferior goods, and YED = 0.75', question=questions[210], is_correct=True)
+    answer211d = Answer(text='Yellow wigs have few substitutes, and XED = 1.5', question=questions[210], is_correct=False)
+    answer211e = Answer(text='Yellow wigs have many complements, and XED = 1.5', question=questions[210], is_correct=False)
+
+    answer212a = Answer(text='Income elasticity of demand for organic vegetables is -2, and they are inferior goods', question=questions[211], is_correct=False)
+    answer212b = Answer(text='Income elasticity of demand for organic vegetables is 0.5, and they are necessities', question=questions[211], is_correct=False)
+    answer212c = Answer(text='Income elasticity of demand for organic vegetables is 2, and they are luxury goods', question=questions[211], is_correct=True)
+    answer212d = Answer(text='Organic vegetables are inferior goods with a YED of 0.5', question=questions[211], is_correct=False)
+    answer212e = Answer(text='None of the above', question=questions[211], is_correct=False)
+
+    answer213a = Answer(text='Quantity demanded will decrease by 12%', question=questions[212], is_correct=True)
+    answer213b = Answer(text='Quantity demanded will increase by 12%', question=questions[212], is_correct=False)
+    answer213c = Answer(text='Quantity demanded will decrease by 1.2%', question=questions[212], is_correct=False)
+    answer213d = Answer(text='Quantity demanded will increase by 1.2%', question=questions[212], is_correct=False)
+    answer213e = Answer(text='No change in quantity demanded', question=questions[212], is_correct=False)
+
+    answer214a = Answer(text='Quantity demanded for designer handbags will increase by 25%', question=questions[213], is_correct=False)
+    answer214b = Answer(text='Quantity demanded for designer handbags will increase by 50%', question=questions[213], is_correct=True)
+    answer214c = Answer(text='Quantity demanded for designer handbags will increase by 5%', question=questions[213], is_correct=False)
+    answer214d = Answer(text='Quantity demanded for designer handbags will decrease by 25%', question=questions[213], is_correct=False)
+    answer214e = Answer(text='No change in quantity demanded for designer handbags', question=questions[213], is_correct=False)
+
+    answer215a = Answer(text='Fast food is a luxury good with YED = 0.5', question=questions[214], is_correct=False)
+    answer215b = Answer(text='Fast food is a normal good with YED = -0.5', question=questions[214], is_correct=False)
+    answer215c = Answer(text='Fast food is an inferior good with YED = -0.5', question=questions[214], is_correct=True)
+    answer215d = Answer(text='Fast food is an inferior good with YED = 0.5', question=questions[214], is_correct=False)
+    answer215e = Answer(text='None of the above', question=questions[214], is_correct=False)
+
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -1764,7 +1877,23 @@ def seed_answers(questions):
                answer196a, answer196b, answer196c, answer196d, answer196e,
                answer197a, answer197b, answer197c, answer197d, answer197e,
                answer198a, answer198b, answer198c, answer198d, answer198e,
-               answer199a, answer199b, answer199c, answer199d, answer199e,]
+               answer199a, answer199b, answer199c, answer199d, answer199e,
+               answer200a, answer200b, answer200c, answer200d, answer200e,
+               answer201a, answer201b, answer201c, answer201d, answer201e,
+               answer202a, answer202b, answer202c, answer202d, answer202e,
+               answer203a, answer203b, answer203c, answer203d, answer203e,
+               answer204a, answer204b, answer204c, answer204d, answer204e,
+               answer205a, answer205b, answer205c, answer205d, answer205e,
+               answer206a, answer206b, answer206c, answer206d, answer206e,
+               answer207a, answer207b, answer207c, answer207d, answer207e,
+               answer208a, answer208b, answer208c, answer208d, answer208e,
+               answer209a, answer209b, answer209c, answer209d, answer209e,
+               answer210a, answer210b, answer210c, answer210d, answer210e,
+               answer211a, answer211b, answer211c, answer211d, answer211e,
+               answer212a, answer212b, answer212c, answer212d, answer212e,
+               answer213a, answer213b, answer213c, answer213d, answer213e,
+               answer214a, answer214b, answer214c, answer214d, answer214e,
+               answer215a, answer215b, answer215c, answer215d, answer215e,]
 
     db.session.add_all(answers)
     db.session.commit()
