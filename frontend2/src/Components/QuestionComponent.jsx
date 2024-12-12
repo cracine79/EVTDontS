@@ -259,7 +259,14 @@ export const QuestionComponent = ({chapter, type, topics}) => {
               </div>
 
             ) : (
-              <div>No question available</div>
+              type=='shortWeakspotQuiz' ? 
+              <div className='mt-8 mx-6'>
+                <div className='text-center text-2xl mb-4'>Dude, you're too green!</div>
+                <div >Looks like you need to go take some quizzes before we have enough data to judge your weak spots.  Go take some quizzes, flail around in the dark a bit like Shroedinger's cat, and come back when you're battle tested.</div>
+              </div> :
+              <>
+                <div>Oops!  Question Not available</div>
+              </>
             )}
             {
               selectAnswerPrompt &&
@@ -288,7 +295,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
               Previous Question
                             </button> :
               <div className='w-40'></div>
-              } 
+              } { questionsObj[questionNumber] &&
               <button className='
                             border-black 
                             h-1/5 
@@ -303,6 +310,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                             font-medium
                             hover:cursor-pointer'
                             onClick = {handleSubmit}>{questionNumber < numberOfQuestions - 1 ? <>Next Question</>:<>Submit Quiz</>}</button>
+                          }
               <button className='
                             border-black 
                             h-1/5 

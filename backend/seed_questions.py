@@ -418,7 +418,7 @@ def seed_answers(questions):
     answer4e = Answer(text="The marginal benefit", question=questions[3], is_correct=False)
 
     answer5a = Answer(text="The income effect and substitution effect cause quantity demanded to move in the same direction", question=questions[4], is_correct=True)
-    answer5b = Answer(text="The substitution effect moves the quanitty demanded in the opposite direction than the substitution effect", question=questions[4], is_correct=False)
+    answer5b = Answer(text="The substitution effect moves the quantity demanded in the opposite direction than the substitution effect", question=questions[4], is_correct=False)
     answer5c = Answer(text="The substitution effect is dominated by the income effect", question=questions[4], is_correct=False)
     answer5d = Answer(text="The income effect is dominated by the substitution effect", question=questions[4], is_correct=False)
     answer5e = Answer(text="With an increase in income, the consumer decreases consumption of the good", question=questions[4], is_correct=False)
@@ -444,8 +444,8 @@ def seed_answers(questions):
     answer9a = Answer(text="The demand curve for peanut butter getting steeper", question=questions[8], is_correct=False)
     answer9b = Answer(text="The demand curve for peanut butter getting flatter", question=questions[8], is_correct=False)
     answer9c = Answer(text="a decrease in the demand for almond butter, a substitute good.", question=questions[8], is_correct=False)
-    answer9d = Answer(text="a decrease in the quanitty of peanut butter demanded", question=questions[8], is_correct=True)
-    answer9e = Answer(text="an increase in the quanitty of peanut butter supplied", question=questions[8], is_correct=False)
+    answer9d = Answer(text="a decrease in the quantity of peanut butter demanded", question=questions[8], is_correct=True)
+    answer9e = Answer(text="an increase in the quantity of peanut butter supplied", question=questions[8], is_correct=False)
 
     answer10a = Answer(text="When the price of a good falls, the quantity demanded increases", question=questions[9], is_correct=True)
     answer10b = Answer(text="Demand is met buy Supply", question=questions[9], is_correct=False)
@@ -799,7 +799,7 @@ def seed_answers(questions):
     answer66b = Answer(text='Price of haircuts and total quantity haircuts performed rise', question=questions[65], is_correct=False)
     answer66c = Answer(text='Price of haircuts rises and total quantity of haircuts performed falls', question=questions[65], is_correct=False)
     answer66d = Answer(text='Price of haircuts falls and total quantity of haircuts performed rises', question=questions[65], is_correct=True)
-    answer66e = Answer(text='No change to price or quanitty of haircuts performed.', question=questions[65], is_correct=False)
+    answer66e = Answer(text='No change to price or quantity of haircuts performed.', question=questions[65], is_correct=False)
 
     answer67a = Answer(text='Equilibrium price and quantity of flip phones both rise', question=questions[66], is_correct=False)
     answer67b = Answer(text='Equilibrium price and quantity of flip phones both fall', question=questions[66], is_correct=False)
@@ -1715,7 +1715,7 @@ def seed_answers(questions):
 
     answer218a = Answer(text='The quantity supplied of automobiles will decrease by 20%', question=questions[217], is_correct=False)
     answer218b = Answer(text='The quantity supplied of automobiles will decrease by 16%', question=questions[217], is_correct=False)
-    answer218c = Answer(text='The quanitty supplied of automobiles will increase by 16%', question=questions[217], is_correct=True)
+    answer218c = Answer(text='The quantity supplied of automobiles will increase by 16%', question=questions[217], is_correct=True)
     answer218d = Answer(text='The quantity supplied of automobiles will increase by 20%', question=questions[217], is_correct=False)
     answer218e = Answer(text='The quantity supplied of automobiles will increase by 800%', question=questions[217], is_correct=False)
 
