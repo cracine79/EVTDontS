@@ -28,6 +28,7 @@ import { FinishUnit } from './Components/FinishedUnit';
 import { UnitQuizResults } from './Components/UnitQuizResults';
 import { RetrieveData } from './Components/RetrieveData';
 import { ResetPassword } from './Components/ResetPassword';
+import { PrivacyPolicy } from './Components/PrivacyPolicy';
 
 const Layout = () => {
   return(
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
       {
         path:'/reset-password',
         element: <ResetPassword />
+      },
+      {
+        path:'/privacypolicy',
+        element: <PrivacyPolicy />
       }
     ]
   }
