@@ -40,6 +40,10 @@ def seed_unit2_questions():
     PEDChapter = db.session.get(Chapter, 19)
     PEDConceptTopic = db.session.get(QuestionTopic, 24)
     PEDCalculationTopic = db.session.get(QuestionTopic, 25)
+    PEDDriversTopic = db.session.get(QuestionTopic, 26)
+    PEDDriversChapter = db.session.get(Chapter, 20)
+    PEDRevenueTopic = db.session.get(QuestionTopic, 27)
+    PEDRevenueChapter = db.session.get(Chapter, 21)
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
     question2 = Question(text = "The table above lists the monthly individual demahd schedules for pizza for the only three buyers in the market, April, Bob and Charlie.  Which of the following combinations of price and quantity lies on the demand curve?", chapter=demandChapter, topic=demandCurveTopic, image_url="https://evtds-seeds.s3.us-east-2.amazonaws.com/Screenshot+2024-11-14+at+8.14.41+PM.png")
@@ -213,7 +217,25 @@ def seed_unit2_questions():
     question156 = Question(text='When the price of milk increased from $4 to $5, the quantity demanded decreased from 1,000 liters to 600 liters. Demand for milk is', chapter=PEDChapter, topic=PEDCalculationTopic)
     question157 = Question(text='The PED coefficient for a product is calculated as 1.5. If the price of the product increases by 20%, what would be the expected percentage change in quantity demanded?', chapter=PEDChapter, topic=PEDCalculationTopic)
     
-
+    question158 = Question(text='A firm`s demand curve is expected to be highly elastic if which of the following exists?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question159 = Question(text='The absolute value of the price elasticity of demand for a good decreases when', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question160 = Question(text='What may be one reason that fidglebaums face a price elasticity demand coefficient of 2.5?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question161 = Question(text='Good A has PED coefficient of 1.2.  Good B has a PED coefficient of 0.3.  What is one possible explanation for this?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question162 = Question(text='Which of the following will make the demand for a product more elastic?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question163 = Question(text='Why might demand for a product become more inelastic?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question164 = Question(text='If a good is considered a luxury, what impact does this have on its price elasticity of demand?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question165 = Question(text='Why would the price elasticity of demand for a good decrease?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    question166 = Question(text='When is demand most likely to be perfectly inelastic?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+   
+    
+    
+    # question = Question(text='Assume that demand for energy drinks is relatively price inelastic.  An increase in supply of energy drinks will result in which of the following?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
 
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -266,7 +288,10 @@ def seed_unit2_questions():
                  question146, question147, question148,
                  question149, question150, question151, 
                  question152, question153, question154,
-                 question155, question156, question157,]
+                 question155, question156, question157,
+                 question158, question159, question160, 
+                 question161, question162, question163,
+                 question164, question165, question166]
 
     print("questions created")
     db.session.add_all(questions)
@@ -1234,7 +1259,70 @@ def seed_answers(questions):
     answer157d = Answer(text='-30%', question=questions[156], is_correct=True)
     answer157e = Answer(text='-20%', question=questions[156], is_correct=False)
 
-    
+    answer158a = Answer(text='A small number of close substitutes', question=questions[157], is_correct=False)
+    answer158b = Answer(text='A small number of competitors selling the good', question=questions[157], is_correct=False)
+    answer158c = Answer(text='A high degree of necessity', question=questions[157], is_correct=False)
+    answer158d = Answer(text='The price of the good constitutes a high portion of consumer incomes', question=questions[157], is_correct=True)
+    answer158e = Answer(text='A very short time period is being considered', question=questions[157], is_correct=False)
+
+    answer159a = Answer(text='the good has more substitutes', question=questions[158], is_correct=False)
+    answer159b = Answer(text='the good becomes a necessity', question=questions[158], is_correct=True)
+    answer159c = Answer(text='consumers spend a greater portion of their budget on the good', question=questions[158], is_correct=False)
+    answer159d = Answer(text='the price of an input used to produce the good increases', question=questions[158], is_correct=False)
+    answer159e = Answer(text='the good has few complements', question=questions[158], is_correct=False)
+
+    answer160a = Answer(text='The president urged everyone to get a Figlebaum on national news', question=questions[159], is_correct=False)
+    answer160b = Answer(text='The industry just saw an increase in the supply of labor needed to produce Figlebaums', question=questions[159], is_correct=False)
+    answer160c = Answer(text='Figlebaums are very cheap relative to average incomes and budgets', question=questions[159], is_correct=False)
+    answer160d = Answer(text='Figlebaums are highly necessary for a large percentage of the population', question=questions[159], is_correct=False)
+    answer160e = Answer(text='There are many substitutes for Figlebaums', question=questions[159], is_correct=True)
+
+    answer161a = Answer(text='Good A has fewer substitutes', question=questions[160], is_correct=False)
+    answer161b = Answer(text='Good A has a higher degree of necessity.', question=questions[160], is_correct=False)
+    answer161c = Answer(text='Good A takes up a smaller proportion of income than good B', question=questions[160], is_correct=True)
+    answer161d = Answer(text='Good B has more substitutes', question=questions[160], is_correct=False)
+    answer161e = Answer(text='Good B is very, very cheap and good A is very expensive.', question=questions[160], is_correct=False)
+
+    answer162a = Answer(text='The product is a necessity.', question=questions[161], is_correct=False)
+    answer162b = Answer(text='The product has many close substitutes.', question=questions[161], is_correct=True)
+    answer162c = Answer(text='The product has no close substitutes.', question=questions[161], is_correct=False)
+    answer162d = Answer(text='Consumers spend a small proportion of their income on the product.', question=questions[161], is_correct=False)
+    answer162e = Answer(text='The product is required for basic survival.', question=questions[161], is_correct=False)
+
+    answer163a = Answer(text='Consumers develop alternatives to the product.', question=questions[162], is_correct=False)
+    answer163b = Answer(text='The product becomes a necessity.', question=questions[162], is_correct=True)
+    answer163c = Answer(text='Consumers gain more time to adjust to price changes.', question=questions[162], is_correct=False)
+    answer163d = Answer(text='More substitutes enter the market.', question=questions[162], is_correct=False)
+    answer163e = Answer(text='The product becomes less expensive relative to income.', question=questions[162], is_correct=False)
+
+    answer164a = Answer(text='It is more profitable to sell.', question=questions[163], is_correct=False)
+    answer164b = Answer(text='It reduces the availability of substitutes.', question=questions[163], is_correct=False)
+    answer164c = Answer(text='It makes demand more elastic.', question=questions[163], is_correct=True)
+    answer164d = Answer(text='It has no impact on elasticity.', question=questions[163], is_correct=False)
+    answer164e = Answer(text='It makes demand more inelastic.', question=questions[163], is_correct=False)
+
+    answer165a = Answer(text='The good becomes less of a necessity.', question=questions[164], is_correct=False)
+    answer165b = Answer(text='The good has more substitutes available.', question=questions[164], is_correct=False)
+    answer165c = Answer(text='The good becomes more necessary.', question=questions[164], is_correct=True)
+    answer165d = Answer(text='The good’s price becomes a larger proportion of income.', question=questions[164], is_correct=False)
+    answer165e = Answer(text='The good becomes more of a luxury.', question=questions[164], is_correct=False)
+
+    answer166a = Answer(text='When there are no substitutes and the good is required for survival.', question=questions[165], is_correct=True)
+    answer166b = Answer(text='When the good is a luxury and takes up a large proportion of income.', question=questions[165], is_correct=False)
+    answer166c = Answer(text='When the time period considered is very long.', question=questions[165], is_correct=False)
+    answer166d = Answer(text='When the good has many close substitutes.', question=questions[165], is_correct=False)
+    answer166e = Answer(text='When the good’s price is irrelevant to consumers.', question=questions[165], is_correct=False)
+
+
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
+    # answer = Answer(text='', question=questions[], is_correct=False)
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -1391,7 +1479,16 @@ def seed_answers(questions):
                answer154a, answer154b, answer154c, answer154d, answer154e,
                answer155a, answer155b, answer155c, answer155d, answer155e,
                answer156a, answer156b, answer156c, answer156d, answer156e,
-               answer157a, answer157b, answer157c, answer157d, answer157e,]
+               answer157a, answer157b, answer157c, answer157d, answer157e,
+               answer158a, answer158b, answer158c, answer158d, answer158e,
+               answer159a, answer159b, answer159c, answer159d, answer159e,
+               answer160a, answer160b, answer160c, answer160d, answer160e,
+               answer161a, answer161b, answer161c, answer161d, answer161e,
+               answer162a, answer162b, answer162c, answer162d, answer162e,
+               answer163a, answer163b, answer163c, answer163d, answer163e,
+               answer164a, answer164b, answer164c, answer164d, answer164e,
+               answer165a, answer165b, answer165c, answer165d, answer165e,
+               answer166a, answer166b, answer166c, answer166d, answer166e,]
 
     db.session.add_all(answers)
     db.session.commit()
