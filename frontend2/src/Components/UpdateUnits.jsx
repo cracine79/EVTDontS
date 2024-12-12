@@ -165,8 +165,9 @@ export const UpdateUnits = () => {
                         flex 
                         flex-col 
                         items-center
-                        justify-center`}>
-                            <p className='text-2xl mt-6'>You Chose What?!?  Let's Fix This Train Wreck</p>
+                        justify-center
+                        mb-8`}>
+                            <p className='text-3xl mt-6'>You Chose What?!?  Let's Fix This Train Wreck</p>
                             <p className='my-6'> Okay, so maybe you didn’t exactly crush it with your first round of 
                                 unit choices. Hey, it happens to the best of us. It’s not the end of the world, 
                                 and it’s definitely not the worst mistake you’ll ever make (trust me, we run a 
@@ -181,14 +182,38 @@ export const UpdateUnits = () => {
                             <div className='flex flex-col justify-around w-1/4'>
                                 <button
                                     type="button"
-                                    className="px-4 py-2 bg-slate-500 text-white font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                                    className="mt-4
+                                border-black 
+                               
+                                border-2 
+                                flex 
+                                justify-center 
+                                items-center
+                                rounded-lg
+                                bg-slate-300
+                                hover:bg-slate-500
+                                font-medium
+                                hover:cursor-pointer
+                                mb-6`"
                                     onClick={() => {
                                         handleSubmit()
                                     }}
                                     >
                                     Submit
                                 </button>
-                                <button  className=" mt-6 px-4 py-2 bg-slate-500 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-slate-600 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                                <button  className="mt-4
+                                border-black 
+                               
+                                border-2 
+                                flex 
+                                justify-center 
+                                items-center
+                                rounded-lg
+                                bg-slate-300
+                                hover:bg-slate-500
+                                font-medium
+                                hover:cursor-pointer
+                                mb-6`"
                                             onClick = {()=>{navigate('/userhome')}}
                                 >
                                     Nevermind. Back to Dashboard.

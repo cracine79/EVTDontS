@@ -62,7 +62,7 @@ export const Progress = () => {
             if(chapter.quiz_grade > 50){
                 return(
                     <>
-                        <div className='text-center w-1/2 text-xs align-middle'>Rocked!! Score: <span className='align-middle font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</span></div>
+                        <div className='text-center w-1/2 text-xs align-middle'>Taken. Rocked it!! Score: <span className='align-middle font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</span></div>
                     </>
                 )
             } else {
@@ -79,11 +79,11 @@ export const Progress = () => {
             }
         } else if (chapter.video_completed){
             return(
-                <>Up next!</>
+                <>Not taken, but you're READY dude</>
             )
         } else {
             return(
-                <>It's coming!</>
+                <>Not Taken - watch vid first</>
             )
         }
     }
@@ -141,25 +141,26 @@ export const Progress = () => {
             <div className='flex flex-col items-center'>
                 <div >{reply}</div>
                 {reply !== 'Not yet started' && <div className=
-                            {`mt-2 
+                            {` 
                             border-black 
                             h-1/12 
-                            w-1/2 
+                            mb-2 
                             border-2 
                             flex 
                             justify-center 
                             items-center
-                            rounded-sm
+                            rounded-md
                             bg-slate-300
                             hover:bg-slate-500
                             font-medium
                             hover:cursor-pointer
+                            px-2
                             `}
                             onClick={(event) => {
                                 event.stopPropagation(); 
                                 openTopicQuiz(chapter_topics);
                             }}
-                            >Practice</div>}
+                            >Go To Practice Quiz</div>}
             </div>
         )
     }

@@ -18,7 +18,7 @@ export const UserMenu = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     
-    const thing = videoWatched ? "chapter quiz" : "next video"
+    const thing = videoWatched ? "Take chapter quiz" : "go to next video"
 
 
     const nextThing = () => {
@@ -56,7 +56,7 @@ export const UserMenu = () => {
                     <div className='text-left'>User Account</div>
                     <hr className='border-gray-400 w-full mb-2'></hr>
                     <div className='text-right'>
-                        <div className="hover:bg-green-400 hover:cursor-pointer w-48 -ml-6 px-4" onClick = {nextThing}>Go to {thing}</div>
+                        <div className="hover:bg-green-400 hover:cursor-pointer w-48 -ml-6 px-4" onClick = {nextThing}>{thing}</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {() => {navigate('/quizgenerator')}}>Create review quiz</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goAllVids}>Go to all Videos</div>
                         <div className="hover:bg-green-400  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goHome}>User dashboard</div>

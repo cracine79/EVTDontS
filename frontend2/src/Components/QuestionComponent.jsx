@@ -36,8 +36,10 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     
     const names = topics.map(topic => topic.topic_name)
 
-    const topicQuizName = names.length > 1 
-    ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
+    const topicQuizName = names.length > 3 
+    ? names.slice(0, 3).join (', ') + ', and ' + (names.length - 3).toString() + ' more topics'   
+    : names.length > 1
+    ? names.slice(0,2).join(', ') + ', and ' + names[names.length-1]
     : names[0]
     const newTopics = []
 
@@ -244,7 +246,16 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                     <div className="text-3xl px-6">{quizChapterName}  - Chapter Quiz</div>
                   }
                   {type=='topicQuiz' && 
-                    <div className="text-3xl px-6">{topicQuizName}  - Topic Quiz</div>
+                    <div className='flex flex-col items-center'>
+                      <div className='text-4xl mb-2'>Topic Quiz for:</div>
+                    <div className="text-2xl px-6 text-center">{topicQuizName} </div>
+                    </div>
+                  }
+                  {
+                    type=='shortWeakspotQuiz' &&
+                    <div className='flex flex-col items-center'>
+                      <div className='text-4xl'>Gauntlet Quiz - Take on your Weaknesses!</div>
+                    </div>
                   }
                 
                 </div>

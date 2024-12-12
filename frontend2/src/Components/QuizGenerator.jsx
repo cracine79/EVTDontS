@@ -74,22 +74,22 @@ export const QuizGenerator = () => {
     const ranking = (averagePercentCorrect) => {
    
         if(averagePercentCorrect > 80){
-             return(<>'Econo-ninja-level'
+             return(<>Econo-ninja-level
              </>)
         } else if (averagePercentCorrect > 70){
-             return(<>'Fiscal Phenom'
+             return(<>Fiscal Phenom
                 </>)
         } else if (averagePercentCorrect > 60) {
-             return(<>'Curve Whisperer'
+             return(<>Curve Whisperer
              </>)
         } else if (averagePercentCorrect > 50) {
-             return(<>'Sort of Chart Challenged'
+             return(<>Sort of Chart Challenged
                 </>)
         } else if (averagePercentCorrect > 0) {
-             return(<>'A bit Econ-fused'
+             return(<>A bit Econ-fused
              </>)
         } else {
-             return(<>'Not yet started'
+             return(<>Not yet started
                 </>)
         }
     }
@@ -137,10 +137,46 @@ export const QuizGenerator = () => {
                                 })
                             }
                          </div>
-                <div  className='my-8 w-1/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
-                        onClick = {()=>makeReviewQuiz()}>
-                            Create Quiz
-                </div>
+                <div className='flex w-full justify-center mt-8'>
+                    <div className='flex w-1/2 justify-around'>
+
+                    <div  className="my-6
+                                    border-black 
+                                    
+                                    w-1/3 
+                                    border-2 
+                                    flex 
+                                    justify-center 
+                                    items-center
+                                    rounded-lg
+                                    bg-slate-300
+                                    hover:bg-slate-500
+                                    font-medium
+                                    hover:cursor-pointer
+                                    mb-6`"
+                                    onClick = {()=>makeReviewQuiz()}>
+                                Create Quiz
+                    </div>
+                    <div className="my-6
+                                    border-black 
+                                    
+                                    w-1/3 
+                                    border-2 
+                                    flex 
+                                    justify-center 
+                                    items-center
+                                    rounded-lg
+                                    bg-slate-300
+                                    hover:bg-slate-500
+                                    font-medium
+                                    hover:cursor-pointer
+                                    mb-6`"
+                            onClick={()=>navigate('/userhome')}>
+
+                                Back to my Dashboard
+                    </div>
+                    </div>
+                </div>        
                 </div>
                                        
             </div>
