@@ -19,6 +19,7 @@ export const VideoIndex = () => {
 
     useEffect(()=>{
         dispatch(getAllTopics())
+        scrollTo(0,0)
     },[])
 
     const videoGo = (chapter) => {
@@ -63,7 +64,7 @@ export const VideoIndex = () => {
                         Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand, and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a stepping stone to mastering economic concepts, and you can access any and all of our treasure trove of videos that absolutely don't suck from the navigation bar on the left. 
                         </div>
                         <div className='mx-8 mt-4 text-lg'>
-                        But tread carefully.  Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.
+                        Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.
                         </div>
                         </>}
                     </div>

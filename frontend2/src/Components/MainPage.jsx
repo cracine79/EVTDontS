@@ -99,6 +99,11 @@ export const MainPage = () => {
                         <div className=''>You can always sign up later</div>
                     </div> 
             </div>
+            <div className='flex w-full items-center justify-center flex-col mt-12'>
+                <div className='text-3xl mb-8'>Building The Future of Economics (One Quirk at a Time)</div>
+                <img src='/Worker.png'></img>
+                <div className='w-1/2 mt-4 mb-12'>Welcome to the early days of what will soon be the most exciting corner of the internet (or at least we hope). Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. But don't worry, we're not done building. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. Stick around—it’s only going to get better. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
+            </div>
         </>
     )
 }
