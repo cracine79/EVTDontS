@@ -226,17 +226,20 @@ def seed_unit2_questions():
     question164 = Question(text='If a good is considered a luxury, what impact does this have on its price elasticity of demand?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
     question165 = Question(text='Why would the price elasticity of demand for a good decrease?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
     question166 = Question(text='When is demand most likely to be perfectly inelastic?', chapter=PEDDriversChapter, topic=PEDDriversTopic)
+    
+    question167 = Question(text='Assume that demand for energy drinks is relatively price inelastic.  An increase in supply of energy drinks will result in which of the following?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question168 = Question(text='Which of the following relationships among price elasticity of demand, change in price, and change in total revenue is consistent?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question169 = Question(text='If the demand for product Y is perfectly elastic and the supply of product Y increases, which of the following will occur in the market for product Y?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question170 = Question(text='If excellent weather and rain create an unusually large supply of grapes and grape farmers` revenues decrease as a result, which of the following is true over the observed range of prices?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question171 = Question(text='Local government has decided to increase the price of admission to city parks from $2 to $2.50.  IF demand for these tickets is price inelastic, the number of people visitng parks and the city park revenues will most likely change in which of the following ways?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question172 = Question(text="In which of the following cases would a firm's total revenue decrease?", chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question173 = Question(text='If demand for diet soda is price elastic, a 10 percent increase in the price of diet soda will', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question174 = Question(text='If the price of a product increases and total revenue decreases, what can be concluded about the price elasticity of demand for the product?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question175 = Question(text='When demand is unit elastic, which of the following is true about changes in price and total revenue?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question176 = Question(text='Which of the following statements about price elasticity of demand and total revenue is correct?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question177 = Question(text='Assume the demand for a luxury car is highly elastic. A decrease in price will result in which of the following?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
+    question178 = Question(text='If a price increase for a product with inelastic demand is observed, what happens to total revenue?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
    
-    
-    
-    # question = Question(text='Assume that demand for energy drinks is relatively price inelastic.  An increase in supply of energy drinks will result in which of the following?', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-    # question = Question(text='', chapter=PEDRevenueChapter, topic=PEDRevenueTopic)
-
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
                  question7, question8, question9,
@@ -291,7 +294,11 @@ def seed_unit2_questions():
                  question155, question156, question157,
                  question158, question159, question160, 
                  question161, question162, question163,
-                 question164, question165, question166]
+                 question164, question165, question166,
+                 question167, question168, question169,
+                 question170, question171, question172, 
+                 question173, question174, question175,
+                 question176, question177, question178,]
 
     print("questions created")
     db.session.add_all(questions)
@@ -1313,14 +1320,79 @@ def seed_answers(questions):
     answer166d = Answer(text='When the good has many close substitutes.', question=questions[165], is_correct=False)
     answer166e = Answer(text='When the good’s price is irrelevant to consumers.', question=questions[165], is_correct=False)
 
+    answer167a = Answer(text='A decrease in price, leading to a decrease in total revenue', question=questions[166], is_correct=False)
+    answer167b = Answer(text='A decrease in price, leading to an increase in total revenue', question=questions[166], is_correct=True)
+    answer167c = Answer(text='An excess supply of energy drinks', question=questions[166], is_correct=False)
+    answer167d = Answer(text='An excess demand for energy drinks', question=questions[166], is_correct=False)
+    answer167e = Answer(text='No change to quantity demanded or supplied of enery drinks', question=questions[166], is_correct=False)
 
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
-    # answer = Answer(text='', question=questions[], is_correct=False)
+    answer168a = Answer(text='PED: Inelastic, Price: Increases, Total Revenue: Decreases', question=questions[167], is_correct=False)
+    answer168b = Answer(text='PED: Inelastic, Price: Increasees, Total Revenue: Increases', question=questions[167], is_correct=True)
+    answer168c = Answer(text='PED: Unit Elastic, Price: Decreases, Total Revenue: Decreases', question=questions[167], is_correct=False)
+    answer168d = Answer(text='PED: Elastic, Price: Decreases, Total Revenue: Decreases', question=questions[167], is_correct=False)
+    answer168e = Answer(text='PED: Elsatic, Price: Increases, Total Revenue: Increases', question=questions[167], is_correct=False)
+
+    answer169a = Answer(text='Quantity supplied will exceed quantity demanded', question=questions[168], is_correct=False)
+    answer169b = Answer(text='Quantity demanded will exceed quantity supplied', question=questions[168], is_correct=False)
+    answer169c = Answer(text='Total revenue will remain the same', question=questions[168], is_correct=False)
+    answer169d = Answer(text='Total revenue will increase', question=questions[168], is_correct=True)
+    answer169e = Answer(text='Total revenue will decrease', question=questions[168], is_correct=False)
+
+
+    answer170a = Answer(text='The demand for grapes must be unit price elastic', question=questions[169], is_correct=False)
+    answer170b = Answer(text='The demand for grapes must be price elastic', question=questions[169], is_correct=False)
+    answer170c = Answer(text='The demand for grapes must be price inelastic', question=questions[169], is_correct=True)
+    answer170d = Answer(text='The demand for grapes must be greater than it was last year', question=questions[169], is_correct=False)
+    answer170e = Answer(text='The demand for grapes must be less than it was last year', question=questions[169], is_correct=False)
+
+    answer171a = Answer(text='Park Visitors: Increase, Revenues: Increase', question=questions[170], is_correct=False)
+    answer171b = Answer(text='Park Visitors: Increase, Revenues, Decrease', question=questions[170], is_correct=False)
+    answer171c = Answer(text='Park Visitors: Decrease, Revenues, Decrease', question=questions[170], is_correct=False)
+    answer171d = Answer(text='Park Visitor: Decrease, Revenues: Increase', question=questions[170], is_correct=True)
+    answer171e = Answer(text='Park Visitors: Remain Constant, Revenues: Increase', question=questions[170], is_correct=False)
+
+    answer172a = Answer(text='Price increases and demand is inelastic', question=questions[171], is_correct=False)
+    answer172b = Answer(text='Price decreases and demand is elastic', question=questions[171], is_correct=False)
+    answer172c = Answer(text='Price increases and demand is perfectly inelastic', question=questions[171], is_correct=False)
+    answer172d = Answer(text='Price decreases and demand is perfectly elastic', question=questions[171], is_correct=False)
+    answer172e = Answer(text='Price increases and demand is elastic', question=questions[171], is_correct=True)
+
+    answer173a = Answer(text='Have no effect on the total revenue of diet soda makers', question=questions[172], is_correct=False)
+    answer173b = Answer(text='Increase the total revenue of diet soda makers', question=questions[172], is_correct=False)
+    answer173c = Answer(text='Decrease the total revenue of diet soda makers', question=questions[172], is_correct=True)
+    answer173d = Answer(text='Increase total quantity of diet soda consumers purchase and consume', question=questions[172], is_correct=False)
+    answer173e = Answer(text='Cause demand for diet soda to become more inelastic', question=questions[172], is_correct=False)
+
+    answer174a = Answer(text='Demand is elastic', question=questions[173], is_correct=True)
+    answer174b = Answer(text='Demand is inelastic', question=questions[173], is_correct=False)
+    answer174c = Answer(text='Demand is unit elastic', question=questions[173], is_correct=False)
+    answer174d = Answer(text='Price and quantity demanded are directly proportional', question=questions[173], is_correct=False)
+    answer174e = Answer(text='There is no relationship between price elasticity and total revenue', question=questions[173], is_correct=False)
+
+    answer175a = Answer(text='An increase in price increases total revenue', question=questions[174], is_correct=False)
+    answer175b = Answer(text='A decrease in price decreases total revenue', question=questions[174], is_correct=False)
+    answer175c = Answer(text='Total revenue remains constant regardless of price changes', question=questions[174], is_correct=True)
+    answer175d = Answer(text='Price elasticity of demand does not affect total revenue', question=questions[174], is_correct=False)
+    answer175e = Answer(text='An increase in price decreases total quantity demanded to zero', question=questions[174], is_correct=False)
+
+    answer176a = Answer(text='If demand is elastic, total revenue moves in the opposite direction of the price change', question=questions[175], is_correct=True)
+    answer176b = Answer(text='If demand is inelastic, total revenue remains unchanged regardless of price changes', question=questions[175], is_correct=False)
+    answer176c = Answer(text='If demand is unit elastic, total revenue decreases when price decreases', question=questions[175], is_correct=False)
+    answer176d = Answer(text='Price elasticity of demand has no effect on total revenue', question=questions[175], is_correct=False)
+    answer176e = Answer(text='If demand is elastic, total revenue moves in the same direction as the price change', question=questions[175], is_correct=False)
+
+    answer177a = Answer(text='An increase in total revenue due to a significant rise in quantity demanded', question=questions[176], is_correct=True)
+    answer177b = Answer(text='A decrease in total revenue due to a large drop in quantity demanded', question=questions[176], is_correct=False)
+    answer177c = Answer(text='No change in total revenue as demand is inelastic', question=questions[176], is_correct=False)
+    answer177d = Answer(text='Total revenue will decrease significantly as quantity demanded remains constant', question=questions[176], is_correct=False)
+    answer177e = Answer(text='Total revenue will not be affected due to unit elasticity', question=questions[176], is_correct=False)
+
+    answer178a = Answer(text='Total revenue increases as the percentage change in price exceeds the percentage change in quantity demanded', question=questions[177], is_correct=True)
+    answer178b = Answer(text='Total revenue decreases as the percentage change in quantity demanded exceeds the percentage change in price', question=questions[177], is_correct=False)
+    answer178c = Answer(text='Total revenue remains unchanged due to unit elasticity', question=questions[177], is_correct=False)
+    answer178d = Answer(text='Total revenue decreases because demand is elastic', question=questions[177], is_correct=False)
+    answer178e = Answer(text='Total revenue is independent of price changes', question=questions[177], is_correct=False)
+
     # answer = Answer(text='', question=questions[], is_correct=False)
     # answer = Answer(text='', question=questions[], is_correct=False)
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
@@ -1488,7 +1560,19 @@ def seed_answers(questions):
                answer163a, answer163b, answer163c, answer163d, answer163e,
                answer164a, answer164b, answer164c, answer164d, answer164e,
                answer165a, answer165b, answer165c, answer165d, answer165e,
-               answer166a, answer166b, answer166c, answer166d, answer166e,]
+               answer166a, answer166b, answer166c, answer166d, answer166e,
+               answer167a, answer167b, answer167c, answer167d, answer167e,
+               answer168a, answer168b, answer168c, answer168d, answer168e,
+               answer169a, answer169b, answer169c, answer169d, answer169e,
+               answer170a, answer170b, answer170c, answer170d, answer170e,
+               answer171a, answer171b, answer171c, answer171d, answer171e,
+               answer172a, answer172b, answer172c, answer172d, answer172e,
+               answer173a, answer173b, answer173c, answer173d, answer173e,
+               answer174a, answer174b, answer174c, answer174d, answer174e,
+               answer175a, answer175b, answer175c, answer175d, answer175e,
+               answer176a, answer176b, answer176c, answer176d, answer176e,
+               answer177a, answer177b, answer177c, answer177d, answer177e,
+               answer178a, answer178b, answer178c, answer178d, answer178e,]
 
     db.session.add_all(answers)
     db.session.commit()
