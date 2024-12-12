@@ -48,7 +48,9 @@ export const Quiz = () => {
 
     const names = topics.map(topic => topic.topic_name)
 
-    const formattedNames = names.length > 1 
+    const formattedNames = names.length > 2 
+    ? names.slice(0, -2).join (', ') + ', ' + names[names.length -2] + ', and ' + names[names.length -1]    
+    : names.length == 1
     ? names.slice(0, -1).join (' and ') + ' and ' + names[names.length -1]    
     : names[0]
 

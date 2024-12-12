@@ -125,6 +125,7 @@ export const UserHome = () => {
                 w-screen 
                 bg-slate-50 
                 flex-col
+                
                 min-h-screen`}>
                 <div className='h-100 flex flex-row mt-26 w-3/4'>
                     <div className=

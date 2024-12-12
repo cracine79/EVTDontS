@@ -15,7 +15,7 @@ export const MainPage = () => {
 
     return(
         <>
-            <div className="flex justify-center">
+            <div className="flex  justify-center">
                 {/* <div className="font-serif text-5xl w-1/2 ">
                     Learning economics doesn't have to suck...   But it usually does. 
                 </div> */}
@@ -44,7 +44,7 @@ export const MainPage = () => {
                         <div className='w-5/6 ml-20'>
                             <img src='/Sampleq.png' className='rounded-xl'></img>
                         </div>
-                        <div className='h-100 w-100 flex flex-col items-center -mr-20'>
+                        <div className='h-100 w-100 flex flex-col items-center '>
                             <img src="/Practice.png" alt="Take the Quizzes" className="w-1/2 h-1/2" />
                             <p className="mt-2 w-4/6 text-xl text-center">Unlike lots of resources, our practice quizzes DON'T suck.  Nope, these bad boys are almost identical to the AP questions you’ll face on game day.  Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
                         </div>
@@ -79,17 +79,17 @@ export const MainPage = () => {
                 </div>
                 
             </div>
-            <div className='flex justify-center items-center w-full mt-24 mb-12'>
+            <div className='flex justify-center items-center w-full mt-24 mb-12 '>
                    <div className='px-6 bg-slate-300 hover:cursor-pointer hover:bg-slate-500 py-6 border-black border text-center rounded-xl'
                    onClick={handleGetStarted}>
                         <div className='text-3xl '>Sign up to Get Started!</div>
                         <div className=''>C'mon, what else are you doing right now?</div>
                     </div> 
             </div>
-            <div className='text-center text-5xl font-bold'>
+            <div className='text-center text-5xl font-bold '>
                 OR
             </div>
-            <div className='flex justify-center items-center w-full mt-12 mb-12'>
+            <div className='flex justify-center items-center w-full mt-12 mb-12 '>
                    <div className='px-6 bg-slate-300 hover:cursor-pointer hover:bg-slate-500 py-6 border-black border text-center rounded-xl'
                    onClick={()=> {
                     dispatch(getAllChapters())
