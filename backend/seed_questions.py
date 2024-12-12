@@ -50,6 +50,9 @@ def seed_unit2_questions():
     YEDChapter = db.session.get(Chapter, 23)
     YEDCalculationTopic = db.session.get(QuestionTopic, 30)
     YEDInterpretationTopic = db.session.get(QuestionTopic, 31)
+    PESChapter = db.session.get(Chapter, 24)
+    PESCalculationTopic = db.session.get(QuestionTopic, 32)
+    PESDeterminantsTopic = db.session.get(QuestionTopic, 33)
 
 
     question1 = Question(text="Which of the following occurs as a result of the substitution effect of a decrease in the price of a normal good?", chapter=demandChapter, topic=demandCurveTopic)
@@ -290,7 +293,21 @@ def seed_unit2_questions():
     question214 = Question(text='Designer handbags have an income elasticity of demand of 2. If incomes increase by 25%, what is the expected change in quantity demanded for designer handbags?', chapter=YEDChapter, topic=YEDCalculationTopic)
     question215 = Question(text='If a 30 percent increase in incomes results in a 15 percent decrease in quantity demanded for fast food, which of the following can be inferred?', chapter=YEDChapter, topic=YEDCalculationTopic)
 
-    
+    question216 = Question(text='The above diagram shows the supply curve for a rare earth mineral.  Which of the following is true', chapter = PESChapter, topic = PESCalculationTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/PerfectlyInelasticSupply.png')
+    question217 = Question(text='The quantity of coffee supplied increased from 15 tons per week to 20 tons per week when the price of coffee increased from $2 per pound to $6 per pound.  The price elasticity of supply for coffee over this price range is', chapter = PESChapter, topic = PESCalculationTopic)
+    question218 = Question(text='The price elasticity of supply of automobiles was calculated to be 0.8.  If the price of automobiles increase by 20%, what is the expected impact on the quantity supplied of automobiles?', chapter = PESChapter, topic = PESCalculationTopic)
+    question219 = Question(text='The above diagram shows the supply curve for good Y.  According to the diagram, supply for good Y is', chapter = PESChapter, topic = PESCalculationTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/ElasticSupplyCurveNumbers.png')
+    question220 = Question(text='The above diagram shows the supply curve for good Z.  According to the diagram, supply for good Y is', chapter = PESChapter, topic = PESCalculationTopic, image_url = 'https://evtds-seeds.s3.us-east-2.amazonaws.com/Inelastic+supply.png')
+    question221 = Question(text='If the price of smartphones increases by 10 percent and the quantity supplied increases by 25 percent, what is the price elasticity of supply (PES)?', chapter=PESChapter, topic=PESCalculationTopic)
+    question222 = Question(text='The PES for handmade furniture is 0.6. If the price of handmade furniture rises by 15%, what is the expected change in quantity supplied?', chapter=PESChapter, topic=PESCalculationTopic)
+    question223 = Question(text='A 40 percent decrease in the price of organic apples causes a 20 percent decrease in quantity supplied. What can be inferred about the price elasticity of supply?', chapter=PESChapter, topic=PESCalculationTopic)
+
+    question224 = Question(text='Which of the following scenarios best illustrates how the length of time considered affects the price elasticity of supply?', chapter=PESChapter, topic=PESDeterminantsTopic)
+    question225 = Question(text='A factory producing handmade wooden furniture has limited skilled labor available. How does the mobility of factors of production affect the price elasticity of supply?', chapter=PESChapter, topic=PESDeterminantsTopic)
+    question226 = Question(text='If a car manufacturer has significant spare production capacity, what impact will this have on the price elasticity of supply?', chapter=PESChapter, topic=PESDeterminantsTopic)
+    question227 = Question(text='A company producing seasonal fruit can store surplus in cold storage. How does the ability to store inventory influence the price elasticity of supply?', chapter=PESChapter, topic=PESDeterminantsTopic)
+    question228 = Question(text='Why would the price elasticity of supply for new housing in urban areas be relatively inelastic compared to rural areas?', chapter=PESChapter, topic=PESDeterminantsTopic)
+
 
     questions = [question1, question2, question3, 
                  question4, question5, question6, 
@@ -362,7 +379,12 @@ def seed_unit2_questions():
                  question203, question204, question205, 
                  question206, question207, question208,
                  question209, question210, question211, question212,
-                 question213, question214, question215,]
+                 question213, question214, question215,
+                 question216, question217, question218,
+                 question219, question220, question221, 
+                 question222, question223, question224,
+                 question225, question226, question227, 
+                 question228,]
 
     print("questions created")
     db.session.add_all(questions)
@@ -1679,6 +1701,90 @@ def seed_answers(questions):
     answer215d = Answer(text='Fast food is an inferior good with YED = 0.5', question=questions[214], is_correct=False)
     answer215e = Answer(text='None of the above', question=questions[214], is_correct=False)
 
+    answer216a = Answer(text='PES = 0, Supply is perfectly elastic', question=questions[215], is_correct=False)
+    answer216b = Answer(text='PES = 0, Supply is perfectly inelastic', question=questions[215], is_correct=True)
+    answer216c = Answer(text='PES = 1, Supply is unitary elastic', question=questions[215], is_correct=False)
+    answer216d = Answer(text='PES = ∞, Suppy is perfectly inelastic', question=questions[215], is_correct=False)
+    answer216e = Answer(text='PES = ∞, Suppy is perfectly elastic', question=questions[215], is_correct=False)
+
+    answer217a = Answer(text='elastic', question=questions[216], is_correct=False)
+    answer217b = Answer(text='inelastic', question=questions[216], is_correct=True)
+    answer217c = Answer(text='unitary elastic', question=questions[216], is_correct=False)
+    answer217d = Answer(text='perfectly elastic', question=questions[216], is_correct=False)
+    answer217e = Answer(text='perfectly inelastic', question=questions[216], is_correct=False)
+
+    answer218a = Answer(text='The quantity supplied of automobiles will decrease by 20%', question=questions[217], is_correct=False)
+    answer218b = Answer(text='The quantity supplied of automobiles will decrease by 16%', question=questions[217], is_correct=False)
+    answer218c = Answer(text='The quanitty supplied of automobiles will increase by 16%', question=questions[217], is_correct=True)
+    answer218d = Answer(text='The quantity supplied of automobiles will increase by 20%', question=questions[217], is_correct=False)
+    answer218e = Answer(text='The quantity supplied of automobiles will increase by 800%', question=questions[217], is_correct=False)
+
+    answer219a = Answer(text='elastic', question=questions[218], is_correct=True)
+    answer219b = Answer(text='inelastic', question=questions[218], is_correct=False)
+    answer219c = Answer(text='unitary elastic', question=questions[218], is_correct=False)
+    answer219d = Answer(text='perfectly elastic', question=questions[218], is_correct=False)
+    answer219e = Answer(text='perfectly inelastic', question=questions[218], is_correct=False)
+
+    answer220a = Answer(text='elastic', question=questions[219], is_correct=False)
+    answer220b = Answer(text='inelastic', question=questions[219], is_correct=True)
+    answer220c = Answer(text='unitary elastic', question=questions[219], is_correct=False)
+    answer220d = Answer(text='perfectly elastic', question=questions[219], is_correct=False)
+    answer220e = Answer(text='perfectly inelastic', question=questions[219], is_correct=False)
+
+    answer221a = Answer(text='PES = -0.4, and supply is inelastic', question=questions[220], is_correct=False)
+    answer221b = Answer(text='PES = -2.5, and supply is elastic', question=questions[220], is_correct=False)
+    answer221c = Answer(text='PES = 0.25, and supply is inelastic', question=questions[220], is_correct=False)
+    answer221d = Answer(text='PES = 2.5, and supply is elastic', question=questions[220], is_correct=True)
+    answer221e = Answer(text='PES = 0.4, and supply is inelastic', question=questions[220], is_correct=False)
+
+    answer222a = Answer(text='Quantity supplied will increase by 9%', question=questions[221], is_correct=True)
+    answer222b = Answer(text='Quantity supplied will increase by 15%', question=questions[221], is_correct=False)
+    answer222c = Answer(text='Quantity supplied will increase by 6%', question=questions[221], is_correct=False)
+    answer222d = Answer(text='Quantity supplied will decrease by 9%', question=questions[221], is_correct=False)
+    answer222e = Answer(text='Quantity supplied will not change', question=questions[221], is_correct=False)
+
+    answer223a = Answer(text='PES = -2, and supply is inelastic', question=questions[222], is_correct=False)
+    answer223b = Answer(text='PES = 2, and supply is elastic', question=questions[222], is_correct=False)
+    answer223c = Answer(text='PES = 1, and supply is unit elastic', question=questions[222], is_correct=False)
+    answer223d = Answer(text='PES = -0.5, and supply is  inelastic', question=questions[222], is_correct=False)
+    answer223e = Answer(text='PES = 0.5, and supply is inelastic', question=questions[222], is_correct=True)
+
+    answer224a = Answer(text='Elasticity of supply is lower in the short term because producers cannot adjust output to changing prices quickly', question=questions[223], is_correct=True)
+    answer224b = Answer(text='Elasticity of supply is higher in the short term due to faster production times', question=questions[223], is_correct=False)
+    answer224c = Answer(text='Length of time does not impact the elasticity of supply', question=questions[223], is_correct=False)
+    answer224d = Answer(text='Elasticity of supply is unrelated to time, only to production costs', question=questions[223], is_correct=False)
+    answer224e = Answer(text='Supply becomes inelastic as time passes', question=questions[223], is_correct=False)
+
+    answer225a = Answer(text='Elasticity of supply is high when skilled labor is scarce', question=questions[224], is_correct=False)
+    answer225b = Answer(text='Elasticity of supply is low when mobility of factors is limited, such as skilled labor', question=questions[224], is_correct=True)
+    answer225c = Answer(text='Elasticity of supply is unaffected by mobility of factors of production', question=questions[224], is_correct=False)
+    answer225d = Answer(text='Elasticity of supply is highest in industries with limited labor availability', question=questions[224], is_correct=False)
+    answer225e = Answer(text='Mobility of factors only impacts elasticity of demand, not supply', question=questions[224], is_correct=False)
+
+    answer226e = Answer(text='Spare capacity increases elasticity of supply because firms can quickly increase output', question=questions[225], is_correct=True)
+    answer226d = Answer(text='Spare capacity decreases elasticity of supply because firms are inefficient', question=questions[225], is_correct=False)
+    answer226c = Answer(text='Spare capacity has no impact on elasticity of supply', question=questions[225], is_correct=False)
+    answer226b = Answer(text='Spare capacity leads to perfectly inelastic supply', question=questions[225], is_correct=False)
+    answer226a = Answer(text='Elasticity of supply depends only on production technology, not capacity', question=questions[225], is_correct=False)
+
+
+    answer227b = Answer(text='The ability to store inventory makes supply more elastic as producers can release goods during price increases', question=questions[226], is_correct=True)
+    answer227a = Answer(text='The ability to store inventory decreases elasticity as goods degrade over time', question=questions[226], is_correct=False)
+    answer227c = Answer(text='The ability to store inventory does not impact price elasticity of supply', question=questions[226], is_correct=False)
+    answer227d = Answer(text='The ability to store inventory makes supply perfectly elastic', question=questions[226], is_correct=False)
+    answer227e = Answer(text='Storage is irrelevant to price elasticity of supply', question=questions[226], is_correct=False)
+
+    answer228a = Answer(text='Urban housing supply is inelastic due to limited mobility of factors of production, primarily land', question=questions[227], is_correct=True)
+    answer228b = Answer(text='Urban housing supply is elastic because construction is faster in cities', question=questions[227], is_correct=False)
+    answer228c = Answer(text='Urban housing supply is inelastic due to greater availability of skilled labor', question=questions[227], is_correct=False)
+    answer228d = Answer(text='Urban housing supply is elastic because cities have better infrastructure', question=questions[227], is_correct=False)
+    answer228e = Answer(text='Urban housing supply is inelastic because resources are easily diverted to production of housing', question=questions[227], is_correct=False)
+
+    # answer2 = Answer(text='', question=questions[], is_correct=False)
+    # answer2 = Answer(text='', question=questions[], is_correct=False)
+    # answer2 = Answer(text='', question=questions[], is_correct=False)
+    # answer2 = Answer(text='', question=questions[], is_correct=False)
+    # answer2 = Answer(text='', question=questions[], is_correct=False)
     answers = [answer1a, answer1b, answer1c, answer1e, answer1d,
                answer2a, answer2b, answer2c, answer2e, answer2d,
                answer3a, answer3b, answer3c, answer3d, answer3e,
@@ -1893,7 +1999,20 @@ def seed_answers(questions):
                answer212a, answer212b, answer212c, answer212d, answer212e,
                answer213a, answer213b, answer213c, answer213d, answer213e,
                answer214a, answer214b, answer214c, answer214d, answer214e,
-               answer215a, answer215b, answer215c, answer215d, answer215e,]
+               answer215a, answer215b, answer215c, answer215d, answer215e,
+               answer216a, answer216b, answer216c, answer216d, answer216e,
+               answer217a, answer217b, answer217c, answer217d, answer217e,
+               answer218a, answer218b, answer218c, answer218d, answer218e,
+               answer219a, answer219b, answer219c, answer219d, answer219e,
+               answer220a, answer220b, answer220c, answer220d, answer220e,
+               answer221a, answer221b, answer221c, answer221d, answer221e,
+               answer222a, answer222b, answer222c, answer222d, answer222e,
+               answer223a, answer223b, answer223c, answer223d, answer223e,
+               answer224a, answer224b, answer224c, answer224d, answer224e,
+               answer225a, answer225b, answer225c, answer225d, answer225e,
+               answer226a, answer226b, answer226c, answer226d, answer226e,
+               answer227a, answer227b, answer227c, answer227d, answer227e,
+               answer228a, answer228b, answer228c, answer228d, answer228e,]
 
     db.session.add_all(answers)
     db.session.commit()
