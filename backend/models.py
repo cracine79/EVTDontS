@@ -32,6 +32,7 @@ class User(db.Model):
     username: Mapped[str] = mapped_column(String(100), unique=True)
     email: Mapped[str]=mapped_column(String(255), unique=True)
     password_hash: Mapped[str]
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     units: Mapped[list["Unit"]] = relationship(
         'Unit',
