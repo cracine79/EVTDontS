@@ -33,7 +33,7 @@ export const AboutUs = () => {
                     <li><strong>Inject Some Fun (and Some Obscure Movie References) into Learning</strong>Let’s face it, economics can be dry. I’m doing my best to fix that while sneaking in some nostalgia for classic films. (Economics meets the Breakfast Club? Stranger things have happened.)</li>
                 </ol>
                 <div className='text-xl mt-4 mb-2 font-bold'>
-                    The Future Looks Bright
+                    The Future Looks Bright!
                 </div>
                 <div>This site is just getting started. Over time, you can expect a tidal wave of content, features, and who knows what else. I’m aiming to make this the best resource out there for economics students and AP test-takers. And if you’re not a student? Stick around anyway. You might actually start to like economics.</div>
 
