@@ -37,8 +37,7 @@ export const Tutorial = ({showModal}) => {
                                     <p className='mb-4'>Give us a quick second to walk you through the page. We know, we know, you’ve been on a million websites before—you're basically the internet whisperer—but humor us, alright? This isn’t just any page. This is <em>your</em> dashboard, where you can review your progress, videos watched, quiz scores and topic mastery.  Dont worry, no judgment here... okay, maybe just a little. </p>
                               
                                 </div>
-                                <p classHae = 'mb-4'>And don’t worry, we’ll try to keep the jargon and cringe to a minimum. Ready? Cool, let’s do 
-                                       h7mm!</p>
+                                <p className = 'mb-4'>And don’t worry, we’ll try to keep the jargon and cringe to a minimum. Ready? Cool, let’s do this thing!</p>
                                 <div className='flex justify-around flex-row mt-6'>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 1])}>Next Stop: Enlightenment</button>
                                     <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['off', 1])}>Skip the awkward tour</button>
