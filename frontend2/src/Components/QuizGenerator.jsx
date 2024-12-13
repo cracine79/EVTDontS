@@ -18,8 +18,6 @@ export const QuizGenerator = () => {
     const [selectedTopics, setSelectedTopics] = useState([])
 
 
-    console.log(selectedTopics)
-
     const topics = 
         Object.keys(bookTopics).reduce((result, key)=>{
             result[key] = userTopics[key]
@@ -65,7 +63,7 @@ export const QuizGenerator = () => {
         selectedTopics.forEach(id=>{
             chapter_topics.push({...bookTopics[id], ...userTopics[id], topic_id: id })
         })
-        console.log(chapter_topics)
+
         navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapter_topics}})
     
     }

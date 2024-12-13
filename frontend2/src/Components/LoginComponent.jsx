@@ -24,7 +24,7 @@ const LoginComponent = () => {
     const result = await dispatch(loginUser(username, password))
     dispatch(closeLoginModal())
     if(result.error){
-      console.log(result.error)
+
       navigate('/whoops', {state: {error: result.error, source: 'login'}})
     } else {
 
