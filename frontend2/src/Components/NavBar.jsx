@@ -52,7 +52,7 @@ export const NavBar = () => {
                 sticky
                 top-0">
                 <span className='flex w-11/12 items-center'>
-                    <img src="/Logo.svg" alt="EVTDS Logo" className="w-1/12 ml-12 my-2 md:ml-14 sm:ml-12 lg:ml-16 min-w-20"/>
+                    <img src="/Logo.svg" onClick = {()=>navigate('/')}alt="EVTDS Logo" className="w-1/12 ml-12 my-2 md:ml-14 sm:ml-12 lg:ml-16 min-w-20 hover:cursor-pointer"/>
                     <span className='ml-2 text-2xl font-bold text-slate-600'>BETA</span>
                 </span>
                 <div className='flex items-center justify-between'>

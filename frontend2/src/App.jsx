@@ -29,6 +29,7 @@ import { UnitQuizResults } from './Components/UnitQuizResults';
 import { RetrieveData } from './Components/RetrieveData';
 import { ResetPassword } from './Components/ResetPassword';
 import { PrivacyPolicy } from './Components/PrivacyPolicy';
+import { TermsOfService } from './Components/TermsOfService';
 
 const Layout = () => {
   return(
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
       {
         path:'/privacypolicy',
         element: <PrivacyPolicy />
+      },
+      {
+        path:'/termsofservice',
+        element: <TermsOfService />
       }
     ]
   }
