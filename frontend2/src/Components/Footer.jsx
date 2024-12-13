@@ -36,7 +36,7 @@ export const Footer = () => {
                 </div>
 
                 <div className = 'text-white text-4xl mt-6 hover:cursor-pointer'> 
-                    <a className='text-white hover:text-green-800' href='https://cracine79.github.io/Portfolio/'>
+                    <a className='text-white hover:text-green-800' href='https://cracine79.github.io/CharLee-Portfolio/'>
                         <i class="fa-solid fa-folder-open"></i> 
                     </a>
                 </div>
