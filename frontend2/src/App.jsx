@@ -30,6 +30,7 @@ import { RetrieveData } from './Components/RetrieveData';
 import { ResetPassword } from './Components/ResetPassword';
 import { PrivacyPolicy } from './Components/PrivacyPolicy';
 import { TermsOfService } from './Components/TermsOfService';
+import { AboutUs } from './Components/AboutUs';
 
 const Layout = () => {
   return(
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
       {
         path:'/termsofservice',
         element: <TermsOfService />
+      },
+      {
+        path:'/aboutus',
+        element: <AboutUs />
       }
     ]
   }
@@ -126,10 +131,7 @@ const router = createBrowserRouter([
 function App() {
   const dispatch = useDispatch();
 
-  console.log('Hellow WOrldio')
-
   useEffect(() => {
-    console.log('UseEffecting . . .')
     restoreCSRF();
     dispatch(restoreUser());
   }, []);

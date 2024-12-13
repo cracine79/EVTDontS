@@ -11,12 +11,8 @@ message = Mail(
     html_content='Hehe, hehe, hehe, hehe, heell yeah bro! For RIzzy')
 
 try:
-    print('KKKK', os.environ.get('SENDGRID_API_KEY'))
     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
     response = sg.send(message)
 
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
 except Exception as e:
     print("Error:", str(e))

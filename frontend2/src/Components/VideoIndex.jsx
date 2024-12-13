@@ -13,13 +13,11 @@ export const VideoIndex = () => {
     const currentUser = useSelector(state=>(state.user.username))
     const chapters = useSelector(state=>(state.chapters))
     const chaptersObj = Object.values(chapters)
-    const topics = useSelector(state=>state.topics)
     const [videoId, setVideoId] = useState(false)
-    const [currentTopics, setCurrentTopics] = useState([])
 
     useEffect(()=>{
-        dispatch(getAllTopics())
         scrollTo(0,0)
+        dispatch(getAllChapters())
     },[])
 
     const videoGo = (chapter) => {
@@ -45,12 +43,28 @@ export const VideoIndex = () => {
                 <div className=' w-1/5 bg-lime-100 text-sm'>
                     <div className='ml-4'>
 
-                    <div className='text-2xl'>Video Library</div>
-                    {chaptersObj.map(chapter=>{
+                    <div className='text-2xl font-bold text-center mt-4 -ml-8'>Video Library</div>
+                    <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
+                    {chaptersObj.slice(0,6).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
                         )
                     })}
+                    <div className='font-bold mt-2 text-lg'>Unit 2: Supply & Demand</div>
+                    {chaptersObj.slice(7, 18).map(chapter=>{
+                        return(
+                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
+                        )
+                    })}
+                    <div className='font-bold mt-2 text-lg'>Unit 3: Elasticities</div>
+                       {chaptersObj.slice(18).map(chapter=>{
+                        return(
+                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
+                        )
+                    })}
+
+                <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention in Markets</div>
+                    <div className='mt-2'>(Coming Soon!)</div>
                 </div>
                     </div>
                 <div className='w-5/6'>

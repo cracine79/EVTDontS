@@ -13,7 +13,6 @@ export const FinishUnit = () => {
     const {unitId} = location.state || {}
     const currentUnitId = unitId ? unitId : null
     
-    console.log('CUID', currentUnitId)
 
     // const finishedUnit = chapters[currentChapter.unit_id]
 
@@ -60,7 +59,7 @@ export const FinishUnit = () => {
         )
     }
 
-    console.log('cuc', completeUserChapters)
+
 
     return(
         <div className='w-screen flex justify-center min-h-screen'>

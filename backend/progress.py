@@ -22,11 +22,10 @@ class CreateChapterProgress(Resource):
         chapter_id = data.get('chapter_id')
 
         progress = UserChapterProgress(user_id = user_id, chapter_id = chapter_id)
-        print(f"Progress is {progress} progID = {progress.user_id} chapId is {progress.chapter_id}")
         db.session.add(progress)
 
         chapter = Chapter.query.filter_by(id=chapter_id).first()
-        print(f"chapter is {chapter} MANNNNN")
+
 
         db.session.commit()
 
@@ -54,7 +53,7 @@ class CreateChapterProgress(Resource):
             progress.video_completed = True
         else:
             progress = UserChapterProgress(user_id = user_id, chapter_id=chapter_id, video_completed=True)
-        print(f"completed is {progress.video_completed}")
+
         try:
             db.session.commit()
 
@@ -172,14 +171,13 @@ class QuizProgress(Resource):
         unitChapters = UserChapterProgress.query.filter_by(user_id = user_id, active=True).all()
         chapter_ids = {unitChapter.chapter_id for unitChapter in unitChapters}
         chapters = Chapter.query.filter_by(unit_id = current_unit.id).filter(Chapter.id.in_(chapter_ids)).order_by((Chapter.order)).all()
-        print('CHAPTERSSSS', chapters)
+
         if chapters and finished_chapter == chapters[-1]:
             last_chapter = True
         else:
             last_chapter = False
 
 
-        print('UNIT FINISHED', last_chapter)
         for question_id, answer_data in answers.items():
             
             topicId = answer_data['topicId']
@@ -244,7 +242,6 @@ class QuizProgress(Resource):
 
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
-        print("TPDICT", topic_progress_dict)
 
         if progress:
             progress.quiz_grade = quiz_grade
@@ -252,8 +249,6 @@ class QuizProgress(Resource):
             progress = UserChapterProgress(user_id=user_id, chapter_id=chapter_id)
         
         db.session.commit()
-
-        print("PROGRESS AND GRADESSS!!", progress, quiz_grade)
 
         if user.current_chapter:
             current_chapter = user.current_chapter.id
@@ -301,14 +296,10 @@ class ChapterProgress(Resource):
         done = False
 
         if finished_chapter == user_chapters[-1]:
-            print('lastChapter!!') 
             user.current_chapter = None
             done = True
         else:
-            print('NOT LAST CHAPTER')
             next_chapter_index = user_chapters.index(finished_chapter) + 1
-            print(next_chapter_index)
-            print(user_chapters[next_chapter_index])
             user.current_chapter = user_chapters[next_chapter_index]
         
         db.session.commit()

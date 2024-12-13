@@ -18,8 +18,6 @@ export const UpdateUnits = () => {
     }, {});
 
     const userUnitIds = {}
-    console.log('UCID', userChapterIds)
-    console.log('BC,', bookChapters)
 
     userChapterIds.forEach((id) => {
         if (bookChapters[id] && bookChapters[id].unit_id) {
@@ -27,7 +25,6 @@ export const UpdateUnits = () => {
         }
       });
 
-    console.log('THESESAREHTEM', userUnitIds)
     const [selectedChapters, setSelectedChapters] = useState(chapterIdMap)
     const [selectedUnits, setSelectedUnits] = useState(userUnitIds)
     
@@ -124,7 +121,6 @@ export const UpdateUnits = () => {
             ...prev,
             [name]: checked
           }));
-        console.log(selectedChapters)
     }
 
     const chaptersDisplay = (unitId) => {

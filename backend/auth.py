@@ -188,9 +188,7 @@ class Login(Resource):
 
 
         if db_user:
-            print("User found in database.")
             if check_password_hash(db_user.password_hash, password):
-                print("Password matches.")
                 access_token = create_access_token(db_user.username)
                 refresh_token = create_refresh_token(db_user.username)
 
@@ -199,10 +197,9 @@ class Login(Resource):
 
                 if db_user.current_chapter:
                     current_chapter = db_user.current_chapter.id
-                    print(f"current_chapter is {current_chapter}")
                 else:
                     current_chapter=None
-                    print("no current chapter")
+
                 
                 
                 #extract all relevant chapters for user and send down on login
@@ -219,7 +216,6 @@ class Login(Resource):
                         "quiz_grade": chapter.quiz_grade
                     } for chapter in chapter_progress
                 }
-                print(f"progress_dict is {progress_dict}")
                 chapter_dict = {
                     chapter.id: {
                         "name": chapter.name, 
@@ -230,17 +226,14 @@ class Login(Resource):
                 units_dict = {}
                 for unit in user_units:
                     unit_chapters = [chapter for chapter in user_chapters if chapter.unit_id == unit.id]
-                    print('UNIT CHAPPPPIES', unit_chapters)
                     quiz_grades = []
                  
                     for chapter in unit_chapters:
-                        print('TESST', progress_dict[chapter.id]['quiz_grade'])
                         the_quiz_grade = progress_dict[chapter.id].get("quiz_grade", 0)
                         if the_quiz_grade is not None:
                             quiz_grades.append(the_quiz_grade)
                         else:
                             quiz_grades.append(0) 
-                    print('GRADDDDES', quiz_grades)
                     all_completed = all(grade > 60 for grade in quiz_grades)
                     units_dict[unit.id] = {
                         "name": unit.name,
@@ -292,16 +285,14 @@ class Login(Resource):
                     'topics': topic_dict
                 
                 })
-                print(user_data)
+
                 # print(jsonify(user_data))
                 session['access_token'] = access_token
                 code = 200
                 return (user_data, 200)
             else:
-                print("Password does not match.")
                 return jsonify({"error": "Password and username do not match"})
         else:
-            print("User not found.")
             return jsonify({"error": "Username not found"})
 
         return jsonify({"error": "problem logging in"})
@@ -323,6 +314,6 @@ class Refresh(Resource):
 class ResetPassword(Resource):
     def post(self):
         email = request.json.get('email')
-        print(email)
+
 
 

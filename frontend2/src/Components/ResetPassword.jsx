@@ -18,7 +18,7 @@ export const ResetPassword = () => {
 
     const queryParams = new URLSearchParams(location.search)
     const token = queryParams.get("token")
-    console.log(token)
+
     
     useEffect(()=>{
 
@@ -65,7 +65,7 @@ export const ResetPassword = () => {
 
             if(response.ok){
                 const data = await response.json()
-                console.log(data)
+
             }
         } catch(error){
             console.error("Error resetting password", error)

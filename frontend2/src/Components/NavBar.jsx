@@ -37,7 +37,6 @@ export const NavBar = () => {
     )
 
     const goToVideos = () => {
-        dispatch(getAllChapters())
         navigate('/videoindex')
     }
     return(

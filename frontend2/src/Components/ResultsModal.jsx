@@ -10,14 +10,11 @@ export const ResultsModal = () => {
     const [answerNumber, setAnswerNumber] = useState(0)
     const wrongAnswers = []
 
-    console.log(answers)
-
    Object.values(answers).forEach((entry)=>{
        
         if (entry.isCorrect == false){
             wrongAnswers.push(entry)        }
     })
-    console.log('wronganswers are ', {wrongAnswers})
 
     const dispatch = useDispatch();
 

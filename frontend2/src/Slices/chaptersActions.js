@@ -25,8 +25,6 @@ export const getAllChapters = () => async(dispatch) => {
 
 export const getChapterBlurb = async(chapterId) => {
     try {
-        console.log('next')
-        console.log(chapterId)
         const response = await csrfFetch(`/api/chapters/blurb/${chapterId}`)
     
     if (!response.ok) {

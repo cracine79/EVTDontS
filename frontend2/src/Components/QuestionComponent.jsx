@@ -143,27 +143,22 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           }
           
           if (type == 'chapterQuiz'){
-            console.log('CHAPTPPPTER QUIZ SUBMIT')
             const unitFinished = await dispatch(finishQuiz(quizData));  
       
             dispatch(closeQuizModal());
             setQuestionNumber(0);
             navigate('/results', {state: {unitFinished}})
           } else if (type == 'topicQuiz'){
-            console.log('REVIEWWWW QUIZAA SUBMIT')
             dispatch(finishReviewQuiz(quizData))
             dispatch(closeQuizModal());
             setQuestionNumber(0);
             navigate('/rqresults', {state: {topics, type}})
           } else if (type == 'shortWeakspotQuiz'){
-            console.log('WEAKNESS QUIZ SUBMIT', newTopics)
             dispatch(finishReviewQuiz(quizData))
             dispatch(closeQuizModal())
             setQuestionNumber(0);
-            console.log('THE MUTHA CHICKEN NEW TOPICS ARE', newTopics)
             navigate('/rqresults', {state: {topics : newTopics, type: type}})
           } else if (type == 'unitQuiz'){
-            console.log('unit QUIZ')
             dispatch(finishReviewQuiz(quizData))
             dispatch(closeQuizModal())
             setQuestionNumber(0)

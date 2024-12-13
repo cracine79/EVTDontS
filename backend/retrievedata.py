@@ -16,7 +16,6 @@ def generate_reset_token(email, secret_key, salt):
     return serializer.dumps(email, salt=salt)
 
 def send_reset_email(email, token, domain, sender_email, username):
-    print('APIKKKKEY', os.environ.get('SENDGRID_API_KEY'))
     reset_url = f"{domain}/reset-password?token={token}"
     message = Mail(
         from_email=sender_email,
@@ -102,7 +101,6 @@ class RetrievePassword(Resource):
         user = User.query.filter_by(email = email).first()
 
         if user is None:
-            print('no user')
             return({"message": f"There is no current user with the email address: {email} on file.  Please check"}), 404
         else:
             username = user.username
@@ -133,14 +131,9 @@ class ResetPassword(Resource):
         email = data.get('email')
         password = data.get('password')
 
-        print("THE DATA IS", data)
-
         user = User.query.filter_by(email = email).first()
 
-        print("USER DUDE", user)
-
         if user is None:
-            print('no user')
             return({"message": f"There is an error finding the user associated with this password reset request"}), 404
         else:
             password_hash = generate_password_hash(password)

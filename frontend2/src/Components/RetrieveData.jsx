@@ -50,7 +50,6 @@ export const RetrieveData = () => {
                     setErrorMessageVisible(true)
                 } else {
                     const data = await response.json()
-                    console.log(data.message)
                     setFirstBoxStatus(false)
                     setSuccessBoxStatus(true)
                     setErrorMessageVisible(false)

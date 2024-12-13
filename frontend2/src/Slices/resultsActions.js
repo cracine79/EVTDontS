@@ -46,10 +46,8 @@ export const finishQuiz = (quizData) => async(dispatch) => {
         })
 
         const data = await response.json()
-        console.log(data)
         dispatch(updateUserChapters(data.chapters))
         dispatch(login(data.user))
-        console.log(data.answers)
         dispatch(updateUserResults(data.answers))
         dispatch(updateTopicProg(data.topic_progress))
         dispatch(updateTopics(data.topics))
@@ -79,7 +77,6 @@ export const finishReviewQuiz = (quizData) => async(dispatch) => {
  
 
 export const finishChapter = (chapterData)  => async(dispatch) => {
-    console.log('Chapter DATA!!', chapterData)
     try{
         const response = await csrfFetch('/api/progress/chapter', {
             method: 'PATCH',
@@ -90,7 +87,6 @@ export const finishChapter = (chapterData)  => async(dispatch) => {
             body: JSON.stringify(chapterData)
         })
         const data = await response.json()
-        console.log('Data received from API:', data); // Ensure this logs correctly
         dispatch(updateUser(data))
         return data
         

@@ -12,8 +12,6 @@ export const FinishPage = () => {
     const units = useSelector((state)=>state.units)
     const userName = useSelector((state)=>state.user.username)
 
-    console.log('test', units[1])
-
     const unitsObj = Object.values(units)
     const topicProgObj = Object.values(userProg)
     // const userChaptersObj = Object.values(userChapters)
@@ -21,15 +19,11 @@ export const FinishPage = () => {
         id: key,
         name: units[key].name
     }))
-
-    console.log('uowk', unitsObjWithIds)
     
     const thisUnit = (unit) => {
-        console.log('unit', unit)
         const output = (unitsObjWithIds.filter((objUnit)=>{
             return objUnit.name === unit
         }))
-        console.log('output', output[0])
         return output[0]
     }
 
@@ -60,7 +54,7 @@ export const FinishPage = () => {
     }, {})
 
     const userTopicProgObj = Object.values(userTopicProgComplete)
-    console.log('utpro', userTopicProgObj)
+
 
     const userChaptersComplete = Object.keys(userChapters).reduce((acc, key) => {
         if(bookChapters[key]) {
@@ -80,7 +74,7 @@ export const FinishPage = () => {
     })
 
     const [chaptersOpen, setChaptersOpen] = useState(chaptersInitial)
-    console.log('uco', userChaptersObj)
+
 
     let reply=""
     if(averagePercentCorrect > 90){
@@ -98,7 +92,6 @@ export const FinishPage = () => {
     }
 
     const chapterRanking = (percentCorrect) => {
-        console.log('percent correct' , percentCorrect)
         if(percentCorrect >= 80){
             return(<>The Bomb</>)
         } else if (percentCorrect >= 70){
@@ -113,7 +106,6 @@ export const FinishPage = () => {
     }
 
     const topicRanking = (percentCorrect) => {
-        console.log('percent correct' , percentCorrect)
         if(percentCorrect >= 80){
             return(<>Fiscal Samurai</>)
         } else if (percentCorrect >= 70){
@@ -139,12 +131,11 @@ export const FinishPage = () => {
      
         })
     }
-    console.log('Chapters Open', chaptersOpen)
+
     const chaptersProg= (unit) => {
         const currentUnit = thisUnit(unit)
-        console.log('cu', currentUnit)
         const unitChapters = userChaptersObj.filter((chapter)=> chapter.unit_id==parseInt(currentUnit.id))
-        console.log('unitChapters', unitChapters)
+        
         return(
             unitChapters.map((chapter)=>{
       
@@ -156,8 +147,8 @@ export const FinishPage = () => {
                     chapterQuestionsFaced += topic.questions_asked
                     chapterQuestionsAnswered += topic.answered_correctly
                 })
-                console.log('chapter', chapter)
-                console.log('ctfs', chapterTopicsForScore)
+
+                
                 return(
                     <div className='ml-2 mt-2' onClick={()=>openChapters(chapter.chapter_id)}>
 
@@ -190,8 +181,7 @@ export const FinishPage = () => {
 
     const topicsBreakdown = (chapterId) => {
         const chapterTopics = userTopicProgObj.filter((topic)=>topic.chapter_id==parseInt(chapterId))
-        console.log('chapterID', chapterId)
-        console.log('chapterTopics', chapterTopics)
+
         return(
             chapterTopics.map((topic)=>{
                 return(

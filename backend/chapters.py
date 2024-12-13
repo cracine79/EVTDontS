@@ -25,9 +25,9 @@ class GetChapters(Resource):
 @chapters_ns.route('/blurb/<int:chapter_id>')
 class GetChatperBlurb(Resource):
     def get(self, chapter_id):
-        print('CHAPTER ID', chapter_id)
+        # print('CHAPTER ID', chapter_id)
         chapter = Chapter.query.get_or_404(chapter_id)
-        print('GOT ID DUDE', chapter)
+        # print('GOT ID DUDE', chapter)
         return jsonify({
             'chapter_id': chapter.id,
             'video_blurb': chapter.video_blurb

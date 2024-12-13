@@ -177,7 +177,6 @@ export const SelectUnitsForm = () => {
     //   };
     
     const handleSubmit = () => {
-        console.log('CHAPTERSSSSS', selectedChapters)
         dispatch(addUserUnits(selectedChapters))
         navigate('/userhome', {state: {showModal: true}})
         

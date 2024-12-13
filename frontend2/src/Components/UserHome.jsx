@@ -16,7 +16,6 @@ export const UserHome = () => {
     const currentBookChapter = useSelector((state)=>state.chapters[currentChapterId])
     const currentUserChapter = useSelector((state)=>state.userChapters[currentChapterId])
     const showModal = location.state?.showModal
-    console.log('showModal:' , showModal)
     const messages = [
         "Glad to see you're back.  We were starting to think you'd mastered economics overnight",
         "Already back for more?  Guess Netflix isn't cutting it today.",

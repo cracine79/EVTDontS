@@ -5,7 +5,6 @@ import { selectUserChapters } from "../Slices/selectors"
 
 export const Progress = () => {
     const units = useSelector((state)=>state.units)
-    console.log('UNITOS', units)
     // const units_names = Object.values(units)
     const bookChapters = useSelector((state)=>state.chapters)
     const userChapters = useSelector((state)=>state.userChapters)
@@ -168,8 +167,7 @@ export const Progress = () => {
     
     const unitChapters = (unitId) => {
         const chaptersUnits = chaptersEnt.filter(([chapterId, chapter])=>chapter.unit_id == unitId)
-        console.log(chaptersUnits)
-        console.log(chaptersEnt)
+
         return(
             <>
                 <div className='flex bg-green-600 h-8 items-center w-100'>

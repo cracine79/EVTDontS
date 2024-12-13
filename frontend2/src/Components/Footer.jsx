@@ -6,7 +6,7 @@ export const Footer = () => {
         <div className = 'w-full'>
             <div className='h-52 bg-green-600 flex flex-col  items-center w-full'>
             <div className='mt-8 text-white text-xl w-1/3 flex justify-between'>
-                <a href="#">About Us</a> | 
+                <span className='hover:cursor-pointer' onClick = {()=>navigate('/aboutus')}>About Us</span> | 
                 <span className='hover:cursor-pointer'onClick={()=>navigate('/privacypolicy')}>Privacy Policy</span> 
                 | <span className='hover:cursor-pointer' onClick={()=>navigate('/termsofservice')}>Terms of Service</span>
                 | <a href="mailto:admin@evtds.com">Contact Us</a> 

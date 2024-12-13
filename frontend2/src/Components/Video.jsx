@@ -44,7 +44,6 @@ export const Video = () => {
             });
 
         const data = await response.json()
-        console.log(data)
 
         dispatch(updateUserChapters(data))
         } catch (error) {

@@ -22,9 +22,6 @@ export const ReviewQuizResults = () => {
             return { ...topic, ...dictEntry };
         });
     }, [topics, topicProg]);
-    console.log('topics', topics)
-    console.log('topic-prog', topicProg)
-    console.log('merged', mergedTopics)
 
     const names = topics.map(topic => topic.topic_name)
 

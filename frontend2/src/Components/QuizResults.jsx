@@ -27,7 +27,7 @@ export const QuizResults = () => {
     const chapterName = fullChapterName.slice(breakPoint +1)
     
     const unitFinished = location.state?.unitFinished
-    console.log('UFF', unitFinished)
+
     let numCorrect = 0
     resultsObj.forEach((result)=>{
         if (result.isCorrect == true){
@@ -69,7 +69,7 @@ export const QuizResults = () => {
         dispatch(clearQuestions())
         dispatch(clearUserResults())
         const newChapter = data.current_chapter
-        console.log('new Chapter', newChapter)
+
 
         
         if(data.completed == true){

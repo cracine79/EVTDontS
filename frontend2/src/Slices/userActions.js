@@ -59,7 +59,6 @@ export const loginUser = (username, password) => async(dispatch) => {
     }
    
     const data = await response.json();
-    console.log(data)
     localStorage.setItem('access_token', data.user.access_token);
     dispatch(login(data.user));
     dispatch(storeUserUnits(data.units))
@@ -87,7 +86,6 @@ export const loginUser = (username, password) => async(dispatch) => {
         body: JSON.stringify({ username, email, password }),
       });
       const data = await response.json();
-      console.log('DATA', data)
       localStorage.setItem('access_token', data.user.access_token);
       dispatch(login(data.user));
       return {success: true}

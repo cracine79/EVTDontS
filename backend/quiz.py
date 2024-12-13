@@ -48,9 +48,7 @@ class AccessQuiz(Resource):
                     questions.extend(topic_questions)
             else:
                 all_topic_questions = Question.query.filter_by(topic_id = topic_ids[0]).offset(3).all()
-                print('ALL TOPIC QUESTIONS', all_topic_questions)
                 topic_questions = random.sample(all_topic_questions, min(6, len(all_topic_questions)))
-                print('TOPIC QUESTIONS AREREREER', topic_questions)
                 questions.extend(topic_questions)
         
         elif type == 'unitQuiz':
@@ -62,12 +60,9 @@ class AccessQuiz(Resource):
             completed_chapters = UserChapterProgress.query.filter_by(user_id=user_id).filter(UserChapterProgress.quiz_grade.isnot(None)).all()
             completed_chapter_ids = {progress.chapter_id for progress in completed_chapters}
             completed_unit_chapters = {chapter for chapter in unit_chapters if chapter.id in completed_chapter_ids}
-            print("Unit Chapters", completed_unit_chapters)
             for chapter in completed_unit_chapters:
-                print("Chapter Topics", chapter.topics)
                 for topic in chapter.topics:
                     topic_questions = list(Question.query.filter_by(topic_id = topic.id).all())
-                    print('UNIT QUIZ TOPPIE QUSETIONS', topic_questions)
                     questions_to_add = random.sample(topic_questions, min(qnum, len(topic_questions)))
                     questions.extend(questions_to_add)
 
@@ -142,18 +137,12 @@ class AccessQuiz(Resource):
                 
             random.shuffle(questions)
             questions = questions[:12]
-            print('WITH ADDED QUESTIONS NEW', questions)
 
 
-
-            
-
-        print("QUIZZESTIONS", questions)
         question_ids = [question.id for question in questions]
         # performances = UserPerformance.query.filter(UserPerformance.user_id == user_id, UserPerformance.question_id.in_(question_ids)).all()
         
         question_dict = {}
-        print("THEQUESTIONSARE", questions)
         for question in questions:
 
             answers = {
@@ -173,7 +162,6 @@ class AccessQuiz(Resource):
         quiz_blurb_img_url = quiz_blurb_img_url if 'quiz_blurb_img_url' in locals() else None
         # for performance in performances:
         #     question_dict[performance.question_id]['correct'] = performance.is_correct
-        print ("QD!!!", len(question_dict))
         return ({
             "questions": question_dict,
             "quiz_blurb": quiz_blurb,
