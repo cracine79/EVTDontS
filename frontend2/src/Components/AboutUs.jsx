@@ -22,7 +22,7 @@ export const AboutUs = () => {
                 When I’m not creating content for this website, I’m dreaming up even more features to make economics engaging, digestible, and downright enjoyable. This site might be in its infancy, but I’ve got big plans. Think more videos, smarter quizzes, and who knows, maybe a feature where your wrong answers unlock old movie trivia… because keeping classic films relevant feels like the right thing to do.
                 </div>
                 <div className='text-xl mt-2 mb-2 font-bold'>
-                    What's the Goal Here?
+                    What is the Goal Here?
                 </div>
                 <div>
                     I'm here to:
