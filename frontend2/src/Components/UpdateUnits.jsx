@@ -94,23 +94,17 @@ export const UpdateUnits = () => {
     const unitsDisplay = (subjectId) => {
         const subjectUnits = unitsObj.filter((unit)=>unit.subject_id==subjectId)
         
-    
- 
-    
-        
         return(
             subjectUnits.map((unit)=>{
                 const hasChapters = unitIdsWithChapters.has(Number(unit.id))
                 return(<div key={unit.id} className={`${hasChapters  ? 'mb-6' : ''}`} >
                     <input type='checkbox' className='mx-2' name = {unit.id} onChange = {handleUnitChange} checked = {selectedUnits[unit.id]}disabled={!hasChapters}></input>
-                    <label className={`text-2xl ${hasChapters && 'mt-2'}`}>{unit.name}</label> <span>{!hasChapters && <span className='text-xs text-gray-600'>(coming soon!)</span>}</span>
+                    <label className={` text-xl sm:text-2xl ${hasChapters && 'mt-2'}`}>{unit.name}</label> <span>{!hasChapters && <span className='text-xs text-gray-600'>(coming soon!)</span>}</span>
                     <div>
                         {hasChapters && <div> {chaptersDisplay(unit.id)}</div>}
                     </div>
                 </div>)
             })
-                
-            
         )
     }
 
@@ -129,7 +123,7 @@ export const UpdateUnits = () => {
             unitChapters.map((chapter)=>(
                 <div className='ml-4'>
                     <input type='checkbox' onChange={handleChapterChange} name = {chapter.id} checked = {selectedChapters[chapter.id] }></input>
-                    <label className='text-md'>{chapter.name}</label> 
+                    <label className='text-sm sm:text-md'>{chapter.name}</label> 
                 </div>
                 
             ))
@@ -140,8 +134,8 @@ export const UpdateUnits = () => {
             <>
                 {subjectsObj.map((subject) => (
                 <>
-                    <div key={subject.id} className='text-3xl'>Topic: {subject.name}</div> 
-                    <div className='ml-4'>{unitsDisplay(subject.id)}</div>
+                    <div key={subject.id} className=' text-2xl sm:text-3xl'>Topic: {subject.name}</div> 
+                    <div className='sm:ml-4 '>{unitsDisplay(subject.id)}</div>
                 </>
             ))}
             </>
@@ -151,8 +145,9 @@ export const UpdateUnits = () => {
         <div className='flex flex-col items-center mt-32'>
             <div className=
                         {`
-                        ml-20
-                        w-2/3
+                        sm:ml-20
+                        sm:w-2/3
+                        w-full
                         h-auto
                         text-center
                         p-4
@@ -172,15 +167,15 @@ export const UpdateUnits = () => {
                             <p> Just go ahead and select or deselect what you need below, and we’ll pretend
                                  like you got it right the first time. Then you can get back to the glorious 
                                  videos that definitely don’t suck... we hope. </p>
-                            <div className='mt-4 columns-2 gap-16 p-4 text-left'>
+                            <div className='mt-4 sm:columns-2 gap-16 p-4 text-left'>
                                 <UnitChoiceForm />
                             </div>
-                            <div className='flex flex-col justify-around w-1/4'>
+                            <div className='flex flex-col sm:flex-row justify-around sm:w-3/4'>
                                 <button
                                     type="button"
                                     className="mt-4
                                 border-black 
-                               
+                                sm:w-1/4
                                 border-2 
                                 flex 
                                 justify-center 
@@ -199,7 +194,9 @@ export const UpdateUnits = () => {
                                 </button>
                                 <button  className="mt-4
                                 border-black 
-                               
+                                px-2
+                                sm:px-0
+                                sm:w-1/3
                                 border-2 
                                 flex 
                                 justify-center 
