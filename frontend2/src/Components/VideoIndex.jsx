@@ -14,6 +14,7 @@ export const VideoIndex = () => {
     const chapters = useSelector(state=>(state.chapters))
     const chaptersObj = Object.values(chapters)
     const [videoId, setVideoId] = useState(false)
+    const [menuOpen, setMenuOpen] = useState(false)
 
     useEffect(()=>{
         scrollTo(0,0)
@@ -21,6 +22,7 @@ export const VideoIndex = () => {
     },[])
 
     const videoGo = (chapter) => {
+        setMenuOpen(false)
         setVideoId(chapter.video_url)
     }
 
@@ -40,9 +42,12 @@ export const VideoIndex = () => {
         <div className = 'mt-24'>
 
             <div className='min-h-screen w-100 flex'>
-                <div className=' w-1/5 bg-lime-100 text-sm'>
+                <div onClick={()=>setMenuOpen(true)} className='sm:hidden x-50 absolute bg-lime-100 w-1/2  text-center border-green-600 border-solid border'> ☰ Video Library</div>
+                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-lime-100 text-sm transform ${
+                    menuOpen ? 'translate-x-0' : '-translate-x-full'
+                } transition-transform sm:translate-x-0`}>
                     <div className='ml-4'>
-
+                    <div className='sm:hidden mt-2 -mb-4' onClick={()=>{setMenuOpen(false)}}>X Close</div>
                     <div className='text-2xl font-bold text-center mt-4 -ml-8'>Video Library</div>
                     <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
                     {chaptersObj.slice(0,6).map(chapter=>{
@@ -67,7 +72,7 @@ export const VideoIndex = () => {
                     <div className='mt-2'>(Coming Soon!)</div>
                 </div>
                     </div>
-                <div className='w-5/6'>
+                <div className='sm:w-5/6 w-full'>
                     <div className='flex flex-col items-center'>
                         {!videoId && <>
                             <div className='text-center mt-10 text-4xl font-bold'>
@@ -75,20 +80,25 @@ export const VideoIndex = () => {
                         </div>
                         <img className='max-h-[60vh] 'src='https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png'></img>
                         <div className='mx-8 mt-10 text-lg'>
-                        Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand, and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a stepping stone to mastering economic concepts, and you can access any and all of our treasure trove of videos that absolutely don't suck from the navigation bar on the left. 
+                        Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand, 
+                            and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a 
+                            stepping stone to mastering economic concepts, and you can access any and all of our treasure trove of videos that absolutely don't suck 
+                            <span className='inline sm:hidden'> by accessing the <span className='font-bold'>Video Library</span> above.</span> 
+                            <span className='hidden sm:inline'>from the menu on the left.</span>
+                            
                         </div>
                         <div className='mx-8 mt-4 text-lg'>
                         Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.
                         </div>
                         </>}
                     </div>
-                    <div className='flex flex-col items-center justify-center mt-10 '>
-                        <div className='text-2xl my-4'>
+                    <div className='flex flex-col items-center justify-center sm:mt-10 mt-6 '>
+                        <div className='sm:text-2xl text-lg my-4'>
                             {videoId ? `Video for ${chapterVid(videoId)}`: ''}
                         </div>
                         {videoId && (
                         <>
-                        <div className='w-11/12 max-w-6xl aspect-video'>
+                        <div className='sm:w-11/12 w-full max-w-6xl aspect-video'>
                             <iframe 
                                 className="w-full h-full"
                                 src={videoId} 

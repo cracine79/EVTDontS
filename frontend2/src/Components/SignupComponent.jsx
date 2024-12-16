@@ -102,7 +102,7 @@ const SignupComponent = () => {
 										<IoMdClose size={18}/>
 						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
-              <div className="text-xl mt-5">Let's do This Thing!</div>
+              <div className="text-xl md:mt-5 mt-28">Let's do This Thing!</div>
               <input
                 className='
                             p-2

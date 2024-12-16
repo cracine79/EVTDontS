@@ -83,6 +83,7 @@ const LoginComponent = () => {
       >
         <div
           className={`
+            
             translate
             h-full
             lg:h-auto
@@ -118,7 +119,7 @@ const LoginComponent = () => {
 										<IoMdClose size={18}/>
 						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
-              <div className="text-xl mt-5">Welcome Back Fellow Econo-Warrior!</div>
+              <div className="text-xl md:mt-5 mt-28">Welcome Back Fellow Econo-Warrior!</div>
               <input
                 className='
                             p-2
