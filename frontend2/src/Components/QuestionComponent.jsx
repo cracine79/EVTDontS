@@ -286,7 +286,8 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             <button className='
                             border-black 
                             h-1/5 
-                            w-40 
+                            sm:w-40
+                            w-1/4 
                             border-2 
                             flex 
                             justify-center 
@@ -305,7 +306,8 @@ export const QuestionComponent = ({chapter, type, topics}) => {
               <button className='
                             border-black 
                             h-1/5 
-                            w-40 
+                            sm:w-40 
+                            w-1/4
                             border-2 
                             flex 
                             justify-center 
@@ -319,8 +321,9 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                           }
               <button className='
                             border-black 
-                            h-1/5 
-                            w-40 
+                            sm:h-1/5
+                            w-1/4 
+                            sm:w-40 
                             border-2 
                             flex 
                             justify-center 

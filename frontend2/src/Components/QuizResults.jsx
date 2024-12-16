@@ -105,21 +105,24 @@ export const QuizResults = () => {
     
     return(
         <div className='w-screen flex justify-center min-h-screen'>
-            <div className="mt-52 w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
+            <div className="sm:mt-52 mt-28 sm:w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center mx-4'>
-                    <div className='mt-8 text-4xl'>Results for Chapter {chapterNumber} Review Quiz</div>
-                    <div className = 'mt-4 text-2xl'>Topic: {chapterName}</div>
-                    <div className = 'mt-4 text-xl'>You answered <span className='font-bold'>{numCorrect} out of a total possible {resultsObj.length} questions</span> correctly.  Your total score on this quiz was <span className = 'font-extrabold'>{percentageScore}%</span></div>
-                    <div className = 'mt-4 text-xl'>{scoreHeader()}</div>
+                    <div className='mt-8 sm:text-4xl text-2xl text-center sm:text-left'>Results for Chapter {chapterNumber} Review Quiz</div>
+                    <div className = 'mt-4 sm:text-2xl text-xl'>Topic: {chapterName}</div>
+                    <div className = 'mt-4 sm:text-xl text-lg'>You answered <span className='font-bold'>{numCorrect} out of a total possible {resultsObj.length} questions</span> correctly.  Your total score on this quiz was <span className = 'font-extrabold'>{percentageScore}%</span></div>
+                    <div className = 'mt-4 sm:text-xl text-lg'>{scoreHeader()}</div>
                     {unitFinished && percentageScore>60 &&  <div className = 'mt-4 text-xl'>
                             That was the last chapter of the Unit!  You are killing it my dude!
                     </div>}
                 </div>
-                <div className='flex flex-row justify-around my-10'>
+                <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
                     <button className='
                             border-black 
                             h-1/5 
-                            w-1/5
+                            sm:w-1/5
+                            mb-4
+                            sm:mb-0
+                            w-11/12
                             border-2 
                             flex 
                             justify-center 
@@ -133,8 +136,11 @@ export const QuizResults = () => {
                     <button className='
                             border-black 
                             h-1/5 
-                            w-1/5
+                            sm:w-1/5
+                            w-11/12
                             border-2 
+                            mb-4
+                            sm:mb-0
                             flex 
                             justify-center 
                             items-center
@@ -149,7 +155,10 @@ export const QuizResults = () => {
                     <button className='
                             border-black 
                             h-1/5 
-                            w-1/5
+                            w-11/12
+                            sm:w-1/5
+                            mb-4
+                            sm:mb-0
                             border-2 
                             flex 
                             justify-center 
@@ -163,7 +172,10 @@ export const QuizResults = () => {
                             > {!unitFinished ? "Enough of this.  Let's go to the next Video.":"Take me to my Unit Wrapup Party!"}</button> : <button className='
                             border-black 
                             h-1/5 
-                            w-1/5
+                            sm:w-1/5
+                            w-11/12
+                            mb-4
+                            sm:mb-0
                             border-2 
                             flex 
                             justify-center 
@@ -182,7 +194,8 @@ export const QuizResults = () => {
                         <button className='
                         border-black 
                         h-1/5 
-                        w-1/5
+                        sm:w-1/5
+                        w-11/12
                         border-2 
                         flex 
                         justify-center 
