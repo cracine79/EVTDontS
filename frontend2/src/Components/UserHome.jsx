@@ -126,11 +126,12 @@ export const UserHome = () => {
                 flex-col
                 
                 min-h-screen`}>
-                <div className='h-100 flex flex-row mt-26 w-3/4'>
+                <div className='h-100 flex sm:flex-row flex-col mt-26 w-3/4'>
                     <div className=
-                        {`mt-36 
-                        min-w-96
-                        w-3/5 
+                        {`sm:mt-36
+                        mt-28 
+                        sm:min-w-96
+                        sm:w-3/5 
                         h-auto
                         bg-white 
                         rounded-3xl 
@@ -141,10 +142,10 @@ export const UserHome = () => {
                         justify-center`}>
                     {userName ? (
                                 <div className='flex flex-col items-center justify-center'>
-                                    <div className='ml-10 text-5xl '>
+                                    <div className='sm:ml-10 sm:text-5xl text-3xl text-center mt-2 sm:mt-0'>
                                         Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
                                     </div>
-                                    <div className='text-xl w-4/5 text-center mt-6'>
+                                    <div className='text-xl w-4/5 text-center sm:mt-6 mt-2'>
                                         {genMessage()}
                                     </div>
                                 </div>
@@ -154,7 +155,7 @@ export const UserHome = () => {
                             </p>
                         )}
                     </div>
-                    <div className="w-1/3 min-w-80 bg-white 100 h-100 mt-36 ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                    <div className="sm:w-1/3 sm:min-w-80 bg-white 100 h-100 sm:mt-36 mt-6 sm:ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
                             <p className="mt-8 text-4xl underline">Progress</p>
                             <div className = "mt-2 ml-4 mr-2 flex flex-col items-center">
                                 {workingOn()}
@@ -163,7 +164,8 @@ export const UserHome = () => {
                                 {`mt-4 
                                 border-black 
                                 h-1/5 
-                                w-1/2 
+                                sm:w-1/2
+                                w-3/4 
                                 border-2 
                                 flex 
                                 justify-center 
@@ -180,15 +182,19 @@ export const UserHome = () => {
 
                 </div>
         
-                    <div className='flex flex-row items-center justify-center w-full mt-20 mb-20'>
+                    <div className='flex flex-row items-center justify-center w-full sm:mt-20 mt-6 sm:mb-20'>
                         <Progress />
                     </div>
 
-                    <div className = 'w-full flex justify-around mb-24'>
+                    <div className = 'w-full flex flex-col sm:flex-row items-center sm:justify-around mb-24'>
                         <div className=
                         {`
-                        w-1/3
-                        ml-48
+                        bg-white
+                        sm:w-1/3
+                        sm:ml-48
+                        mt-6
+                        sm:mt-0
+                        w-11/12
                         h-auto
                         text-center
                         p-4
@@ -198,7 +204,7 @@ export const UserHome = () => {
                         flex-col 
                         items-center
                         justify-center`}>
-                            <div className='text-2xl mt-3'>Update Your Study Plan</div>
+                            <div className='text-2xl sm:mt-3'>Update Your Study Plan</div>
                             <p className='my-4'>Not everyone gets it right on the first try - you should see our last haircut!</p>
                             <p>Adjust the units/chapters you want to study here and get back on track like the decision making pro we all know you are</p>
                             <button  className={`
@@ -221,8 +227,12 @@ export const UserHome = () => {
                         </div>
                         <div className=
                         {`
-                        mr-48
-                        w-1/3
+
+                        sm:mr-48
+                        sm:w-1/3
+                        w-11/12
+                        mt-6
+                        sm:mt-0
                         h-auto
                         text-center
                         p-4
@@ -231,7 +241,8 @@ export const UserHome = () => {
                         flex 
                         flex-col 
                         items-center
-                        justify-center`}>
+                        justify-center
+                        bg-white`}>
                             <div className='text-2xl mt-3'>Focus on your Weaknesses</div>
                             <p className='my-4'>Think you’ve mastered it all? Spoiler: The quiz knows your weak spots better than your Netflix recommendations.</p>
                             <p> Take a deep breath, dive in, and let’s tackle those tricky bits. (You got this—probably.)</p>
