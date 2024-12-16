@@ -4,11 +4,11 @@ export const GetStarted = () => {
     return(
         <div>
            <div className="mt-28 flex  min-h-lvh w-full justify-center">
-                <div className='w-3/4 flex flex-col items-center'>
-                    <div className='text-3xl mt-10'>Welcome to EVTDS: Lowering Your Expectations Since... Well, Now!</div>
-                    <div className='flex justify-around flex-row mt-10'>
-                        <div className='w-7/12'>
-                            <div className='text-lg  rounded-2xl mr-10'>
+                <div className='sm:w-3/4 flex flex-col items-center'>
+                    <div className='w-11/12 sm:w-full text-3xl mt-10'>Welcome to EVTDS: Lowering Your Expectations Since... Well, Now!</div>
+                    <div className='flex justify-around sm:flex-row flex-col sm:mt-10'>
+                        <div className='sm:w-7/12'>
+                            <div className='text-lg  rounded-2xl sm:mr-10'>
 
                                 <div>&nbsp;</div>
                                 <div className='mx-4'>Welcome to EVTDS (Economics Videos That Don’t Suck)! 🎉 We can’t believe 

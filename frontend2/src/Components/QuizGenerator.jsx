@@ -32,11 +32,15 @@ export const QuizGenerator = () => {
     const studiedIt = (chapter_id) => {
         if (userChapters[chapter_id] && userChapters[chapter_id].video_completed){
             return<>
-                You betcha
+                <span className='hidden sm:block'>You betcha</span>
+                <span className='block sm:hidden'>Yes</span>
             </>
         } else {
             return(
-                <>Not yet</>
+                <>
+                    <span className='hidden sm:block'>Not yet</span>
+                    <span className='block sm:hidden'>No</span>
+                </>
             )
         }
         return(<>boobs</>)
@@ -87,7 +91,9 @@ export const QuizGenerator = () => {
              return(<>A bit Econ-fused
              </>)
         } else {
-             return(<>Not yet started
+             return(<>
+             <span className='hidden sm:block'>Not yet started</span>
+             <span className='block sm:hidden'>/</span>
                 </>)
         }
     }
@@ -97,19 +103,19 @@ export const QuizGenerator = () => {
             <div className='h-full w-100'>
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
                    <span className='text-3xl font-bold my-6'> Select Topics for Quiz</span>
-                    <div className="flex w-full px-10 flex-row justify-between items-start">
-                        <input type='checkbox' className='mt-2 -mr-8'
+                    <div className="flex w-full px-2 sm:px-10 flex-row justify-between items-start">
+                        <input type='checkbox' className='mt-2 sm:-mr-8'
                                 onChange = {()=>handleSelectAll()
                                 }
                                 checked = {selectedTopics.length === allTopicIds.length}
                                 />
-                        <div className='w-1/3  text-xl font-bold -ml-12'>
+                        <div className='sm:text-xl w-1/3  font-bold sm:-ml-12 '>
                             Topic
                         </div>
-                        <div className='w-1/5 text-xl font-bold text-center'>
+                        <div className='sm:w-1/5 sm:text-xl font-bold text-center'>
                             Studied?
                         </div>
-                        <div className='w-1/5 text-xl font-bold text-center'>
+                        <div className='w-1/5 sm:text-xl font-bold text-center'>
                             Mastery Level
                         </div>
                     </div>
@@ -120,15 +126,15 @@ export const QuizGenerator = () => {
                             {
                                 topicsEntries.map(([id, topic])=>{
                                     return(
-                                    <div className='w-full px-10 flex justify-between flex-row items-start'>
-                                        <input type='checkbox' className='mt-2 -mr-8'
+                                    <div className='w-full sm:px-10 px-2 flex justify-between flex-row items-center py-2'>
+                                        <input type='checkbox' className='sm:-mr-8'
                                                 checked = {selectedTopics.includes(id)}
                                                 onChange = {() => handleCheckboxChange(id)}/>
-                                        <div key={id} className='w-1/3 -ml-12'>
+                                        <div key={id} className='sm:w-1/3 w-1/3 sm:-ml-8 md:-ml-12 -ml-6 text-xs sm:text-md'>
                                             {topic.topic_name}
                                         </div>
-                                        <div className='w-1/5 text-center'> {studiedIt(topic.chapter_id)} </div>
-                                        <div className='w-1/5 text-center'> {ranking(topic.percent_correct)} </div>
+                                        <div className='sm:w-1/5 text-center text-xs sm:text-md'> {studiedIt(topic.chapter_id)} </div>
+                                        <div className='sm:w-1/5 w-1/5 text-center text-xs sm:text-md'> {ranking(topic.percent_correct)} </div>
                                         
                                     </div>
                                     )
@@ -136,12 +142,13 @@ export const QuizGenerator = () => {
                             }
                          </div>
                 <div className='flex w-full justify-center mt-8'>
-                    <div className='flex w-1/2 justify-around'>
+                    <div className='flex sm:w-1/2 justify-around'>
 
                     <div  className="my-6
                                     border-black 
-                                    
-                                    w-1/3 
+                                    text-center
+                                    sm:w-1/3
+                                    w-5/12 
                                     border-2 
                                     flex 
                                     justify-center 
@@ -157,8 +164,9 @@ export const QuizGenerator = () => {
                     </div>
                     <div className="my-6
                                     border-black 
-                                    
-                                    w-1/3 
+                                    sm:w-1/3
+                                    w-5/12 
+                                    text-center 
                                     border-2 
                                     flex 
                                     justify-center 

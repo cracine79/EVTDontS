@@ -1,14 +1,22 @@
 import { useSelector, useDispatch } from "react-redux"
 import { closeResultsModal } from "../Slices/modalSlice"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { FaArrowLeft } from "react-icons/fa6";
-
 export const ResultsModal = () => {
     const showModal = useSelector(state=>(state.modal.isResultsOpen))
     const answers = useSelector(state=>(state.results))
     const questions = useSelector(state=>(state.questions))
     const [answerNumber, setAnswerNumber] = useState(0)
     const wrongAnswers = []
+    const modalRef = useRef(null)
+
+
+    useEffect(()=>{
+        modalRef.current.scrollTo({
+            top:0
+        })
+        }
+    ,[answerNumber])
 
    Object.values(answers).forEach((entry)=>{
        
@@ -89,7 +97,7 @@ export const ResultsModal = () => {
                 return(
                     <>
                     <div className="flex items-center justify-center">
-                        {questions[wrongAnswers[answerNumber].questionId].image_url ? <img className='size-7/12' src={questions[wrongAnswers[answerNumber].questionId].image_url}/>:<></>}
+                        {questions[wrongAnswers[answerNumber].questionId].image_url ? <img className='sm:size-7/12 ' src={questions[wrongAnswers[answerNumber].questionId].image_url}/>:<></>}
                     </div>
                     {questions[wrongAnswers[answerNumber].questionId].text}
                     </>
@@ -119,7 +127,10 @@ export const ResultsModal = () => {
                 hover:bg-slate-500
                 font-medium
                 hover:cursor-pointer' 
-                onClick={()=>{setAnswerNumber(answerNumber+1)}}>
+                onClick={()=>{
+                    setAnswerNumber(answerNumber+1)
+                    }}>
+                    
                     Next Question
                 </button>
             )
@@ -163,6 +174,7 @@ export const ResultsModal = () => {
         `}
       >
         <div
+        ref={modalRef}
           className={`
             overflow-y-auto
             translate

@@ -4,7 +4,7 @@ import { openResultsModal } from "../Slices/modalSlice"
 import { ResultsModal } from "./ResultsModal"
 import { clearUserResults } from "../Slices/resultsSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
-import { useMemo } from "react"
+import { useMemo, useEffect } from "react"
 
 export const ReviewQuizResults = () => {
     const dispatch = useDispatch()
@@ -36,7 +36,9 @@ export const ReviewQuizResults = () => {
         }
     })
     const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
-
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
     const showResults = () => {
         dispatch(openResultsModal())
     }
@@ -96,10 +98,10 @@ export const ReviewQuizResults = () => {
 
     const topicMastery = () => {
         return(
-            <div className='flex flex-wrap justify-start mr-8 mt-6'>
+            <div className='flex sm:flex-wrap sm:flex-row flex-col justify-start sm:mr-8 mt-6'>
                 {mergedTopics.map((topic=>{
                     return(
-                        <div key={topic.id} className=' basis-1/5 mx-6 my-2 border-2 rounded-lg border-slate-300'>  
+                        <div key={topic.id} className=' sm:basis-1/5 mx-6 my-2 border-2 rounded-lg border-slate-300'>  
                             <div className='mt-4 mx-4'>
                                 <div className='mt-2 font-bold text-center text-xl'>
                                     Topic: {topic.topic_name}
@@ -164,21 +166,21 @@ export const ReviewQuizResults = () => {
         <>
 
             <div className='w-screen flex justify-center min-h-[calc(100vh-100px)]'>
-            <div className="mt-40 mb-24 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
+            <div className="sm:mt-40 mt-28 mb-24 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center '>
-                <div className='mt-10 ml-8 w-full'>
+                <div className='sm:mt-10 mt-4 w-full'>
 
                 <div >
-                    <div className='text-3xl text-center'>
-                    Results for {type=="review_quiz" ? "topic review": "weakness improvement"} quiz on: <span className='text-blue'>{formattedNames}</span>
+                    <div className='sm:text-3xl text-xl text-center px-4'>
+                    Results for {type=="review_quiz" ? "Topic Review": "Gauntlet"} Quiz on: <span className='text-blue'>{formattedNames}</span>
                     </div>
                 <div className='flex'>
-                    <div className='text-lg mx-10 mt-10'>
+                    <div className='text-lg sm:mx-10 mx-2 sm:mt-10 mt-4'>
                         You answered {numCorrect} out of a total {resultsObj.length} questions correctly, for a quiz score of {percentageScore}%.  &nbsp;
                         {scorePraise()}
                     </div>
                 </div>
-                <div className="text-2xl text-center ml-10 mt-10">
+                <div className="text-2xl text-center sm:ml-10 mx-2 sm: mt-10">
                     Topic Mastery Progress from This Quiz:
                 </div>
                 <div>
@@ -220,7 +222,7 @@ export const ReviewQuizResults = () => {
 
                         <button className='
                         border-black 
-                        h-1/5 
+                        sm:h-1/5 
                         w-1/4
                         border-2 
                         flex 

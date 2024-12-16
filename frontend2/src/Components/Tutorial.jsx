@@ -31,7 +31,7 @@ export const Tutorial = ({showModal}) => {
               
                 >
                 </div>
-                <div className="absolute  left-1/4 top-56 z-50 w-1/3  bg-slate-100 p-4 rounded-md shadow-lg">
+                <div className="absolute  sm:left-1/4 sm:top-56 top-20 z-50 sm:w-1/3  bg-slate-100 p-4 rounded-md shadow-lg">
                                 <p className="mb-4 text-2xl text-center">Welcome to Your User Dashboard!</p>
                                 <div>
                                     <p className='mb-4'>Give us a quick second to walk you through the page. We know, we know, you’ve been on a million websites before—you're basically the internet whisperer—but humor us, alright? This isn’t just any page. This is <em>your</em> dashboard, where you can review your progress, videos watched, quiz scores and topic mastery.  Dont worry, no judgment here... okay, maybe just a little. </p>
@@ -39,8 +39,8 @@ export const Tutorial = ({showModal}) => {
                                 </div>
                                 <p className = 'mb-4'>And don’t worry, we’ll try to keep the jargon and cringe to a minimum. Ready? Cool, let’s do this thing!</p>
                                 <div className='flex justify-around flex-row mt-6'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 1])}>Next Stop: Enlightenment</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['off', 1])}>Skip the awkward tour</button>
+                                    <button className="bg-blue-500 px-4 py-2 w-1/3 sm:w-auto rounded-md text-xs sm:text-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 1])}>Next Stop: Enlightenment</button>
+                                    <button className="bg-blue-500 px-4 py-2 w-1/3 sm:w-auto rounded-md text-xs sm:text-md text-white hover:bg-blue-700" onClick={()=>setModalState(['off', 1])}>Skip the awkward tour</button>
                                 </div>
                             </div>
             </>}
@@ -64,7 +64,7 @@ export const Tutorial = ({showModal}) => {
                 }}
                 >
                 </div>
-                <div className="absolute top-10 mt-12 left-1/2 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
+                <div className="absolute top-10 mt-12 sm:left-1/2 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg sm:w-1/4 min-w-80">
                                 <p className='mb-4'>You can teleport out of this Econo-wasteland to any other part of the site by accessing your user menu.  From here you can go straight to your next task or access all of our captivating videos in one place </p>
                                 <p className='mb-4'>You can also visit our quiz generator, which will allow you to hand-craft a quiz by selecting topics</p>
                                 <div className='flex justify-around flex-row'>
