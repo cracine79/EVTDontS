@@ -5,37 +5,37 @@ export const Footer = () => {
     return (
         <div className = 'w-full'>
             <div className='h-52 bg-green-600 flex flex-col  items-center w-full'>
-            <div className='mt-8 text-white text-xl w-1/3 flex justify-between'>
-                <span className='hover:cursor-pointer' onClick = {()=>navigate('/aboutus')}>About Us</span> | 
-                <span className='hover:cursor-pointer'onClick={()=>navigate('/privacypolicy')}>Privacy Policy</span> 
-                | <span className='hover:cursor-pointer' onClick={()=>navigate('/termsofservice')}>Terms of Service</span>
-                | <a href="mailto:admin@evtds.com">Contact Us</a> 
+            <div className='mt-8 text-white sm:text-lg md:text-lg lg:text-xl text-xs w-11/12 sm:w-3/4 md:w-1/3 flex justify-between'>
+                <span className='hover:cursor-pointer text-center' onClick = {()=>navigate('/aboutus')}>About Us</span> | 
+                <span className='hover:cursor-pointer text-center'onClick={()=>navigate('/privacypolicy')}>Privacy Policy</span> 
+                | <span className='hover:cursor-pointer text-center' onClick={()=>navigate('/termsofservice')}>Terms of Service</span>
+                | <a href="mailto:admin@evtds.com" className='hover:cursor-pointer text-center'>Contact Us</a> 
             </div>    
-            <div className='flex w-1/4 justify-around'>
-                <div className = 'text-white text-4xl mt-6 hover:cursor-pointer'> 
+            <div className='flex sm:w-1/4 sm:justify-around w-3/4 justify-around'>
+                <div className = 'text-white  text-2xl sm:text-4xl mt-6 hover:cursor-pointer'> 
                     <a className='text-white hover:text-green-800' href='https://github.com/cracine79'>
                         <i class="fa-brands fa-github"></i> 
                     </a>
                 </div>
-                <div className = 'text-white text-4xl mt-6 hover:cursor-pointer'> 
+                <div className = 'text-white text-2xl sm:text-4xl mt-6 hover:cursor-pointer'> 
                     <a className='text-white hover:text-green-800' href='https://www.youtube.com/channel/UC84BLMH2b5kquBloCaiddrw'>
                         <i class="fa-brands fa-youtube"></i> 
                     </a>
                 </div>
 
-                <div className = 'text-white text-4xl mt-6 hover:cursor-pointer'> 
+                <div className = 'text-white text-2xl sm:text-4xl mt-6 hover:cursor-pointer'> 
                     <a className='text-white hover:text-green-800' href='https://www.instagram.com/econ_quick_hits/?igsh=MTl5cWM1aWN6ZnBoaw%3D%3D'>
                         <i class="fa-brands fa-instagram"></i> 
                     </a>
                 </div>
 
-                <div className = 'text-white text-4xl mt-6 hover:cursor-pointer'> 
+                <div className = 'text-white text-2xl sm:text-4xl mt-6 hover:cursor-pointer'> 
                     <a className='text-white hover:text-green-800' href='https://www.linkedin.com/in/charlee-racine-50241a7b/'>
                         <i class="fa-brands fa-linkedin"></i> 
                     </a>
                 </div>
 
-                <div className = 'text-white text-4xl mt-6 hover:cursor-pointer'> 
+                <div className = 'text-white text-2xl sm:text-4xl mt-6 hover:cursor-pointer'> 
                     <a className='text-white hover:text-green-800' href='https://cracine79.github.io/CharLee-Portfolio/'>
                         <i class="fa-solid fa-folder-open"></i> 
                     </a>
