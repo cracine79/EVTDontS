@@ -60,8 +60,9 @@ export const Video = () => {
   
     return(
         <div className="w-full flex flex-col justify-center items-center mt-24">
-             <div className='text-center text-3xl my-6'>{currentChapter.name}</div>
-        <div className='aspect-video justify-between w-1/2 flex flex-col'>
+             <div className='text-center sm:text-3xl text-xl  my-6'>{currentChapter.name}</div>
+        
+        <div className='aspect-video justify-between sm:w-1/2 w-full flex flex-col'>
            
             <div className="w-full h-full">
                 <iframe className="w-full h-full" 
@@ -74,15 +75,14 @@ export const Video = () => {
         </div>
 
 
-            <p className="whitespace-pre-line w-3/4 mt-10" dangerouslySetInnerHTML={{ __html: blurb }}>
-                {/* {blurb} */}
-            </p>
-            <div className='flex justify-between w-1/2 mt-6'>
+            <p className="whitespace-pre-line sm:w-3/4 w-5/6 mt-10 hidden sm:block" dangerouslySetInnerHTML={{ __html: blurb }}></p>
+            <div className='flex justify-between sm:flex-row flex-col w-1/2 mt-6'>
                 <div onClick = {handleClick} className={
-                            `mt-10 
+                            `sm:mt-10
+                            mt-4 
                             border-black 
                             h-auto 
-                            w-1/3
+                            sm:w-1/3
                             border-2 
                             flex 
                             justify-center 
@@ -98,12 +98,13 @@ export const Video = () => {
                     Back to my Dashboard
                 </div>
                 <div onClick = {completeVid} className=
-                            {`mt-10 
+                            {`sm:mt-10
+                            mt-2
                             flex
                             flex-col
                             border-black 
                             h-auto
-                            w-1/3 
+                            sm:w-1/3 
                             border-2 
                             flex 
                             justify-center 
@@ -118,7 +119,11 @@ export const Video = () => {
                     <p>Mark as Completed</p>
                     <p>Let's Rock the Quiz</p>
                 </div>
+                
             </div>
+            <p className="whitespace-pre-line sm:w-3/4 w-5/6 mt-4 mb-6 sm:hidden" dangerouslySetInnerHTML={{ __html: blurb }}>
+                {/* {blurb} */}
+            </p>
         </div>
     )
 }

@@ -44,7 +44,7 @@ export const Whoops = () => {
 
     return(
         <div className='mt-48 flex flex-col items-center h-full min-h-screen'>
-            <div className='w-2/3 flex flex-col items-center shadow-2xl rounded-lg'>
+            <div className='sm:w-2/3 flex flex-col items-center shadow-2xl rounded-lg'>
                     <form className='flex flex-col  items-center w-100' onSubmit = {handleSubmit}>
                     <img src='oops.png' className = 'flex flex-col items-center w-1/2 mt-16'></img>
                     <p className = 'my-4 text-2xl'>There was a problem{action}:</p>

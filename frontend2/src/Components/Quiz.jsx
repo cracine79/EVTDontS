@@ -100,11 +100,11 @@ export const Quiz = () => {
 
     return (
         <div className="w-full flex flex-col justify-center items-center">
-            <div className='mt-40  aspect-video justify-center w-3/4'>
+            <div className='sm:mt-40 mt-28 aspect-video justify-center w-full sm:w-3/4'>
                 <div className='flex justify-center'>
                     {type == 'chapterQuiz' && 
                         <div className='items-center flex flex-col'>
-                            <div className='text-2xl text-center'>
+                            <div className='sm:text-2xl w-5/6 text-xl text-center'>
                                 <div>
                                 Prepare to Show Your Stuff! 
                                 </div>
@@ -112,10 +112,10 @@ export const Quiz = () => {
                                 This is the quiz for Chapter {chapterName}
                                 </div>
                             </div>
-                            <div className ='mt-6 w-5/12'>
+                            <div className ='mt-6 sm:w-5/12'>
                                 <img src = {quizBlurbImgUrl} />
                             </div>
-                            <div className = 'whitespace-pre-line mt-8 w-3/4 text-center' dangerouslySetInnerHTML={{__html: quizBlurb}}>
+                            <div className = 'whitespace-pre-line mt-8 sm:w-3/4 w-5/6 text-center' dangerouslySetInnerHTML={{__html: quizBlurb}}>
                                 {/* {quizBlurb} */}
                             </div>
                         </div>}
