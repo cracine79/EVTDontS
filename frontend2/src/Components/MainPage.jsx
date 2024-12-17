@@ -20,9 +20,10 @@ export const MainPage = () => {
                     Learning economics doesn't have to suck...   But it usually does. 
                 </div> */}
 
-                <video className='w-full sm:w-11/12 h-auto mt-20' autoPlay loop muted>
+                <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block' autoPlay loop muted>
                     <source src="intro2.mp4" type="video/mp4" />
                 </video>
+                <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
        
             </div>
             <div className="w-screen h-auto bg-white items-center">
@@ -33,9 +34,10 @@ export const MainPage = () => {
                     </div>
                     <div className="flex flex-col items-center">
                        
-                        <video autoPlay loop muted className="w-5/6 rounded-3xl sm:mr-20 mt-4 sm:mt-0">
+                        <video autoPlay loop muted className="w-5/6 rounded-3xl hidden sm:block sm:mr-20 mt-4 sm:mt-0">
                             <source src="Sample.mp4" type="video/mp4" />
                         </video>
+                        <img src="MobileMiniVid.jpg" className= "mt-6 w-5/6 rounded-3xl sm:hidden"></img>
                     </div>
                 </div>
 
@@ -74,14 +76,12 @@ export const MainPage = () => {
                                 <source src="whiteEconoWarrior.mp4" />
                             </video>       
                         </div>
-                        <div className='flex flex-col items-center mt-10 sm:-ml-10'>
+                        <div className='flex flex-col items-center mt-10 sm:-ml-10 '>
                             <img src="/keepGoing.png" alt="Take the Quizzes" className="sm:w-1/2 sm:h-1/2 w-3/4" />
                             <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>
-                        <div >
-                        <video className='w-11/12 h-auto sm:mt-20 sm:hidden block' autoPlay loop muted>
-                            <source src="whiteEconoWarrior.mp4" />
-                        </video>       
+                        <div className='flex flex-col justify-center items-center sm:hidden my-4'>
+                        <img src='MobileKnight.jpg' className='w-5/6'></img>
                         </div>
                     </div>
                 </div>
