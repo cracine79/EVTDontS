@@ -5,12 +5,12 @@ export const PrivacyPolicy = () => {
     }, [])
     return(<>
         <div className='w-full flex flex-col  items-center  mt-28'>
-            <div className='w-1/2 flex flex-col  items-center'>
+            <div className='sm:w-1/2 w-5/6 flex flex-col  items-center'>
                 <div className='mt-12 text-4xl font-bold'>Privacy Policy</div>
                 <div className='mt-2 text-green-800'>Effective December 12, 2024</div>
             </div>
           
-            <div className='w-5/12 mb-20'>
+            <div className='sm:w-5/12 w-5/6 mb-20'>
                 <div className='my-4'>
                     At Economics Videos That Don't Suck ("we", "our", "us"), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and share information about you when you visit our website www.evtds.com (the "Site").
                 </div>

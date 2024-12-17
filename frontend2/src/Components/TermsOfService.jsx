@@ -8,11 +8,11 @@ export const TermsOfService = () => {
 
     return(<>
               <div className='w-full flex flex-col  items-center  mt-28'>
-                <div className='w-1/2 flex flex-col  items-center'>
+                <div className='sm:w-1/2 w-5/6 flex flex-col  items-center'>
                     <div className='mt-12 text-4xl font-bold'>Terms of Service</div>
                     <div className='mt-2 text-green-800'>Effective December 12, 2024</div>
                 </div>
-                <div className='w-5/12 mb-20'>
+                <div className='sm:w-5/12 w-5/6 mb-20'>
                     <div className='my-4'>
                         Welcome to <strong>Economics Videos That Don't Suck</strong> ('we', 'our', 'us')  By using our website www.evtds.com (the "Site") and signing up for an account, you agree to comply with and be bound by the following Terms of Service ("Terms"). If you do not agree with these Terms, please do not use our Site.
                     </div>

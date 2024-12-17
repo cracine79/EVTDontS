@@ -5,7 +5,7 @@ export const AboutUs = () => {
     },[])
     return(
         <div className='w-full flex flex-col  items-center  mt-44'>
-            <div className='w-7/12 flex flex-col'>
+            <div className='sm:w-7/12 w-5/6 flex flex-col'>
                 <div className='text-4xl font-bold'>
                     About Us
                 </div>
