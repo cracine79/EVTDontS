@@ -33,7 +33,7 @@ export const VideoIndex = () => {
 
     const chapterVid = (videoId) => {
         const chapter = chaptersObj.find(chapter=>chapter.video_url === videoId)
-        return chapter.name
+        return chapter? chapter.name : ""
     }
 
     const handleGoToQuiz = () => {
