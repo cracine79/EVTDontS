@@ -19,12 +19,12 @@ export const SearchResults = () => {
     })
     return(
         <div className='mt-32'>
-            <div className='w-full flex items-center flex-col  min-h-[65vh]'>
+            <div className='w-full flex items-center flex-col  min-h-[65vh] '>
                 <div className='text-2xl mb-8'>Search Results For "{search_term}"</div>
                 <div className='w-full flex flex-wrap justify-around'> 
                     {
                         searchObj.map((chapter)=>{
-                            return(<div key={chapter.id} className='w-1/4 min-w-72 border border-slate-200 px-2 shadow-xl flex flex-col h-auto items-center m-4 rounded '>
+                            return(<div key={chapter.id} className='sm:w-1/4 min-w-72 border border-slate-200 px-2 shadow-xl flex flex-col h-auto items-center m-4 rounded '>
                                 <div className='my-4 text-lg text-center font-bold'>
                                 {chapter.name}
                                 </div>
@@ -59,7 +59,7 @@ export const SearchResults = () => {
                 </div>
   
                 {
-                    searchObj.length == 0 && <div className='w-1/3'>
+                    searchObj.length == 0 && <div className='sm:w-1/3 w-11/12'>
                        <div className='text-xl mb-2 font-bold text-center'>Whoops!  Looks like we don't have a video for that search yet!</div>  
                        <img src='https://evtds-seeds.s3.us-east-2.amazonaws.com/IslandNight.png'></img>
                         <div className='mt-8 my-8'>We blame the economics gods for not blessing us with one yet. But hey, if you reach out to us (and it's actually about economics, not like that time you searched for "cooking with Keynes"), we'll see what we can do. No promises, though... the gods are a tough crowd.</div>
