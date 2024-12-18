@@ -44,45 +44,49 @@ export const NavBar = () => {
     return(
         <>
             <div className='relative'>
-            <nav className=
-                "w-full  
-                z-10
-                bg-lime-500
-                items-center 
-                flex justify-between
-                sticky
-                top-0">
-                <span className='flex w-full items-center  h-full'>
-                    <span className='flex sm:w-1/6 items-center'>
-                        <img src="/Logo.svg" onClick = {()=>navigate('/')}alt="EVTDS Logo" className=" w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16 hover:cursor-pointer"/>
-                        <span className='ml-2 md:text-2xl text-sm font-bold text-slate-600'>BETA</span>
-                    </span>
+                <nav className=
+                    "w-full  
+                    z-10
+                    bg-lime-500
+                    items-center 
+                    flex justify-between
+                    sticky
+                    top-0">
+                    <span className='flex w-full items-center  h-full'>
+                        <span className='flex sm:w-1/6 items-center'>
+                            <img src="/Logo.svg" onClick = {()=>navigate('/')}alt="EVTDS Logo" className=" w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16 hover:cursor-pointer"/>
+                            <span className='ml-2 md:text-2xl text-sm font-bold text-slate-600'>BETA</span>
+                        </span>
 
-                    <span className='w-5/6 sm:flex ml-20 xl:ml-0 hidden justify-center'>
-                        <div className='flex items-center w-full'>
-                            <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
-                        </div>
-                    </span>
+                        <span className='w-5/6 sm:flex ml-20 xl:ml-0 hidden justify-center'>
+                            <div className='flex items-center w-full'>
+                                <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
+                            </div>
+                        </span>
 
-                </span>
-                <div className='flex items-center justify-between'>
-                    {!currentUser &&
-                        <button className="sm:mr-4 mr-2 text-xs md:text-sm" onClick={goToVideos}>Jump To Videos</button>
-                    }
-                    <span className={`text-xs sm:hidden ${currentUser ? 'mr-8 -ml-8':''}`} onClick={()=>
-                        {window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        })
-                        setMobileSearchBarVisible(!mobileSearchBarVisible)}}>Search Videos</span>
-                    {sessionLinks}
+                    </span>
+                    <div className='flex items-center justify-between'>
+                        {!currentUser &&
+                            <button className="sm:mr-4 mr-2 text-xs md:text-sm" onClick={goToVideos}>Jump To Videos</button>
+                        }
+                        <span className={`text-xs sm:hidden ${currentUser ? 'mr-8 -ml-8':''}`} onClick={()=>
+                            {window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            })
+                            setMobileSearchBarVisible(!mobileSearchBarVisible)}}>Search Videos</span>
+                        {sessionLinks}
+                    </div>
+                </nav>
+                <div className={`left-0  absolute bg-lime-500 py-2 w-full shadow-md transition-transform  duration-300 ${
+                    mobileSearchBarVisible ? 'translate-y-0' : '-translate-y-full'
+                        }`}>
+                    <div className='flex w-full flex-col items-center justify-center'>
+         
+                    <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
+                    <div className='text-xs mt-2' onClick={()=>setMobileSearchBarVisible(false)}>X Close</div>
+                    </div>
                 </div>
-            </nav>
-            <div className={`left-0  absolute bg-lime-500 py-2 w-full shadow-md transition-transform duration-300 ${
-                mobileSearchBarVisible ? 'translate-y-0' : '-translate-y-full'
-                    }`}>
-                <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
-            </div>
             </div>
             {loginFormOpen && (<LoginComponent className="z-10" />)}   
             {signupFormOpen && (<SignupComponent className="z-10" />)}     
