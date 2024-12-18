@@ -18,7 +18,7 @@ export const VideoIndex = () => {
     const selectedChapterVideoUrl = location.state?.videoUrl
 
     useEffect(()=>{
-        scrollTo(0,0)
+        window.scrollTo(0,0)
 
         dispatch(getAllChapters())
         if(selectedChapterVideoUrl)
