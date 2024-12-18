@@ -14,12 +14,12 @@ export const SearchBar = ({onSearchSubmit}) =>{
         setSearchTerm("")
     }
     return (
-        <div className="flex justify-center h-8 w-full">
+        <div className="flex justify-center h-12 w-full">
             <form onSubmit={(e)=>{
                 e.preventDefault()
                 onSearchSubmit()
-                findIt()}} className="flex justify-center h-8 w-full">
-            <input className='lg:w-5/6 md:w-2/3 w-3/4 rounded-tl pl-4 rounded-bl border-t border-black
+                findIt()}} className="flex justify-center h-12 w-full">
+            <input className='w-full rounded-tl rounded-bl border-t border-black
                             border-l border-b'   
                     value={searchTerm}
                     placeholder='Search for Economics Videos Here' 

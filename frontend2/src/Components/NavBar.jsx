@@ -53,16 +53,16 @@ export const NavBar = () => {
                     sticky
                     top-0">
                     <span className='flex w-full items-center  h-full'>
-                        <span className='flex sm:w-1/6 items-center'>
+                        <span className='flex sm:w-1/6 sm:min-w-72 max-w-72 items-center'>
                             <img src="/Logo.svg" onClick = {()=>navigate('/')}alt="EVTDS Logo" className=" w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16 hover:cursor-pointer"/>
                             <span className='ml-2 md:text-2xl text-sm font-bold text-slate-600'>BETA</span>
                         </span>
 
-                        <span className='w-5/6 sm:flex ml-20 xl:ml-0 hidden justify-center'>
-                            <div className='flex items-center w-full'>
-                                <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
+                        <div className="sm:flex flex-1 px-4 xl:ml-0 hidden justify-center">
+                            <div className="flex items-center w-full">
+                            <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)} />
                             </div>
-                        </span>
+                        </div>
 
                     </span>
                     <div className='flex items-center justify-between'>
