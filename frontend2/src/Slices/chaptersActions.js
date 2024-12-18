@@ -1,6 +1,7 @@
 import { csrfFetch } from "../csrf"
 import { updateChapters } from "./chaptersSlice";
 
+
 export const getAllChapters = () => async(dispatch) => {
     try {
         const response = await csrfFetch('api/chapters/getall')
@@ -40,5 +41,18 @@ export const getChapterBlurb = async(chapterId) => {
         
     } catch(error){
         console.error(error)
+    }
+}
+
+
+export const searchChapters = async(searchTerm) => {
+    try{
+        const encodedSearchTerm = encodeURIComponent(searchTerm)
+        const response = await csrfFetch(`/api/chapters/search/${encodedSearchTerm}`)
+        const data = await response.json();
+        console.log('data is', data)
+        return(data)
+    } catch(error){
+        console.error('Error fetching results:', error)
     }
 }

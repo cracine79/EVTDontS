@@ -1,7 +1,8 @@
 from exts import db
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean
+from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean, Index
+from sqlalchemy.dialects.postgresql import TSVECTOR
 from datetime import datetime
 from typing import Optional
 
@@ -111,8 +112,13 @@ class Chapter(db.Model):
     video_blurb: Mapped[str] = mapped_column(Text, nullable=True)  
     quiz_blurb: Mapped[str] = mapped_column(Text, nullable=True)
     order: Mapped[int] = mapped_column(Integer, nullable=False)
-
     quiz_blurb_img_url: Mapped[str] = mapped_column(String(255), nullable = True)
+
+    search_vector: Mapped[TSVECTOR] = mapped_column(TSVECTOR)
+    
+    __table_args__ = (
+        Index('search_vector_idx', 'search_vector', postgresql_using='gin'),
+    )
 
     unit: Mapped["Unit"] = relationship('Unit', back_populates='chapters')
     questions: Mapped[list["Question"]] = relationship('Question', back_populates='chapter')

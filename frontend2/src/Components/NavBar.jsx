@@ -6,7 +6,7 @@ import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
 import { UserMenu } from "./UserMenu"
 import { useNavigate } from "react-router-dom"
 import { getAllChapters } from "../Slices/chaptersActions"
-
+import { SearchBar } from "./SearchBar"
 
 
 export const NavBar = () => {
@@ -50,9 +50,18 @@ export const NavBar = () => {
                 flex justify-between
                 sticky
                 top-0">
-                <span className='flex w-11/12 items-center'>
-                    <img src="/Logo.svg" onClick = {()=>navigate('/')}alt="EVTDS Logo" className="w-1/12  my-2 sm:ml-14 ml-4 lg:ml-16 min-w-20 hover:cursor-pointer"/>
-                    <span className='ml-2 md:text-2xl text-lg font-bold text-slate-600'>BETA</span>
+                <span className='flex w-full items-center  h-full'>
+                    <span className='flex w-1/6 items-center'>
+                        <img src="/Logo.svg" onClick = {()=>navigate('/')}alt="EVTDS Logo" className="w-1/2  my-2 sm:ml-14 ml-4 lg:ml-16 min-w-20 hover:cursor-pointer"/>
+                        <span className='ml-2 md:text-2xl text-lg font-bold text-slate-600'>BETA</span>
+                    </span>
+
+                    <span className='w-5/6 sm:flex ml-20 xl:ml-0 hidden justify-center'>
+                        <div className='flex items-center w-full'>
+                            <SearchBar />
+                        </div>
+                    </span>
+
                 </span>
                 <div className='flex items-center justify-between'>
                     {!currentUser &&

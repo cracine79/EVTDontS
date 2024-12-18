@@ -2,25 +2,30 @@ import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getAllChapters } from "../Slices/chaptersActions"
 import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { getAllTopics } from "../Slices/topicsActions"
-
 
 
 export const VideoIndex = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
     const currentUser = useSelector(state=>(state.user.username))
     const chapters = useSelector(state=>(state.chapters))
     const chaptersObj = Object.values(chapters)
     const [videoId, setVideoId] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
+    const selectedChapterVideoUrl = location.state?.videoUrl
 
     useEffect(()=>{
         scrollTo(0,0)
-        dispatch(getAllChapters())
-    },[])
 
+        dispatch(getAllChapters())
+        if(selectedChapterVideoUrl)
+            setVideoId(selectedChapterVideoUrl)
+      
+    },[selectedChapterVideoUrl])
+    console.log(selectedChapterVideoUrl)
     const videoGo = (chapter) => {
         setMenuOpen(false)
         setVideoId(chapter.video_url)

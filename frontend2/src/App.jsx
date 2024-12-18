@@ -31,6 +31,7 @@ import { ResetPassword } from './Components/ResetPassword';
 import { PrivacyPolicy } from './Components/PrivacyPolicy';
 import { TermsOfService } from './Components/TermsOfService';
 import { AboutUs } from './Components/AboutUs';
+import { SearchResults } from './Components/SearchResults';
 
 const Layout = () => {
   return(
@@ -123,6 +124,10 @@ const router = createBrowserRouter([
       {
         path:'/aboutus',
         element: <AboutUs />
+      },
+      {
+        path: '/searchresults',
+        element: <SearchResults />
       }
     ]
   }
