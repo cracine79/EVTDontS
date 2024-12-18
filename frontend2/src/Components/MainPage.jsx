@@ -2,6 +2,7 @@ import { openSignupModal } from "../Slices/modalSlice"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { getAllChapters } from "../Slices/chaptersActions"
+import { useEffect, useState } from "react"
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -10,7 +11,15 @@ export const MainPage = () => {
     const handleGetStarted = ()=>{
         dispatch(openSignupModal())
     }
+    const [isAutoplay, setIsAutoplay] = useState(true)
 
+    useEffect(()=>{
+        if(window.innerWidth >= 640){
+            setIsAutoplay(true)
+        } else {
+            setIsAutoplay(false)
+        }
+    }, [])
 
 
     return(
@@ -20,7 +29,7 @@ export const MainPage = () => {
                     Learning economics doesn't have to suck...   But it usually does. 
                 </div> */}
 
-                <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block' autoPlay loop muted>
+                <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block' autoPlay={isAutoplay} loop muted>
                     <source src="intro2.mp4" type="video/mp4" />
                 </video>
                 <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
@@ -34,7 +43,7 @@ export const MainPage = () => {
                     </div>
                     <div className="flex flex-col items-center">
                        
-                        <video autoPlay loop muted className="w-5/6 rounded-3xl hidden sm:block sm:mr-20 mt-4 sm:mt-0">
+                        <video autoPlay={isAutoplay} loop muted className="w-5/6 rounded-3xl hidden sm:block sm:mr-20 mt-4 sm:mt-0">
                             <source src="Sample.mp4" type="video/mp4" />
                         </video>
                         <img src="MobileMiniVid.jpg" className= "mt-6 w-5/6 rounded-3xl sm:hidden"></img>
@@ -72,7 +81,7 @@ export const MainPage = () => {
                 <div >
                     <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row">
                         <div >
-                            <video className='w-11/12 h-auto mt-20 hidden sm:block' autoPlay loop muted>
+                            <video className='w-11/12 h-auto mt-20 hidden sm:block' autoPlay={isAutoplay} loop muted>
                                 <source src="whiteEconoWarrior.mp4" />
                             </video>       
                         </div>
