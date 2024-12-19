@@ -45,9 +45,10 @@ export const VideoIndex = () => {
     }
     return(
         <div className = 'mt-24'>
-
-            <div className='min-h-screen w-100 flex'>
-                <div onClick={()=>setMenuOpen(true)} className='sm:hidden x-50 absolute bg-lime-100 w-1/2  text-center border-green-600 border-solid border'> ☰ Video Library</div>
+                    
+            <div className='min-h-screen w-100  flex'>
+             
+                <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-lime-100 z-1 w-1/2 text-center border-green-600 border-solid border'> ☰ Video Library</div>
                 <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-lime-100 text-sm transform ${
                     menuOpen ? 'translate-x-0' : '-translate-x-full'
                 } transition-transform sm:translate-x-0`}>
@@ -73,10 +74,10 @@ export const VideoIndex = () => {
                         )
                     })}
 
-                <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention in Markets</div>
-                    <div className='mt-2'>(Coming Soon!)</div>
-                </div>
+                    <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention in Markets</div>
+                        <div className='mt-2'>(Coming Soon!)</div>
                     </div>
+                </div>
                 <div className='sm:w-5/6 w-full'>
                     <div className='flex flex-col items-center'>
                         {!videoId && <>

@@ -25,9 +25,6 @@ export const MainPage = () => {
     return(
         <div className='flex flex-col w-screen items-center'>
             <div className="flex  justify-center">
-                {/* <div className="font-serif text-5xl w-1/2 ">
-                    Learning economics doesn't have to suck...   But it usually does. 
-                </div> */}
 
                 <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block' autoPlay={isAutoplay} loop muted>
                     <source src="intro2.mp4" type="video/mp4" />
@@ -35,10 +32,11 @@ export const MainPage = () => {
                 <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
        
             </div>
+
             <div className="w-screen h-auto bg-white items-center">
                 <div className="sm:mt-20 mt-8 flex sm:flex-row flex-col justify-between items-center">
                     <div className='h-100 w-100 flex flex-col items-center'>
-                        <img src="/Watch.png" alt="Watch the Videos" className="sm:w-1/2 sm:h-1/2 w-3/4" />
+                        <img src="/Watch.png" alt="1: Watch the Videos that Don't Suck" className="sm:w-1/2 sm:h-1/2 w-3/4" />
                         <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">For real, they don’t. We’ve edited out all the parts that flopped, so all you need to do is kick back, press play, and maybe even laugh while learning. (We said maybe.)</p>
                     </div>
                     <div className="flex flex-col items-center">
@@ -56,7 +54,7 @@ export const MainPage = () => {
                             <img src='/Sampleq.png' className='rounded-xl'></img>
                         </div>
                         <div className='h-100 w-100 flex flex-col items-center '>
-                            <img src="/Practice.png" alt="Take the Quizzes" className="sm:w-1/2 sm:h-1/2 w-3/4" />
+                            <img src="/Practice.png" alt="2: Take the Quizzes like a Boss" className="sm:w-1/2 sm:h-1/2 w-3/4" />
                             <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Unlike lots of resources, our practice quizzes DON'T suck.  Nope, these bad boys are almost identical to the AP questions you’ll face on game day.  Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
                         </div>
                         <div className='sm:w-5/6 w-11/12 mt-4 sm:mt-0 sm:hidden xs:block'>
@@ -68,7 +66,7 @@ export const MainPage = () => {
 
                 <div className="sm:mt-20 mt-8 flex justify-around items-center flex-col sm:flex-row">
                     <div className='h-100 w-100 flex flex-col items-center'>
-                        <img src="/goofs.png" alt="Watch the Videos" className="sm:w-1/2 sm:h-1/2 w-3/4" />
+                        <img src="/goofs.png" alt="3: Turn Goofs into Gold" className="sm:w-1/2 sm:h-1/2 w-3/4" />
                         <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja.</p>
                     </div>
 
@@ -86,7 +84,7 @@ export const MainPage = () => {
                             </video>       
                         </div>
                         <div className='flex flex-col items-center mt-10 sm:-ml-10 '>
-                            <img src="/keepGoing.png" alt="Take the Quizzes" className="sm:w-1/2 sm:h-1/2 w-3/4" />
+                            <img src="/keepGoing.png" alt="4. Keep Going You Econo Warrior" className="sm:w-1/2 sm:h-1/2 w-3/4" />
                             <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>
                         <div className='flex flex-col justify-center items-center sm:hidden my-4'>

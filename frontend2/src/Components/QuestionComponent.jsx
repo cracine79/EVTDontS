@@ -12,11 +12,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions));
-    const questionsObj = Object.entries(questions).map(([id, question]) => ({
-      ...question,
-      id: id
-    }))
-    const numberOfQuestions = questionsObj.length
+    // const origQuestionsObj = Object.entries(questions).map(([id, question]) => ({
+    //   ...question,
+    //   id: id
+    // }))
+
+
   
     const location = useLocation()
 
@@ -27,12 +28,30 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
     const [selectAnswerPrompt, setSelectAnswerPrompt] = useState(false)
+    const [questionsObj, setQuestionsObj] = useState([])
     const currentChapterId = useSelector(state=>(state.user.currentChapter))
     const currentChapter = useSelector(state=>state.chapters[currentChapterId])
     const unitQuizUnitId = location.state?.unit
     const currentUnitId = currentChapter ? currentChapter.unit_id : 2
 
+    const shuffleArray = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+      }
+    };
 
+    useEffect(() => {
+      const origQuestionsObj = Object.entries(questions).map(([id, question]) => ({
+        ...question,
+        id: id
+      }));
+      shuffleArray(origQuestionsObj);
+      setQuestionsObj(origQuestionsObj);
+    }, [questions]);  // Dependency array ensures shuffle runs when questions change or the page is visited again
+  
+    
+    const numberOfQuestions = questionsObj.length
     
     const names = topics.map(topic => topic.topic_name)
 

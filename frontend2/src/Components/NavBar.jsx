@@ -78,10 +78,10 @@ export const NavBar = () => {
                         {sessionLinks}
                     </div>
                 </nav>
-                <div className={`left-0  absolute bg-lime-500 py-2 w-full shadow-md transition-transform  duration-300 ${
+                <div className={`left-0  absolute bg-lime-500 py-2 w-full shadow-md transition-transform x-51 duration-300 ${
                     mobileSearchBarVisible ? 'translate-y-0' : '-translate-y-full'
-                        }`}>
-                    <div className='flex w-full flex-col items-center justify-center'>
+                        } ` }>
+                    <div className='flex w-full flex-col items-center justify-center relative z-51'>
          
                     <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
                     <div className='text-xs mt-2' onClick={()=>setMobileSearchBarVisible(false)}>X Close</div>
