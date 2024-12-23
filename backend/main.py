@@ -18,6 +18,7 @@ from topics import topics_ns
 from retrievedata import retrieve_ns
 from dotenv import load_dotenv
 import os
+from mail import mail_ns
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 migrate = Migrate()
@@ -54,6 +55,7 @@ def create_app(config):
     api.add_namespace(chapters_ns)
     api.add_namespace(topics_ns)
     api.add_namespace(retrieve_ns)
+    api.add_namespace(mail_ns)
 
     @app.shell_context_processor
     def make_shell_context():

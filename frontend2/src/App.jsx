@@ -32,6 +32,7 @@ import { PrivacyPolicy } from './Components/PrivacyPolicy';
 import { TermsOfService } from './Components/TermsOfService';
 import { AboutUs } from './Components/AboutUs';
 import { SearchResults } from './Components/SearchResults';
+import { ContactUs } from './Components/ContactUs';
 
 const Layout = () => {
   return(
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
       {
         path: '/searchresults',
         element: <SearchResults />
+      },
+      {
+        path:'/contactus',
+        element: <ContactUs/>
       }
     ]
   }
