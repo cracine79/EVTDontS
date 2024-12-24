@@ -59,7 +59,7 @@ export const TermsOfService = () => {
                     <div className='mt-4'>These Terms are governed by and construed in accordance with the laws of the United States of America and the State of Colorado. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts in the United States of America and the State of Colorado.</div>
                
                     <div className='text-2xl mt-6'>11. Contact Us</div>
-                    <div className='mt-4'>If you have any questions about these Terms, please <a href='mailto:admin@evtds.com' className='font-bold text-blue-800'>Contact Us Here</a></div>
+                    <div className='mt-4'>If you have any questions about these Terms, please <span onClick={()=>navigate('/contactus')} className='font-bold hover:cursor-pointer text-blue-800'>Contact Us Here</span></div>
                </div>
 
                

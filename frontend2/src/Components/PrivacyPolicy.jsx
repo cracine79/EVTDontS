@@ -1,5 +1,7 @@
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 export const PrivacyPolicy = () => {
+    const navigate = useNavigate()
     useEffect(()=>{
         scrollTo(0,0)
     }, [])
@@ -63,7 +65,7 @@ export const PrivacyPolicy = () => {
 
 
                 <div className='text-2xl mt-8'>9.  Contact Us</div>
-                <div className='mt-4'>For more information, please <a href='mailto:admin@evtds.com' className='font-bold text-green-800'>Contact Us Here</a></div>
+                <div className='mt-4'>For more information, please <span className='font-bold text-green-800 hover:cursor-pointer' onClick = {()=>navigate('/contactus')}>Contact Us Here</span></div>
 
             </div>
        
