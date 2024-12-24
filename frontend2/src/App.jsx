@@ -33,6 +33,7 @@ import { TermsOfService } from './Components/TermsOfService';
 import { AboutUs } from './Components/AboutUs';
 import { SearchResults } from './Components/SearchResults';
 import { ContactUs } from './Components/ContactUs';
+import { MessageSent } from './Components/MessageSent';
 
 const Layout = () => {
   return(
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
       {
         path:'/contactus',
         element: <ContactUs/>
+      },
+      {
+        path:'/messagesent',
+        element: <MessageSent />
       }
     ]
   }

@@ -1,6 +1,9 @@
 import { useState } from "react"
 import { csrfFetch } from "../csrf"
-const sendEmail = async(subject, email, body) => {
+import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+const sendEmail = async(subject, email, body, navigate) => {
+
     try{
         console.log(subject, email, body)
         const response = await csrfFetch('/api/mail/send', {
@@ -12,12 +15,12 @@ const sendEmail = async(subject, email, body) => {
         })
         
         if(response.ok){
-            console.log('Did it!')
+            navigate('/messagesent')
         } else {
             console.log('Problem sending')
         }
     } catch (error) {
-        console.error('Failed to send poop:', error)
+        console.error('Failed to send email:', error)
     }
         
 }
@@ -26,9 +29,13 @@ export const ContactUs = () => {
     const [subject, setSubject] = useState('')
     const [body, setBody] = useState('')
     const [email, setEmail] = useState('')
+    const navigate = useNavigate()
+    useEffect(()=>{
+        scrollTo(0,0)
+    }, [])
     return<>
         <div className="mt-36 flex flex-col items-center">
-            <div className='w-7/12 flex flex-col items-center'>
+            <div className='sm:w-7/12 xl:w-5/12 w-5/6 flex flex-col items-center'>
                 <h1 className='text-center text-3xl'>Send Us A Note!</h1>
                 <div className='mt-4'>Whether you've got a question about a quiz problem you can't crack, there's an irritating bug that you'd love us to get rid of, or you (dare we say it!?) just want to give us a pat on the back (eep!), go ahead and send us a note. And by us I mean me.  I'd love to hear your thoughts. </div>
                
@@ -46,7 +53,7 @@ export const ContactUs = () => {
                 />
 
                 <textarea 
-                className="border border-black w-full rounded-lg h-[40vh] mb-4 p-2 align-top resize-none" 
+                className="border border-black w-full rounded-lg sm:h-[40vh] h-[20vh] mb-4 p-2 align-top resize-none" 
                 placeholder="Penny for your thoughts? Too much?"
                 onChange = {(e)=>{setBody(e.target.value)}}
                 ></textarea>
@@ -63,7 +70,7 @@ export const ContactUs = () => {
                                 hover:bg-slate-500
                                 font-medium
                                 hover:cursor-pointer'
-                        onClick = {()=>sendEmail(subject, email, body)}
+                        onClick = {()=>sendEmail(subject, email, body, navigate)}
                         >Fire Away!</button>
             </div>
             

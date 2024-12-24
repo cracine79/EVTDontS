@@ -19,11 +19,10 @@ def send_mail(subject, email, body, sender_email):
         <p>{body}</p>
         """
     )
-    print('HELLO THE MESSGAGE IS', message)
     try:
         sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         response = sg.send(message)
-        print(f"EMail sent!  Status Code: {response.status_code}")
+        print(f"Email sent!  Status Code: {response.status_code}")
     except Exception as e:
         print(f"Error sending email: {e}")
         raise e
@@ -37,7 +36,6 @@ class SendMail(Resource):
         subject = data.get('subject')
 
         try:
-            print('HELLO WERE HERE')
             send_mail(subject, email, body, 'admin@evtds.com')
             return({"message":"Email Sent Successfully"}), 200
         except Exception as e:

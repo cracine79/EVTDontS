@@ -9,7 +9,7 @@ export const Footer = () => {
                 <span className='hover:cursor-pointer text-center' onClick = {()=>navigate('/aboutus')}>About Us</span> | 
                 <span className='hover:cursor-pointer text-center'onClick={()=>navigate('/privacypolicy')}>Privacy Policy</span> 
                 | <span className='hover:cursor-pointer text-center' onClick={()=>navigate('/termsofservice')}>Terms of Service</span>
-                | <a href="mailto:admin@evtds.com" className='hover:cursor-pointer text-center'>Contact Us</a> 
+                | <span className='hover:cursor-pointer text-center' onClick={()=>navigate('/contactus')}>Contact Us</span> 
             </div>    
             <div className='flex sm:w-1/4 sm:justify-around w-3/4 justify-around'>
                 <div className = 'text-white  text-2xl sm:text-4xl mt-6 hover:cursor-pointer'> 
