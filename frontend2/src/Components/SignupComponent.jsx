@@ -102,7 +102,7 @@ const SignupComponent = () => {
 										<IoMdClose size={18}/>
 						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
-              <div className="text-xl md:mt-5 mt-28">Let's do This Thing!</div>
+              <div className="text-lg md:mt-5 mt-28">Sign Up to Access Quizzes, Track Progress, and More!</div>
               <input
                 className='
                             p-2
@@ -155,7 +155,23 @@ const SignupComponent = () => {
                 title='Password must include at least one uppercase letter, one lowercase letter, one numeral(0-9), and one special character?=.*[!@#$%^&*(),.?\, and be beween 8 and 20 chars long'
                 
               />
-              <button type="submit">Sign Up</button>
+              <button type="submit" className='mt-2
+                            w-5/12
+                            flex
+                            flex-col
+                            border-black 
+                            h-auto
+                            sm:w-1/3 
+                            border
+                            flex 
+                            justify-center 
+                            items-center
+                            rounded-md
+                            bg-slate-300
+                            hover:bg-slate-500
+                            font-medium
+                            hover:cursor-pointer
+                            mb-4'>Sign Up</button>
             </form>
           </div>
         </div>
