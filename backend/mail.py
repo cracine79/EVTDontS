@@ -10,7 +10,7 @@ def send_mail(subject, email, body, sender_email):
     message = Mail(
         from_email = sender_email, 
         to_emails =sender_email,
-        subject="EVTDS CONTACT US EMAIL",
+        subject=f"EVTDS EMAIL from {email}",
         html_content=f"""
         <p>You have received an email from {email}</p>
         <p>The Subject Is</p>
