@@ -47,11 +47,15 @@ export const Quiz = () => {
     const chapterName = wholeChapter ? wholeChapter.name : ''
 
     const names = topics.map(topic => topic.topic_name)
-
-    const formattedNames = names.length > 2 
-    ? names.slice(0, -2).join (', ') + ', ' + names[names.length -2] + ', and ' + names[names.length -1]    
-    : names.length == 1
+    const shortened = names.length - 3
+    const formattedNames = names.length == 1
     ? names.slice(0, -1).join (' and ') + ' and ' + names[names.length -1]    
+    : names.length == 2
+    ? names.join(' and ')
+    : names.length > 3
+    ? names.slice(0,3).join(', ') + ' and ' + shortened + ' more. '
+    :names.length > 2 
+    ? names.slice(0, -2).join (', ') + ', ' + names[names.length -2] + ', and ' + names[names.length -1]     
     : names[0]
 
     const handleOpen = () => {
@@ -122,7 +126,7 @@ export const Quiz = () => {
                     {type == 'topicQuiz' && <div className='flex flex-col items-center w-3/4'>
                                                 <div className='text-3xl'>
                                                 Welcome to the "Choose Your Own Quiz Adventure"</div>
-                                                <div className='my-2 text-xl'>Now testing the topics of of {formattedNames}
+                                                <div className='my-2 text-xl'>Now testing the topics of {formattedNames}
                                                 </div>
                                                 {topicQuizBlurb()}
                                             </div>}
