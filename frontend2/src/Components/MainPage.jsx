@@ -67,7 +67,7 @@ export const MainPage = () => {
                 <div className="sm:mt-20 mt-8 flex justify-around items-center flex-col sm:flex-row">
                     <div className='h-100 w-100 flex flex-col items-center'>
                         <img src="/goofs.png" alt="3: Turn Goofs into Gold" className="sm:w-1/2 sm:h-1/2 w-3/4" />
-                        <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja.</p>
+                        <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja</p>
                     </div>
 
                         <div className="w-5/6  rounded-3xl sm:mr-20 sm:-ml-10 mt-4 sm:mt-0">
