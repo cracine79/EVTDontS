@@ -23,31 +23,19 @@ def seed_tax_chapter():
     topics = [topic34, topic35, topic36, topic37]
 
     question1 = Question(text='Assume that supply for a good is upward sloping and demand is downward sloping.  The imposition of a specific exise tax on the sale of that good would result in which of the following changes to equilibrium price and quantity?', chapter=chapter4_1, topic=topic34)
-    question2 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  What is the price paid by consumers and price received by producers after the tax is paid?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxCalcDiagram.png")
-    question3 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  According to the diagram, what is the dollar amount of the unit tax?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxCalcDiagram.png")
+    question2 = Question(text='', chapter=chapter4_1, topic=topic34)
+
+
     question4 = Question(text='Assume that the government increases the unit exise tax on alcohol suppliers and also at the same time, the demand for alcohol increases due to increases in stress levels at work.   As a result, equilibrium price and quantity of alcohol will most likely change in which of the following ways?', chapter=chapter4_1, topic=topic34)
-    
     question1burden = Question(text='If market demand for a good is elastic and supply is inelastic, which of the following is true when there is an increase in sales tax?', chapter=chapter4_1, topic=topic37)
     question2burden = Question(text="Assume that price elasticity of demand for good A is -0.3 and price elasticity of demand for good B is -2.5.  Assume goods A and B have identical demand curves.  If a per-unit excise tax of the same amount is imposed on both goods, which of the following is true?", topic=topic37, chapter=chapter4_1)
-    questions = [question1, question2, question3, question4, question1burden, question2burden]
+    questions = [question1, question2, question4, question1burden, question2burden]
 
     answer1a = Answer(text="Price: Increase, Quantity: Increase", question=question1, is_correct=False)
     answer1b = Answer(text="Price: Increase, Quantity: Decrease", question=question1, is_correct=True)
     answer1c = Answer(text="Price: Increase, Quantity: No Change", question=question1, is_correct=False)
     answer1d = Answer(text="Price: Decrease, Quantity: Increase", question=question1, is_correct=False)
     answer1e = Answer(text="Price: Decrease, Quantity: No Change", question=question1, is_correct=False)
-
-    answer2a = Answer(text="Consumers: $6.00, Producer: $5.80", question=question2, is_correct=False)
-    answer2b = Answer(text="Consumers: $6.00, Producer: $5.00", question=question2, is_correct=False)
-    answer2c = Answer(text="Consumers: $5.80, Producer: $5.00", question=question2, is_correct=False)
-    answer2d = Answer(text="Consumers: $5.80, Producer: $4.80", question=question2, is_correct=True)
-    answer2e = Answer(text="Consumers: $5.00, Producer: $4.80", question=question2, is_correct=False)
-
-    answer3a = Answer(text="$0.00", question=question3, is_correct=False)
-    answer3b = Answer(text="$0.20", question=question3, is_correct=False)
-    answer3c = Answer(text="$0.80", question=question3, is_correct=False)
-    answer3d = Answer(text="$1.00", question=question3, is_correct=True)
-    answer3e = Answer(text="$1.20", question=question3, is_correct=False)
 
     answer4a = Answer(text="Price: Decrease, Quantity: Decrease", question=question4, is_correct=False)
     answer4b = Answer(text="Price: Increase, Quantity: Decrease", question=question4, is_correct=False)
@@ -69,8 +57,7 @@ def seed_tax_chapter():
     
     answers = [
         answer1a, answer1b, answer1c, answer1d, answer1e, 
-        answer2a, answer2b, answer2c, answer2d, answer2e, 
-        answer3a, answer3b, answer3c, answer3d, answer3e, 
+
         answer4a, answer4b, answer4c, answer4d, answer4e, 
         answer1ba, answer1bb, answer1bc, answer1bd, answer1be, 
         answer2ba, answer2bb, answer2bc, answer2bd, answer2be
