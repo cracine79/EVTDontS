@@ -55,7 +55,7 @@ export const MainPage = () => {
                         </div>
                         <div className='h-100 w-100 flex flex-col items-center '>
                             <img src="/Practice.png" alt="2: Take the Quizzes like a Boss" className="sm:w-1/2 sm:h-1/2 w-3/4" />
-                            <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Unlike lots of resources, our practice quizzes DON'T suck.  Nope, these bad boys are almost identical to the AP questions you’ll face on game day.  Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
+                            <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Unlike some resources, our practice quizzes DON'T suck.  Nope, these bad boys are almost identical to the AP questions you’ll face on game day.  Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
                         </div>
                         <div className='sm:w-5/6 w-11/12 mt-4 sm:mt-0 sm:hidden xs:block'>
                             <img src='/Sampleq.png' className='rounded-xl'></img>
