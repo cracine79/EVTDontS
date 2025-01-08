@@ -78,11 +78,11 @@ export const Progress = () => {
             }
         } else if (chapter.video_completed){
             return(
-                <>Not taken<span className='hidden sm:inline'>, but you're READY dude</span></>
+                <><span className='text-center'>Not taken<span className='hidden sm:inline'>, but you're READY dude</span></span></>
             )
         } else {
             return(
-                <>Not Taken<span className='hidden sm:inline'> - watch vid first</span></>
+                <><span className='text-center'>Not Taken<span className='hidden sm:inline'> - watch vid first</span></span></>
             )
         }
     }
