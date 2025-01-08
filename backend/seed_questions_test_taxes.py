@@ -4,19 +4,19 @@ from config import ProdConfig
 from models import Chapter, QuestionTopic, Unit, Question, Answer
 from sqlalchemy.exc import IntegrityError
 
+
 app = create_app(ProdConfig)
 
-def seed_tax_chapter():
-    print('seeding chapter')
+def seed_tax_chapter_questions_answers():
 
+    print('seeding questions')
     chapter4_1 = db.session.get(Chapter, 35)
 
     topic34 = db.session.get(QuestionTopic, 75)
     topic35 = db.session.get(QuestionTopic, 77)
     topic36 = db.session.get(QuestionTopic, 78)
     topic37 = db.session.get(QuestionTopic, 76)
-
-
+    
     question1 = Question(text='Assume that supply for a good is upward sloping and demand is downward sloping.  The imposition of a specific exise tax on the sale of that good would result in which of the following changes to equilibrium price and quantity?', chapter=chapter4_1, topic=topic34)
     question2 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  What is the price paid by consumers and price received by producers after the tax is paid?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxCalcDiagram.png")
     question3 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  According to the diagram, what is the dollar amount of the unit tax?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxCalcDiagram.png")
@@ -26,10 +26,10 @@ def seed_tax_chapter():
     
     question1burden = Question(text='If market demand for a good is elastic and supply is inelastic, which of the following is true when there is an increase in sales tax?', chapter=chapter4_1, topic=topic37)
     question2burden = Question(text="Assume that price elasticity of demand for good A is -0.3 and price elasticity of demand for good B is -2.5.  Assume goods A and B have identical demand curves.  If a per-unit excise tax of the same amount is imposed on both goods, which of the following is true?", topic=topic37, chapter=chapter4_1)
-    question3burden = Question(text="Assume that supply of wheat is relatively price inelastic while demand for wheat is relatively price elastic.  If the government imposes a specific exise tax on the production of corn, the incidence of tax will fall")
+    question3burden = Question(text="Assume that supply of wheat is relatively price inelastic while demand for wheat is relatively price elastic.  If the government imposes a specific exise tax on the production of corn, the incidence of tax will fall", topic = topic37, chapter=chapter4_1)
     question4burden = Question(text="Assume demand for cigarettes is inelastic and supply of cigarettes is elastic. If the government applies an exise tax on cigarettes, which of the following will occur in the short run?", topic = topic37, chapter=chapter4_1)
     question5burden = Question(text="Assume that the government imposes a specific excise tax on the producers of a good that faces perfectly inelastic demand.  After the tax, the price and the quantity will change in which of the following ways?", topic = topic37, chapter=chapter4_1)
-    question6burden = Question(text="Assume demand for luxury cars faces PED of 1.5 and supply of luxury cars faces PES of 0.3.  If the government imposes a specific sales tax on the production of luxury cars, which of the following is true?")
+    question6burden = Question(text="Assume demand for luxury cars faces PED of 1.5 and supply of luxury cars faces PES of 0.3.  If the government imposes a specific sales tax on the production of luxury cars, which of the following is true?", topic = topic37, chapter=chapter4_1)
 
     question1rev = Question(text="If the demand for a good is downward sloping and supply is upward sloping, imposing a sales tax on the good will", topic=topic35, chapter=chapter4_1)
     question2rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  The area representing the tax revenue to the government is", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxRevCalcDiagram_1.png")
@@ -54,7 +54,7 @@ def seed_tax_chapter():
                  question4rev, question5rev, question6rev, question7rev,
                  question1s, question2s, question3s,
                  question4s, question5s, question6s, question7s]
-
+    
     answer1a = Answer(text="Price: Increase, Quantity: Increase", question=question1, is_correct=False)
     answer1b = Answer(text="Price: Increase, Quantity: Decrease", question=question1, is_correct=True)
     answer1c = Answer(text="Price: Increase, Quantity: No Change", question=question1, is_correct=False)
@@ -255,9 +255,10 @@ def seed_tax_chapter():
     db.session.commit()
     print("Questions seeded successfully")
     
+
 def main():
     with app.app_context():
-        seed_tax_chapter()
+        seed_tax_chapter_questions_answers()
 
 if __name__=="__main__":
     try:
