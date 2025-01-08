@@ -6,8 +6,8 @@ from sqlalchemy.exc import IntegrityError
 
 app = create_app(ProdConfig)
 
-
 def seed_tax_chapter():
+    print('seeding chapter')
     unit4 = db.session.get(Unit, 4)
     if not unit4:
         print("Unit with ID 4 does not exist. Seeding aborted.")
@@ -27,31 +27,38 @@ def seed_tax_chapter():
     question3 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  According to the diagram, what is the dollar amount of the unit tax?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxCalcDiagram.png")
     question4 = Question(text='Assume that the government increases the unit exise tax on alcohol suppliers and also at the same time, the demand for alcohol increases due to increases in stress levels at work.   As a result, equilibrium price and quantity of alcohol will most likely change in which of the following ways?', chapter=chapter4_1, topic=topic34)
     question5 = Question(text="Assume supply of electric vehicles is upward sloping and demand is downward sloping.  An imposition of a specific tax on suppliers of electric vehicles would result in which of the following?", chapter=chapter4_1, topic=topic34)
-
+    question6 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  What is the price paid by consumers and price received by producers after the tax is paid?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxRevCalcDiagram_1.png")
+    
     question1burden = Question(text='If market demand for a good is elastic and supply is inelastic, which of the following is true when there is an increase in sales tax?', chapter=chapter4_1, topic=topic37)
     question2burden = Question(text="Assume that price elasticity of demand for good A is -0.3 and price elasticity of demand for good B is -2.5.  Assume goods A and B have identical demand curves.  If a per-unit excise tax of the same amount is imposed on both goods, which of the following is true?", topic=topic37, chapter=chapter4_1)
     question3burden = Question(text="Assume that supply of wheat is relatively price inelastic while demand for wheat is relatively price elastic.  If the government imposes a specific exise tax on the production of corn, the incidence of tax will fall")
     question4burden = Question(text="Assume demand for cigarettes is inelastic and supply of cigarettes is elastic. If the government applies an exise tax on cigarettes, which of the following will occur in the short run?", topic = topic37, chapter=chapter4_1)
     question5burden = Question(text="Assume that the government imposes a specific excise tax on the producers of a good that faces perfectly inelastic demand.  After the tax, the price and the quantity will change in which of the following ways?", topic = topic37, chapter=chapter4_1)
-    
+    question6burden = Question(text="Assume demand for luxury cars faces PED of 1.5 and supply of luxury cars faces PES of 0.3.  If the government imposes a specific sales tax on the production of luxury cars, which of the following is true?")
+
     question1rev = Question(text="If the demand for a good is downward sloping and supply is upward sloping, imposing a sales tax on the good will", topic=topic35, chapter=chapter4_1)
     question2rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  The area representing the tax revenue to the government is", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxRevCalcDiagram_1.png")
     question3rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  The area representing total consumer expenditure after imposition of the tax is", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxRevCalcDiagram_1.png")
     question4rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  The area representing total producer revenue after imposition of the tax is", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxRevCalcDiagram_1.png")
-    
+    question5rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  Producer revenue before and after tax is:", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxPsCsCalc_1.png")
+    question6rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  Total consumer expenditure before and after tax is:", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxPsCsCalc_1.png")
+    question7rev = Question(text="In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  Total government revenue from the tax is equal to:", topic=topic35, chapter=chapter4_1, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxPsCsCalc_1.png")
+
     question1s = Question(text='Suppose that the market supply for pants is upward sloping and the market demand for pants is downward sloping.  How will the imposition of a sales tax on pants affect the consumer surplus (CS), producer surplus (PS), and total surplus (TS)?', chapter=chapter4_1, topic=topic36)
     question2s = Question(text='In the graph above, an excise tax has been imposed, moving supply from Supply to Supply + Tax.  The area representing total Loss of Social Surplus/Deadweight Loss is represented by:', chapter=chapter4_1, topic=topic36, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxRevCalcDiagram_1.png")
     question3s = Question(text='If the government imposes a per-unit tax on airline travel, consumer surplus in the airline travel market will', chapter=chapter4_1, topic=topic36)
     question4s = Question(text='If the government imposes a per-unit tax on airline travel, producer surplus in the airline travel market will', chapter=chapter4_1, topic=topic36)
     question5s = Question(text='Assume that the government imposes a $5 per-unit tax on the sellers of a good in the market depicted in the diagram above.  What are the price paid by consumers, price received by producers, and deadweight loss?', chapter=chapter4_1, topic=topic36, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/5DollarTaxCalc_1.png")
+    question6s = Question(text='In the graph above, an exise tax has been imposed, moving supply from Supply to Supply + Tax.  Total consumer surplus after imposition of the tax is:', chapter=chapter4_1, topic=topic36)
+    question7s = Question(text='In the graph above, an exise tax has been imposed, moving supply from Supply to Supply + Tax.  Total producer surplus after imposition of the tax is:', chapter=chapter4_1, topic=topic36)
     
-    questions = [question1, question2, question3, question4, question5, 
+    questions = [question1, question2, question3, question4, question5, question6, 
                  question1burden, question2burden, question3burden,
-                 question4burden, question5burden,
+                 question4burden, question5burden, question6burden,
                  question1rev, question2rev, question3rev,
-                 question4rev,
+                 question4rev, question5rev, question6rev, question7rev,
                  question1s, question2s, question3s,
-                 question4s, question5s, ]
+                 question4s, question5s, question6s, question7s]
 
     answer1a = Answer(text="Price: Increase, Quantity: Increase", question=question1, is_correct=False)
     answer1b = Answer(text="Price: Increase, Quantity: Decrease", question=question1, is_correct=True)
@@ -83,6 +90,13 @@ def seed_tax_chapter():
     answer5d = Answer(text="The quantity sold of electric vehicles will decrease", question=question5, is_correct=True)
     answer5e = Answer(text="The total revenue of electric vehicle manufacturers will increase", question=question5, is_correct=False)
 
+    answer6a = Answer(text="Consumers: P1, Producers: P4", question=question6, is_correct=False)
+    answer6b = Answer(text="Consumers: P1, Producers: P3", question=question6, is_correct=False)
+    answer6c = Answer(text="Consumers: P2, Producers: P3", question=question6, is_correct=False)
+    answer6d = Answer(text="Consumers: P2, Producers: P4", question=question6, is_correct=True)
+    answer6e = Answer(text="Consumers: P3, Producers: P2", question=question6, is_correct=False)
+
+
     answer1ba = Answer(text="Producers will bear more of the burden of the tax", question=question1burden, is_correct=False)
     answer1bb = Answer(text="Consumers will bear more of the burden of the tax", question=question1burden, is_correct=True)
     answer1bc = Answer(text="Producers will bear all of the burden of the tax", question=question1burden, is_correct=False)
@@ -112,6 +126,13 @@ def seed_tax_chapter():
     answer5bc = Answer(text="Price: Increase, Quantity: No Change", question=question5burden, is_correct=True)
     answer5bd = Answer(text="Price: Increase, Quantity: Increase", question=question5burden, is_correct=False)
     answer5be = Answer(text="Price: Increase, Quantity: Decrease", question=question5burden, is_correct=False)
+
+    answer6ba = Answer(text = "Tax burden will fall equally on producers and consumers", is_correct=False, question=question6burden)
+    answer6bb = Answer(text = "Tax burden will fall more on consumers", is_correct=False, question=question6burden)
+    answer6bc = Answer(text = "Tax burden will fall more on producers", is_correct=True, question=question6burden)
+    answer6bd = Answer(text = "Tax burden will fall entirely on consumeres", is_correct=False, question=question6burden)
+    answer6be = Answer(text = "Tax burden will fall entirely on producers", is_correct=False, question=question6burden)
+    
 
     answer1sa = Answer(text="CS: Decrease, PS: Decrease, TS: Decrease", question=question1s, is_correct=True)
     answer1sb = Answer(text="CS: Decrease, PS: Increase, TS: Increase", question=question1s, is_correct=False)
@@ -143,6 +164,19 @@ def seed_tax_chapter():
     answer5sd = Answer(text="Buyer Price Paid: $9, Seller Price Received: $14, Deadweight Loss: $50", question=question5s, is_correct=False)
     answer5se = Answer(text="Buyer Price Paid: $9, Seller Price Received: $14, Deadweight Loss: $125", question=question5s, is_correct=False)
 
+    answer6sa = Answer(text="$405", question=question6s, is_correct=True)
+    answer6sb = Answer(text="$450", question=question6s, is_correct=False)
+    answer6sc = Answer(text="$750", question=question6s, is_correct=False)
+    answer6sd = Answer(text="$1,000", question=question6s, is_correct=False)
+    answer6se = Answer(text="$1,260", question=question6s, is_correct=False)
+
+    answer7sa = Answer(text="$270", question=question7s, is_correct=True)
+    answer7sb = Answer(text="$350", question=question7s, is_correct=False)
+    answer7sc = Answer(text="$450", question=question7s, is_correct=False)
+    answer7sd = Answer(text="$810", question=question7s, is_correct=False)
+    answer7se = Answer(text="$1,000", question=question7s, is_correct=False)
+
+
     answer1ra = Answer(text="Result in no change to price paid by consumers", question=question1rev, is_correct=False)
     answer1rb = Answer(text="Result in no change to after tax revenue recieved by producers", question=question1rev, is_correct=False)
     answer1rc = Answer(text="Increase after tax revenue received by producers", question=question1rev, is_correct=False)
@@ -168,44 +202,67 @@ def seed_tax_chapter():
     answer4re = Answer(text="P4, G, Q2, 0", question=question4rev, is_correct=True)
 
 
+    answer5ra = Answer(text="Producer Revenue Before Tax: $1,000, Producer Revenue After Tax: $1,400", question=question5rev, is_correct=False)
+    answer5rb = Answer(text="Producer Revenue Before Tax: $1,000, Producer Revenue After Tax: $900", question=question5rev, is_correct=False)
+    answer5rc = Answer(text="Producer Revenue Before Tax: $1,000, Producer Revenue After Tax: $810", question=question5rev, is_correct=True)
+    answer5rd = Answer(text="Producer Revenue Before Tax: $1,310, Producer Revenue After Tax: $900", question=question5rev, is_correct=False)
+    answer5re = Answer(text="Producer Revenue Before Tax: $810 Producer Revenue After Tax: $1,310", question=question5rev, is_correct=False)
+
+    answer6ra = Answer(text="Consumer Expenditure Before Tax: $1,000, Consumer Expenditure After Tax: $1,400", question=question5rev, is_correct=False)
+    answer6rb = Answer(text="Consumer Expenditure Before Tax: $1,000, Consumer Expenditure After Tax: $1,310", question=question5rev, is_correct=True)
+    answer6rc = Answer(text="Consumer Expenditure Before Tax: $1,000, Consumer Expenditure After Tax: $810", question=question5rev, is_correct=False)
+    answer6rd = Answer(text="Consumer Expenditure Before Tax: $1,310, Consumer Expenditure After Tax: $900", question=question5rev, is_correct=False)
+    answer6re = Answer(text="Consumer Expenditure Before Tax: $810 Consumer Expenditure After Tax: $1,310", question=question5rev, is_correct=False)
+
+
+    answer7ra = Answer(text="$1,310", question=question5rev, is_correct=False)
+    answer7rb = Answer(text="$1,000", question=question5rev, is_correct=False)
+    answer7rc = Answer(text="$810", question=question5rev, is_correct=False)
+    answer7rd = Answer(text="$450", question=question5rev, is_correct=True)
+    answer7re = Answer(text="Cannot be determined from information given", question=question5rev, is_correct=False)
+
+
     answers = [
         answer1a, answer1b, answer1c, answer1d, answer1e, 
         answer2a, answer2b, answer2c, answer2d, answer2e, 
         answer3a, answer3b, answer3c, answer3d, answer3e, 
         answer4a, answer4b, answer4c, answer4d, answer4e, 
         answer5a, answer5b, answer5c, answer5d, answer5e,
+        answer6a, answer6b, answer6c, answer6d, answer6e,
 
         answer1ba, answer1bb, answer1bc, answer1bd, answer1be, 
         answer2ba, answer2bb, answer2bc, answer2bd, answer2be,
         answer3ba, answer3bb, answer3bc, answer3bd, answer3be,
-        answer5ba, answer5bb, answer5bc, answer5bd, answer5be,
         answer4ba, answer4bb, answer4bc, answer4bd, answer4be,
+        answer5ba, answer5bb, answer5bc, answer5bd, answer5be,
+        answer6ba, answer6bb, answer6bc, answer6bd, answer6be,
 
         answer1sa, answer1sb, answer1sc, answer1sd, answer1se, 
         answer2sa, answer2sb, answer2sc, answer2sd, answer2se,
         answer3sa, answer3sb, answer3sc, answer3sd, answer3se,
         answer4sa, answer4sb, answer4sc, answer4sd, answer4se,
         answer5sa, answer5sb, answer5sc, answer5sd, answer5se,
+        answer6sa, answer6sb, answer6sc, answer6sd, answer6se,
+        answer7sa, answer7sb, answer7sc, answer7sd, answer7se,
 
         answer1ra, answer1rb, answer1rc, answer1rd, answer1re,
         answer2ra, answer2rb, answer2rc, answer2rd, answer2re,
         answer3ra, answer3rb, answer3rc, answer3rd, answer3re,
-        answer4ra, answer4rb, answer4rc, answer4rd, answer4re
-        
-        
+        answer4ra, answer4rb, answer4rc, answer4rd, answer4re,
+        answer5ra, answer5rb, answer5rc, answer5rd, answer5re,
+        answer6ra, answer6rb, answer6rc, answer6rd, answer6re,
+        answer7ra, answer7rb, answer7rc, answer7rd, answer7re
     ]
 
-    try:
-        with db.session.begin():
-            db.session.add(chapter4_1)
-            db.session.add_all(topics)
-            db.session.add_all(questions)
-            db.session.add_all(answers)
-        print("Chapter seeded successfully")
-    except IntegrityError as e:
-        db.session.rollback()
-        print(f"IntegrityError occurred: {e}")
-
+    db.session.add(chapter4_1)
+    db.session.add_all(topics)
+    db.session.add_all(questions)
+    db.session.add_all(answers)
+    print("Session state before commit:")
+    print("New:", db.session.new)
+    print("Dirty:", db.session.dirty)
+    print("Deleted:", db.session.deleted)
+    db.session.commit()
     print("Chapter seeded successfully")
     
 def main():
@@ -217,4 +274,4 @@ if __name__=="__main__":
         main()
     except IntegrityError:
         db.session.rollback()
-        print(f"There was an error seeding the chapter")
+        print("There was an error seeding the database")
