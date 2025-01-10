@@ -63,11 +63,10 @@ export const QuizGenerator = () => {
         const unitTopicIds = unitTopics.topics.map((topic)=>topic.id)
         let allChecked = true
         unitTopicIds.forEach((id)=>{
-            if(!selectedTopics.includes(id)){
+            if(!(id in  selectedTopics)){
                 allChecked = false
             }
         })
-
         return allChecked
     }
 
@@ -92,21 +91,33 @@ export const QuizGenerator = () => {
         return(<>boobs</>)
     }
 
-    const handleCheckboxChange = (topicId) => {
-        setSelectedTopics((prevSelected) => {
-            if(prevSelected.includes(topicId)){
-                return(prevSelected.filter(id => id !== topicId));
-            } else {
-                return [...prevSelected, topicId]
-            }
-        })
+    const handleCheckboxChange = (e) => {
+        const {name, checked} = e.target
+        setSelectedTopics((prevSelected) => ({
+            ...prevSelected,
+            [name]: checked
+        }))
     }
 
-    const handleSelectAll = () => {
-        setSelectedTopics((prevSelected)=> 
-            prevSelected.length === allTopicIds.length ? [] : allTopicIds
-        )
+    const handleUnitChange = (e) => {
+        const {name, checked} = e.target
+        console.log(name, checked)
+
+        const unitTopics = topicsByUnit[name].topics
+        let anySelected = false
+        Object.keys(unitTopics).forEach((topicId)=>{
+            if (topicId in selectedTopics){
+                anySelected = true
+            }
+        })
+        
     }
+
+    // const handleSelectAll = () => {
+    //     setSelectedTopics((prevSelected)=> 
+    //         prevSelected.length === allTopicIds.length ? [] : allTopicIds
+    //     )
+    // }
 
     const handleSelectUnitTopics = () => {
         
@@ -114,8 +125,10 @@ export const QuizGenerator = () => {
 
     const makeReviewQuiz = () => {
         const chapter_topics = []
-        selectedTopics.forEach(id=>{
-            chapter_topics.push({...bookTopics[id], ...userTopics[id], topic_id: id })
+        Object.entries(selectedTopics).forEach(([id, included])=>{
+            if(included){
+                chapter_topics.push({...bookTopics[id], ...userTopics[id], topic_id: id })
+            }
         })
 
         navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapter_topics}})
@@ -154,11 +167,12 @@ export const QuizGenerator = () => {
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
                    <span className='text-3xl font-bold my-6'> Select Topics for Quiz</span>
                     <div className="flex w-full px-2 sm:px-10 flex-row justify-between items-start">
-                        <input type='checkbox' className='mt-2 sm:-mr-8'
+                        <div></div>
+                        {/* <input type='checkbox' className='mt-2 sm:-mr-8'
                                 onChange = {()=>handleSelectAll()
                                 }
                                 checked = {selectedTopics.length === allTopicIds.length}
-                                />
+                                /> */}
                         <div className='sm:text-xl w-1/3  font-bold sm:-ml-12 '>
                             Topic
                         </div>
@@ -178,15 +192,15 @@ export const QuizGenerator = () => {
                                     return(
                                         <>
                                             <div>
-                                                <input type='checkbox' className='ml-10 my-4 mr-10' checked = {unitChecked(unitId)} onChange = {()=>handleSelectUnitTopics()}></input>
+                                                <input type='checkbox' name={unitId} className='ml-10 my-4 mr-10' onClick={handleUnitChange} checked = {unitChecked(unitId)} onChange = {()=>handleSelectUnitTopics()}></input>
                                                 {unit.unitName}
                                             </div>
                                             {unit.topics.map((topic)=>{
                                                 return(<>
                                                         <div className='w-full sm:px-10 px-2 flex justify-between flex-row items-center py-2'>
-                                                            <input type='checkbox' className='sm:-mr-8'
-                                                                    checked = {selectedTopics.includes(topic.id)}
-                                                                    onChange = {() => handleCheckboxChange(topic.id)}/>
+                                                            <input type='checkbox' className='sm:-mr-8' name={topic.id}
+                                                                    checked = {selectedTopics[topic.id]}
+                                                                    onChange = {handleCheckboxChange}/>
                                                             <div key={topic.id} className='sm:w-1/3 w-1/3 sm:-ml-8 md:-ml-12 -ml-6 text-xs sm:text-md'>
                                                                 {topic.topic_name}
                                                             </div>
