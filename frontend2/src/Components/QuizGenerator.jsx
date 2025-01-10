@@ -152,14 +152,12 @@ export const QuizGenerator = () => {
             <div className='h-full w-100'>
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
                    <div className='text-3xl font-bold mt-6 w-1/2 text-center'> Choose Your Own Adventure!</div>
-                   <div className='text-2xl font-bold mb-6 w-1/2 text-center'> Select Topics to Generate Quiz:</div>
-                    <div className="flex w-full px-2 sm:px-10 flex-row justify-between items-start">
+                   <div className='text-2xl font-bold mb-6 w-1/2 text-center'> Select Topics to Generate Custom Quiz:</div>
+                    <div className="flex w-full px-2 sm:px-10 flex-row justify-center items-center">
                         <div></div>
-                        {/* <input type='checkbox' className='mt-2 sm:-mr-8'
-                                onChange = {()=>handleSelectAll()
-                                }
-                                checked = {selectedTopics.length === allTopicIds.length}
-                                /> */}
+                       
+                        <div className='w-11/12  flex justify-between'>
+                        <div></div>
                         <div className='sm:text-xl w-1/3  font-bold sm:-ml-12 '>
                             Topic
                         </div>
@@ -168,6 +166,7 @@ export const QuizGenerator = () => {
                         </div>
                         <div className='w-1/5 sm:text-xl font-bold text-center'>
                             Mastery Level
+                        </div>
                         </div>
                     </div>
                  
@@ -281,7 +280,8 @@ export const QuizGenerator = () => {
                                     font-medium
                                     hover:cursor-pointer
                                     `"
-                    onClick={()=>(navigate('/Quiz', {state: {chapter: 1, type: 'shortWeakspotQuiz', topics: []}}))}>Generate Quiz for me Based on my Weaknesses</button>
+                    onClick={()=>(navigate('/Quiz', {state: {chapter: 1, type: 'shortWeakspotQuiz', topics: []}}))}>Let Us Generate a Quiz for You! Based on your Weak Spots!</button>
+            <div className='text-3xl mt-6'>OR</div>
             <div className="mt-10 w-5/6 h-full mb-10">
                 <QuizGeneratorBox />
             </div>
