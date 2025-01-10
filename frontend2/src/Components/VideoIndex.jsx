@@ -90,7 +90,7 @@ export const VideoIndex = () => {
                             and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a 
                             stepping stone to mastering economic concepts, and you can access any and all of our treasure trove of videos that absolutely don't suck 
                             <span className='inline sm:hidden'> by accessing the <span className='font-bold'>Video Library</span> above.</span> 
-                            <span className='hidden sm:inline'>from the menu on the left.</span>
+                            <span className='hidden sm:inline'> from the menu on the left.</span>
                             
                         </div>
                         <div className='mx-8 mt-4 text-lg'>
