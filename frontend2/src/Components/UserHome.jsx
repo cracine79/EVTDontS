@@ -114,6 +114,10 @@ export const UserHome = () => {
         navigate('/Quiz', {state: {chapter: currentChapterId, type: 'shortWeakspotQuiz', topics: []}})
     }
 
+    const goToCreateQuiz = () => {
+        navigate('/quizgenerator')
+    }
+
     
     return(
         <>  
@@ -186,7 +190,7 @@ export const UserHome = () => {
                         <Progress />
                     </div>
 
-                    <div className = 'w-full flex flex-col sm:flex-row items-center sm:justify-around mb-24'>
+                    <div className = 'w-full flex flex-col sm:flex-row items-center sm:justify-around mb-16'>
                         <div className=
                         {`
                         bg-white
@@ -261,11 +265,52 @@ export const UserHome = () => {
                                 hover:bg-slate-500
                                 font-medium
                                 hover:cursor-pointer
-                                mb-6`}
+                                `}
                                 onClick =  {goToWeakspotQuiz}
                                 >Find My Achilles' Heel</button>
                         </div>
+                        
                     </div>
+                        <div className=
+                            {`
+                            
+                            sm:w-1/3
+                            w-11/12
+                            -mt-8
+                            sm:mt-0
+                            h-auto
+                            text-center
+                            p-4
+                            rounded-3xl 
+                            shadow-2xl 
+                            flex 
+                            flex-col 
+                            items-center
+                            justify-center
+                            bg-white
+                            mb-16`}>
+                            <div className='text-2xl mt-3'>Choose Your Own Quiz Adventure</div>
+                            <div className='my-4'>Feeling daring? </div>
+                            <div>   Pick any topics you want—whether you rocked them or flopped them—and we’ll create a custom quiz that’s as wild as your choices.</div>
+                            <button  className={`
+                                    mt-4
+                                    border-black 
+                                    h-1/5 
+                                    w-1/2 
+                                    border-2 
+                                    flex 
+                                    justify-center 
+                                    items-center
+                                    rounded-lg
+                                    bg-slate-300
+                                    hover:bg-slate-500
+                                    font-medium
+                                    hover:cursor-pointer
+                                    `}
+                                    onClick =  {goToCreateQuiz}
+                                    >Create My Quiz</button>
+                        </div>
+             
             
             </div>
         </>

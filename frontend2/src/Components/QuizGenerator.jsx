@@ -13,6 +13,10 @@ export const QuizGenerator = () => {
         dispatch(getAllTopics())
     },[dispatch])
 
+    useEffect(() => {
+        window.scrollTo(0, 0);  // Scroll to top when the component mounts
+      }, []);
+
     const bookTopics = useSelector((state)=>state.topics)
     const userTopics = useSelector((state)=>state.topicProg)
     const userChapters = useSelector((state)=>state.userChapters)
