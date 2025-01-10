@@ -15,8 +15,12 @@ export const QuizGenerator = () => {
 
     const bookTopics = useSelector((state)=>state.topics)
     const userTopics = useSelector((state)=>state.topicProg)
+    const userChapters = useSelector((state)=>state.userChapters)
+    const bookChapters = useSelector((state)=>state.chapters)
+    const units = useSelector((state)=>state.units)
     const [selectedTopics, setSelectedTopics] = useState([])
 
+    const [selectedUnits, setSelectedUnits] = useState({})
 
     const topics = 
         Object.keys(bookTopics).reduce((result, key)=>{
@@ -27,7 +31,49 @@ export const QuizGenerator = () => {
         }, {})
     const topicsEntries = Object.entries(topics)
     const allTopicIds = topicsEntries.map(([id])=>id)
-    const userChapters = useSelector((state)=>state.userChapters)
+
+    
+    const topicsEntriesWithId = Object.entries(topics).map(([id, topic]) => ({
+        ...topic,
+        id,
+    }));
+
+
+    const topicsByUnit = topicsEntriesWithId.reduce((unitsGrouped, topic) => {
+        const chapter = bookChapters[topic.chapter_id] 
+        if (!chapter) return unitsGrouped; // Skip if chapter is not found
+    
+        const unitId = chapter.unit_id;
+        const unit = units[unitId];
+        if (!unit) return unitsGrouped; // Skip if unit is not found
+    
+        if (!unitsGrouped[unitId]) {
+            unitsGrouped[unitId] = {
+                unitName: unit.name,
+                topics: [],
+            };
+        }
+    
+        unitsGrouped[unitId].topics.push(topic);
+        return unitsGrouped;
+    }, {});
+
+    const unitChecked = (unitId) => {
+        const unitTopics = topicsByUnit[unitId]
+        const unitTopicIds = unitTopics.topics.map((topic)=>topic.id)
+        let allChecked = true
+        unitTopicIds.forEach((id)=>{
+            if(!selectedTopics.includes(id)){
+                allChecked = false
+            }
+        })
+
+        return allChecked
+    }
+
+    console.log(selectedTopics)
+    
+
  
     const studiedIt = (chapter_id) => {
         if (userChapters[chapter_id] && userChapters[chapter_id].video_completed){
@@ -60,6 +106,10 @@ export const QuizGenerator = () => {
         setSelectedTopics((prevSelected)=> 
             prevSelected.length === allTopicIds.length ? [] : allTopicIds
         )
+    }
+
+    const handleSelectUnitTopics = () => {
+        
     }
 
     const makeReviewQuiz = () => {
@@ -123,22 +173,34 @@ export const QuizGenerator = () => {
                     <div className='w-full'>
 
                 
-                            {
-                                topicsEntries.map(([id, topic])=>{
+                            {   
+                                Object.entries(topicsByUnit).map(([unitId, unit])=>{
                                     return(
-                                    <div className='w-full sm:px-10 px-2 flex justify-between flex-row items-center py-2'>
-                                        <input type='checkbox' className='sm:-mr-8'
-                                                checked = {selectedTopics.includes(id)}
-                                                onChange = {() => handleCheckboxChange(id)}/>
-                                        <div key={id} className='sm:w-1/3 w-1/3 sm:-ml-8 md:-ml-12 -ml-6 text-xs sm:text-md'>
-                                            {topic.topic_name}
-                                        </div>
-                                        <div className='sm:w-1/5 text-center text-xs sm:text-md'> {studiedIt(topic.chapter_id)} </div>
-                                        <div className='sm:w-1/5 w-1/5 text-center text-xs sm:text-md'> {ranking(topic.percent_correct)} </div>
+                                        <>
+                                            <div>
+                                                <input type='checkbox' className='ml-10 my-4 mr-10' checked = {unitChecked(unitId)} onChange = {()=>handleSelectUnitTopics()}></input>
+                                                {unit.unitName}
+                                            </div>
+                                            {unit.topics.map((topic)=>{
+                                                return(<>
+                                                        <div className='w-full sm:px-10 px-2 flex justify-between flex-row items-center py-2'>
+                                                            <input type='checkbox' className='sm:-mr-8'
+                                                                    checked = {selectedTopics.includes(topic.id)}
+                                                                    onChange = {() => handleCheckboxChange(topic.id)}/>
+                                                            <div key={topic.id} className='sm:w-1/3 w-1/3 sm:-ml-8 md:-ml-12 -ml-6 text-xs sm:text-md'>
+                                                                {topic.topic_name}
+                                                            </div>
+                                                            <div className='sm:w-1/5 text-center text-xs sm:text-md'> {studiedIt(topic.chapter_id)} </div>
+                                                            <div className='sm:w-1/5 w-1/5 text-center text-xs sm:text-md'> {ranking(topic.percent_correct)} </div>
+                                                            
+                                                        </div>
+                                                </>)
+                                            })}
+                                        </>
                                         
-                                    </div>
                                     )
                                 })
+
                             }
                          </div>
                 <div className='flex w-full justify-center mt-8'>
