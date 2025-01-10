@@ -103,7 +103,6 @@ export const QuizGenerator = () => {
         
         const unitTopics = topicsByUnit[name].topics
         unitTopics.forEach((topic)=>{
-            console.log(topic.id)
             setSelectedTopics((prev)=>({
                 ...prev,
                 [topic.id] : checked
@@ -111,13 +110,6 @@ export const QuizGenerator = () => {
         })
         
     }
-
-    // const handleSelectAll = () => {
-    //     setSelectedTopics((prevSelected)=> 
-    //         prevSelected.length === allTopicIds.length ? [] : allTopicIds
-    //     )
-    // }
-
 
     const makeReviewQuiz = () => {
         const chapter_topics = []
@@ -159,7 +151,8 @@ export const QuizGenerator = () => {
         return(
             <div className='h-full w-100'>
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
-                   <span className='text-3xl font-bold my-6'> Select Topics for Quiz</span>
+                   <div className='text-3xl font-bold mt-6 w-1/2 text-center'> Choose Your Own Adventure!</div>
+                   <div className='text-2xl font-bold mb-6 w-1/2 text-center'> Select Topics to Generate Quiz:</div>
                     <div className="flex w-full px-2 sm:px-10 flex-row justify-between items-start">
                         <div></div>
                         {/* <input type='checkbox' className='mt-2 sm:-mr-8'
@@ -178,14 +171,14 @@ export const QuizGenerator = () => {
                         </div>
                     </div>
                  
-                    <div className='w-full'>
+                    <div className='w-full items-center justify-center flex flex-col'>
 
-                
+                            <div className='w-11/12 border-black border'>
                             {   
                                 Object.entries(topicsByUnit).map(([unitId, unit])=>{
                                     return(
-                                        <>
-                                            <div key={unitId}>
+                                        <div className='w-full'>
+                                            <div key={unitId} className='bg-lime-200'>
                                                 <input type='checkbox' name={unitId} className='ml-10 my-4 mr-10' onChange={handleUnitChange} checked = {unitChecked(unitId)} ></input>
                                                 {unit.unitName}
                                             </div>
@@ -204,12 +197,13 @@ export const QuizGenerator = () => {
                                                         </div>
                                                 </>)
                                             })}
-                                        </>
+                                        </div>
                                         
                                     )
                                 })
 
                             }
+                            </div>
                          </div>
                 <div className='flex w-full justify-center mt-8'>
                     <div className='flex sm:w-1/2 justify-around'>
@@ -272,6 +266,22 @@ export const QuizGenerator = () => {
              pulling teeth and more like... a slightly awkward lecture on interest 
              rates.
              </div>
+             <button className="mt-8
+                                    border-black 
+                                    sm:w-1/3
+                                    w-5/12 
+                                    text-center 
+                                    border
+                                    flex 
+                                    justify-center 
+                                    items-center
+                                    rounded-lg
+                                    bg-slate-300
+                                    hover:bg-slate-500
+                                    font-medium
+                                    hover:cursor-pointer
+                                    `"
+                    onClick={()=>(navigate('/Quiz', {state: {chapter: 1, type: 'shortWeakspotQuiz', topics: []}}))}>Generate Quiz for me Based on my Weaknesses</button>
             <div className="mt-10 w-5/6 h-full mb-10">
                 <QuizGeneratorBox />
             </div>
