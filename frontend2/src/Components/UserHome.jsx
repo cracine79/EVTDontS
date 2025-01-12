@@ -248,7 +248,7 @@ export const UserHome = () => {
                         justify-center
                         bg-white`}>
                             <div className='text-2xl mt-3'>Focus on your Weaknesses</div>
-                            <p className='my-4'>Think you’ve mastered it all? Spoiler: The quiz knows your weak spots better than your Netflix recommendations.</p>
+                            <p className='my-4'>Think you’ve mastered it all? Spoiler: This quiz knows your weak spots better than your Netflix recommendations.</p>
                             <p> Take a deep breath, dive in, and let’s tackle those tricky bits. (You got this—probably.)</p>
                            
                             <button  className={`
