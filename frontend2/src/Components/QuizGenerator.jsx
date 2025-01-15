@@ -12,6 +12,7 @@ export const QuizGenerator = () => {
     useEffect(()=>{
         dispatch(getAllTopics())
     },[dispatch])
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0);  // Scroll to top when the component mounts
@@ -24,7 +25,6 @@ export const QuizGenerator = () => {
     const units = useSelector((state)=>state.units)
     const [selectedTopics, setSelectedTopics] = useState([])
 
-    const [selectedUnits, setSelectedUnits] = useState({})
 
     const topics = 
         Object.keys(bookTopics).reduce((result, key)=>{
@@ -122,7 +122,11 @@ export const QuizGenerator = () => {
                 chapter_topics.push({...bookTopics[id], ...userTopics[id], topic_id: id })
             }
         })
-        navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapter_topics}})
+        if(chapter_topics.length < 10){
+            navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapter_topics}})
+        } else {
+            setShowModal(true)
+        }
 
     }
     
@@ -154,6 +158,7 @@ export const QuizGenerator = () => {
     const QuizGeneratorBox = () => {
         return(
             <div className='h-full w-100'>
+              
                 <div className='w-100 border-black border-solid border flex flex-col items-center'>
                    <div className='text-3xl font-bold mt-6 w-1/2 text-center'> Choose Your Own Adventure!</div>
                    <div className='text-2xl font-bold mb-6 w-1/2 text-center'> Select Topics to Generate Custom Quiz:</div>
@@ -288,6 +293,11 @@ export const QuizGenerator = () => {
             <div className='text-3xl mt-6'>OR</div>
             <div className="mt-10 w-5/6 h-full mb-10">
                 <QuizGeneratorBox />
+            </div>
+            <div className={`top-28 w-1/2  fixed bg-red-100 fixed ${showModal ? 'opacity-1' : 'translate-y-full opacity-0'}`}>
+                    <p>Too Many Topics</p>
+                    <p>Please choose a maximum of 9 topics to review in one quiz</p>
+                    <div className="absolute top-1 right-2" onClick={()=>{setShowModal(false)}}>&times;</div>
             </div>
         </div>
     )
