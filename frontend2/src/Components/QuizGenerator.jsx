@@ -125,7 +125,7 @@ export const QuizGenerator = () => {
         if(chapter_topics.length < 10){
             navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapter_topics}})
         } else {
-            setShowModal(true)
+            openModal()
         }
 
     }
@@ -154,6 +154,16 @@ export const QuizGenerator = () => {
              <span className='block sm:hidden'>/</span>
                 </>)
         }
+    }
+
+    const openModal = () => {
+        setShowModal(true);
+        document.body.style.overflow = 'hidden';
+    }
+
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.style.overflow = '';
     }
     const QuizGeneratorBox = () => {
         return(
@@ -294,10 +304,15 @@ export const QuizGenerator = () => {
             <div className="mt-10 w-5/6 h-full mb-10">
                 <QuizGeneratorBox />
             </div>
-            <div className={`top-28 w-1/2  fixed bg-red-100 fixed ${showModal ? 'opacity-1' : 'translate-y-full opacity-0'}`}>
-                    <p>Too Many Topics</p>
-                    <p>Please choose a maximum of 9 topics to review in one quiz</p>
-                    <div className="absolute top-1 right-2" onClick={()=>{setShowModal(false)}}>&times;</div>
+            <div className={`fixed bg-red-200 flex items-center justify-center top-0 bottom-0 left-0 right-0 bg-gray-800 ${showModal ? 'bg-opacity-70 over' : 'translate-y-full bg-opacity-0'}`}
+                  onClick = {()=>{closeModal()}}>
+                <div className={`w-1/3 -mt-28 fixed bg-white fixed border rounded p-4 text-center border-black border-solid `}>
+                        <p className='text-2xl'>Too Many Topics!!!</p>
+                        <p>Rein it in dude!</p>
+                        <p>Please choose a maximum of 9 topics to review in one quiz</p>
+                        
+                        <div className="absolute top-1 right-2 hover:cursor-pointer" onClick={()=>{closeModal()}}>&times;</div>
+                </div>
             </div>
         </div>
     )
