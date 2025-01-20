@@ -309,7 +309,7 @@ export const QuizGenerator = () => {
                 <div className={`w-1/3 -mt-28 fixed bg-white fixed border rounded p-4 text-center border-black border-solid `}>
                         <p className='text-2xl'>Too Many Topics!!!</p>
                         <p>Rein it in dude!</p>
-                        <p>Please choose a maximum of 9 topics to review in one quiz</p>
+                        <p>Please choose a maximum of nine topics to review in one quiz</p>
                         
                         <div className="absolute top-1 right-2 hover:cursor-pointer" onClick={()=>{closeModal()}}>&times;</div>
                 </div>
