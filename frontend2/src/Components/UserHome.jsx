@@ -33,7 +33,8 @@ export const UserHome = () => {
         "Ah, you’re back! Just when we thought you’d solved the economy overnight.",
         "Miss us? It’s okay, economic graphs and theories have that effect on people. Probably.",
         "Guessing you’re back to dive into some high-octane econ thrills. Okay, maybe medium-octane.  Fine, some-octane?",
-        "Welcome back! Clearly, the invisible hand brought you here… or maybe it was your browser history."
+        "Welcome back! Clearly, the invisible hand brought you here… or maybe it was your browser history.",
+        "Let's rock and roll!"
     ]
 
 
@@ -56,7 +57,7 @@ export const UserHome = () => {
         }
     }
     const genMessage = () =>{
-        const number = Math.floor(Math.random()*6)
+        const number = Math.floor(Math.random()*18)
         return (
         <>
             {messages[number]}
