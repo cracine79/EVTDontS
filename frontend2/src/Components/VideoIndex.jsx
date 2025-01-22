@@ -111,9 +111,15 @@ export const VideoIndex = () => {
                                 allowFullScreen>
                             </iframe>
                         </div>
-                        <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
-                            {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
+                        <div className='flex justify-around  w-3/4'>
+                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                                {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
+                            </div>
+                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                                Feeling Lazy?  Watch the (SUPER) short version.
+                            </div>
                         </div>
+                        
                         </>
                         )}
                     </div>
