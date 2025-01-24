@@ -25,10 +25,15 @@ export const VideoIndex = () => {
             setVideoId(selectedChapterVideoUrl)
       
     },[selectedChapterVideoUrl])
-    console.log(selectedChapterVideoUrl)
-    const videoGo = (chapter) => {
+
+    const videoGo = (chapter, type) => {
         setMenuOpen(false)
-        setVideoId(chapter.video_url)
+        if(type=='long'){
+            setVideoId(chapter.video_url)
+        } else {
+            setVideoId(false);
+        }
+  
     }
 
     const chapterVid = (videoId) => {
@@ -58,19 +63,19 @@ export const VideoIndex = () => {
                     <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
                     {chaptersObj.slice(0,6).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
                     <div className='font-bold mt-2 text-lg'>Unit 2: Supply & Demand</div>
                     {chaptersObj.slice(7, 18).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
                     <div className='font-bold mt-2 text-lg'>Unit 3: Elasticities</div>
                        {chaptersObj.slice(18).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter)}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
 
@@ -111,14 +116,14 @@ export const VideoIndex = () => {
                                 allowFullScreen>
                             </iframe>
                         </div>
-                        <div className='flex justify-around  w-3/4'>
+                        {/* <div className='flex justify-around  w-3/4'> */}
                             <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
                                 {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
                             </div>
-                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                            {/* <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={()=>videoGo(videoId, 'short')}>
                                 Feeling Lazy?  Watch the (SUPER) short version.
-                            </div>
-                        </div>
+                            </div> */}
+                        {/* </div> */}
                         
                         </>
                         )}

@@ -109,6 +109,7 @@ class Chapter(db.Model):
     name: Mapped[str] = mapped_column(String(100), nullable=False)
     unit_id: Mapped[int] = mapped_column(ForeignKey('unit.id', name='fk_chapter_unit_id'))
     video_url: Mapped[str] = mapped_column(String(255))
+    short_video_url: Mapped[str] = mapped_column(String(255), nullable=True)
     video_blurb: Mapped[str] = mapped_column(Text, nullable=True)  
     quiz_blurb: Mapped[str] = mapped_column(Text, nullable=True)
     order: Mapped[int] = mapped_column(Integer, nullable=False)
