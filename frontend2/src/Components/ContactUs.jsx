@@ -71,7 +71,7 @@ export const ContactUs = () => {
                                 font-medium
                                 hover:cursor-pointer'
                         onClick = {()=>sendEmail(subject, email, body, navigate)}
-                        >Fire Away!</button>
+                        >Send Email</button>
             </div>
             
        </div>
