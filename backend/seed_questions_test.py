@@ -15,7 +15,7 @@ def seed_tax_chapter_topic():
         print("Unit with ID 4 does not exist. Seeding aborted.")
         return
 
-    chapter4_1 = Chapter(name="4.1 Taxes", unit=unit4, video_url="https://www.youtube.com/embed/4Jpvus1kpr8", order=25)
+    chapter4_1 = Chapter(name="4.1 Taxes", unit=unit4, video_url="https://www.youtube.com/embed/RakGotBbbKY?si=lvwOdy9K9HK3h7Ct", order=25)
 
     topic34 = QuestionTopic(name='Taxes - Impact on price and quantity', chapter=chapter4_1)
     topic35 = QuestionTopic(name='Taxes - Impact on Producer Revenue, Consumer Expenditure & Government Revenue', chapter=chapter4_1)

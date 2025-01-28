@@ -73,14 +73,23 @@ export const VideoIndex = () => {
                         )
                     })}
                     <div className='font-bold mt-2 text-lg'>Unit 3: Elasticities</div>
-                       {chaptersObj.slice(18).map(chapter=>{
+                       {chaptersObj.slice(18, 24).map(chapter=>{
                         return(
                             <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
 
-                    <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention in Markets</div>
-                        <div className='mt-2'>(Coming Soon!)</div>
+                    <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention </div>
+                    {chaptersObj.slice(24).map(chapter=>{
+                        return(
+                            <>
+                                <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
+                                <div className='text-gray-400'>4.2 Subsidies (coming soon!)</div>
+                                <div className='text-gray-400'>4.3 Price Floors (coming soon!)</div>
+                                <div className='text-gray-400'>4.4 Price Ceilings (coming soon!)</div>
+                            </>
+                        )
+                    })}
                     </div>
                 </div>
                 <div className='sm:w-5/6 w-full'>
