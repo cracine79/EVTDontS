@@ -28,11 +28,16 @@ def seed_tax_chapter_topic():
     db.session.add_all(topics)
 
     db.session.commit()
+    print("Chapter seeded")
 
 def main():
     with app.app_context():
-        seed_tax_chapter_topic()
-
+        try:
+            seed_tax_chapter_topic()
+        except IntegrityError as e:
+            db.session.rollback()  # Now within the app context
+            print(f"There was an error seeding the chapter: {e}")
+            
 if __name__=="__main__":
     try:
         main()
