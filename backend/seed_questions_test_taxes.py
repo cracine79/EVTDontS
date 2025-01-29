@@ -10,7 +10,7 @@ app = create_app(ProdConfig)
 def seed_tax_chapter_questions_answers():
 
     print('seeding questions')
-    chapter4_1 = db.session.get(Chapter, 35)
+    chapter4_1 = db.session.get(Chapter, 38)
 
     topic34 = db.session.get(QuestionTopic, 75)
     topic35 = db.session.get(QuestionTopic, 77)
@@ -258,7 +258,11 @@ def seed_tax_chapter_questions_answers():
 
 def main():
     with app.app_context():
-        seed_tax_chapter_questions_answers()
+        try:
+            seed_tax_chapter_questions_answers()
+        except IntegrityError as e:
+            db.session.rollback()  # Now within the app context
+            print(f"There was an error seeding the chapter: {e}")
 
 if __name__=="__main__":
     try:
