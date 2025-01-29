@@ -19,11 +19,16 @@ def seed_tax_chapter_topic():
     quiz_blurb =  "Congrats on surviving the video! Now it’s time for the Taxes and Death Quiz Spectacular—where the questions are taxing, but thankfully not fatal. Test your knowledge of government intervention, and see if you can outsmart the invisible hand (and maybe the heavy one too). \n\n Taxes are no fun, but at least this quiz won’t take a percentage of your paycheck. (We realize that this joke is referring to direct, not indirect taxes, so completely inappropriate for this section.  So sue us!) Good luck—you’ve got this!"
     name = "4.1 Taxes"
     content = f"{name}{quiz_blurb}{video_blurb}"
-    search_vector = text(f"to_tsvector('english', :content)")
+   
     
-    chapter4_1 = Chapter(name=name, unit=unit4, video_url="https://www.youtube.com/embed/RakGotBbbKY?si=lvwOdy9K9HK3h7Ct", order=25, video_blurb=video_blurb, quiz_blurb=quiz_blurb,
-                         search_vector=search_vector
-                        )
+    chapter4_1 = Chapter(name=name, unit=unit4, video_url="https://www.youtube.com/embed/RakGotBbbKY?si=lvwOdy9K9HK3h7Ct", order=25, video_blurb=video_blurb, quiz_blurb=quiz_blurb)
+                        
+    db.session.add(chapter4_1)
+    db.session.flush()
+
+
+    query = text("UPDATE chapter SET search_vector = to_tsvector('english', :content) WHERE id = :id")
+    db.session.execute(query, {'content': content, 'id': chapter4_1.id})
 
     topic34 = QuestionTopic(name='Taxes - Impact on price and quantity', chapter=chapter4_1)
     topic35 = QuestionTopic(name='Taxes - Impact on Producer Revenue, Consumer Expenditure & Government Revenue', chapter=chapter4_1)
