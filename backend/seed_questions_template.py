@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 
 app = create_app(ProdConfig)
 
+#be sure to check for chapter ID and stuff first in Heroku.
 
 def seed_tax_chapter():
     unit4 = db.session.get(Unit, 4)
