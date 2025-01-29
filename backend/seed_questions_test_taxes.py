@@ -12,10 +12,10 @@ def seed_tax_chapter_questions_answers():
     print('seeding questions')
     chapter4_1 = db.session.get(Chapter, 38)
 
-    topic34 = db.session.get(QuestionTopic, 75)
-    topic35 = db.session.get(QuestionTopic, 77)
-    topic36 = db.session.get(QuestionTopic, 78)
-    topic37 = db.session.get(QuestionTopic, 76)
+    topic34 = db.session.get(QuestionTopic, 67)
+    topic35 = db.session.get(QuestionTopic, 68)
+    topic36 = db.session.get(QuestionTopic, 69)
+    topic37 = db.session.get(QuestionTopic, 70)
     
     question1 = Question(text='Assume that supply for a good is upward sloping and demand is downward sloping.  The imposition of a specific exise tax on the sale of that good would result in which of the following changes to equilibrium price and quantity?', chapter=chapter4_1, topic=topic34)
     question2 = Question(text='The diagram above shows the effect of a unit tax placed on a good.  What is the price paid by consumers and price received by producers after the tax is paid?', chapter=chapter4_1, topic=topic34, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/TaxCalcDiagram.png")
