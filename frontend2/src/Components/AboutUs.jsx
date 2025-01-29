@@ -28,7 +28,7 @@ export const AboutUs = () => {
                     I'm here to:
                 </div>
                 <ol className="list-decimal ml-8 mt-2">
-                    <li><strong>Make Videos That Don’t Waste Your Time</strong>: These videos don’t just skim the surface. They’re comprehensive, clear, and filled with tips to help you crush the AP exam like it’s no big deal.</li>
+                    <li><strong>Make Videos That Don’t Waste Your Time</strong>: These videos don’t just skim the surface. They’re comprehensive, clear, and filled with tips to help you destroy the AP exam like it’s no big deal.</li>
                     <li className='my-2'><strong>Revolutionize Review</strong>: Tired of answering the same old questions? The EVTDS algorithm tracks the topics and types of questions you struggle with and builds quizzes tailored to YOUR weaknesses. It’s like having a personal tutor, but less awkward.</li>
                     <li><strong>Inject Some Fun (and Some Obscure Movie References) into Learning:</strong> Let’s face it, economics can be dry. I’m doing my best to fix that while sneaking in some nostalgia for classic films. (Economics meets the Breakfast Club? Stranger things have happened.)</li>
                 </ol>
