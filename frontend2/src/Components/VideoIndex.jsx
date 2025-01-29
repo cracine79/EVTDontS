@@ -12,8 +12,14 @@ export const VideoIndex = () => {
     const location = useLocation()
     const currentUser = useSelector(state=>(state.user.username))
     const chapters = useSelector(state=>(state.chapters))
-    const chaptersObj = Object.values(chapters)
+    let chaptersObj = []
+
+    chaptersObj = Object.keys(chapters).map((key)=>({
+        id: key,
+        ...chapters[key]
+    }))
     const [videoId, setVideoId] = useState(false)
+    const [chapterId, setChapterId] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
     const selectedChapterVideoUrl = location.state?.videoUrl
 
@@ -30,6 +36,7 @@ export const VideoIndex = () => {
         setMenuOpen(false)
         if(type=='long'){
             setVideoId(chapter.video_url)
+            setChapterId(chapter.id)
         } else {
             setVideoId(false);
         }
@@ -41,12 +48,18 @@ export const VideoIndex = () => {
         return chapter? chapter.name : ""
     }
 
-    const handleGoToQuiz = () => {
+
+    const handleSignUp = () => {
         if(!currentUser){
             dispatch(openSignupModal())
         } else {
             navigate('/userhome')
         }
+    }
+
+    const handleGoToQuiz = () => {
+        // console.log(chapterId)
+        navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
     }
     return(
         <div className = 'mt-24'>
@@ -126,8 +139,12 @@ export const VideoIndex = () => {
                             </iframe>
                         </div>
                         {/* <div className='flex justify-around  w-3/4'> */}
-                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleSignUp}>
                                 {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
+                            </div>
+                        
+                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                                Jump to Practice Quiz on {chapterVid(videoId)}
                             </div>
                             {/* <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={()=>videoGo(videoId, 'short')}>
                                 Feeling Lazy?  Watch the (SUPER) short version.

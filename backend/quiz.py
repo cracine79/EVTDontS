@@ -167,3 +167,53 @@ class AccessQuiz(Resource):
             "quiz_blurb": quiz_blurb,
             "quiz_blurb_img_url": quiz_blurb_img_url
         })
+    
+@quiz_ns.route('/questions_nouser')
+class AccessQuizLoggedout(Resource):
+    def get(self):
+        
+        chapter_id = request.args.get('chapter')
+        print('CHAPTER ID', chapter_id)
+        topics = QuestionTopic.query.filter_by(chapter_id=chapter_id).all()
+        chapter = Chapter.query.get(chapter_id)
+        quiz_blurb = chapter.quiz_blurb
+        quiz_blurb_img_url = chapter.quiz_blurb_img_url
+        questions = []
+
+        if len(topics)>1:
+            for topic in topics:
+                topic_questions = Question.query.filter_by(topic_id=topic.id).limit(3).all()
+                questions.extend(topic_questions)
+
+        else:
+            topic_questions = Question.query.filter_by(topic_id=topics[0].id).limit(6).all()
+            questions.extend(topic_questions)
+    
+
+        question_ids = [question.id for question in questions]
+        question_dict = {}
+
+        for question in questions:
+
+            answers = {
+                answer.id: {  
+                 'text': answer.text,
+                'is_correct': answer.is_correct
+                }
+            for answer in question.answers
+            }
+            question_dict[question.id] = {
+                "text": question.text,
+                "topic_id": question.topic_id,
+                'image_url': question.image_url,
+                "answers": answers
+            }
+        quiz_blurb = quiz_blurb if 'quiz_blurb' in locals() else None
+        quiz_blurb_img_url = quiz_blurb_img_url if 'quiz_blurb_img_url' in locals() else None
+
+        
+        return ({
+            "questions": question_dict,
+            "quiz_blurb": quiz_blurb,
+            "quiz_blurb_img_url": quiz_blurb_img_url
+        })

@@ -12,10 +12,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const navigate = useNavigate();
     const showModal = useSelector(state=>(state.modal.isQuizOpen));
     const questions = useSelector(state=>(state.questions));
-    // const origQuestionsObj = Object.entries(questions).map(([id, question]) => ({
-    //   ...question,
-    //   id: id
-    // }))
+
 
 
   
@@ -108,7 +105,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           <input type='radio'
                   name={`question-${questionNumber}`}
                   id={`answer-${answerId}`} 
-                  onChange={() => handleAnswerSelect(answerId)} // Update state on change
+                  onChange={() => handleAnswerSelect(answerId)} 
                   checked={submittedAnswers[questionsObj[questionNumber].id]?.answerId === answerId} // Pre-select the answer if it's in submittedAnswers
                   value={answerId} // Set value to answerObj.id
           />

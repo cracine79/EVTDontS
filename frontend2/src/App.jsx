@@ -65,7 +65,7 @@ const router = createBrowserRouter([
       }, 
       {
         path:"/quiz",
-        element: <ProtectedRoute component={Quiz} />
+        element: <Quiz />
       },
       {
         path:"/results",

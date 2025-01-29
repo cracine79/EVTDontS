@@ -30,17 +30,19 @@ export const Quiz = () => {
     useEffect(()=>{
         const fetchData = async () => {
             const results =  await dispatch(getQuestions(data))
+            
             setQuizBlurb(results.quiz_blurb)
             setQuizBlurbImgUrl(results.quiz_blurb_img_url)
+         
         }
         fetchData()
         window.scrollTo(0,0)
-        }, [dispatch]
+        
+    }, [dispatch, data]
         
     )
     
     
-
     const wholeChapter = useSelector((state)=>state.chapters[chapter])
 
     // const currentUnit = wholeChapter ? useSelector((state)=>state.units[wholeChapter.unit_id]) : ""
@@ -77,7 +79,7 @@ export const Quiz = () => {
 
 
     }
-
+    
     const weaknessBlurb = () => {
         return(
             <div className='flex flex-col items-center w-3/4'>
@@ -106,7 +108,7 @@ export const Quiz = () => {
         <div className="w-full flex flex-col justify-center items-center">
             <div className='sm:mt-40 mt-28 aspect-video justify-center w-full sm:w-3/4'>
                 <div className='flex justify-center'>
-                    {type == 'chapterQuiz' && 
+                    {(type == 'chapterQuiz' || type =='chapterQuizNoUser')  && 
                         <div className='items-center flex flex-col'>
                             <div className='sm:text-2xl w-5/6 text-xl text-center'>
                                 <div>

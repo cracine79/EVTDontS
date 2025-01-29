@@ -6,7 +6,13 @@ export const getQuestions = (data) => async(dispatch) => {
         const { chapter, type, topics } = data;
 
         const topicsParam = encodeURIComponent(JSON.stringify(topics))
-        const response = await csrfFetch(`/api/quiz/questions?chapter=${chapter}&type=${type}&topics=${encodeURIComponent(topicsParam)}`);
+
+        let response
+        if (type == 'chapterQuizNoUser'){
+           response = await csrfFetch(`/api/quiz/questions_nouser?chapter=${chapter}`)
+        } else {
+           response = await csrfFetch(`/api/quiz/questions?chapter=${chapter}&type=${type}&topics=${encodeURIComponent(topicsParam)}`);
+        }
 
     
     if (!response.ok) {
@@ -22,6 +28,8 @@ export const getQuestions = (data) => async(dispatch) => {
       const questions = results.questions
       const quiz_blurb = results.quiz_blurb
       const quiz_blurb_img_url = results.quiz_blurb_img_url
+
+      console.log('QUESTIONS', results)
       dispatch(updateQuestions(questions))
 
       return({

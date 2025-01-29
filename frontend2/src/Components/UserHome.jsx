@@ -126,7 +126,7 @@ export const UserHome = () => {
             <div className=
                 {`flex 
                 items-center 
-                w-screen 
+                w-screen
                 bg-slate-50 
                 flex-col
                 
