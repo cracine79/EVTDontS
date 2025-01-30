@@ -4,7 +4,7 @@ import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
-import { finishQuiz, finishReviewQuiz, finishUserlessQuiz } from "../Slices/resultsActions";
+import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 
 
 export const QuestionComponent = ({chapter, type, topics}) => {
