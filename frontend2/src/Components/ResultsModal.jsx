@@ -2,14 +2,20 @@ import { useSelector, useDispatch } from "react-redux"
 import { closeResultsModal } from "../Slices/modalSlice"
 import { useState, useEffect, useRef } from "react"
 import { FaArrowLeft } from "react-icons/fa6";
-export const ResultsModal = () => {
+export const ResultsModal = ({answers}) => {
     const showModal = useSelector(state=>(state.modal.isResultsOpen))
-    const answers = useSelector(state=>(state.results))
+    let answers1 = useSelector(state=>(state.results))
+    
     const questions = useSelector(state=>(state.questions))
     const [answerNumber, setAnswerNumber] = useState(0)
     const wrongAnswers = []
     const modalRef = useRef(null)
-
+    console.log('1', answers1)
+    if(Object.values(answers1).length==0){
+        answers1 = answers
+    }
+    console.log('answers', answers1)
+    console.log('questions', questions)
 
     useEffect(()=>{
         modalRef.current.scrollTo({
@@ -18,12 +24,12 @@ export const ResultsModal = () => {
         }
     ,[answerNumber])
 
-   Object.values(answers).forEach((entry)=>{
+   Object.values(answers1).forEach((entry)=>{
        
         if (entry.isCorrect == false){
             wrongAnswers.push(entry)        }
     })
-
+  
     const dispatch = useDispatch();
 
     const handleClose = () => {

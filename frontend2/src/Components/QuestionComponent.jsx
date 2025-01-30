@@ -27,6 +27,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const [selectAnswerPrompt, setSelectAnswerPrompt] = useState(false)
     const [questionsObj, setQuestionsObj] = useState([])
     const currentChapterId = useSelector(state=>(state.user.currentChapter))
+    const userlessChapterId = chapter
     const currentChapter = useSelector(state=>state.chapters[currentChapterId])
     const unitQuizUnitId = location.state?.unit
     const currentUnitId = currentChapter ? currentChapter.unit_id : 2
@@ -93,7 +94,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       // Update submittedAnswers immediately with answerId and isCorrect
       setSubmittedAnswers(prevSubmittedAnswers => ({
         ...prevSubmittedAnswers,
-        [questionId]: { answerId, isCorrect, topicId } // Store both answerId and isCorrect
+        [questionId]: { questionId, answerId, isCorrect, topicId } // Store both answerId and isCorrect
       }));
     };
 
@@ -130,6 +131,8 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       const newSubmittedAnswers = {
         ...submittedAnswers,
       };
+
+
     
       // Move to the next question or finish the quiz
       if(submittedAnswers[questionId]){
@@ -154,6 +157,11 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           
           const quizData = {
             chapter_id: currentChapterId,
+            quiz_score: percentageScore,
+            answers: newSubmittedAnswers
+          }
+          const otherQuizData = {
+            chapter_id: chapter,
             quiz_score: percentageScore,
             answers: newSubmittedAnswers
           }
@@ -182,7 +190,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           } else if (type == 'chapterQuizNoUser'){
             dispatch(closeQuizModal())
             setQuestionNumber(0)
-            navigate('/userlessresults', {state: {quizData}})
+            navigate('/userlessresults', {state: {otherQuizData}})
           }
           
         }

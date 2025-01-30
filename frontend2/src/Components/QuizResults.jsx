@@ -210,7 +210,7 @@ export const QuizResults = () => {
                 </div>
                 
             </div>
-            <ResultsModal />
+            <ResultsModal answers = {{}}/>
         </div>
     )
 }
