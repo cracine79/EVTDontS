@@ -74,7 +74,7 @@ export const finishReviewQuiz = (quizData) => async(dispatch) => {
         console.log('Error during data submission:', error)
     }
 }
- 
+
 
 export const finishChapter = (chapterData)  => async(dispatch) => {
     try{

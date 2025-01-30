@@ -145,7 +145,7 @@ class QuizProgress(Resource):
             }
                 ))
 
-        
+
 @progress_ns.route('/finishquiz')
 class QuizProgress(Resource):
     @jwt_required()

@@ -34,6 +34,7 @@ import { AboutUs } from './Components/AboutUs';
 import { SearchResults } from './Components/SearchResults';
 import { ContactUs } from './Components/ContactUs';
 import { MessageSent } from './Components/MessageSent';
+import { UserlessResults } from './Components/UserlessResults';
 
 const Layout = () => {
   return(
@@ -106,6 +107,10 @@ const router = createBrowserRouter([
       {
         path:'/uqresults',
         element: <ProtectedRoute component={UnitQuizResults} />
+      },
+      {
+        path:'/userlessresults',
+        element:<UserlessResults />
       },
       {
         path:'/retrievedata',

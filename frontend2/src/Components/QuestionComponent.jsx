@@ -4,7 +4,7 @@ import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GrChapterAdd } from "react-icons/gr";
-import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
+import { finishQuiz, finishReviewQuiz, finishUserlessQuiz } from "../Slices/resultsActions";
 
 
 export const QuestionComponent = ({chapter, type, topics}) => {
@@ -179,6 +179,10 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             dispatch(closeQuizModal())
             setQuestionNumber(0)
             navigate('/uqresults', {state: {topics: newTopics, unitId: unitQuizUnitId}})
+          } else if (type == 'chapterQuizNoUser'){
+            dispatch(closeQuizModal())
+            setQuestionNumber(0)
+            navigate('/userlessresults', {state: {quizData}})
           }
           
         }
