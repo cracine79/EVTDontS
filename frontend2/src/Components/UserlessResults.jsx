@@ -114,6 +114,7 @@ export const UserlessResults = () => {
                                     hover:bg-slate-500
                                     font-medium
                                     hover:cursor-pointer' 
+                                    onClick = {()=>navigate('/videoindex')}
                                     >Back to Videos</button>
                         </div>
                         
