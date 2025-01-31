@@ -7,20 +7,23 @@ const modalSlice = createSlice({
         isLoginOpen: false,
         isSignupOpen: false,
         isQuizOpen: false,
-        isResultsOpen: false
+        isResultsOpen: false,
+        sourceData: null
     },
     reducers: {
         openLoginModal: (state) => {
             state.isLoginOpen = true
         },
         closeLoginModal: (state)=> {
-            state.isLoginOpen = false
+            state.isLoginOpen = false;
         },
-        openSignupModal: (state) => {
-            state.isSignupOpen = true
+        openSignupModal: (state, action) => {
+            state.isSignupOpen = true;
+            state.sourceData = action.payload || null;
         },
         closeSignupModal: (state)=> {
-            state.isSignupOpen = false
+            state.isSignupOpen = false;
+            state.sourceData = null;
         },
         openQuizModal: (state) => {
             state.isQuizOpen = true

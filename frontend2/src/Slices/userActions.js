@@ -76,14 +76,14 @@ export const loginUser = (username, password) => async(dispatch) => {
   }
   };
 
-  export const signupUser = (username, email, password) => async(dispatch)  => {
+  export const signupUser = (username, email, password, quizData) => async(dispatch)  => {
     try{
       const response = await csrfFetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, quizData }),
       });
       const data = await response.json();
       localStorage.setItem('access_token', data.user.access_token);

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { ResultsModal } from "./ResultsModal"
 import { openResultsModal } from "../Slices/modalSlice"
 import { useDispatch } from "react-redux"
+import { openSignupModal } from "../Slices/modalSlice"
 
 export const UserlessResults = () => {
     const navigate = useNavigate()
@@ -25,7 +26,7 @@ export const UserlessResults = () => {
         }
     })
 
-
+    console.log(quizData)
     const showResults = () => {
         dispatch(openResultsModal())
     }
@@ -45,14 +46,28 @@ export const UserlessResults = () => {
         navigate('/quiz', {state:{chapter:quizData.chapter_id, type: 'chapterQuizNoUser', topics:[]}})
     }
 
+    const TestEncouragement = () => {
+        return(
+            <>
+                {percentageScore == 100 && <span>You rocked that exam like Yoko rocked the Beatles! (Not sure what that simile actually means)</span>}
+                {percentageScore >= (4/6) && percentageScore< 100 && <span> You crushed it! Not a total econ genius yet, but dangerously close. </span>}
+                {percentageScore >= (2/6) && percentageScore< (4/6) && <span>Your quiz score wasn't exactly Wolf of Wall Street level . . . but hey, you showed up!</span>}
+                {percentageScore < (2/6) && <span>That was less 'Wall Street' and more 'Fire Festival'.  At least it was memorable!</span>}
+            </>
+        )
+    }
+
+    const userlessSignup = () => {
+        dispatch(openSignupModal({quizData}))
+    }
 
 
 
     console.log(quizData)
     return(
         <>
-            <div className='mt-28'>
-                <div className='w-screen flex justify-center min-h-screen'>
+            <div className='mt-8'>
+                <div className='w-screen flex flex-col items-center justify-top min-h-screen'>
                     <div className="sm:mt-52 mt-28 sm:w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
                         <div className='flex flex-col items-center justify-center mx-4'>
                             <div className='mt-8 sm:text-4xl text-2xl text-center sm:text-left'>Results for Chapter {chapterNumber} Review Quiz</div>
@@ -119,10 +134,38 @@ export const UserlessResults = () => {
                         </div>
                         
                     </div>
-                  
+                    <div className='mt-12 text-center text-lg'>
+                           <p> HEY! {TestEncouragement()}</p>
+                           <p> Want to keep track of your progress?  Videos watched, quizzes taken, topics mastered, etc? Then you gotta sign up!  </p>
+                           <p>It's free and quick.  And we send ZERO emails to you (unless you're like us and you forgot your password)</p>
+                           <p>C'mon, take the first step towards becoming an Econo-Jedi!</p>
+                    </div>
+                    <div className='
+                                    border-black 
+                                    h-1/5 
+                                    sm:w-1/4
+                                    w-11/12
+                                    border-2 
+                                    mb-4
+                                    sm:mb-0
+                                    flex 
+                                    justify-center 
+                                    items-center
+                                    rounded-lg
+                                    bg-stone-300
+                                    hover:bg-slate-500
+                                    font-medium
+                                    hover:cursor-pointer' 
+                                    onClick = {()=>{userlessSignup()}}
+                                    >
+                                        Sign Up To Save Progress
+
+                    </div>
                 </div>
+                
                 <ResultsModal answers = {quizData.answers}/>
             </div>
+          
             
 
         </>

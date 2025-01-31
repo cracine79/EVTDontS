@@ -8,17 +8,20 @@ import { GetStarted } from './GetStarted';
 import { useNavigate } from 'react-router-dom';
 import { signupUser } from '../Slices/userActions';
 
-const SignupComponent = () => {
+const SignupComponent = (results) => {
   const showModal= useSelector(state=>(state.modal.isSignupOpen))
   const dispatch = useDispatch();
+  const quizData = useSelector((state)=>state.modal.sourceData)
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('')
   const navigate = useNavigate()
 
+  console.log(quizData)
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
-    const result = await dispatch(signupUser(username, email, password))
+    const result = await dispatch(signupUser(username, email, password, quizData))
     dispatch(closeSignupModal())
     if(result.error){
       navigate('/whoops', {state: {error: result.error, source: 'signup'}})
@@ -103,6 +106,7 @@ const SignupComponent = () => {
 						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
               <div className="text-lg md:mt-5 mt-28">Sign Up to Access Quizzes, Track Progress, and More!</div>
+              {quizData && <div>Your progress from this quiz will be saved!</div>}
               <input
                 className='
                             p-2
@@ -130,7 +134,7 @@ const SignupComponent = () => {
                 required
                 pattern="[A-Za-z0-9_]{3,15}" 
                 title="Username must be 3-15 characters long and can only contain letters, numbers, and underscores."
-                maxlength="15"
+                maxLength="15"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
