@@ -47,8 +47,8 @@ export const finishQuiz = (quizData) => async(dispatch) => {
 
         const data = await response.json()
         dispatch(updateUserChapters(data.chapters))
-        dispatch(login(data.user))
-        dispatch(updateUserResults(data.answers))
+        dispatch(login(data.user))  //to update newest chapter
+        dispatch(updateUserResults(data.answers))  //Kept in frontend temporarily to show results
         dispatch(updateTopicProg(data.topic_progress))
         dispatch(updateTopics(data.topics))
         return (data.last_chapter)

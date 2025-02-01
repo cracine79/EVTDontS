@@ -7,6 +7,10 @@ import { storeTopicProg } from "./topicProgSlice";
 import { storeChapters } from "./chaptersSlice";
 import { updateChapters } from "./chaptersSlice";
 import { storeTopics } from "./topicsSlice";
+import { updateUserResults } from "./resultsSlice";
+import { updateTopicProg } from "./topicProgSlice";
+import { updateTopics } from "./topicsSlice";
+import { updateUserChapters } from "./userChaptersSlice";
 
 
 
@@ -88,6 +92,16 @@ export const loginUser = (username, password) => async(dispatch) => {
       const data = await response.json();
       localStorage.setItem('access_token', data.user.access_token);
       dispatch(login(data.user));
+      if(data.chapters){
+        dispatch(updateUserChapters(data.chapters))
+      }
+      if(data.topic_progress){
+        dispatch(updateTopicProg(data.topic_progress))
+      }
+      if(data.topics){
+        dispatch(updateTopics(data.topics))
+      }
+
       return {success: true}
     } catch (error) {
       return {error: error.message}

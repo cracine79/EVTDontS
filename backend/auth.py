@@ -1,19 +1,39 @@
 from flask_restx import Namespace, Resource, fields
-from models import User, UserChapterProgress, UserTopicProgress, QuestionTopic
+from models import User, UserChapterProgress, UserTopicProgress, QuestionTopic, Chapter, UserPerformance
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
 from email_validator import validate_email, EmailNotValidError
+from exts import db
+from datetime import datetime
 
 auth_ns=Namespace('auth', description='A namespace for authentication')
 
+answers_model = auth_ns.model(
+    'answers', {
+        "questionId": fields.Integer(),
+        "answerId": fields.Integer(),
+        "isCorrect": fields.Boolean(),
+        "topicId": fields.Integer(),
+    }
+)
+
+quiz_data_model = auth_ns.model(
+    'quizData', {
+        "answers": fields.Nested(answers_model),
+        "chapter_id": fields.Integer(),
+        "quiz_score": fields.Integer(),
+
+    }
+)
 signup_model = auth_ns.model(
     'Signup',
     { 
         "username":fields.String(),
         "email":fields.String(),
-        "password":fields.String()
+        "password":fields.String(),
+        "quizData": fields.Nested(quiz_data_model, required=False),
     }
 )
 
@@ -129,7 +149,10 @@ class Signup(Resource):
         username=data.get('username')
         email = data.get('email')
         db_user=User.query.filter_by(username=username).first()
-        print(db_user)
+        quizData = data.get('quizData', {})
+
+       
+        
 
         if db_user is not None:
             return ({"message":f"Someone is already using the username: {username}"}, 400)
@@ -150,18 +173,115 @@ class Signup(Resource):
             password_hash= generate_password_hash(data.get('password'))           
         )
 
+        db.session.add(new_user)
+        db.session.flush()
+        new_user = User.query.filter_by(username=username).first()
+
+        if quizData is not None:
+            quizData = quizData.get('quizData', {})
+            answers = quizData.get('answers', {})
+            print("QUIZZ DATA", quizData)
+            print('TRY THIS', answers)
+ 
+            topic_response_data = {}
+
+            for answer in answers.values():
+                topicId = answer.get('topicId')
+                if topicId in topic_response_data:
+                    topic_response_data[topicId]['questions_asked'] += 1
+                    if answer.get('isCorrect'):
+                        topic_response_data[topicId]['answered_correctly']+=1
+                else:
+                                    topic_response_data[topicId] = {
+                    'questions_asked': 1,
+                    'answered_correctly': 1 if answer['isCorrect'] else 0
+                }
+
+                answer = UserPerformance(
+                    user_id = new_user.id, 
+                    question_id = answer.get('questionId'),
+                    is_correct=answer.get('isCorrect'), 
+                    answered_at=datetime.now() 
+                )
+
+                db.session.add(answer)
+                db.session.flush()
+            
+            topic_progress_dict = {}
+            topics_dict = {}
+            
+            for topic_id, response_data in topic_response_data.items():
+                topic_progress = UserTopicProgress.query.filter_by(user_id=new_user.id, topic_id=topic_id).first()
+                if topic_progress:
+                    topic_progress.questions_asked += response_data['questions_asked']
+                    topic_progress.answered_correctly += response_data['answered_correctly']
+                else:
+                    topic_progress = UserTopicProgress(
+                        user_id=new_user.id, 
+                        topic_id=topic_id, 
+                        questions_asked = response_data['questions_asked'],
+                        answered_correctly = response_data['answered_correctly'])
+                    db.session.add(topic_progress)
+                db.session.flush()
+                
+
+            percent_correct = int((topic_progress.answered_correctly/topic_progress.questions_asked)*100)
+            topic = QuestionTopic.query.get(topic_progress.topic_id)
+
+
+            topic_progress_dict[topic_id] = {
+                'percent_correct': percent_correct,
+                'questions_asked': topic_progress.questions_asked,
+                'answered_correctly': topic_progress.answered_correctly,
+                'topic_progress_id': topic_progress.id
+            }
+
+            topics_dict[topic_id] = {
+                'chapter_id': topic.chapter_id,
+                'topic_name': topic.name
+            }     
+
+            chapter_dict = {
+                topic.chapter_id: {
+                    'video_completed': True,
+                    'quiz_grade': quizData['quiz_score']
+                }
+            }
+
+            chapter = Chapter.query.filter_by(id=quizData.get('chapter_id')).first()
+            print('NEW_USERRRRR', new_user)
+            print('CHAPPPTER', chapter)
+            progress = UserChapterProgress(user_id = new_user.id, chapter_id = chapter.id)
+            db.session.add(progress)
+
+
+
         new_user.save()
 
         access_token = create_access_token(new_user.username)
         refresh_token = create_refresh_token(new_user.username)
         
-        return ({
-            "user": {
-                "access_token":access_token,
-                "refresh_token":refresh_token,
-                "email": email,
-                "username": username
-            }}, 200)
+        if quizData is None:
+            return ({
+                "user": {
+                    "access_token":access_token,
+                    "refresh_token":refresh_token,
+                    "email": email,
+                    "username": username
+                }}, 200)
+        else:
+            return ({
+                "user": {
+                    "access_token":access_token,
+                    "refresh_token":refresh_token,
+                    "email": email,
+                    "username": username
+                },
+                'topic_progress': topic_progress_dict, 
+                'topics': topics_dict,
+                'chapters': chapter_dict
+
+                }, 200)
     
 @auth_ns.route('/login')
 class Login(Resource):

@@ -109,7 +109,7 @@ class QuizProgress(Resource):
                 'questionId': question_id, 
                 'isCorrect': answer_data['isCorrect'], 
                 'answerId': answer_data['answerId'],
-                 'answeredAt': answer.answered_at }
+                'answeredAt': answer.answered_at }
         
         topic_progress_dict={}
 
@@ -206,7 +206,7 @@ class QuizProgress(Resource):
                 'questionId': question_id, 
                 'isCorrect': answer_data['isCorrect'], 
                 'answerId': answer_data['answerId'],
-                 'answeredAt': answer.answered_at }
+                'answeredAt': answer.answered_at }
         
         topic_progress_dict={}
         topics_dict = {}
