@@ -60,7 +60,7 @@ export const ContactUs = () => {
 
                 <button className="fancy-button mb-8 !px-8"
                         onClick = {()=>sendEmail(subject, email, body, navigate)}
-                        >Send Email</button>
+                        >Send Email!</button>
             </div>
             
        </div>
