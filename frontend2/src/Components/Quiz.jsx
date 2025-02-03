@@ -17,6 +17,7 @@ export const Quiz = () => {
     const topics = location.state?.topics
     const unitQuizUnitId = location.state?.unit
     const units = useSelector(state=>state.units)
+    const currentUser = useSelector(state=>state.user.username)
     const [quizBlurb, setQuizBlurb] = useState("")
     const [quizBlurbImgUrl, setQuizBlurbImgUrl] = useState("")
     const data = {
@@ -65,7 +66,11 @@ export const Quiz = () => {
     }
     const goHome = ()=>{
         dispatch(clearQuestions())
-        navigate('/userhome')
+        if(currentUser){
+            navigate('/userhome')
+        } else {
+            navigate('/videoindex')
+        }
     }
 
     const quizTopicList = () => {
@@ -169,7 +174,7 @@ export const Quiz = () => {
                             font-medium
                             hover:cursor-pointer
                             mb-6'
-                            onClick={goHome}>Back to Dashboard</button>
+                            onClick={goHome}>{currentUser ? <>Back to Dashboard</> : <>Back to Videos</>}</button>
                 </div>
                
             </div>
