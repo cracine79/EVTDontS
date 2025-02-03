@@ -57,6 +57,9 @@ export const VideoIndex = () => {
         }
     }
 
+    const shortenedVideoName = (video) =>{
+        return video.split(" ").slice(1).join(" ")
+    }
     const handleGoToQuiz = () => {
         // console.log(chapterId)
         navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
@@ -108,7 +111,7 @@ export const VideoIndex = () => {
                 <div className='sm:w-5/6 w-full'>
                     <div className='flex flex-col items-center'>
                         {!videoId && <>
-                            <div className='text-center mt-10 text-4xl font-bold'>
+                            <div className='text-center mt-6 text-4xl font-bold'>
                         Welcome to the Video Cache!
                         </div>
                         <img className='max-h-[60vh] 'src='https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png'></img>
@@ -120,13 +123,14 @@ export const VideoIndex = () => {
                             <span className='hidden sm:inline'> from the menu on the left.</span>
                             
                         </div>
+                        <div className='mx-8 mt-4 text-lg'>After watching the video you can also try a practice quiz to test your economic skills.</div>
                         <div className='mx-8 mt-4 text-lg'>
                         Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.
                         </div>
                         </>}
                     </div>
                     <div className='flex flex-col items-center justify-center sm:mt-10 mt-6 '>
-                        <div className='sm:text-2xl text-lg my-4'>
+                        <div className='sm:text-2xl text-lg mb-4'>
                             {videoId ? `Video for ${chapterVid(videoId)}`: ''}
                         </div>
                         {videoId && (
@@ -139,13 +143,15 @@ export const VideoIndex = () => {
                             </iframe>
                         </div>
                         {/* <div className='flex justify-around  w-3/4'> */}
-                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleSignUp}>
+                        <div className='w-full justify-center flex items-center'>
+                            <div className='my-8 border py-2 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleSignUp}>
                                 {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
                             </div>
-                        
-                            <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
-                                Jump to Practice Quiz on {chapterVid(videoId)}
-                            </div>
+                            <div className='mx-12 text-2xl'></div>
+                            <div className='my-8 border py-2 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                                Take a Practice Quiz on {shortenedVideoName(chapterVid(videoId))}
+                        </div>
+                    </div>
                             {/* <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={()=>videoGo(videoId, 'short')}>
                                 Feeling Lazy?  Watch the (SUPER) short version.
                             </div> */}

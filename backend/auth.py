@@ -176,10 +176,12 @@ class Signup(Resource):
         db.session.add(new_user)
         db.session.flush()
         new_user = User.query.filter_by(username=username).first()
-
-        if quizData is not None:
+        
+        if quizData is not None:            #Add quiz results to user if signing up after userless quiz
             quizData = quizData.get('quizData', {})
             answers = quizData.get('answers', {})
+            chapter_id = quizData.get('chapter_id')
+            quiz_grade = quizData.get('quiz_score')
             print("QUIZZ DATA", quizData)
             print('TRY THIS', answers)
  
@@ -223,7 +225,8 @@ class Signup(Resource):
                         answered_correctly = response_data['answered_correctly'])
                     db.session.add(topic_progress)
                 db.session.flush()
-                
+            
+
 
             percent_correct = int((topic_progress.answered_correctly/topic_progress.questions_asked)*100)
             topic = QuestionTopic.query.get(topic_progress.topic_id)
@@ -248,13 +251,13 @@ class Signup(Resource):
                 }
             }
 
-            chapter = Chapter.query.filter_by(id=quizData.get('chapter_id')).first()
+            chapter = Chapter.query.filter_by(id=chapter_id).first()
             print('NEW_USERRRRR', new_user)
             print('CHAPPPTER', chapter)
-            progress = UserChapterProgress(user_id = new_user.id, chapter_id = chapter.id)
+            new_user.units.append(chapter.unit)
+            new_user.chapters.append(chapter)
+            progress = UserChapterProgress(user_id = new_user.id, chapter_id = chapter_id, video_completed = True, quiz_grade = quiz_grade, active=True)
             db.session.add(progress)
-
-
 
         new_user.save()
 

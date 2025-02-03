@@ -134,12 +134,12 @@ export const UserlessResults = () => {
                         </div>
                         
                     </div>
-                    <div className='mt-12 text-center text-lg'>
+                    <div className='mt-12 text-center items-center justify-center flex flex-col text-lg border-black border-2 border-solid p-4 rounded-lg shadow-2xl'>
                            <p> HEY! {TestEncouragement()}</p>
-                           <p> Want to keep track of your progress?  Videos watched, quizzes taken, topics mastered, etc? Then you gotta sign up!  </p>
-                           <p>It's free and quick.  And we send ZERO emails to you (unless you're like us and you forgot your password)</p>
+                           <p> <strong>Want to keep track of your progress? </strong>  Videos watched, quizzes taken, topics mastered, etc? <strong>Then you gotta sign up!</strong>  </p>
+                           <p>It's <strong className='text-red-600'>free</strong> and <strong className='text-red-600'>quick</strong>.  And we send ZERO emails to you (unless you're like us and you forgot your password)</p>
                            <p>C'mon, take the first step towards becoming an Econo-Jedi!</p>
-                    </div>
+                    
                     <div className='
                                     border-black 
                                     h-1/5 
@@ -147,6 +147,7 @@ export const UserlessResults = () => {
                                     w-11/12
                                     border-2 
                                     mb-4
+                                    mt-2
                                     sm:mb-0
                                     flex 
                                     justify-center 
@@ -160,6 +161,7 @@ export const UserlessResults = () => {
                                     >
                                         Sign Up To Save Progress
 
+                    </div>
                     </div>
                 </div>
                 

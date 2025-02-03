@@ -58,20 +58,20 @@ class AddUnits(Resource):
                     user.units.append(chapter.unit)
                 if chapter not in user.chapters:
                     user.chapters.append(chapter)
-                    current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
-                    if not current_progress:
-                        current_progress = UserChapterProgress(
-                            user_id = user.id,
-                            chapter_id = chapter.id,
-                            video_completed = False,
-                            quiz_grade = None,
-                            active = True
-                        )
-                    else:
-                        current_progress.active = True
+                current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
+                if not current_progress:
+                    current_progress = UserChapterProgress(
+                        user_id = user.id,
+                        chapter_id = chapter.id,
+                        video_completed = False,
+                        quiz_grade = None,
+                        active = True
+                    )
                 else:
-                    current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
                     current_progress.active = True
+                # else:
+                #     current_progress = UserChapterProgress.query.filter_by(chapter_id=chapter.id, user_id = user.id).first()
+                #     current_progress.active = True
  
 
             

@@ -72,7 +72,7 @@ export const Progress = () => {
                             </div>
                             <div className='text-center '>Need more practice</div>
                         </div>
-                        {skillsButton()}
+                        {/* {skillsButton()} */}
                     </>
                 )
             }
