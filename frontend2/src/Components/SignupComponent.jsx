@@ -105,7 +105,7 @@ const SignupComponent = (results) => {
 										<IoMdClose size={18}/>
 						</button>
             <form className="flex flex-col justify-center items-center"onSubmit={handleSubmit}>
-              <div className="text-lg md:mt-5 mt-28">Sign Up to Access Quizzes, Track Progress, and More!</div>
+              <div className="text-lg md:mt-5 mt-28 px-6 text-center">Sign Up to Access Quizzes, Track Progress, and More!</div>
               {quizData && <div>Your progress from this quiz will be saved!</div>}
               <input
                 className='
