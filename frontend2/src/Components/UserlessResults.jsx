@@ -77,58 +77,13 @@ export const UserlessResults = () => {
                         
                         </div>
                         <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-1/4
-                            mb-4
-                            sm:mb-0
-                            w-11/12
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                    <button className="fancy-button"
                             onClick = {showResults}
                             >Show Correct Answers</button>
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-1/4
-                            w-11/12
-                            border-2 
-                            mb-4
-                            sm:mb-0
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                    <button className="fancy-button"
                             onClick = {retakeQuiz}
                             >Try Quiz Again</button>
-                            <button className='
-                                    border-black 
-                                    h-1/5 
-                                    sm:w-1/4
-                                    w-11/12
-                                    border-2 
-                                    mb-4
-                                    sm:mb-0
-                                    flex 
-                                    justify-center 
-                                    items-center
-                                    rounded-lg
-                                    bg-stone-300
-                                    hover:bg-slate-500
-                                    font-medium
-                                    hover:cursor-pointer' 
+                            <button className="fancy-button"
                                     onClick = {()=>navigate('/videoindex')}
                                     >Back to Videos</button>
                         </div>
@@ -140,23 +95,7 @@ export const UserlessResults = () => {
                            <p>It's <strong className='text-red-600'>free</strong> and <strong className='text-red-600'>quick</strong>.  And we send ZERO emails to you (unless you're like us and you forgot your password)</p>
                            <p>C'mon, take the first step towards becoming an Econo-Jedi!</p>
                     
-                    <div className='
-                                    border-black 
-                                    h-1/5 
-                                    sm:w-1/4
-                                    w-11/12
-                                    border-2 
-                                    mb-4
-                                    mt-2
-                                    sm:mb-0
-                                    flex 
-                                    justify-center 
-                                    items-center
-                                    rounded-lg
-                                    bg-stone-300
-                                    hover:bg-slate-500
-                                    font-medium
-                                    hover:cursor-pointer' 
+                    <div className="fancy-button mt-4"
                                     onClick = {()=>{userlessSignup()}}
                                     >
                                         Sign Up To Save Progress

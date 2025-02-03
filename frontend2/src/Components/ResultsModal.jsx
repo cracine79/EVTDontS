@@ -118,19 +118,7 @@ export const ResultsModal = ({answers}) => {
     const NextButton = ()=>{
         if (answerNumber < wrongAnswers.length - 1){
             return(
-                <button className='
-                border-black 
-                h-1/5 
-                w-40 
-                border-2 
-                flex 
-                justify-center 
-                items-center
-                rounded-lg
-                bg-stone-300
-                hover:bg-slate-500
-                font-medium
-                hover:cursor-pointer' 
+                <button className="fancy-button"
                 onClick={()=>{
                     setAnswerNumber(answerNumber+1)
                     }}>
@@ -207,21 +195,9 @@ export const ResultsModal = ({answers}) => {
         <div className='ml-8 text-xl'>
             <Answers />
         </div>
-        <div className='flex justify-around mb-8'>
-            <button className='
-                            border-black 
-                            h-1/5 
-                            w-40 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
-                            onClick = {handleClose}>Close Results</button>
+        <div className='flex justify-around mb-8 mt-8'>
+            <button className="fancy-button"
+            onClick = {handleClose}>Close Results</button>
             <NextButton />
         </div>
         </div>

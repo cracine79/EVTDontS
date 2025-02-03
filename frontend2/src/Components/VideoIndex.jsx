@@ -70,7 +70,7 @@ export const VideoIndex = () => {
             <div className='min-h-screen w-100  flex'>
              
                 <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-lime-100 z-1 w-1/2 text-center border-green-600 border-solid border'> ☰ Video Library</div>
-                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-lime-100 text-sm transform ${
+                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-cyan-200 text-sm text-whitetransform ${
                     menuOpen ? 'translate-x-0' : '-translate-x-full'
                 } transition-transform sm:translate-x-0`}>
                     <div className='ml-4'>
@@ -143,12 +143,12 @@ export const VideoIndex = () => {
                             </iframe>
                         </div>
                         {/* <div className='flex justify-around  w-3/4'> */}
-                        <div className='w-full justify-center flex items-center'>
-                            <div className='my-8 border py-2 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleSignUp}>
+                        <div className='w-full justify-center flex items-center mt-8'>
+                            <div className='fancy-button' onClick={handleSignUp}>
                                 {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
                             </div>
                             <div className='mx-12 text-2xl'></div>
-                            <div className='my-8 border py-2 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={handleGoToQuiz}>
+                            <div className='fancy-button' onClick={handleGoToQuiz}>
                                 Take a Practice Quiz on {shortenedVideoName(chapterVid(videoId))}
                         </div>
                     </div>

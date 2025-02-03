@@ -105,7 +105,7 @@ export const QuizResults = () => {
     
     return(
         <div className='w-screen flex justify-center min-h-screen'>
-            <div className="sm:mt-52 mt-28 sm:w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
+            <div className="sm:mt-52 mt-28 sm:w-5/6 h-1/2  rounded-lg shadow-2xl">
                 <div className='flex flex-col items-center justify-center mx-4'>
                     <div className='mt-8 sm:text-4xl text-2xl text-center sm:text-left'>Results for Chapter {chapterNumber} Review Quiz</div>
                     <div className = 'mt-4 sm:text-2xl text-xl'>Topic: {chapterName}</div>
@@ -116,95 +116,22 @@ export const QuizResults = () => {
                     </div>}
                 </div>
                 <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-1/5
-                            mb-4
-                            sm:mb-0
-                            w-11/12
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                    <button className="fancy-button"
                             onClick={showResults }>Show Me What I Missed</button>
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-1/5
-                            w-11/12
-                            border-2 
-                            mb-4
-                            sm:mb-0
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                    <button className="fancy-button"
                             onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
                     
                     {percentageScore > 60 ? 
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            w-11/12
-                            sm:w-1/5
-                            mb-4
-                            sm:mb-0
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                    <button className="fancy-button"
                             onClick={nextVideo}
-                            > {!unitFinished ? "Enough of this.  Let's go to the next Video.":"Take me to my Unit Wrapup Party!"}</button> : <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-1/5
-                            w-11/12
-                            mb-4
-                            sm:mb-0
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                            > {!unitFinished ? "Enough of this.  Let's go to the next Video.":"Take me to my Unit Wrapup Party!"}</button> : <button className="fancy-button"
                             onClick={lastVideo}
                             >Let me check that last video out again.</button>
                     
                     }
                     {!unitFinished &&
 
-                        <button className='
-                        border-black 
-                        h-1/5 
-                        sm:w-1/5
-                        w-11/12
-                        border-2 
-                        flex 
-                        justify-center 
-                        items-center
-                        rounded-lg
-                        bg-stone-300
-                        hover:bg-slate-500
-                        font-medium
-                        hover:cursor-pointer' 
+                        <button className="fancy-button"
                         onClick={backHome}>Back to my dashboard please.</button>
                     }
                 </div>

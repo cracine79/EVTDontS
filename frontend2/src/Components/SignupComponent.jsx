@@ -160,21 +160,8 @@ const SignupComponent = (results) => {
                 
               />
               <button type="submit" className='mt-2
-                            w-5/12
-                            flex
-                            flex-col
-                            border-black 
-                            h-auto
-                            sm:w-1/3 
-                            border
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-md
-                            bg-slate-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
+                            fancy-button
+                            !px-8
                             mb-4'>Sign Up</button>
             </form>
           </div>

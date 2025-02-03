@@ -174,17 +174,8 @@ export const UpdateUnits = () => {
                                 <button
                                     type="button"
                                     className="mt-4
-                                border-black 
-                                sm:w-1/4
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
+                                fancy-button
+                                !px-8
                                 mb-6`"
                                     onClick={() => {
                                         handleSubmit()
@@ -193,19 +184,8 @@ export const UpdateUnits = () => {
                                     Submit
                                 </button>
                                 <button  className="mt-4
-                                border-black 
-                                px-2
-                                sm:px-0
-                                sm:w-1/3
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
+                                fancy-button
+                                !px-8
                                 mb-6`"
                                             onClick = {()=>{navigate('/userhome')}}
                                 >

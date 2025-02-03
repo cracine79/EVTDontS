@@ -158,6 +158,7 @@ export const Progress = () => {
                             font-medium
                             hover:cursor-pointer
                             px-2
+                            
                             `}
                             onClick={(event) => {
                                 event.stopPropagation(); 
@@ -174,7 +175,7 @@ export const Progress = () => {
 
         return(
             <>
-                <div className='flex bg-green-600 h-8 items-center w-100 text-xs sm:text-sm'>
+                <div className='flex bg-[#0088a8] text-white h-8 items-center w-100 text-xs sm:text-sm'>
                     <div className='sm:ml-8 ml-2 font-semibold sm:w-1/2 w-5/12 text-s'>Chapter Name</div>
                     <div className='w-1/6 font-semibold text-s text-center'>Watched<span className='sm:inline hidden'> Video</span>?</div>
                     <div className='w-1/6 font-semibold text-s text-center '>Quiz <span className='sm:inline hidden'>Status</span></div>
@@ -183,7 +184,7 @@ export const Progress = () => {
                 {chaptersUnits.map(([chapterId, chapter], index)=>{
                     const odd = index % 2 == 0
                     return(
-                        <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-green-200' : 'bg-lime-200'}`}>
+                        <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-blue-100' : 'bg-cyan-100'}`}>
                             <div className='sm:ml-8 ml-2 my-2 w-1/3 font-semibold text-xs sm:text-md'>
                                 {chapter.name}
 
@@ -235,7 +236,9 @@ export const Progress = () => {
     }
 
     return(
-        <div className='w-11/12 bg-white rounded-3xl shadow-2xl p-5'>
+        <div className='w-11/12 bg-white rounded-3xl shadow-2xl p-5 border
+                        border-solid
+                        border-[#0088a8]'>
             <h1 className='sm:text-4xl text-2xl text-center sm:mb-8 mb-4'>Your Study Plan</h1>
             <div className='flex flex-row justify-around'>
             <div className='w-full'>

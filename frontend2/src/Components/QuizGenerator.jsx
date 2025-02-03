@@ -196,7 +196,7 @@ export const QuizGenerator = () => {
                                 Object.entries(topicsByUnit).map(([unitId, unit])=>{
                                     return(
                                         <div className='w-full'>
-                                            <div key={unitId} className='bg-lime-200'>
+                                            <div key={unitId} className='bg-cyan-200'>
                                                 <input type='checkbox' name={unitId} className='ml-10 my-4 mr-10' onChange={handleUnitChange} checked = {unitChecked(unitId)} ></input>
                                                 {unit.unitName}
                                             </div>
@@ -227,37 +227,14 @@ export const QuizGenerator = () => {
                     <div className='flex sm:w-1/2 justify-around'>
 
                     <div  className="my-6
-                                    border-black 
-                                    text-center
-                                    sm:w-1/3
-                                    w-5/12 
-                                    border-2 
-                                    flex 
-                                    justify-center 
-                                    items-center
-                                    rounded-lg
-                                    bg-slate-300
-                                    hover:bg-slate-500
-                                    font-medium
-                                    hover:cursor-pointer
+                                   fancy-button
+                                   !px-8
                                     mb-6`"
                                     onClick = {()=>makeReviewQuiz()}>
                                 Create Quiz
                     </div>
                     <div className="my-6
-                                    border-black 
-                                    sm:w-1/3
-                                    w-5/12 
-                                    text-center 
-                                    border-2 
-                                    flex 
-                                    justify-center 
-                                    items-center
-                                    rounded-lg
-                                    bg-slate-300
-                                    hover:bg-slate-500
-                                    font-medium
-                                    hover:cursor-pointer
+                                    fancy-button
                                     mb-6`"
                             onClick={()=>navigate('/userhome')}>
 
@@ -284,21 +261,7 @@ export const QuizGenerator = () => {
              pulling teeth and more like... a slightly awkward lecture on interest 
              rates.
              </div>
-             <button className="mt-8
-                                    border-black 
-                                    sm:w-1/3
-                                    w-5/12 
-                                    text-center 
-                                    border
-                                    flex 
-                                    justify-center 
-                                    items-center
-                                    rounded-lg
-                                    bg-slate-300
-                                    hover:bg-slate-500
-                                    font-medium
-                                    hover:cursor-pointer
-                                    `"
+             <button className="mt-8 fancy-button"
                     onClick={()=>(navigate('/Quiz', {state: {chapter: 1, type: 'shortWeakspotQuiz', topics: []}}))}>Let Us Generate a Quiz for You! Based on your Weak Spots!</button>
             <div className='text-3xl mt-6'>OR</div>
             <div className="mt-10 w-5/6 h-full mb-10">

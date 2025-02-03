@@ -58,18 +58,7 @@ export const ContactUs = () => {
                 onChange = {(e)=>{setBody(e.target.value)}}
                 ></textarea>
 
-                <button className='mb-6 mt-4
-                                border-black 
-                                w-1/2 
-                                border
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer'
+                <button className="fancy-button mb-8 !px-8"
                         onClick = {()=>sendEmail(subject, email, body, navigate)}
                         >Send Email</button>
             </div>

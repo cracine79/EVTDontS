@@ -142,12 +142,15 @@ export const UserHome = () => {
                         rounded-3xl 
                         shadow-2xl 
                         flex 
+                        border
+                        border-solid
+                        border-[#0088a8]
                         flex-row 
                         items-center
                         justify-center`}>
                     {userName ? (
                                 <div className='flex flex-col items-center justify-center'>
-                                    <div className='sm:ml-10 sm:text-5xl text-3xl text-center mt-2 sm:mt-0'>
+                                    <div className='sm:ml-10 sm:text-5xl text-3xl text-center text- mt-2 sm:mt-0'>
                                         Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
                                     </div>
                                     <div className='text-xl w-4/5 text-center sm:mt-6 mt-2'>
@@ -160,34 +163,21 @@ export const UserHome = () => {
                             </p>
                         )}
                     </div>
-                    <div className="sm:w-1/3 sm:min-w-80 bg-white 100 h-100 sm:mt-36 mt-6 sm:ml-12 rounded-3xl shadow-2xl flex flex-col items-center">
+                    <div className="sm:w-1/3 sm:min-w-80 bg-white 100 h-100 sm:mt-36 mt-6 sm:ml-12 rounded-3xl shadow-2xl flex flex-col items-center border
+                        border-solid
+                        border-[#0088a8]">
                             <p className="mt-8 text-4xl underline">Progress</p>
                             <div className = "mt-2 ml-4 mr-2 flex flex-col items-center">
                                 {workingOn()}
                             </div>
-                            <div className=
-                                {`mt-4 
-                                border-black 
-                                h-1/5 
-                                sm:w-1/2
-                                w-3/4 
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
-                                mb-6`}>
+                            <div className="fancy-button !text-lg !font-bold !py-0 !px-4 my-4 !rounded-lg">
                                 <div onClick={handleClick}><UpNext /></div>
                             </div>
                         </div>
 
                 </div>
         
-                    <div className='flex flex-row items-center justify-center w-full sm:mt-20 mt-6 sm:mb-20'>
+                    <div className='flex flex-row items-center justify-center w-full sm:mt-20 mt-6 sm:mb-20 '>
                         <Progress />
                     </div>
 
@@ -208,25 +198,14 @@ export const UserHome = () => {
                         flex 
                         flex-col 
                         items-center
-                        justify-center`}>
+                        justify-center
+                        border
+                        border-solid
+                        border-[#0088a8]`}>
                             <div className='text-2xl sm:mt-3'>Update Your Study Plan</div>
                             <p className='my-4'>Not everyone gets it right on the first try - you should see our last haircut!</p>
                             <p>Adjust the units/chapters you want to study here and get back on track like the decision making pro we all know you are</p>
-                            <button  className={`
-                                mt-4
-                                border-black 
-                               
-                                w-1/2 
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
-                                mb-6`}
+                            <button  className="fancy-button !text-lg !font-bold !py-0 !px-4 mt-4 !rounded-lg"
                                 onClick = {()=>navigate('/updateunits')}
                                 >Fix Life Choices</button>
                         </div>
@@ -247,26 +226,14 @@ export const UserHome = () => {
                         flex-col 
                         items-center
                         justify-center
-                        bg-white`}>
+                        bg-white border
+                        border-solid
+                        border-[#0088a8]`}>
                             <div className='text-2xl mt-3'>Focus on your Weaknesses</div>
                             <p className='my-4'>Think you’ve mastered it all? Spoiler: This quiz knows your weak spots better than your Netflix recommendations.</p>
                             <p> Take a deep breath, dive in, and let’s tackle those tricky bits. (You got this—probably.)</p>
                            
-                            <button  className={`
-                                mt-4
-                                border-black 
-                                h-1/5 
-                                w-1/2 
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
-                                `}
+                            <button  className="fancy-button !text-lg !font-bold !py-0 !px-4 mt-4 !rounded-lg"
                                 onClick =  {goToWeakspotQuiz}
                                 >Find My Achilles' Heel</button>
                         </div>
@@ -289,25 +256,14 @@ export const UserHome = () => {
                             items-center
                             justify-center
                             bg-white
-                            mb-16`}>
+                            mb-16
+                            border
+                            border-solid
+                            border-[#0088a8]`}>
                             <div className='text-2xl mt-3'>Choose Your Own Quiz Adventure</div>
                             <div className='my-4'>Feeling daring? </div>
                             <div>   Pick any topics you want—whether you rocked them or flopped them—and we’ll create a custom quiz that’s as wild as your choices.</div>
-                            <button  className={`
-                                    mt-4
-                                    border-black 
-                                    h-1/5 
-                                    w-1/2 
-                                    border-2 
-                                    flex 
-                                    justify-center 
-                                    items-center
-                                    rounded-lg
-                                    bg-slate-300
-                                    hover:bg-slate-500
-                                    font-medium
-                                    hover:cursor-pointer
-                                    `}
+                            <button  className="fancy-button mt-4"
                                     onClick =  {goToCreateQuiz}
                                     >Create My Quiz</button>
                         </div>

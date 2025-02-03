@@ -143,37 +143,10 @@ export const Quiz = () => {
                 <div>
                   
                 </div>
-                <div className='flex justify-around'>
-                <button className='mt-10 
-                            border-black 
-                            h-1/5 
-                            w-40 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            mb-6'
-                            onClick={handleOpen}>Start The Quiz</button>
-
-                <button className='mt-10 
-                            border-black 
-                            h-1/5 
-                            w-40 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            mb-6'
+                <div className='flex justify-center w-full mt-8 mb-12'>
+                <button className="fancy-button" onClick={handleOpen}>Start The Quiz</button>
+                <div className='w-20'></div>
+                <button className="fancy-button"
                             onClick={goHome}>{currentUser ? <>Back to Dashboard</> : <>Back to Videos</>}</button>
                 </div>
                

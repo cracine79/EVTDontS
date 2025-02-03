@@ -17,3 +17,36 @@
     border-radius: 8px; /* Rounds the corners of the highlighted area */
     pointer-events: none; /* Allows clicking on the content below */
   }
+
+  @layer components {
+    .fancy-button {
+      @apply relative text-gray-600 border border-gray-600 px-4 text-center 
+        rounded-lg py-0 text-lg  font-bold transition-all duration-200 ease-in 
+        hover:bg-[#0088a8] hover:text-white hover:shadow-[0_0_30px_#00c7ec50] 
+        active:shadow-none cursor-pointer overflow-hidden;
+    }
+  
+    .fancy-button::before {
+      content: "";
+      @apply absolute top-[7%] left-[-20%] w-0 h-[86%] bg-white opacity-0 
+        shadow-[0_0_15px_3px_white] skew-x-[-20deg];
+    }
+  
+    .fancy-button:hover::before {
+      @apply animate-shine;
+    }
+  
+    @keyframes shine {
+      from {
+        opacity: 0;
+        left: 0%;
+      }
+      50% {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        left: 100%;
+      }
+    }
+  }

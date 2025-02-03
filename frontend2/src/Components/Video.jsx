@@ -76,46 +76,11 @@ export const Video = () => {
 
 
             <p className="whitespace-pre-line sm:w-3/4 w-5/6 mt-10 hidden sm:block" dangerouslySetInnerHTML={{ __html: blurb }}></p>
-            <div className='flex justify-between sm:flex-row flex-col w-1/2 mt-6'>
-                <div onClick = {handleClick} className={
-                            `sm:mt-10
-                            mt-4 
-                            border-black 
-                            h-auto 
-                            sm:w-1/3
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-xl
-                            bg-slate-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            mb-6
-                            text-center
-                            `}>
+            <div className='flex justify-between sm:flex-row flex-col w-1/2 mt-6 mb-8'>
+                <div onClick = {handleClick} className="fancy-button !flex !items-center !justify-center">
                     Back to my Dashboard
                 </div>
-                <div onClick = {completeVid} className=
-                            {`sm:mt-10
-                            mt-2
-                            flex
-                            flex-col
-                            border-black 
-                            h-auto
-                            sm:w-1/3 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-xl
-                            bg-slate-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            mb-6
-                            `}>
+                <div onClick = {completeVid} className="fancy-button !px-8 !py-2">
                     <p>Mark as Completed</p>
                     <p>Let's Rock the Quiz</p>
                 </div>

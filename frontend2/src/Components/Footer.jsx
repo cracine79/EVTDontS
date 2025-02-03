@@ -4,7 +4,7 @@ export const Footer = () => {
     const navigate = useNavigate()
     return (
         <div className = 'w-full'>
-            <div className='h-auto bg-green-600 flex flex-col  items-center w-full'>
+            <div className='h-auto bg-[#0088a8] flex flex-col  items-center w-full'>
             <div className='mt-8 text-white sm:text-lg md:text-lg lg:text-xl text-xs w-11/12 sm:w-3/4 md:w-1/3 flex justify-between'>
                 <span className='hover:cursor-pointer text-center' onClick = {()=>navigate('/aboutus')}>About Us</span> | 
                 <span className='hover:cursor-pointer text-center'onClick={()=>navigate('/privacypolicy')}>Privacy Policy</span> 

@@ -153,7 +153,7 @@ const LoginComponent = () => {
               <button onClick={goToForgot} className='text-xs text-blue-400 font-bold' type='button'>Forgot Password?</button>
              
               </div>
-              <button type="submit" className='mt-6'>Login</button>
+              <button type="submit" className='mt-2 fancy-button !px-8'>Login</button>
 
 
               

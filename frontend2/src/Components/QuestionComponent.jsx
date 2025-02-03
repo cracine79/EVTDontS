@@ -311,20 +311,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             <div className='flex justify-around mt-10 mb-10'>
            
             {questionNumber >= 1 ?
-            <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-40
-                            w-1/4 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer'
+            <button className='fancy-button'
                       onClick={previousQuestion}>
                               
               Previous Question
@@ -332,35 +319,11 @@ export const QuestionComponent = ({chapter, type, topics}) => {
               <div className='w-40'></div>
               } { questionsObj[questionNumber] &&
               <button className='
-                            border-black 
-                            h-1/5 
-                            sm:w-40 
-                            w-1/4
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer'
+                          fancy-button'
                             onClick = {handleSubmit}>{questionNumber < numberOfQuestions - 1 ? <>Next Question</>:<>Submit Quiz</>}</button>
                           }
               <button className='
-                            border-black 
-                            sm:h-1/5
-                            w-1/4 
-                            sm:w-40 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer'
+                            fancy-button !px-8'
                             onClick = {handleClose}>Close</button>          
 
             </div>
