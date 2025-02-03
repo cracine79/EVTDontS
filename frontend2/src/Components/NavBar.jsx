@@ -81,7 +81,7 @@ export const NavBar = () => {
                 <div className={`left-0  absolute bg-[#0088a8] py-2 w-full shadow-md transition-transform x-51 duration-300 ${
                     mobileSearchBarVisible ? 'translate-y-0' : '-translate-y-full'
                         } ` }>
-                    <div className='flex w-full flex-col items-center justify-center relative z-51'>
+                    <div className='flex w-full flex-col items-center justify-center relative z-50'>
          
                     <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
                     <div className='text-xs text-white mt-2' onClick={()=>setMobileSearchBarVisible(false)}>X Close</div>

@@ -141,30 +141,12 @@ export const Progress = () => {
         return(
             <div className='flex flex-col items-left sm:items-center'>
                 <div>{reply}</div>
-                {reply !== 'Not yet started' && <div className=
-                            {` 
-                            
-                            border-black 
-                            h-1/12 
-                            mb-2
-                            border 
-                            sm:border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-md
-                            bg-slate-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            px-2
-                            
-                            `}
+                {reply !== 'Not yet started' && <div className="button !h-4 !text-sm !font-light"
                             onClick={(event) => {
                                 event.stopPropagation(); 
                                 openTopicQuiz(chapter_topics);
                             }}
-                            ><span className='hidden sm:inline'>Go To </span>Practice<span className='hidden sm-inline'> Quiz</span></div>}
+                            ><span className='hidden sm:inline'>Go To </span> &nbsp; Practice<span className='hidden sm-inline'> Quiz</span></div>}
             </div>
         )
     }
@@ -191,7 +173,7 @@ export const Progress = () => {
                             </div>
                             <div className='w-1/6'>
                                 <div onClick = {()=>navigate(`/video/${chapterId}`)} className=
-                                        'sm:w-3/4 hover:cursor-pointer hover:bg-slate-500 text-xs bg-slate-300 flex items-center justify-center text-center border-black border-2 rounded hover:cursor-pointer'
+                                        'button !h-6 w-4/5 min-w-40'
                                         
                                         >{chapter.video_completed ? <>Watch Video Again!</> : <>Jump To Video</>}</div>
                                 </div>
@@ -236,9 +218,7 @@ export const Progress = () => {
     }
 
     return(
-        <div className='w-11/12 bg-white rounded-3xl shadow-2xl p-5 border
-                        border-solid
-                        border-[#0088a8]'>
+        <div className='w-11/12 bg-white rounded-3xl shadow-2xl p-5'>
             <h1 className='sm:text-4xl text-2xl text-center sm:mb-8 mb-4'>Your Study Plan</h1>
             <div className='flex flex-row justify-around'>
             <div className='w-full'>

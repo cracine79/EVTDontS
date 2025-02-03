@@ -118,7 +118,7 @@ export const ResultsModal = ({answers}) => {
     const NextButton = ()=>{
         if (answerNumber < wrongAnswers.length - 1){
             return(
-                <button className="fancy-button"
+                <button className="button"
                 onClick={()=>{
                     setAnswerNumber(answerNumber+1)
                     }}>
@@ -196,7 +196,7 @@ export const ResultsModal = ({answers}) => {
             <Answers />
         </div>
         <div className='flex justify-around mb-8 mt-8'>
-            <button className="fancy-button"
+            <button className="button"
             onClick = {handleClose}>Close Results</button>
             <NextButton />
         </div>

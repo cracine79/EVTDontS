@@ -66,9 +66,9 @@ export const UserlessResults = () => {
     console.log(quizData)
     return(
         <>
-            <div className='mt-8'>
+            <div className=''>
                 <div className='w-screen flex flex-col items-center justify-top min-h-screen'>
-                    <div className="sm:mt-52 mt-28 sm:w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
+                    <div className="sm:mt-40 mt-28 sm:w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
                         <div className='flex flex-col items-center justify-center mx-4'>
                             <div className='mt-8 sm:text-4xl text-2xl text-center sm:text-left'>Results for Chapter {chapterNumber} Review Quiz</div>
                             <div className = 'mt-4 sm:text-2xl text-xl'>Topic: {chapterName}</div>
@@ -77,13 +77,13 @@ export const UserlessResults = () => {
                         
                         </div>
                         <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
-                    <button className="fancy-button"
+                    <button className="button"
                             onClick = {showResults}
                             >Show Correct Answers</button>
-                    <button className="fancy-button"
+                    <button className="button"
                             onClick = {retakeQuiz}
                             >Try Quiz Again</button>
-                            <button className="fancy-button"
+                            <button className="button"
                                     onClick = {()=>navigate('/videoindex')}
                                     >Back to Videos</button>
                         </div>
@@ -95,7 +95,7 @@ export const UserlessResults = () => {
                            <p>It's <strong className='text-red-600'>free</strong> and <strong className='text-red-600'>quick</strong>.  And we send ZERO emails to you (unless you're like us and you forgot your password)</p>
                            <p>C'mon, take the first step towards becoming an Econo-Jedi!</p>
                     
-                    <div className="fancy-button mt-4"
+                    <div className="button mt-4"
                                     onClick = {()=>{userlessSignup()}}
                                     >
                                         Sign Up To Save Progress

@@ -115,23 +115,24 @@ export const QuizResults = () => {
                             That was the last chapter of the Unit!  You are killing it my dude!
                     </div>}
                 </div>
-                <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
-                    <button className="fancy-button"
+                <div className='flex sm:flex-row flex-col flex-col items-center justify-around my-10'>
+                    <button className="button w-4/5 sm:w-auto"
                             onClick={showResults }>Show Me What I Missed</button>
-                    <button className="fancy-button"
+                    <button className="button my-6 sm:my-0 w-4/5 sm:w-auto"
                             onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
                     
                     {percentageScore > 60 ? 
-                    <button className="fancy-button"
+                    <button className="button sm:my-0 w-4/5 sm:w-auto"
                             onClick={nextVideo}
-                            > {!unitFinished ? "Enough of this.  Let's go to the next Video.":"Take me to my Unit Wrapup Party!"}</button> : <button className="fancy-button"
+                            > {!unitFinished ? "Enough of this.  Let's go to the next Video.":"Take me to my Unit Wrapup Party!"}</button> : 
+                            <button className="button sm:my-0 w-4/5 sm:w-auto"
                             onClick={lastVideo}
                             >Let me check that last video out again.</button>
                     
                     }
                     {!unitFinished &&
 
-                        <button className="fancy-button"
+                        <button className="button mt-6 sm:mt-0 w-4/5 sm:w-auto"
                         onClick={backHome}>Back to my dashboard please.</button>
                     }
                 </div>

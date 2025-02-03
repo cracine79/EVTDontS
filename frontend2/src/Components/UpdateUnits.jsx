@@ -174,7 +174,7 @@ export const UpdateUnits = () => {
                                 <button
                                     type="button"
                                     className="mt-4
-                                fancy-button
+                                button
                                 !px-8
                                 mb-6`"
                                     onClick={() => {
@@ -184,7 +184,7 @@ export const UpdateUnits = () => {
                                     Submit
                                 </button>
                                 <button  className="mt-4
-                                fancy-button
+                                button
                                 !px-8
                                 mb-6`"
                                             onClick = {()=>{navigate('/userhome')}}

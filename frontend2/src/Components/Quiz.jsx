@@ -144,9 +144,9 @@ export const Quiz = () => {
                   
                 </div>
                 <div className='flex justify-center w-full mt-8 mb-12'>
-                <button className="fancy-button" onClick={handleOpen}>Start The Quiz</button>
+                <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl" onClick={handleOpen}>Start The Quiz</button>
                 <div className='w-20'></div>
-                <button className="fancy-button"
+                <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl"
                             onClick={goHome}>{currentUser ? <>Back to Dashboard</> : <>Back to Videos</>}</button>
                 </div>
                

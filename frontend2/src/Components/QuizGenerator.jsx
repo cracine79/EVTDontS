@@ -227,14 +227,14 @@ export const QuizGenerator = () => {
                     <div className='flex sm:w-1/2 justify-around'>
 
                     <div  className="my-6
-                                   fancy-button
+                                   button
                                    !px-8
                                     mb-6`"
                                     onClick = {()=>makeReviewQuiz()}>
                                 Create Quiz
                     </div>
                     <div className="my-6
-                                    fancy-button
+                                    button
                                     mb-6`"
                             onClick={()=>navigate('/userhome')}>
 
@@ -261,7 +261,7 @@ export const QuizGenerator = () => {
              pulling teeth and more like... a slightly awkward lecture on interest 
              rates.
              </div>
-             <button className="mt-8 fancy-button"
+             <button className="mt-8 button w-4/5 sm:w-auto"
                     onClick={()=>(navigate('/Quiz', {state: {chapter: 1, type: 'shortWeakspotQuiz', topics: []}}))}>Let Us Generate a Quiz for You! Based on your Weak Spots!</button>
             <div className='text-3xl mt-6'>OR</div>
             <div className="mt-10 w-5/6 h-full mb-10">

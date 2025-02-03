@@ -145,11 +145,11 @@ export const VideoIndex = () => {
                         {/* <div className='flex justify-around  w-3/4'> */}
                         <div className='w-full justify-center flex flex-col sm:flex-row items-center mt-8'>
         
-                            <div className='fancy-button' onClick={handleSignUp}>
+                            <div className='button w-11/12 sm:w-auto' onClick={handleSignUp}>
                                 {currentUser ? 'Back to User Dashboard' : 'Sign Up to Access Quizzes & More!'}
                             </div>
                             <div className='mx-12 py-2 sm:py-0 text-2xl'></div>
-                            <div className='fancy-button' onClick={handleGoToQuiz}>
+                            <div className='button w-11/12 sm:w-auto' onClick={handleGoToQuiz}>
                                 Take a Practice Quiz on {shortenedVideoName(chapterVid(videoId))}
                         </div>
                     </div>

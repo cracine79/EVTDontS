@@ -160,8 +160,7 @@ const SignupComponent = (results) => {
                 
               />
               <button type="submit" className='mt-2
-                            fancy-button
-                            !px-8
+                            button !text-base !py-0 !px-4 my-4 !rounded-3xl !px-8
                             mb-4'>Sign Up</button>
             </form>
           </div>

@@ -311,7 +311,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
             <div className='flex justify-around mt-10 mb-10'>
            
             {questionNumber >= 1 ?
-            <button className='fancy-button'
+            <button className='button !text-base !py-0 !px-4 my-4 !rounded-3xl'
                       onClick={previousQuestion}>
                               
               Previous Question
@@ -319,11 +319,14 @@ export const QuestionComponent = ({chapter, type, topics}) => {
               <div className='w-40'></div>
               } { questionsObj[questionNumber] &&
               <button className='
-                          fancy-button'
-                            onClick = {handleSubmit}>{questionNumber < numberOfQuestions - 1 ? <>Next Question</>:<>Submit Quiz</>}</button>
+                          button !text-base !py-0 !px-4 my-4 !rounded-3xl'
+                            onClick = {(e) => {
+                              e.target.blur();
+                              handleSubmit();
+                            }}>{questionNumber < numberOfQuestions - 1 ? <>Next Question</>:<>Submit Quiz</>}</button>
                           }
               <button className='
-                            fancy-button !px-8'
+                            button !text-base !py-0 !px-4 my-4 !rounded-3xl'
                             onClick = {handleClose}>Close</button>          
 
             </div>
