@@ -77,13 +77,14 @@ export const Video = () => {
 
             <p className="whitespace-pre-line sm:w-3/4 w-5/6 mt-10 hidden sm:block" dangerouslySetInnerHTML={{ __html: blurb }}></p>
             <div className='flex justify-between sm:flex-row flex-col w-1/2 mt-6 mb-8'>
-                <div onClick = {handleClick} className="button !flex !items-center !justify-center">
+                <div onClick = {completeVid} className="button  !px-8 !py-2">
+                        <p className='hidden sm:inline'>Mark as Completed &&nbsp;</p>
+                        <p>Rock the Quiz</p>
+                </div>
+                <div onClick = {handleClick} className="button !flex !items-center !justify-center !py-2 mt-6 sm:mt-0">
                     Back to my Dashboard
                 </div>
-                <div onClick = {completeVid} className="button !px-8 !py-2">
-                    <p>Mark as Completed! &nbsp;</p>
-                    <p>Let's Rock the Quiz</p>
-                </div>
+
                 
             </div>
             <p className="whitespace-pre-line sm:w-3/4 w-5/6 mt-4 mb-6 sm:hidden" dangerouslySetInnerHTML={{ __html: blurb }}>
