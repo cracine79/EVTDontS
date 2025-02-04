@@ -58,8 +58,7 @@
     justify-content: center;
     outline: none;
     cursor: pointer;
-
-    height: 50px;
+    /* height: 50px; */
     background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
     border-radius: 30px;
     border: 1px solid #8F9092;

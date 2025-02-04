@@ -61,16 +61,17 @@ export const Progress = () => {
             if(chapter.quiz_grade > 50){
                 return(
                     <>
-                        <div className='sm:text-center sm:w-1/2 text-xs sm:items-middle'><span className='hidden sm:inline'>Taken. Rocked it!! Score: </span><span className='font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</span></div>
+                        <div className='sm:text-center w-full text-center -ml-1 sm:w-1/2 text-xs sm:items-center'><span className='text-2xl'>🏆  </span><div className='font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</div></div>
                     </>
                 )
             } else {
                 return(
                     <>
                         <div className='flex flex-col justify-center items-center'>
-                            <div className='text-center '> Gave it a shot.
+                            <div className='text-center text-2xl'> 🤢
                             </div>
-                            <div className='text-center '>Need more practice</div>
+                            <div className='text-center '>Try Again</div>
+                         
                         </div>
                         {/* {skillsButton()} */}
                     </>
@@ -78,7 +79,7 @@ export const Progress = () => {
             }
         } else if (chapter.video_completed){
             return(
-                <><span className='text-center'>Not taken<span className='hidden sm:inline'>, but you're READY dude</span></span></>
+                <div className='flex flex-col items-center'><div><span className='text-center hidden sm:inline'>Not taken, but you're &nbsp;</span><span>READY!</span></div><div className='text-2xl'>🚀</div></div>
             )
         } else {
             return(
@@ -89,7 +90,7 @@ export const Progress = () => {
     const vidProgress = (chapter) => {
         if(chapter.video_completed && chapter.video_completed == true){
             return(
-                <div className='text-center'>YES!</div>
+                <div className='text-center text-xl'>✅</div>
             )
         } else {
             return(
@@ -114,7 +115,7 @@ export const Progress = () => {
             if(topic.chapter_id==chapterId){
                 chapter_topics.push({...topic, topic_id: topicId})
             }
-        })
+        }) 
 
         let sum = 0
         chapter_topics.forEach(chapter => {
@@ -141,12 +142,12 @@ export const Progress = () => {
         return(
             <div className='flex flex-col items-left sm:items-center'>
                 <div>{reply}</div>
-                {reply !== 'Not yet started' && <div className="button !h-4 !text-sm !font-light"
+                {reply !== 'Not yet started' && <div className="button !h-4 !text-xs"
                             onClick={(event) => {
                                 event.stopPropagation(); 
                                 openTopicQuiz(chapter_topics);
                             }}
-                            ><span className='hidden sm:inline'>Go To </span> &nbsp; Practice<span className='hidden sm-inline'> Quiz</span></div>}
+                            ><span className='hidden sm:inline'>Go To &nbsp;</span>Practice<span className='hidden sm-inline'> Quiz</span></div>}
             </div>
         )
     }
@@ -160,31 +161,31 @@ export const Progress = () => {
                 <div className='flex bg-[#0088a8] text-white h-8 items-center w-100 text-xs sm:text-sm'>
                     <div className='sm:ml-8 ml-2 font-semibold sm:w-1/2 w-5/12 text-s'>Chapter Name</div>
                     <div className='w-1/6 font-semibold text-s text-center'>Watched<span className='sm:inline hidden'> Video</span>?</div>
-                    <div className='w-1/6 font-semibold text-s text-center '>Quiz <span className='sm:inline hidden'>Status</span></div>
+                    <div className='w-1/6 font-semibold text-s text-center '><span className='sm:inline hidden'>Chapter </span>Quiz <span className='sm:inline hidden'>Status</span></div>
                     <div className='w-1/6 font-semibold text-s text-center '> <span className='sm:inline hidden'>Topics </span>Mastery</div>
                 </div>
                 {chaptersUnits.map(([chapterId, chapter], index)=>{
                     const odd = index % 2 == 0
                     return(
                         <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-blue-100' : 'bg-cyan-100'}`}>
-                            <div className='sm:ml-8 ml-2 my-2 w-1/3 font-semibold text-xs sm:text-md'>
+                            <div className='sm:ml-8 ml-2 my-2 sm:w-1/3 w-1/4 font-semibold text-xs sm:text-base '>
                                 {chapter.name}
 
                             </div>
-                            <div className='w-1/6'>
+                            <div className='w-[15%] sm:w-1/6'>
                                 <div onClick = {()=>navigate(`/video/${chapterId}`)} className=
-                                        'button !h-6 w-4/5 min-w-40'
+                                        'button my-4 sm:my-0 !pl-0 !pr-0 !text-[10px] !rounded-lg'
                                         
                                         >{chapter.video_completed ? <>Watch Video Again!</> : <>Jump To Video</>}</div>
                                 </div>
-                            <div className='justify-around text-xs font-bold flex items-center w-1/6'>
+                            <div className='justify-around text-xs font-bold flex items-center w-1/5 sm:w-1/6 sm:text-sm'>
                                 {vidProgress(chapter)}
                                 
                             </div>
-                            <div className='justify-left sm:justify-center -ml-2 sm:-ml-0 items-start  sm:items-center text-xs font-bold flex items-center w-1/6'>
+                            <div className='justify-left sm:justify-center -ml-2 sm:-ml-0 sm:my-2 items-start  sm:items-center text-xs sm:text-md font-bold flex items-center w-1/5 mr-2 sm:mr-0 sm:w-1/6'>
                                 {quizProgress(chapter)}
                             </div>
-                            <div className='justify-center items-center  text-xs font-bold flex  -ml-2 sm:-ml-0 sm:items-center w-1/6'>
+                            <div className='justify-center items-center  text-xs sm:text-sm font-bold flex  text-center -ml-2 sm:-ml-0 sm:items-center w-1/5 sm:w-1/6'>
                                 {mastery(chapterId)}
                             </div>
                         </div>
