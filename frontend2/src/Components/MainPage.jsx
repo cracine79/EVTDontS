@@ -90,7 +90,7 @@ export const MainPage = () => {
             ([entry])=>{
                 setWarriorVisible(entry.isIntersecting)
             },
-            {threshold: 0.5}
+            {threshold: 0.8}
         )
         if (scrollRef.current) keepObserver.observe(scrollRef.current);
 
