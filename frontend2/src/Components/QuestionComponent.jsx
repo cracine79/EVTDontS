@@ -236,6 +236,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           flex
           justify-center
           items-center
+          z-40
         `}
       >
         <div

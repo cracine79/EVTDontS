@@ -86,6 +86,7 @@ const SignupComponent = (results) => {
             focus:outline-none
              transition-transform
             duration-300
+            z-30
               ${showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
           `}
         >

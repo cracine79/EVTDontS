@@ -47,7 +47,7 @@ export const NavBar = () => {
                 <nav className=
                     "w-full  
                     z-10
-                    bg-[#0088a8]
+                    bg-[#0088A8]
                     items-center 
                     flex justify-between
                     sticky
