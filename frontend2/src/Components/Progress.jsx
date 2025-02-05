@@ -79,7 +79,7 @@ export const Progress = () => {
             }
         } else if (chapter.video_completed){
             return(
-                <div className='flex flex-col items-center'><div><span className='text-center hidden sm:inline'>Not taken, but you're &nbsp;</span><span>READY!</span></div><div className='text-2xl'>🚀</div></div>
+                <div className='-ml-2 sm:-ml-0 flex flex-col items-center'><div className='flex justify-between w-full'><div className='text-2xl hidden sm:inline'>🚀</div><span className='button !h-8 !w-20 !text-[12px] leading-none'>Jump to Quiz</span></div><div><span className='text-center hidden sm:inline'>You're Ready!</span><span className='inline sm:hidden'>READY!</span></div></div>
             )
         } else {
             return(
@@ -142,12 +142,12 @@ export const Progress = () => {
         return(
             <div className='flex flex-col items-left sm:items-center'>
                 <div>{reply}</div>
-                {reply !== 'Not yet started' && <div className="button !h-4 !text-xs"
+                {reply !== 'Not yet started' && <div className="button !h-4 !text-xs sm:mt-2"
                             onClick={(event) => {
                                 event.stopPropagation(); 
                                 openTopicQuiz(chapter_topics);
                             }}
-                            ><span className='hidden sm:inline'>Go To &nbsp;</span>Practice<span className='hidden sm-inline'> Quiz</span></div>}
+                            ><span> <span className='hidden sm:inline'> Take Practice</span> Quiz</span></div>}
             </div>
         )
     }
@@ -167,14 +167,14 @@ export const Progress = () => {
                 {chaptersUnits.map(([chapterId, chapter], index)=>{
                     const odd = index % 2 == 0
                     return(
-                        <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-blue-100' : 'bg-cyan-100'}`}>
+                        <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-[#97AFB9]' : 'bg-[#B8C7C9]'}`}>
                             <div className='sm:ml-8 ml-2 my-2 sm:w-1/3 w-1/4 font-semibold text-xs sm:text-base '>
                                 {chapter.name}
 
                             </div>
-                            <div className='w-[15%] sm:w-1/6'>
+                            <div className='w-[15%] sm:w-1/6 flex items-right justify-end'>
                                 <div onClick = {()=>navigate(`/video/${chapterId}`)} className=
-                                        'button my-4 sm:my-0 !pl-0 !pr-0 !text-[10px] !rounded-lg'
+                                        'button my-4 sm:my-0 sm:py-1 sm:w-1/2 !pl-0 !pr-0 !text-[10px] !rounded-lg'
                                         
                                         >{chapter.video_completed ? <>Watch Video Again!</> : <>Jump To Video</>}</div>
                                 </div>

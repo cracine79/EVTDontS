@@ -127,7 +127,7 @@ export const MainPage = () => {
                 <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
        
             </div>
-            <div className='mt-8 w-2/3 sm:text-2xl flex justify-around sm:mb-96'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
+            <div className=' w-11/12 sm:text-2xl flex justify-around sm:mb-96 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
             <div className="w-screen h-auto bg-white items-center bg-[#344A53] sm:mt-60">
                 <div className="sm:mt-20 mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center" >
                     <div className='h-100 w-100 flex flex-col items-center 'ref={videoLeftRef}>
@@ -229,30 +229,32 @@ export const MainPage = () => {
                 </div>
                 
             </div>
-            <div className='flex justify-center items-center sm:w-full w-3/4  sm:mt-24 mb-12 z-20'>
+            <div className='flex flex-col justify-center items-center sm:w-full w-3/4  sm:mt-24 mb-12 z-20'>
+                    <div className='sm:text-5xl text-2xl text-center sm:mb-10 mb-4 text-md'>Sign up to access quizzes, track progress, and more!</div>
                    <div className="button flex flex-col !font-light !py-2 !px-6"
                    onClick={handleGetStarted}>
-                        <div className='sm:text-3xl text-2xl '>Sign up to Get Started!</div>
-                        <div className='sm:text-xl text-md'>C'mon, what else are you doing right now?</div>
+                        <div className='sm:text-4xl text-2xl '>Get Started!</div>
                     </div> 
+                    <div className='sm:text-xl text-lg mb-2 sm:mb-0 text-md text-center mt-4 '>It's 100% free and we never send you emails.  </div><div>C'mon, what else are you doing right now?</div>
             </div>
             <div className='text-center text-5xl ] font-bold '>
                 OR
             </div>
-            <div className='flex justify-center items-center w-full mt-12 mb-12 z-20 '>
+            <div className='flex flex-col justify-center items-center w-full mt-12 mb-12 z-20 sm:mb-96'>
                    <div className='button flex flex-col !font-light !py-2 !px-6'
                    onClick={()=> {
                     dispatch(getAllChapters())
                     navigate('/videoindex')
                    }}>
-                        <div className='sm:text-3xl text-2xl '>Jump to Videos</div>
-                        <div className='m:text-xl text-md'>You can always sign up later</div>
+                        <div className='sm:text-4xl text-2xl '>Jump to Videos</div>
                     </div> 
+
+                    <div className='m:text-xl text-lg sm:mt-4'>You can always sign up later</div>
             </div>
             <div className='flex w-full items-center justify-center flex-col sm:mt-12'>
                 <div className='text-3xl mb-8 text-center'>Building The Future of Economics (One Quirk at a Time)</div>
                 <img className='w-1/2 md:w-auto'src='/Worker.png'></img>
-                <div className='sm:w-1/2 w-3/4 mt-4 mb-12'>Welcome to the early days of what will soon be the most exciting corner of the internet (or at least we hope). Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. But don't worry, we're not done building. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. Stick around—it’s only going to get better. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
+                <div className='sm:w-1/2 w-3/4 mt-4 mb-24'>Welcome to the early days of what will soon be the most exciting corner of the internet (or at least we hope). Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. But don't worry, we're not done building. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. Stick around—it’s only going to get better. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
             </div>
         </div>
     )

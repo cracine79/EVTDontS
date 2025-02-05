@@ -47,7 +47,7 @@ export const UserHome = () => {
             return (
                 <>
                     <div className="text-lg mb-2">You are currently working on:</div>
-                    <div className="text-lg"> Chapter {currentBookChapter.name.slice(0,3)}: {currentBookChapter.name.slice(3)}</div>
+                    <div className="text-lg"> Chapter {currentBookChapter.name.split(" ")[0]}: {currentBookChapter.name.split(" ").slice(1).join(' ')}</div>
                 </>
             )
         } else{

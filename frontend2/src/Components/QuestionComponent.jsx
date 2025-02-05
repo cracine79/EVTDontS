@@ -216,7 +216,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
         z-50
         outline-none
         focus:outline-none
-        bg-slate-200
+        bg-[#344a53]
         ${showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
       `}
     >
@@ -236,7 +236,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           flex
           justify-center
           items-center
-          z-40
+          
         `}
       >
         <div

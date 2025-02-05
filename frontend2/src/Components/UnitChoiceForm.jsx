@@ -219,7 +219,7 @@ export const SelectUnitsForm = () => {
   }
    
   return (
-    <div className="bg-green-400 sm:w-5/12 sm:p-8 p-5 flex justify-center my-4 sm:my-0">
+    <div className="bg-[#344A53] sm:w-5/12 sm:p-8 p-5 flex justify-center my-4 sm:my-0">
       <div className="w-full mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-xl font-bold mb-2">I am interested in studying:</h1>
 

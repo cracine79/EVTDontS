@@ -67,10 +67,10 @@ export const VideoIndex = () => {
     return(
         <div className = 'mt-24'>
                     
-            <div className='min-h-screen w-100  flex bg-[#F0FBFF]'>
+            <div className='min-h-screen w-100  flex'>
              
                 <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#344A53] z-1 w-1/2 text-center border-blue-600 border-solid border text-white'> ☰ Video Library</div>
-                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#344A53] text-white z-10 text-sm text-whitetransform ${
+                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#D6E6E2] text-white z-10 text-sm text-black transform ${
                     menuOpen ? 'translate-x-0' : '-translate-x-full'
                 } transition-transform sm:translate-x-0`}>
                     <div className='ml-4'>
@@ -100,9 +100,9 @@ export const VideoIndex = () => {
                         return(
                             <>
                                 <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
-                                <div className='text-gray-400'>4.2 Subsidies (coming soon!)</div>
-                                <div className='text-gray-400'>4.3 Price Floors (coming soon!)</div>
-                                <div className='text-gray-400'>4.4 Price Ceilings (coming soon!)</div>
+                                <div className='text-gray-600'>4.2 Subsidies (coming soon!)</div>
+                                <div className='text-gray-600'>4.3 Price Floors (coming soon!)</div>
+                                <div className='text-gray-600'>4.4 Price Ceilings (coming soon!)</div>
                             </>
                         )
                     })}
