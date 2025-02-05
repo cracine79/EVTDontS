@@ -128,7 +128,7 @@ export const MainPage = () => {
        
             </div>
             <div className=' w-11/12 sm:text-2xl flex justify-around sm:mb-96 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
-            <div className="w-screen h-auto bg-white items-center bg-[#344A53] sm:mt-60">
+            <div className="w-screen h-auto items-center bg-[#344A53] sm:mt-60">
                 <div className="sm:mt-20 mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center" >
                     <div className='h-100 w-100 flex flex-col items-center 'ref={videoLeftRef}>
                         {/* <img src="/Watch.png" alt="1: Watch the Videos that Don't Suck" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
