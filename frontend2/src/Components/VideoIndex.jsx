@@ -69,8 +69,8 @@ export const VideoIndex = () => {
                     
             <div className='min-h-screen w-100  flex'>
              
-                <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#344A53] z-1 w-1/2 text-center border-blue-600 border-solid border text-white'> ☰ Video Library</div>
-                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#D6E6E2] text-white z-10 text-sm text-black transform ${
+                <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#D6E6E2] z-1 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
+                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#D6E6E2]  z-10 text-sm text-black transform ${
                     menuOpen ? 'translate-x-0' : '-translate-x-full'
                 } transition-transform sm:translate-x-0`}>
                     <div className='ml-4'>
