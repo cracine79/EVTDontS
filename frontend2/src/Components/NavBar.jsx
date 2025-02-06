@@ -27,7 +27,16 @@ export const NavBar = () => {
     }
 
     const sessionLinks = currentUser ? (
-        <div className="mr-8">
+        <div className="sm:mr-8 flex items-center">
+            <div className="sm:w-16  text-white flex items-center  text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/videoindex')}}>
+                <i class="fa-solid fa-video text-xl "></i>
+                <p> Videos</p>
+            </div>
+            <div className="w-16  text-white flex items-center mr-4 text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/userhome')}}>
+                <i class="fa-solid fa-house text-xl "></i>
+                <p> Home</p>
+            </div>
+            
             <UserMenu/>
             {/* <LogoutButton/> */}
         </div>
@@ -69,7 +78,7 @@ export const NavBar = () => {
                         {!currentUser &&
                             <button className="sm:mr-4 mr-2 text-xs md:text-sm text-white" onClick={goToVideos}>Jump To Videos</button>
                         }
-                        <span className={`text-xs text-white sm:hidden ${currentUser ? 'mr-8 -ml-8':''}`} onClick={()=>
+                        <span className={`text-xs text-white sm:hidden ${currentUser ? 'mr-6':''}`} onClick={()=>
                             {window.scrollTo({
                                 top: 0,
                                 behavior: 'smooth'

@@ -122,17 +122,23 @@ export const MainPage = () => {
             <div className="flex  justify-center sm:mt-8">
 
                 <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block rounded-3xl z-20' autoPlay={isAutoplay} loop muted>
-                    <source src="intro2.mp4" type="video/mp4" />
+                    <source src="intro2.mp4" type="video/mp4" />t
                 </video>
                 <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
        
             </div>
             <div className=' w-11/12 sm:text-2xl flex justify-around sm:mb-96 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
-            <div className="w-screen h-auto items-center bg-[#344A53] sm:mt-60">
+            <div className='sm:h-60  relative bg-black'>
+            
+            </div>
+            <div className="w-screen h-auto items-center bg-[#344A53]">
+              
+
                 <div className="sm:mt-20 mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center" >
                     <div className='h-100 w-100 flex flex-col items-center 'ref={videoLeftRef}>
                         {/* <img src="/Watch.png" alt="1: Watch the Videos that Don't Suck" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
                         <div className='flex'>
+                                                    
                             <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
                                 1
                             </span>
@@ -155,7 +161,7 @@ export const MainPage = () => {
 
                 <div>
                     <div className="sm:mt-20 mt-16 sm:ml-20 flex justify-around flex-col sm:flex-row items-center">
-                        <div className={`w-5/6 sm:ml-20 sm:block hidden fixed top-[10%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
+                        <div className={`w-5/6 sm:w-1/3  sm:ml-20 sm:block hidden fixed top-[10%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
                             <img src='/Sampleq.png' className='rounded-xl'></img>
                         </div>
                         <div className='h-100 sm:w-1/2 sm:ml-[40%] sm:mt-96 flex flex-col items-center'>
@@ -209,8 +215,8 @@ export const MainPage = () => {
                                 <source src="BlueWarrior.mp4" type="video/webm" />
                             </video>       
                         </div>
-                        <div className='flex flex-col items-center mt-10 sm:-ml-28 sm:mt-96 sm:w-1/2 sm:ml-[40%]'ref={scrollRef}>
-                        <div className='flex sm:mt-96' >
+                        <div className='flex flex-col items-center mt-10 sm:-ml-28 sm:mt-96 sm:w-1/2 sm:ml-[40%] z-30'ref={scrollRef}>
+                        <div className='flex sm:mt-96 ' >
                             <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
                                 4
                             </span>
