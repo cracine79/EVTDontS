@@ -11,6 +11,7 @@ export const MainPage = () => {
     const quizRightRef = useRef(null)
     const resultsLeftRef = useRef(null)
     const scrollRef = useRef(null)
+    let lastScrollY = useRef(window.scrollY)
     const stickyRef = useRef(null)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -88,11 +89,22 @@ export const MainPage = () => {
     useEffect(()=>{
         const keepObserver = new IntersectionObserver(
             ([entry])=>{
-                setWarriorVisible(entry.isIntersecting)
+                const currentScrollY = window.scrollY
+                
+                if (entry.isIntersecting ){
+                    setWarriorVisible(true)
+                } else if (!entry.isIntersecting && currentScrollY < lastScrollY.current ){
+                    console.log('currentScrollY', currentScrollY)
+                    console.log('lastScrolllY', lastScrollY.current)
+                    setWarriorVisible(false)
+                }
+                lastScrollY.current = currentScrollY;            
             },
             {threshold: 0.8}
         )
         if (scrollRef.current) keepObserver.observe(scrollRef.current);
+        
+
 
         return () => {
             keepObserver.disconnect()
@@ -108,6 +120,7 @@ export const MainPage = () => {
 
             if(scrollTop <= -40){
                 setWarriorIsFixed(false)
+                lastScrollY = window
             } else {
                 setWarriorIsFixed(true)
             }
@@ -211,7 +224,7 @@ export const MainPage = () => {
                 <div className='sm:mt-60 mt-16 mb-20'>
                     <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row sm:mb-96">
                         <div >
-                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 duration-1000 transition-all hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-10 left-10":"absolute left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}`} autoPlay={isAutoplay} loop muted ref={stickyRef}>
+                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 duration-1000 transition-all hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10":"absolute left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}`} autoPlay={isAutoplay} loop muted ref={stickyRef}>
                                 <source src="BlueWarrior.mp4" type="video/webm" />
                             </video>       
                         </div>

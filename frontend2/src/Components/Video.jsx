@@ -81,7 +81,7 @@ export const Video = () => {
                         <p className='hidden sm:inline'>Mark as Completed &&nbsp;</p>
                         <p>Rock the Quiz</p>
                 </div>
-                <div onClick = {handleClick} className="button !flex !items-center !justify-center !py-2 mt-6 sm:mt-0">
+                <div onClick = {handleClick} className="button !flex !items-center !justify-center !py-2">
                     Back to my Dashboard
                 </div>
 
