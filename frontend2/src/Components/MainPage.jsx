@@ -129,6 +129,20 @@ export const MainPage = () => {
         return()=>window.removeEventListener("scroll", handleScroll)
     })
 
+    useEffect(()=>{
+        if(vidVisible){ 
+            if(videoRef.current){
+                videoRef.current.play().catch(error=>{
+                    console.error("Autoplay error:" , error)
+                });
+            }
+        } else {
+            if (videoRef.current){
+                videoRef.current.pause()
+            }
+        }
+    }, [vidVisible])
+
 
     return(
         <div className='flex flex-col w-screen items-center bg-[#344A53] text-white'>
@@ -224,7 +238,10 @@ export const MainPage = () => {
                 <div className='sm:mt-60 mt-16 mb-20'>
                     <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row sm:mb-96">
                         <div >
-                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 duration-1000 transition-all hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10":"absolute left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}`} autoPlay={isAutoplay} loop muted ref={stickyRef}>
+                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 duration-1000 transition-all hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10":"absolute left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}  
+                                [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_98%,rgba(0,0,0,0)_100%),]
+                                
+                                [webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_100%)]`} autoPlay={isAutoplay} loop muted ref={stickyRef}>
                                 <source src="BlueWarrior.mp4" type="video/webm" />
                             </video>       
                         </div>
