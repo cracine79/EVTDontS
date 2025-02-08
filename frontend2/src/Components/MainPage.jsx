@@ -21,7 +21,6 @@ export const MainPage = () => {
     const [warriorVisible, setWarriorVisible] = useState(false)
     const [warriorIsFixed, setWarriorIsFixed] = useState(true)
 
-
     const handleGetStarted = ()=>{
         dispatch(openSignupModal())
     }
@@ -118,7 +117,8 @@ export const MainPage = () => {
             const stickyTop = stickyRef.current.getBoundingClientRect().top;
             const scrollTop = scrollRef.current.getBoundingClientRect().top;
 
-            if(scrollTop <= -40){
+            if(scrollTop <= 420){
+                console.log('THEREITGOES')
                 setWarriorIsFixed(false)
                 lastScrollY = window
             } else {
@@ -154,14 +154,16 @@ export const MainPage = () => {
                 <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
        
             </div>
-            <div className=' w-11/12 sm:text-2xl flex justify-around sm:mb-96 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
-            <div className='sm:h-60  relative bg-black'>
-            
+            <div className=' w-11/12 sm:text-2xl flex justify-around  border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
+            <div className='w-5/6 items-center justify-center flex'>
+                <img className="w-7/12" src='leg1.png'/>
+                <div className='w-1/3'></div>
             </div>
-            <div className="w-screen h-auto items-center bg-[#344A53]">
-              
+        
 
-                <div className="sm:mt-20 mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center" >
+            <div className="w-screen h-auto items-center bg-[#344A53]">
+                {/* 1. Watch the videos an video  */}
+                <div className="sm:mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center" >
                     <div className='h-100 w-100 flex flex-col items-center 'ref={videoLeftRef}>
                         {/* <img src="/Watch.png" alt="1: Watch the Videos that Don't Suck" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
                         <div className='flex'>
@@ -184,17 +186,29 @@ export const MainPage = () => {
                        </div>
                         <img src="MobileMiniVid.jpg" className= "mt-6 w-5/6 rounded-3xl sm:hidden"></img>
                     </div>
+                    
                 </div>
+                <div className='w-11/12 '>
+                     <div className='w-5/6 items-center flex justify-center relative top-0'>
+                            <div className='w-1/6'> </div>
+                            <img className="w-7/12" src='leg2.png'/>
+                            
+                        </div>
+                </div>
+                    
 
+                {/* 2.  Take practice quizzes and quiz  */}
                 <div>
-                    <div className="sm:mt-20 mt-16 sm:ml-20 flex justify-around flex-col sm:flex-row items-center">
-                        <div className={`w-5/6 sm:w-1/3  sm:ml-20 sm:block hidden fixed top-[10%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
+                    <div className=" sm:ml-20 flex justify-around flex-col sm:flex-row items-center">
+                        <div className={`w-5/6 sm:w-1/3  sm:ml-[5%] sm:block hidden fixed top-[10%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
                             <img src='/Sampleq.png' className='rounded-xl'></img>
                         </div>
-                        <div className='h-100 sm:w-1/2 sm:ml-[40%] sm:mt-96 flex flex-col items-center'>
-                        <div className='sm:h-96'></div>
+                        <div className='h-100 sm:w-1/2 sm:ml-[40%] flex flex-col items-center'>
+                        {/* <div className='sm:h-96'></div> */}
+
+                        
                         <div className='flex' ref={quizRightRef}>
-                            <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
+                            <span class="flex items-center justify-center  sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
                                 2
                             </span>
                             <div className='sm:ml-8 ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2'>
@@ -210,15 +224,22 @@ export const MainPage = () => {
                         </div>
                     </div>
                 </div>
-          
+                <div className='w-11/12'>
+                     <div className='w-5/6 items-center flex justify-center relative top-0'>
+                            <div className='w-1/3'> </div>
+                            <img className="w-7/12" src='leg3.png'/>
+                            
+                        </div>
+                </div>
+                    
 
-                <div className="sm:mt-20 mt-16 flex justify-left items-center flex-col sm:flex-row">
-                    <div className='h-100 w-100 sm:w-[50%]  flex flex-col items-center sm:mt-96'>
-                    <div className='flex justify-center items-center sm:mt-96' ref={resultsLeftRef}>
+                <div className=" flex justify-left items-center flex-col sm:flex-row">
+                    <div className='h-100 w-100 sm:w-[50%]  flex flex-col items-center '>
+                    <div className='flex justify-center items-center ' >
                             <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
                                 3
                             </span>
-                            <div className='sm:ml-8 ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2'>
+                            <div className='sm:ml-8 ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2' ref={resultsLeftRef}>
                                 <div>Turn Goofs into Gold</div>
                             </div>
                         </div>
@@ -234,19 +255,28 @@ export const MainPage = () => {
                         </div>
              
                 </div>
+            
+                <div className='w-11/12'>
+                     <div className='w-5/6 tems-center flex justify-center relative top-0'>
 
-                <div className='sm:mt-60 mt-16 mb-20'>
-                    <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row sm:mb-96">
+                            <img className="w-11/12" src='leg4.png'/>
+                            
+                        </div>
+                </div>
+                    
+
+                <div className=' sm:mt-16 mb-20'>
+                    <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row "  ref={scrollRef}>
                         <div >
-                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 duration-1000 transition-all hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10":"absolute left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}  
+                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 z-50 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10":"absolute -mt-[19%] left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}  
                                 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_98%,rgba(0,0,0,0)_100%),]
                                 
                                 [webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_100%)]`} autoPlay={isAutoplay} loop muted ref={stickyRef}>
                                 <source src="BlueWarrior.mp4" type="video/webm" />
                             </video>       
                         </div>
-                        <div className='flex flex-col items-center mt-10 sm:-ml-28 sm:mt-96 sm:w-1/2 sm:ml-[40%] z-30'ref={scrollRef}>
-                        <div className='flex sm:mt-96 ' >
+                        <div className='flex flex-col items-center sm:mt-10 sm:-ml-28 sm:w-1/2 sm:ml-[40%] z-30'>
+                        <div className='flex '>
                             <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
                                 4
                             </span>
@@ -263,11 +293,21 @@ export const MainPage = () => {
                         </div>
                     </div>
                 </div>
+
+                            
+                <div className='w-11/12'>
+                
+                     <div className='w-5/6 tems-center flex justify-center relative -right-10 z-50'>
+               
+                            <img className="ml-[70%] -mt-[14%] w-7/12 sm:w-9/12" src='leg5test.png'/>
+                            
+                        </div>
+                </div>
                 
             </div>
-            <div className='flex flex-col justify-center items-center sm:w-full w-3/4  sm:mt-24 mb-12 z-20'>
+            <div className='flex flex-col justify-center items-center sm:w-full w-3/4  mb-12 z-20'>
                     <div className='sm:text-5xl text-2xl text-center sm:mb-10 mb-4 text-md'>Sign up to access quizzes, track progress, and more!</div>
-                   <div className="button flex flex-col !font-light !py-2 !px-6"
+                   <div className="sm: mt-20 button flex flex-col !font-light !py-2 !px-6"
                    onClick={handleGetStarted}>
                         <div className='sm:text-4xl text-2xl '>Get Started!</div>
                     </div> 

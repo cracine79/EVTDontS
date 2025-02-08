@@ -12,6 +12,8 @@ export const VideoIndex = () => {
     const location = useLocation()
     const currentUser = useSelector(state=>(state.user.username))
     const chapters = useSelector(state=>(state.chapters))
+    const currentUserChapters = useSelector(state=>state.userChapters)
+
     let chaptersObj = []
 
     chaptersObj = Object.keys(chapters).map((key)=>({
@@ -63,6 +65,13 @@ export const VideoIndex = () => {
     const handleGoToQuiz = () => {
         // console.log(chapterId)
         navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
+    }
+
+    const watchedStatus = (chapterId) => {
+        if (currentUserChapters){
+            const watched = currentUserChapters[chapterId].video_completed
+            return(watched)
+        }
     }
     return(
         <div className = 'mt-24'>
@@ -132,6 +141,10 @@ export const VideoIndex = () => {
                     <div className='flex flex-col items-center justify-center sm:mt-10 mt-6 '>
                         <div className='sm:text-2xl text-lg mb-4'>
                             {videoId ? `Video for ${chapterVid(videoId)}`: ''}
+                        </div>
+                        <div>
+                            {currentUser && watchedStatus(chapterId) && <>Watched!</>}
+
                         </div>
                         {videoId && (
                         <>
