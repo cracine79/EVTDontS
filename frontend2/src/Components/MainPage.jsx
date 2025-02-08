@@ -20,6 +20,7 @@ export const MainPage = () => {
     const [resultsVisible, setResultsVisible] = useState(false)
     const [warriorVisible, setWarriorVisible] = useState(false)
     const [warriorIsFixed, setWarriorIsFixed] = useState(true)
+    const [warriorTop, setWarriorTop]= useState(0)
 
     const handleGetStarted = ()=>{
         dispatch(openSignupModal())
@@ -116,8 +117,13 @@ export const MainPage = () => {
 
             const stickyTop = stickyRef.current.getBoundingClientRect().top;
             const scrollTop = scrollRef.current.getBoundingClientRect().top;
-
-            if(scrollTop <= 420){
+            const middleOfPage = window.innerHeight/2; 
+            console.log('middle', middleOfPage)
+            console.log('scrollTop', scrollTop)
+            if(scrollTop <= middleOfPage){
+                if (warriorIsFixed) {
+                    setWarriorTop(stickyRef.current.getBoundingClientRect().top + window.scrollY);
+                }
                 console.log('THEREITGOES')
                 setWarriorIsFixed(false)
                 lastScrollY = window
@@ -267,11 +273,17 @@ export const MainPage = () => {
 
                 <div className=' sm:mt-16 mb-20'>
                     <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row "  ref={scrollRef}>
-                        <div >
-                            <video className={`sm:w-[40%] sm:ml-20 rounded-2xl w-11/12 h-auto mt-20 z-50 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10":"absolute -mt-[19%] left-10"} ${warriorVisible ? "opacity-100": "opacity-0"}  
+                        <div>
+                            <video className={`sm:w-[40%] pt-40 sm:ml-20 rounded-2xl w-11/12 h-auto z-50 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10 ":" absolute left-10 "} ${warriorVisible ? "opacity-100": "opacity-0"}  
                                 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_98%,rgba(0,0,0,0)_100%),]
                                 
-                                [webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_100%)]`} autoPlay={isAutoplay} loop muted ref={stickyRef}>
+                                [webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_100%)]`} 
+                                style={!warriorIsFixed ? { top: `${warriorTop}px` } : {}} 
+                                autoPlay={isAutoplay} 
+                                loop 
+                                muted 
+                                ref={stickyRef}
+                            >
                                 <source src="BlueWarrior.mp4" type="video/webm" />
                             </video>       
                         </div>
