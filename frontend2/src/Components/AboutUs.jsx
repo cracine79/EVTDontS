@@ -4,7 +4,7 @@ export const AboutUs = () => {
         scrollTo(0,0)
     },[])
     return(
-        <div className='w-full flex flex-col  items-center  mt-44'>
+        <div className='w-full flex flex-col  items-center  mt-36'>
             <div className='sm:w-7/12 w-5/6 flex flex-col'>
                 <div className='text-4xl font-bold'>
                     About Us

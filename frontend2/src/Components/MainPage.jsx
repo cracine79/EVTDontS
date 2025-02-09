@@ -206,7 +206,7 @@ export const MainPage = () => {
                 {/* 2.  Take practice quizzes and quiz  */}
                 <div>
                     <div className=" sm:ml-20 flex justify-around flex-col sm:flex-row items-center">
-                        <div className={`w-5/6 sm:w-1/3  sm:ml-[5%] sm:block hidden fixed top-[10%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
+                        <div className={`w-5/6 sm:w-1/3  sm:ml-[5%] sm:block hidden fixed top-[15%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
                             <img src='/Sampleq.png' className='rounded-xl'></img>
                         </div>
                         <div className='h-100 sm:w-1/2 sm:ml-[40%] flex flex-col items-center'>
@@ -274,7 +274,7 @@ export const MainPage = () => {
                 <div className=' sm:mt-16 mb-20'>
                     <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row "  ref={scrollRef}>
                         <div>
-                            <video className={`sm:w-[40%] pt-40 sm:ml-20 rounded-2xl w-11/12 h-auto z-50 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10 ":" absolute left-10 "} ${warriorVisible ? "opacity-100": "opacity-0"}  
+                            <video className={`sm:w-[40%] pt-40 sm:ml-20 rounded-2xl w-11/12 h-auto z-40 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10 ":" absolute left-10 "} ${warriorVisible ? "opacity-100": "opacity-0"}  
                                 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_98%,rgba(0,0,0,0)_100%),]
                                 
                                 [webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_100%)]`} 
@@ -309,7 +309,7 @@ export const MainPage = () => {
                             
                 <div className='w-11/12'>
                 
-                     <div className='w-5/6 tems-center flex justify-center relative -right-10 z-50'>
+                     <div className='w-5/6 tems-center flex justify-center relative -right-10 z-40'>
                
                             <img className="ml-[70%] -mt-[14%] w-7/12 sm:w-9/12" src='leg5test.png'/>
                             

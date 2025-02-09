@@ -18,8 +18,8 @@ export const SearchResults = () => {
         navigate(`/video/${chapterId}`)
     })
     return(
-        <div className='mt-32'>
-            <div className='w-full flex items-center flex-col  min-h-[65vh] '>
+        <div className='mt-60'>
+            <div className='w-full flex items-center flex-col  min-h-[75vh] '>
                 <div className='text-2xl mb-8'>Search Results For "{search_term}"</div>
                 <div className='w-full flex flex-wrap justify-around'> 
                     {

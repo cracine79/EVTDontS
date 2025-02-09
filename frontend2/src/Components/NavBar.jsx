@@ -27,13 +27,13 @@ export const NavBar = () => {
     }
 
     const sessionLinks = currentUser ? (
-        <div className="sm:mr-8 flex items-center">
+        <div className="sm:mr-28 flex justify-between sm:w-[15vw] items-center">
             <div className="sm:w-16  text-white flex items-center  text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/videoindex')}}>
-                <i class="fa-solid fa-video text-xl "></i>
+                <i className="fa-solid fa-video text-xl "></i>
                 <p> Videos</p>
             </div>
             <div className="w-16  text-white flex items-center mr-4 text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/userhome')}}>
-                <i class="fa-solid fa-house text-xl "></i>
+                <i className="fa-solid fa-house text-xl "></i>
                 <p> Home</p>
             </div>
             
@@ -41,9 +41,9 @@ export const NavBar = () => {
             {/* <LogoutButton/> */}
         </div>
     ) : (
-        <div className="flex w-32 justify-between mr-4 sm:mr-10 text-xs md:text-sm text-white">
-            <p className="hover:cursor-pointer" onClick = {handleSignup}>Sign Up</p>
-            <p className="hover:cursor-pointer" onClick = {handleLogin} >Log In</p>
+        <div className="flex w-1/4 justify-between items-center mr-4 sm:mr-36 text-xs md:text-sm text-white">
+            <p className="hover:cursor-pointer hover:text-[#344A53] text-lg font-bold" onClick = {handleLogin} >Log In</p>
+            <p className="button !px-6 !py-2" onClick = {handleSignup}>Get Started</p>
         </div>
     )
 
@@ -55,28 +55,33 @@ export const NavBar = () => {
             <div className='relative'>
                 <nav className=
                     "w-full  
-                    z-10
+                 
                     bg-[#0088A8]
                     items-center 
                     flex justify-between
-                    sticky
-                    top-0">
-                    <span className='flex w-full items-center  h-full'>
+                    fixed
+                    top-0
+                    z-50">
+                    <div className='flex w-2/3  items-center  h-full py-4 '>
                         <span className='flex sm:w-1/6 sm:min-w-72 max-w-72 items-center'>
                             <img src="/EvtdsDarkerGBlue.png" onClick = {()=>navigate('/')}alt="EVTDS Logo" className=" w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16 hover:cursor-pointer"/>
                             <span className='ml-2 md:text-2xl text-sm font-bold text-white text-slate-600'>BETA</span>
                         </span>
 
-                        <div className="sm:flex flex-1 px-4 xl:ml-0 hidden justify-center">
-                            <div className="flex items-center w-full">
+                        <div className="sm:flex flex-auto px-4 xl:ml-0 hidden  w-1/2 justify-left">
+                            <div className="flex items-center w-11/12">
                             <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)} />
                             </div>
                         </div>
 
-                    </span>
-                    <div className='flex items-center justify-between'>
+                    </div>
+                    <div className={`flex items-center justify-between ${!currentUser && 'w-2/3'}`}>
                         {!currentUser &&
-                            <button className="sm:mr-4 mr-2 text-xs md:text-sm text-white" onClick={goToVideos}>Jump To Videos</button>
+                            <>
+                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53]" onClick={goToVideos}>Jump To Videos</button>
+                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53]" onClick={()=>navigate('/aboutus')}>About Us</button>
+                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53]" onClick={()=>navigate('/contactus')}>Contact Us</button>
+                            </>
                         }
                         <span className={`text-xs text-white sm:hidden ${currentUser ? 'mr-6':''}`} onClick={()=>
                             {window.scrollTo({

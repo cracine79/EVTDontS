@@ -40,7 +40,7 @@ const Layout = () => {
   return(
     <div className="flex flex-col">
       <NavBar />
-      <div className='flex flex-col -mt-24'>
+      <div className='flex flex-col '>
         <Outlet />
       </div>
       <Footer />

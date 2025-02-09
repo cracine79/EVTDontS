@@ -67,12 +67,12 @@ export const VideoIndex = () => {
         navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
     }
 
-    const watchedStatus = (chapterId) => {
-        if (currentUserChapters){
-            const watched = currentUserChapters[chapterId].video_completed
-            return(watched)
-        }
-    }
+    // const watchedStatus = (chapterId) => {
+    //     if (currentUserChapters){
+    //         const watched = currentUserChapters[chapterId].video_completed
+    //         return(watched)
+    //     }
+    // }
     return(
         <div className = 'mt-24'>
                     
@@ -88,19 +88,19 @@ export const VideoIndex = () => {
                     <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
                     {chaptersObj.slice(0,6).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer  hover:text-[#0088A8]' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
                     <div className='font-bold mt-2 text-lg'>Unit 2: Supply & Demand</div>
                     {chaptersObj.slice(7, 18).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer hover:text-[#0088A8]' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
                     <div className='font-bold mt-2 text-lg'>Unit 3: Elasticities</div>
                        {chaptersObj.slice(18, 24).map(chapter=>{
                         return(
-                            <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
+                            <div key={chapter.id} className='hover:cursor-pointer  hover:text-[#0088A8]' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
                     })}
 
@@ -108,7 +108,7 @@ export const VideoIndex = () => {
                     {chaptersObj.slice(24).map(chapter=>{
                         return(
                             <>
-                                <div key={chapter.id} className='hover:cursor-pointer ' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
+                                <div key={chapter.id} className='hover:cursor-pointer  hover:text-[#0088A8]' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                                 <div className='text-gray-600'>4.2 Subsidies (coming soon!)</div>
                                 <div className='text-gray-600'>4.3 Price Floors (coming soon!)</div>
                                 <div className='text-gray-600'>4.4 Price Ceilings (coming soon!)</div>
@@ -143,7 +143,7 @@ export const VideoIndex = () => {
                             {videoId ? `Video for ${chapterVid(videoId)}`: ''}
                         </div>
                         <div>
-                            {currentUser && watchedStatus(chapterId) && <>Watched!</>}
+                            {/* {currentUser && watchedStatus(chapterId) && <>Watched!</>} */}
 
                         </div>
                         {videoId && (

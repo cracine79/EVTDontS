@@ -34,7 +34,7 @@ export const ContactUs = () => {
         scrollTo(0,0)
     }, [])
     return<>
-        <div className="mt-36 flex flex-col items-center">
+        <div className="mt-32 flex flex-col items-center">
             <div className='sm:w-7/12 xl:w-5/12 w-5/6 flex flex-col items-center'>
                 <h1 className='text-center text-3xl'>Send Us A Note!</h1>
                 <div className='mt-4'>Whether you've got a question about a quiz problem you can't crack, there's an irritating bug that you'd love us to get rid of, or you (dare we say it!?) just want to give us a pat on the back (eep!), go ahead and send us a note. And by us I mean me.  I'd love to hear your thoughts. </div>

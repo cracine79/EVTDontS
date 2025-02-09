@@ -46,8 +46,10 @@ export const UserHome = () => {
         if(currentBookChapter){
             return (
                 <>
-                    <div className="text-lg mb-2">You are currently working on:</div>
+                    <div className="text-4xl p-2  font-extrabold mb-2">UP NEXT</div>
+                    {currentUserChapter.video_completed ?  <div>Take the Quiz for</div> : <div>Watch the Video for</div >} 
                     <div className="text-lg"> Chapter {currentBookChapter.name.split(" ")[0]}: {currentBookChapter.name.split(" ").slice(1).join(' ')}</div>
+                    
                 </>
             )
         } else{
@@ -131,7 +133,7 @@ export const UserHome = () => {
                 flex-col
                 
                 min-h-screen`}>
-                <div className='h-100 flex sm:flex-row flex-col mt-26 w-3/4'>
+                <div className='h-100 flex sm:flex-row flex-col w-3/4'>
                     <div className=
                         {`sm:mt-36
                         mt-28 
@@ -160,13 +162,12 @@ export const UserHome = () => {
                             </p>
                         )}
                     </div>
-                    <div className="sm:w-1/3 sm:min-w-80 bg-white 100 h-100 sm:mt-36 mt-6 sm:ml-12 rounded-3xl shadow-2xl flex flex-col items-center border
+                    <div className="sm:w-1/3 sm:min-w-80 border border-solid border-cyan-500 bg-[white-100] 100 h-100 sm:mt-36 mt-6 sm:ml-12 rounded-3xl shadow-2xl shadow-cyan-500/30 flex flex-col items-center border
                         ">
-                            <p className="mt-8 text-4xl underline">Progress</p>
                             <div className = "mt-2 ml-4 mr-2 flex flex-col items-center">
                                 {workingOn()}
                             </div>
-                            <div className="button !text-base !py-0 !px-4 my-4 !rounded-3xl">
+                            <div className="button !text-base !py-2 !px-4 my-4 !rounded-3xl">
                                 <div onClick={handleClick}><UpNext /></div>
                             </div>
                         </div>
@@ -195,7 +196,7 @@ export const UserHome = () => {
                         flex-col 
                         items-center
                         justify-center`}>
-                            <div className='text-2xl sm:mt-3'>Update Your Study Plan</div>
+                            <div className='text-3xl sm:mt-3'>Update Your Study Plan</div>
                             <p className='my-4'>Not everyone gets it right on the first try - you should see our last haircut!</p>
                             <p>Adjust the units/chapters you want to study here and get back on track like the decision making pro we all know you are</p>
                             <button  className="button !text-base !py-0 !px-4 my-4 !rounded-3xl"
@@ -219,7 +220,7 @@ export const UserHome = () => {
                         flex-col 
                         items-center
                         justify-center`}>
-                            <div className='text-2xl mt-3'>Focus on your Weaknesses</div>
+                            <div className='text-3xl mt-3'>Focus on your Weaknesses</div>
                             <p className='my-4'>Think you’ve mastered it all? Spoiler: This quiz knows your weak spots better than your Netflix recommendations.</p>
                             <p> Take a deep breath, dive in, and let’s tackle those tricky bits. (You got this—probably.)</p>
                            
@@ -247,7 +248,7 @@ export const UserHome = () => {
                             justify-center
                             bg-white
                             mb-16`}>
-                            <div className='text-2xl mt-3'>Choose Your Own Quiz Adventure</div>
+                            <div className='text-3xl mt-3'>Choose Your Own Quiz Adventure</div>
                             <div className='my-4'>Feeling daring? </div>
                             <div>   Pick any topics you want—whether you rocked them or flopped them—and we’ll create a custom quiz that’s as wild as your choices.</div>
                             <button  className="button !text-base !py-0 !px-4 my-4 !rounded-3xl"
