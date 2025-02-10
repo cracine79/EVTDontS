@@ -1,8 +1,8 @@
 import { csrfFetch } from "../csrf";
 import { updateUserChapters } from "./userChaptersSlice";
+import { useDispatch } from "react-redux";
 
-
-export const updateVideoProgress = async(chapterId) => {
+export const updateVideoProgress = (chapterId) => async(dispatch) => {
         try {
             const response = await csrfFetch('/api/progress/' , {
                 method: 'PATCH',

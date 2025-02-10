@@ -77,19 +77,19 @@ export const UserlessResults = () => {
                         
                         </div>
                         <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
-                    <button className="button"
-                            onClick = {showResults}
-                            >Show Correct Answers</button>
-                    <button className="button"
-                            onClick = {retakeQuiz}
-                            >Try Quiz Again</button>
-                            <button className="button"
+                            <button className="button m:my-0 w-2/3 sm:w-1/6"
+                                    onClick = {showResults}
+                                    >Show Correct Answers</button>
+                            <button className="button my-4 sm:my-0 w-2/3 sm:w-1/6"
+                                    onClick = {retakeQuiz}
+                                    >Try Quiz Again</button>
+                            <button className="button m:my-0 w-2/3 sm:w-1/6"
                                     onClick = {()=>navigate('/videoindex')}
                                     >Back to Videos</button>
                         </div>
                         
                     </div>
-                    <div className='mt-12 text-center items-center justify-center flex flex-col text-lg border-black border-2 border-solid p-4 rounded-lg shadow-2xl'>
+                    <div className='mt-12 mb-12 sm:mb-0 text-center items-center justify-center flex flex-col text-lg border-black border-2 border-solid p-4 rounded-lg shadow-2xl'>
                            <p> HEY! {TestEncouragement()}</p>
                            <p> <strong>Want to keep track of your progress? </strong>  Videos watched, quizzes taken, topics mastered, etc? <strong>Then you gotta sign up!</strong>  </p>
                            <p>It's <strong className='text-red-600'>free</strong> and <strong className='text-red-600'>quick</strong>.  And we send ZERO emails to you (unless you're like us and you forgot your password)</p>

@@ -21,7 +21,7 @@ export const SearchBar = ({onSearchSubmit}) =>{
                 e.preventDefault()
                 onSearchSubmit()
                 findIt()}} className="flex justify-center h-12 w-full">
-            <input className='w-1/2 border-white bg-transparent text-white border-b pl-4 focus:outline-none placeholder-white text-sm focus:ring-0'   
+            <input className='w-1/2 border-white bg-transparent text-white border-b pl-4 focus:outline-none placeholder-white text-xxs sm:text-sm focus:ring-0'   
                     value={searchTerm}
                     placeholder='Search For Your Next Econ Video Here' 
                     onChange={(e)=>setSearchTerm(e.target.value)}></input>

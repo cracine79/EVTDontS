@@ -115,7 +115,7 @@ export const QuizResults = () => {
                             That was the last chapter of the Unit!  You are killing it my dude!
                     </div>}
                 </div>
-                <div className='flex sm:flex-row flex-col flex-col items-center justify-around my-10'>
+                <div className='flex sm:flex-row flex-col items-center justify-around my-10'>
                     <button className="button w-4/5 sm:w-auto"
                             onClick={showResults }>Show Me What I Missed</button>
                     <button className="button my-6 sm:my-0 w-4/5 sm:w-auto"

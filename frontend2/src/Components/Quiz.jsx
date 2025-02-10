@@ -20,7 +20,7 @@ export const Quiz = () => {
     const currentUser = useSelector(state=>state.user.username)
     const [quizBlurb, setQuizBlurb] = useState("")
     const [quizBlurbImgUrl, setQuizBlurbImgUrl] = useState("")
-
+    console.log('TOPICS', topics)
     const data = {
         chapter: chapter,
         type: type,
@@ -145,15 +145,18 @@ export const Quiz = () => {
     return(
         <div className='flex flex-col justify-center items-center'>
              {(type == 'chapterQuiz' || type =='chapterQuizNoUser')  && 
-            <div className="max-w-10xl    mt-24 sm:mt-32 sm:min-h-[65vh] ml-20 px-8 grid grid-cols-1  sm:grid-cols-2  items-center">
+            <div className="max-w-10xl   mt-24 sm:mt-32 sm:min-h-[65vh] sm:ml-20 px-8 grid grid-cols-1  sm:grid-cols-2  items-center">
                 
                 <div>
-                    <div className='sm:text-2xl w-5/6 text-xl text-center'>
-                            <div className='sm:text-4xl sm:mb-4'>
+                    <div className='sm:text-2xl sm:w-5/6 text-xl text-center'>
+                            <div className='sm:text-4xl text-3xl sm:mb-4'>
                             Are You Ready To Rock?
                             </div>
                             <div>
                             Get Ready to Take the Quiz for: <p className='font-bold'>Chapter {chapterName}</p>
+                            </div>
+                            <div className ='sm:w-full sm:hidden '>
+                                <img src = {quizBlurbImgUrl} />
                             </div>
                             <div className = 'whitespace-pre-line mt-8  w-full  text-left text-xl' dangerouslySetInnerHTML={{__html: quizBlurb}}>
                             {/* {quizBlurb} */}
@@ -161,7 +164,7 @@ export const Quiz = () => {
                     </div>
                 </div>
                 <div>
-                <div className ='sm:w-full'>
+                <div className ='sm:w-full hidden sm:block'>
                                 <img src = {quizBlurbImgUrl} />
                             </div>
                 </div>
@@ -175,10 +178,10 @@ export const Quiz = () => {
                                             </div>}
                     {type == 'shortWeakspotQuiz' && weaknessBlurb()}
                     {type == 'unitQuiz' && <>This is the page for Unit Quiz on {currentUnit.name}</>}
-            <div className='flex justify-center w-full  mt-8 mb-12'>
-                <button className="button !text-base w-[12%] h-12 !py-0 !px-4 my-4 !rounded-3xl" onClick={handleOpen}>Start The Quiz</button>
-                <div className='w-[16%]'></div>
-                <button className="button !text-base w-[12%] !py-0 !px-4 my-4 !rounded-3xl"
+            <div className='flex sm:justify-center items-center w-full mt-8 mb-12 flex-col sm:flex-row'>
+                <button className="button !text-base w-3/4 sm:w-[12%] h-12 !py-0 !px-4 my-4 !rounded-3xl" onClick={handleOpen}>Start The Quiz</button>
+                <div className='w-[16%] hidden sm:block'></div>
+                <button className="button !text-base w-3/4 sm:w-[12%] h-12 !py-0 !px-4 my-4 !rounded-3xl"
                             onClick={goHome}>{currentUser ? <>Back to Dashboard</> : <>Back to Videos</>}</button>
             </div>
             <QuestionComponent chapter={chapter} type={type} topics={topics} unit={unitQuizUnitId}/>
@@ -221,13 +224,13 @@ export const Quiz = () => {
                   
                 </div>
                 <div className='flex justify-center w-full mt-8 mb-12'>
-                <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl" onClick={handleOpen}>Start The Quiz</button>
-                <div className='w-20'></div>
-                <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl"
+                    <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl" onClick={handleOpen}>Start The Quiz</button>
+                    <div className='w-20'></div>
+                    <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl"
                             onClick={goHome}>{currentUser ? <>Back to Dashboard</> : <>Back to Videos</>}</button>
-                </div>
+                    </div>
                
-            </div>
+                </div>
             <QuestionComponent chapter={chapter} type={type} topics={topics} unit={unitQuizUnitId}/>
         </div>
       

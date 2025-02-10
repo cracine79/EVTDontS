@@ -4,6 +4,7 @@ import { getAllChapters } from "../Slices/chaptersActions"
 import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
 import { useNavigate, useLocation } from "react-router-dom"
 import { getAllTopics } from "../Slices/topicsActions"
+import { updateVideoProgress } from "../Slices/videoActions"
 
 
 export const VideoIndex = () => {
@@ -13,7 +14,7 @@ export const VideoIndex = () => {
     const currentUser = useSelector(state=>(state.user.username))
     const chapters = useSelector(state=>(state.chapters))
     const currentUserChapters = useSelector(state=>state.userChapters)
-
+    console.log(currentUserChapters)
     let chaptersObj = []
 
     chaptersObj = Object.keys(chapters).map((key)=>({
@@ -55,6 +56,7 @@ export const VideoIndex = () => {
         if(!currentUser){
             dispatch(openSignupModal())
         } else {
+            dispatch(updateVideoProgress(chapterId))
             navigate('/userhome')
         }
     }
@@ -64,9 +66,35 @@ export const VideoIndex = () => {
     }
     const handleGoToQuiz = () => {
         // console.log(chapterId)
-        navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
+        if(!currentUser){
+            navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
+        } else if (currentUserChapters[chapterId].quiz_grade == null || currentUserChapters[chapterId].quiz_grade < 50){
+            navigate('/quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
+        } else {
+            navigate('/quiz', {state:{chapter:1}})
+        }
+        
     }
 
+    const LeftButton = () => {
+        if (currentUser){
+            console.log('dude')
+            if(currentUserChapters[chapterId].video_completed==false){
+                return<>
+                          <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+                                Mark Video As Watched
+                            </div>
+                </>
+            } 
+        } else {
+            return <>
+                <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+                    Sign Up To Track Progress & More!
+                </div>
+            </>              
+            
+        }
+    }
     // const watchedStatus = (chapterId) => {
     //     if (currentUserChapters){
     //         const watched = currentUserChapters[chapterId].video_completed
@@ -74,12 +102,12 @@ export const VideoIndex = () => {
     //     }
     // }
     return(
-        <div className = 'mt-24'>
+        <div className = 'sm:mt-24 mt-[78px]'>
                     
             <div className='min-h-screen w-100  flex'>
              
                 <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#D6E6E2] z-1 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
-                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#D6E6E2]  z-10 text-sm text-black transform ${
+                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6  bg-[#D6E6E2]  z-10 text-sm text-black transform ${
                     menuOpen ? 'translate-x-0' : '-translate-x-full'
                 } transition-transform sm:translate-x-0`}>
                     <div className='ml-4'>
@@ -158,9 +186,10 @@ export const VideoIndex = () => {
                         {/* <div className='flex justify-around  w-3/4'> */}
                         <div className='w-full justify-center flex flex-col sm:flex-row items-center mt-8'>
                             
-                            <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+                            {LeftButton()}
+                            {/* <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
                                 {currentUser ? 'Mark Video As Watched' : 'Sign Up to Access Quizzes & More!'}
-                            </div>
+                            </div> */}
                             <div className='mx-12 py-2 sm:py-0 text-2xl'></div>
                             <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleGoToQuiz}>
                                 Take a Practice Quiz on {shortenedVideoName(chapterVid(videoId))}
