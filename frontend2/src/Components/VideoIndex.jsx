@@ -167,8 +167,12 @@ export const VideoIndex = () => {
                         </>}
                     </div>
                     <div className='flex flex-col items-center justify-center sm:mt-10 mt-6 '>
-                        <div className='sm:text-2xl text-lg mb-4'>
-                            {videoId ? `Video for ${chapterVid(videoId)}`: ''}
+                        <div className='sm:text-2xl text-lg mb-4 relative'>
+                            {videoId ? <>
+                            {currentUser && currentUserChapters[chapterId].video_completed && 
+                            <img src='alreadyWatched.png' className='h-full -top-[15px] -left-[44px]  absolute  -rotate-12'/>
+                            }
+                            <div>Video for {chapterVid(videoId)}</div></>: ''}
                         </div>
                         <div>
                             {/* {currentUser && watchedStatus(chapterId) && <>Watched!</>} */}
