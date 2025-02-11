@@ -56,7 +56,12 @@ export const Progress = () => {
         )
     }
 
-    const quizProgress = (chapter) => {
+    const goToChapterQuiz = (chapterId) => {
+        console.log(chapterId)
+        navigate('/Quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
+    }
+
+    const quizProgress = (chapterId, chapter) => {
         if(chapter.quiz_grade){
             if(chapter.quiz_grade > 50){
                 return(
@@ -79,7 +84,7 @@ export const Progress = () => {
             }
         } else if (chapter.video_completed){
             return(
-                <div className='-ml-2 sm:-ml-0 flex flex-col items-center'><div className='flex justify-between w-full'><div className='text-2xl hidden sm:inline'>🚀</div><span className='button !h-8 !w-20 !text-[12px] leading-none'>Jump to Quiz</span></div><div><span className='text-center hidden sm:inline'>You're Ready!</span><span className='inline sm:hidden'>READY!</span></div></div>
+                <div className='-ml-2 sm:-ml-0 flex flex-col items-center'><div className='flex justify-between w-full'><div className='text-2xl hidden sm:inline'>🚀</div><span onClick={()=>goToChapterQuiz(chapterId)}className='button !h-8 !w-20 !text-[12px] leading-none'>Jump to Quiz</span></div><div><span className='text-center hidden sm:inline'>You're Ready!</span><span className='inline sm:hidden'>READY!</span></div></div>
             )
         } else {
             return(
@@ -184,7 +189,7 @@ export const Progress = () => {
                                 
                             </div>
                             <div className='justify-left sm:justify-center -ml-2 sm:-ml-0 sm:my-2 items-start  sm:items-center text-xs sm:text-md font-bold flex items-center w-1/5 mr-2 sm:mr-0 sm:w-1/6'>
-                                {quizProgress(chapter)}
+                                {quizProgress(chapterId, chapter)}
                             </div>
                             <div className='justify-center items-center  text-xs sm:text-sm font-bold flex  text-center -ml-2 sm:-ml-0 sm:items-center w-1/5 sm:w-1/6'>
                                 {mastery(chapterId)}
