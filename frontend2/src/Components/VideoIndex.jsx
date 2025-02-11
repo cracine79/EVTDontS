@@ -110,6 +110,36 @@ export const VideoIndex = () => {
             
         }
     }
+
+    const rightButton = () => {
+        if(!currentUser){
+            return(
+                <>
+                    Take a Free Quiz on {shortenedVideoName(chapterVid(videoId))}   
+                </>
+            )
+        } else {
+            if (currentUserChapters[chapterId].quiz_grade == null) {
+                return(
+                    <>
+                        Take the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
+                    </>
+                )
+            } else if (currentUserChapters[chapterId].quiz_grade <= 50)
+            {
+            return(
+                    <>
+                        Retake the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
+                    </>
+                )
+            }else {
+                return(
+                    <>
+                        Get some more practice on: &nbsp;<span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))} </span>
+                   </>)
+            }
+        }
+    }
     // const watchedStatus = (chapterId) => {
     //     if (currentUserChapters){
     //         const watched = currentUserChapters[chapterId].video_completed
@@ -129,7 +159,7 @@ export const VideoIndex = () => {
                     <div className='sm:hidden mt-2 -mb-4' onClick={()=>{setMenuOpen(false)}}>X Close</div>
                     <div className='text-2xl font-bold text-center mt-4 -ml-8'>Video Library</div>
                     <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
-                    {chaptersObj.slice(0,6).map(chapter=>{
+                    {chaptersObj.slice(0,7).map(chapter=>{
                         return(
                             <div key={chapter.id} className='hover:cursor-pointer  hover:text-[#0088A8]' onClick={()=>videoGo(chapter, "long")}>{chapter.name}</div>
                         )
@@ -211,8 +241,9 @@ export const VideoIndex = () => {
                             </div> */}
                             <div className='mx-12 py-2 sm:py-0 text-2xl'></div>
                             <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleGoToQuiz}>
-                                Take a Practice Quiz on {shortenedVideoName(chapterVid(videoId))}
-                        </div>
+                                {rightButton()}
+                                
+                            </div>
                     </div>
                             {/* <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={()=>videoGo(videoId, 'short')}>
                                 Feeling Lazy?  Watch the (SUPER) short version.

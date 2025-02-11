@@ -18,7 +18,7 @@ export const UserMenu = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     
-    const thing = videoWatched ? "Take chapter quiz" : "go to next video"
+    const thing = videoWatched ? "Take chapter quiz" : "Go to next video"
 
 
     const nextThing = () => {

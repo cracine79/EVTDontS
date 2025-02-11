@@ -57,7 +57,7 @@ export const Video = () => {
 
     const completeVid = () => {
         if(!alreadyWatched){
-            dispatch(updateVideoProgress(chapterId))
+            dispatch(updateVideoProgress(chapterId, "watched"))
         }
         navigate('/quiz', {state: {chapter: chapterId, type: 'chapterQuiz', topics:[]}})
     }

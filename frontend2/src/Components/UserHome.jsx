@@ -152,7 +152,7 @@ export const UserHome = () => {
                                     <div className='sm:ml-10 sm:text-5xl text-3xl text-center text- mt-2 sm:mt-0'>
                                         Welcome Back {userName[0].toUpperCase() + userName.slice(1)}.
                                     </div>
-                                    <div className='text-xl w-4/5 text-center sm:mt-6 mt-2'>
+                                    <div className='text-xl w-4/5 text-center sm:mt-6 mt-2 pb-2'>
                                         {genMessage()}
                                     </div>
                                 </div>
@@ -176,6 +176,8 @@ export const UserHome = () => {
         
                     <div className='flex flex-row items-center justify-center w-full sm:mt-20 mt-6 sm:mb-20 '>
                         <Progress />
+               
+                        
                     </div>
 
                     <div className = 'w-full flex flex-col sm:flex-row items-center sm:justify-around mb-16'>
