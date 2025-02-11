@@ -46,11 +46,14 @@ class CreateChapterProgress(Resource):
         if not user:
             return jsonify({"message": "User not found"}), 404
         chapter_id = data.get('chapter_id')
+        status = data.get('status')
 
         progress = UserChapterProgress.query.filter_by(user_id=user_id, chapter_id=chapter_id).first()
 
-        if progress:
+        if progress and status == 'watched':
             progress.video_completed = True
+        elif progress and status == 'unwatched':
+            progress.video_completed = False
         else:
             progress = UserChapterProgress(user_id = user_id, chapter_id=chapter_id, video_completed=True)
 

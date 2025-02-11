@@ -57,9 +57,10 @@ export const VideoIndex = () => {
     const handleSignUp = () => {
         if(!currentUser){
             dispatch(openSignupModal())
+        } else if (currentUserChapters[chapterId].video_completed == false){
+            dispatch(updateVideoProgress(chapterId, 'watched'))
         } else {
-            dispatch(updateVideoProgress(chapterId))
-            navigate('/userhome')
+            dispatch(updateVideoProgress(chapterId, 'unwatched'))
         }
     }
 
@@ -95,7 +96,7 @@ export const VideoIndex = () => {
                 </>
             } else {
                 return<>
-                  <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+                            <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
                                 Mark Video as Unwatched
                             </div>
                 </>
