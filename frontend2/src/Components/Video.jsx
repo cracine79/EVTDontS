@@ -5,6 +5,7 @@ import { updateUserChapters } from "../Slices/userChaptersSlice"
 import { getQuestions } from "../Slices/questionsActions"
 import { getChapterBlurb } from "../Slices/chaptersActions"
 import { useEffect, useState } from "react"
+import { updateVideoProgress } from "../Slices/videoActions"
 
 
 
@@ -36,27 +37,27 @@ export const Video = () => {
         navigate('/userhome')
     }
 
-    const updateVideoProgress = async(chapterId) => {
-        try {
-            const response = await csrfFetch('/api/progress/' , {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                  },
-                body: JSON.stringify({ chapter_id: chapterId }),
-            });
+    // const updateVideoProgress = async(chapterId) => {
+    //     try {
+    //         const response = await csrfFetch('/api/progress/' , {
+    //             method: 'PATCH',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //               },
+    //             body: JSON.stringify({ chapter_id: chapterId }),
+    //         });
 
-        const data = await response.json()
+    //     const data = await response.json()
 
-        dispatch(updateUserChapters(data))
-        } catch (error) {
-            console.error("error finding", error)
-        }
-    }
+    //     dispatch(updateUserChapters(data))
+    //     } catch (error) {
+    //         console.error("error finding", error)
+    //     }
+    // }
 
     const completeVid = () => {
         if(!alreadyWatched){
-            updateVideoProgress(chapterId)
+            dispatch(updateVideoProgress(chapterId))
         }
         navigate('/quiz', {state: {chapter: chapterId, type: 'chapterQuiz', topics:[]}})
     }

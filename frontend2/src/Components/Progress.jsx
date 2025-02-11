@@ -145,6 +145,7 @@ export const Progress = () => {
                 {reply !== 'Not yet started' && <div className="button !h-4 !text-xs sm:mt-2"
                             onClick={(event) => {
                                 event.stopPropagation(); 
+                                console.log('DOOBIE', chapter_topics)
                                 openTopicQuiz(chapter_topics);
                             }}
                             ><span> <span className='hidden sm:inline'> Take Practice</span> Quiz</span></div>}

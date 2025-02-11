@@ -14,7 +14,9 @@ export const VideoIndex = () => {
     const currentUser = useSelector(state=>(state.user.username))
     const chapters = useSelector(state=>(state.chapters))
     const currentUserChapters = useSelector(state=>state.userChapters)
-    console.log(currentUserChapters)
+    const topics = useSelector((state)=>state.topics)
+    const userProg = useSelector((state)=>state.topicProg)
+ 
     let chaptersObj = []
 
     chaptersObj = Object.keys(chapters).map((key)=>({
@@ -71,21 +73,33 @@ export const VideoIndex = () => {
         } else if (currentUserChapters[chapterId].quiz_grade == null || currentUserChapters[chapterId].quiz_grade < 50){
             navigate('/quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
         } else {
-            navigate('/quiz', {state:{chapter:1}})
+            const chapter_topics = []
+            Object.entries(topics).forEach(([topicId, topic])=>{
+                if(topic.chapter_id == chapterId){
+                    chapter_topics.push({...topic, topic_id: topicId, ...userProg[topicId] })
+                }
+            })
+            navigate('/quiz', {state:{chapter:1, type: 'topicQuiz', topics:chapter_topics}})
+            console.log(chapter_topics)
         }
         
     }
 
     const LeftButton = () => {
         if (currentUser){
-            console.log('dude')
             if(currentUserChapters[chapterId].video_completed==false){
                 return<>
                           <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
                                 Mark Video As Watched
                             </div>
                 </>
-            } 
+            } else {
+                return<>
+                  <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+                                Mark Video as Unwatched
+                            </div>
+                </>
+            }
         } else {
             return <>
                 <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
