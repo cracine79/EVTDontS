@@ -2,9 +2,10 @@ import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getAllChapters } from "../Slices/chaptersActions"
 import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, Outlet } from "react-router-dom"
 import { getAllTopics } from "../Slices/topicsActions"
 import { updateVideoProgress } from "../Slices/videoActions"
+import { VideoLibrary } from "./VideoLibrary"
 
 
 export const VideoIndex = () => {
@@ -31,115 +32,115 @@ export const VideoIndex = () => {
     useEffect(()=>{
         window.scrollTo(0,0)
 
-        dispatch(getAllChapters())
-        if(selectedChapterVideoUrl)
-            setVideoId(selectedChapterVideoUrl)
+        // dispatch(getAllChapters())
+        // if(selectedChapterVideoUrl)
+        //     setVideoId(selectedChapterVideoUrl)
       
-    },[selectedChapterVideoUrl])
+    },[])
 
-    const videoGo = (chapter, type) => {
-        setMenuOpen(false)
-        if(type=='long'){
-            setVideoId(chapter.video_url)
-            setChapterId(chapter.id)
-        } else {
-            setVideoId(false);
-        }
+    // const videoGo = (chapter, type) => {
+    //     setMenuOpen(false)
+    //     if(type=='long'){
+    //         setVideoId(chapter.video_url)
+    //         setChapterId(chapter.id)
+    //     } else {
+    //         setVideoId(false);
+    //     }
   
-    }
+    // }
 
-    const chapterVid = (videoId) => {
-        const chapter = chaptersObj.find(chapter=>chapter.video_url === videoId)
-        return chapter? chapter.name : ""
-    }
+    // const chapterVid = (videoId) => {
+    //     const chapter = chaptersObj.find(chapter=>chapter.video_url === videoId)
+    //     return chapter? chapter.name : ""
+    // }
 
 
-    const handleSignUp = () => {
-        if(!currentUser){
-            dispatch(openSignupModal())
-        } else if (currentUserChapters[chapterId].video_completed == false){
-            dispatch(updateVideoProgress(chapterId, 'watched'))
-        } else {
-            dispatch(updateVideoProgress(chapterId, 'unwatched'))
-        }
-    }
+    // const handleSignUp = () => {
+    //     if(!currentUser){
+    //         dispatch(openSignupModal())
+    //     } else if (currentUserChapters[chapterId].video_completed == false){
+    //         dispatch(updateVideoProgress(chapterId, 'watched'))
+    //     } else {
+    //         dispatch(updateVideoProgress(chapterId, 'unwatched'))
+    //     }
+    // }
 
-    const shortenedVideoName = (video) =>{
-        return video.split(" ").slice(1).join(" ")
-    }
-    const handleGoToQuiz = () => {
-        // console.log(chapterId)
-        if(!currentUser){
-            navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
-        } else if (currentUserChapters[chapterId].quiz_grade == null || currentUserChapters[chapterId].quiz_grade < 50){
-            navigate('/quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
-        } else {
-            const chapter_topics = []
-            Object.entries(topics).forEach(([topicId, topic])=>{
-                if(topic.chapter_id == chapterId){
-                    chapter_topics.push({...topic, topic_id: topicId, ...userProg[topicId] })
-                }
-            })
-            navigate('/quiz', {state:{chapter:1, type: 'topicQuiz', topics:chapter_topics}})
-            console.log(chapter_topics)
-        }
+    // const shortenedVideoName = (video) =>{
+    //     return video.split(" ").slice(1).join(" ")
+    // }
+    // const handleGoToQuiz = () => {
+    //     // console.log(chapterId)
+    //     if(!currentUser){
+    //         navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
+    //     } else if (currentUserChapters[chapterId].quiz_grade == null || currentUserChapters[chapterId].quiz_grade < 50){
+    //         navigate('/quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
+    //     } else {
+    //         const chapter_topics = []
+    //         Object.entries(topics).forEach(([topicId, topic])=>{
+    //             if(topic.chapter_id == chapterId){
+    //                 chapter_topics.push({...topic, topic_id: topicId, ...userProg[topicId] })
+    //             }
+    //         })
+    //         navigate('/quiz', {state:{chapter:1, type: 'topicQuiz', topics:chapter_topics}})
+    //         console.log(chapter_topics)
+    //     }
         
-    }
+    // }
 
-    const LeftButton = () => {
-        if (currentUser){
-            if(currentUserChapters[chapterId].video_completed==false){
-                return<>
-                          <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
-                                Mark Video As Watched
-                            </div>
-                </>
-            } else {
-                return<>
-                            <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
-                                Mark Video as Unwatched
-                            </div>
-                </>
-            }
-        } else {
-            return <>
-                <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
-                    Sign Up To Track Progress & More!
-                </div>
-            </>              
+    // const LeftButton = () => {
+    //     if (currentUser){
+    //         if(currentUserChapters[chapterId].video_completed==false){
+    //             return<>
+    //                       <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+    //                             Mark Video As Watched
+    //                         </div>
+    //             </>
+    //         } else {
+    //             return<>
+    //                         <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+    //                             Mark Video as Unwatched
+    //                         </div>
+    //             </>
+    //         }
+    //     } else {
+    //         return <>
+    //             <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
+    //                 Sign Up To Track Progress & More!
+    //             </div>
+    //         </>              
             
-        }
-    }
+    //     }
+    // }
 
-    const rightButton = () => {
-        if(!currentUser){
-            return(
-                <>
-                    Take a Free Quiz on {shortenedVideoName(chapterVid(videoId))}   
-                </>
-            )
-        } else {
-            if (currentUserChapters[chapterId].quiz_grade == null) {
-                return(
-                    <>
-                        Take the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
-                    </>
-                )
-            } else if (currentUserChapters[chapterId].quiz_grade <= 50)
-            {
-            return(
-                    <>
-                        Retake the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
-                    </>
-                )
-            }else {
-                return(
-                    <>
-                        Get some more practice on: &nbsp;<span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))} </span>
-                   </>)
-            }
-        }
-    }
+    // const rightButton = () => {
+    //     if(!currentUser){
+    //         return(
+    //             <>
+    //                 Take a Free Quiz on {shortenedVideoName(chapterVid(videoId))}   
+    //             </>
+    //         )
+    //     } else {
+    //         if (currentUserChapters[chapterId].quiz_grade == null) {
+    //             return(
+    //                 <>
+    //                     Take the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
+    //                 </>
+    //             )
+    //         } else if (currentUserChapters[chapterId].quiz_grade <= 50)
+    //         {
+    //         return(
+    //                 <>
+    //                     Retake the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
+    //                 </>
+    //             )
+    //         }else {
+    //             return(
+    //                 <>
+    //                     Get some more practice on: &nbsp;<span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))} </span>
+    //                </>)
+    //         }
+    //     }
+    // }
     // const watchedStatus = (chapterId) => {
     //     if (currentUserChapters){
     //         const watched = currentUserChapters[chapterId].video_completed
@@ -150,7 +151,8 @@ export const VideoIndex = () => {
         <div className = 'sm:mt-24 mt-[78px]'>
                     
             <div className='min-h-screen w-100  flex'>
-             
+                <VideoLibrary />
+{/*              
                 <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#D6E6E2] z-1 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
                 <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6  bg-[#D6E6E2]  z-10 text-sm text-black transform ${
                     menuOpen ? 'translate-x-0' : '-translate-x-full'
@@ -189,11 +191,13 @@ export const VideoIndex = () => {
                         )
                     })}
                     </div>
-                </div>
+                </div> */}
+               
                 <div className='sm:w-5/6 w-full'>
-                    <div className='flex flex-col items-center'>
+                    <Outlet />
+                    {/* <div className='flex flex-col items-center'>
                         {!videoId && <>
-                            <div className='text-center mt-6 text-4xl font-bold'>
+                        <div className='text-center mt-6 text-4xl font-bold'>
                         Welcome to the Video Cache!
                         </div>
                         <img className='max-h-[60vh] 'src='https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png'></img>
@@ -210,49 +214,9 @@ export const VideoIndex = () => {
                         Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.
                         </div>
                         </>}
-                    </div>
-                    <div className='flex flex-col items-center justify-center sm:mt-10 mt-6 '>
-                        <div className='sm:text-2xl text-lg mb-4 relative'>
-                            {videoId ? <>
-                            {currentUser && currentUserChapters[chapterId].video_completed && 
-                            <img src='alreadyWatched.png' className='h-full -top-[15px] -left-[44px]  absolute  -rotate-12'/>
-                            }
-                            <div>Video for {chapterVid(videoId)}</div></>: ''}
-                        </div>
-                        <div>
-                            {/* {currentUser && watchedStatus(chapterId) && <>Watched!</>} */}
-
-                        </div>
-                        {videoId && (
-                        <>
-                        <div className='sm:w-11/12 w-full max-w-6xl aspect-video'>
-                            <iframe 
-                                className="w-full h-full"
-                                src={videoId} 
-                                allowFullScreen>
-                            </iframe>
-                        </div>
-                        {/* <div className='flex justify-around  w-3/4'> */}
-                        <div className='w-full justify-center flex flex-col sm:flex-row items-center mt-8'>
-                            
-                            {LeftButton()}
-                            {/* <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
-                                {currentUser ? 'Mark Video As Watched' : 'Sign Up to Access Quizzes & More!'}
-                            </div> */}
-                            <div className='mx-12 py-2 sm:py-0 text-2xl'></div>
-                            <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleGoToQuiz}>
-                                {rightButton()}
-                                
-                            </div>
-                    </div>
-                            {/* <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={()=>videoGo(videoId, 'short')}>
-                                Feeling Lazy?  Watch the (SUPER) short version.
-                            </div> */}
-                        {/* </div> */}
-                        
-                        </>
-                        )}
-                    </div>
+                    </div> */}
+                   
+                   
                 </div>
 
             

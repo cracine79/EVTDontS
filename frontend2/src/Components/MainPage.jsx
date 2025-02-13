@@ -332,7 +332,7 @@ export const MainPage = () => {
                    <div className='button flex flex-col !font-light !py-2 !px-6'
                    onClick={()=> {
                     dispatch(getAllChapters())
-                    navigate('/videoindex')
+                    navigate('/video-library')
                    }}>
                         <div className='sm:text-4xl text-2xl '>Jump to Videos</div>
                     </div> 

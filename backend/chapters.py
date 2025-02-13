@@ -16,7 +16,8 @@ class GetChapters(Resource):
             chapter.id: {
                 'name': chapter.name,
                 'unit_id': chapter.unit_id,
-                'video_url': chapter.video_url
+                'video_url': chapter.video_url,
+                'slug':chapter.slug
             } for chapter in chapters
         }
 
@@ -54,7 +55,8 @@ class SearchChapters(Resource):
             'quiz_blurb': chapter.quiz_blurb,
             'video_blurb': chapter.video_blurb,
             'video_url': chapter.video_url,
-            'rank': rank
+            'rank': rank,
+            'slug': chapter.slug
         } for chapter, rank in chapters
         ]
 

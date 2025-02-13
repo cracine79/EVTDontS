@@ -35,12 +35,14 @@ import { SearchResults } from './Components/SearchResults';
 import { ContactUs } from './Components/ContactUs';
 import { MessageSent } from './Components/MessageSent';
 import { UserlessResults } from './Components/UserlessResults';
+import { VideoIndexVideo } from './Components/VideoIndexVideo';
+import { VideoIndexHome } from './Components/VideoIndexHome';
 
 const Layout = () => {
   return(
     <div className="flex flex-col">
       <NavBar />
-      <div className='flex flex-col '>
+      <div className='flex flex-col'>
         <Outlet />
       </div>
       <Footer />
@@ -80,9 +82,23 @@ const router = createBrowserRouter([
         path:"/getstarted",
         element: <ProtectedRoute component={GetStarted} />
       },
+      // {
+      //   path:'/video-library',
+      //   element: <VideoIndex />,
+      // },
       {
-        path:'/videoindex',
-        element: <VideoIndex />
+        path:"/video-library",
+        element:<VideoIndex />,
+        children: [
+          {
+            index:true, 
+            element: <VideoIndexHome />
+          },
+          {
+            path: ":slug",
+            element: <VideoIndexVideo />
+          }
+        ]
       },
       {
         path:'/quizgenerator',

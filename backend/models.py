@@ -5,6 +5,8 @@ from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean, Ind
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from datetime import datetime
 from typing import Optional
+import re
+from sqlalchemy.ext.declarative import declarative_base
 
 class Base(DeclarativeBase):
     pass
@@ -132,11 +134,8 @@ class Chapter(db.Model):
     ) 
 
     chapter_progress: Mapped[list["UserChapterProgress"]] = relationship('UserChapterProgress', back_populates='chapter')
-    # users: Mapped[list["User"]] = relationship(
-    #     'User',
-    #     back_populates='current_chapter'
-    # )
 
+    slug: Mapped[str] = mapped_column(unique=True, nullable=True)
     
     def __repr__(self):
         return f"Chapter <{self.name}>"

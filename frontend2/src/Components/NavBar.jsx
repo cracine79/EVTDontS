@@ -28,7 +28,7 @@ export const NavBar = () => {
 
     const sessionLinks = currentUser ? (
         <div className="sm:mr-28 flex justify-between sm:w-[15vw] items-center">
-            <div className="sm:w-16  text-white flex items-center  text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/videoindex')}}>
+            <div className="sm:w-16  text-white flex items-center  text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/video-library')}}>
                 <i className="fa-solid fa-video text-xl "></i>
                 <p> Videos</p>
             </div>
@@ -41,14 +41,15 @@ export const NavBar = () => {
             {/* <LogoutButton/> */}
         </div>
     ) : (
-        <div className="flex w-1/4 justify-between items-center mr-4 sm:mr-36 text-xs md:text-sm text-white">
-            <p className="hover:cursor-pointer hover:text-[#344A53] text-lg font-bold" onClick = {handleLogin} >Log In</p>
-            <p className="button !px-6 !py-2" onClick = {handleSignup}>Get Started</p>
+        <div className="flex sm:w-1/4 justify-between items-center mr-4 sm:mr-36 text-xs md:text-sm text-white">
+            <p className="hover:cursor-pointer hover:text-[#344A53] sm:text-lg font-bold text center" onClick = {handleLogin} >Log In</p>
+            <p className="button sm:block text-center font-bold  sm:!px-6 sm:!py-2" onClick = {handleSignup}>Get Started</p>
+           
         </div>
     )
 
     const goToVideos = () => {
-        navigate('/videoindex')
+        navigate('/video-library')
     }
     return(
         <>
@@ -78,9 +79,9 @@ export const NavBar = () => {
                     <div className={`flex items-center justify-between ${!currentUser && 'w-2/3'}`}>
                         {!currentUser &&
                             <>
-                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53]" onClick={goToVideos}>Jump To Videos</button>
-                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53]" onClick={()=>navigate('/aboutus')}>About Us</button>
-                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53]" onClick={()=>navigate('/contactus')}>Contact Us</button>
+                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53 hidden sm:block" onClick={goToVideos}>Jump To Videos</button>
+                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53 hidden sm:block" onClick={()=>navigate('/aboutus')}>About Us</button>
+                                <button className="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" onClick={()=>navigate('/contactus')}>Contact Us</button>
                             </>
                         }
                         <span className={`text-xs text-white sm:hidden ${currentUser ? 'mr-6':''}`} onClick={()=>
@@ -92,10 +93,10 @@ export const NavBar = () => {
                         {sessionLinks}
                     </div>
                 </nav>
-                <div className={`left-0  absolute bg-[#0088a8] py-2 mt-[70px] w-full shadow-md transition-transform x-51 duration-300 ${
+                <div className={`left-0  absolute bg-[#0088a8] py-2 mt-[70px] w-full shadow-md z-30 transition-transform x-51 duration-300 ${
                     mobileSearchBarVisible ? 'translate-y-0' : '-translate-y-full'
                         } ` }>
-                    <div className='flex w-full flex-col items-center justify-center relative z-50'>
+                    <div className='flex w-full flex-col items-center justify-center relative '>
          
                     <SearchBar onSearchSubmit={() => setMobileSearchBarVisible(false)}/>
                     <div className='text-xs text-white mt-2' onClick={()=>setMobileSearchBarVisible(false)}>X Close</div>

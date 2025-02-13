@@ -20,7 +20,7 @@ export const Quiz = () => {
     const currentUser = useSelector(state=>state.user.username)
     const [quizBlurb, setQuizBlurb] = useState("")
     const [quizBlurbImgUrl, setQuizBlurbImgUrl] = useState("")
-    console.log('TOPICS', topics)
+
     const data = {
         chapter: chapter,
         type: type,
@@ -75,7 +75,7 @@ export const Quiz = () => {
         if(currentUser){
             navigate('/userhome')
         } else {
-            navigate('/videoindex')
+            navigate('/video-library')
         }
     }
 
