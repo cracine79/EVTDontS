@@ -23,7 +23,7 @@ export const VideoIndexVideo = () => {
    const handleGoToQuiz = () => {
     // console.log(chapterId)
     if(!currentUser){
-        navigate('/quiz', {state:{chapter:chapterId, type: 'chapterQuizNoUser', topics:[]}})
+        navigate(`/freequiz/${chapter.slug}`)
     } else if (userChapter.quiz_grade == null || userChapter.quiz_grade < 50){
         navigate('/quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
     } else {

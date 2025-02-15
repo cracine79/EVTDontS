@@ -37,6 +37,7 @@ import { MessageSent } from './Components/MessageSent';
 import { UserlessResults } from './Components/UserlessResults';
 import { VideoIndexVideo } from './Components/VideoIndexVideo';
 import { VideoIndexHome } from './Components/VideoIndexHome';
+import { FreeQuiz } from './Components/FreeQuiz';
 
 const Layout = () => {
   return(
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
             element: <VideoIndexVideo />
           }
         ]
+      },
+      {
+        path:"/freequiz/:chapterslug",
+        element:<FreeQuiz />
       },
       {
         path:'/quizgenerator',
