@@ -190,49 +190,16 @@ export const ReviewQuizResults = () => {
                 </div>
                 <div className='flex flex-row justify-around my-10 w-full'>
                     <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/4
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                            button' 
                             onClick={showResults }>Show Me What I Missed</button>
                     {type == 'topicQuiz' &&
                     <button className='
-                    border-black 
-                    h-1/5 
-                    w-1/4
-                    border-2 
-                    flex 
-                    justify-center 
-                    items-center
-                    rounded-lg
-                    bg-stone-300
-                    hover:bg-slate-500
-                    font-medium
-                    hover:cursor-pointer' 
+                    button' 
                     onClick={goAgain }>Take Another One</button>
                     }
 
                         <button className='
-                        border-black 
-                        sm:h-1/5 
-                        w-1/4
-                        border-2 
-                        flex 
-                        justify-center 
-                        items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
+                       button' 
                             onClick={goHome}
                            >Back to Dashboard</button>
                             </div>
