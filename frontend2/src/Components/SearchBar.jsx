@@ -27,7 +27,7 @@ export const SearchBar = ({onSearchSubmit}) =>{
                     onChange={(e)=>setSearchTerm(e.target.value)}></input>
             <button type='submit' className='bg-transparent hover:cursor-pointer w-1/12 min-w-12 r
                                 border-white border-b text-2xl text-white hover:text-[#344A53]'
-                   ><i class="fa-solid fa-magnifying-glass"></i></button>
+                   ><i className="fa-solid fa-magnifying-glass"></i></button>
             </form>
        
         </div>
