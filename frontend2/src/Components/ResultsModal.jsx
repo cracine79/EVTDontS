@@ -22,11 +22,19 @@ export const ResultsModal = ({answers}) => {
         }
     ,[answerNumber])
 
-   Object.values(answers1).forEach((entry)=>{
-       
-        if (entry.isCorrect == false){
-            wrongAnswers.push(entry)        }
-    })
+        console.log('answers', answers1)
+    
+    useEffect(()=>{
+        if(answers1){
+
+            Object.values(answers1).forEach((entry)=>{
+           
+                if (entry.isCorrect == false){
+                    wrongAnswers.push(entry)        }
+            })
+        }
+    }, [answers1])
+  
   
     const dispatch = useDispatch();
 

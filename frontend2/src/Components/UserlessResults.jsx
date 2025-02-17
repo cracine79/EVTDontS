@@ -43,7 +43,7 @@ export const UserlessResults = () => {
     }
 
     const retakeQuiz = () => {
-        navigate('/quiz', {state:{chapter:quizData.chapter_id, type: 'chapterQuizNoUser', topics:[]}})
+        navigate(`/freequiz/${chapter.slug}`)
     }
 
     const TestEncouragement = () => {
@@ -84,7 +84,7 @@ export const UserlessResults = () => {
                                     onClick = {retakeQuiz}
                                     >Try Quiz Again</button>
                             <button className="button m:my-0 w-2/3 sm:w-1/6"
-                                    onClick = {()=>navigate('/videoindex')}
+                                    onClick = {()=>navigate('/video-library')}
                                     >Back to Videos</button>
                         </div>
                         

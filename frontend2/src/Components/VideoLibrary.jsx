@@ -80,19 +80,19 @@ export const VideoLibrary = () => {
                     })}
 
                     <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention </div>
-                    {chaptersObj.slice(24).map(chapter=>{
+                    {chaptersObj.slice(24, 26).map(chapter=>{
                         return(
                             <>
                                 
                             <div key={chapter.id} onClick = {()=>(setMenuOpen(false))}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
                                 <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
                             </div>
-                                <div className='text-gray-600'>4.2 Subsidies (coming soon!)</div>
-                                <div className='text-gray-600'>4.3 Price Floors (coming soon!)</div>
-                                <div className='text-gray-600'>4.4 Price Ceilings (coming soon!)</div>
+                              
                             </>
                         )
-                    })}
+                    })} 
+                    <div className='text-gray-600'>4.3 Price Floors (coming soon!)</div>
+                    <div className='text-gray-600'>4.4 Price Ceilings (coming soon!)</div>
                     </div>
                 </div>
     </>
