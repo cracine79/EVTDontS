@@ -11,7 +11,7 @@ export const ResultsModal = ({answers}) => {
     const wrongAnswers = []
     const modalRef = useRef(null)
 
-    if(Object.values(answers1).length==0){
+    if(Object.values(answers1).length===0){
         answers1 = answers
     }
 
@@ -24,17 +24,12 @@ export const ResultsModal = ({answers}) => {
 
         console.log('answers', answers1)
     
-    useEffect(()=>{
-        if(answers1){
-
-            Object.values(answers1).forEach((entry)=>{
-           
-                if (entry.isCorrect == false){
-                    wrongAnswers.push(entry)        }
-            })
-        }
-    }, [answers1])
-  
+    
+        Object.values(answers1 || {}).forEach((entry) => {
+            if (entry.isCorrect === false) {
+                wrongAnswers.push(entry);
+            }
+        });
   
     const dispatch = useDispatch();
 
