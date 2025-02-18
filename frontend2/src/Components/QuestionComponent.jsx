@@ -284,7 +284,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
                 
                 </div>
                 <div className='flex flex-row justify-center mt-4 -mb-4 h-full'>
-                  {questionsObj[questionNumber].image_url && <img className='sm:size-7/12' src={questionsObj[questionNumber].image_url}/>}
+                  {questionsObj[questionNumber].image_url && <img className='sm:size-5/12' src={questionsObj[questionNumber].image_url}/>}
                 </div>
                 <div className="text-2xl mt-8 ml-8 mr-4 mb-6">Question {questionNumber + 1} of {numberOfQuestions}:{questionsObj[questionNumber].text.split('<br>').map((line, index) => (
                       <p key={index}>{line}</p>

@@ -17,7 +17,8 @@ class GetChapters(Resource):
                 'name': chapter.name,
                 'unit_id': chapter.unit_id,
                 'video_url': chapter.video_url,
-                'slug':chapter.slug
+                'slug':chapter.slug,
+                'video_blurb':chapter.video_blurb
             } for chapter in chapters
         }
 

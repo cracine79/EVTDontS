@@ -118,30 +118,28 @@ export const VideoIndexVideo = () => {
             }
         }
     }
+
+    const blurb = chapter.video_blurb
    return <>
-         <div className='flex flex-col items-center justify-center sm:mt-10 mt-6 '>
-                        <div className='sm:text-2xl text-center text-lg mb-4 relative'>
+         <div className='flex flex-col items-center  justify-center sm:mt-10 mt-6 '>
+                        <div className='sm:text-2xl mt-4 sm:mt-0 text-center text-lg mb-4   relative'>
                             {videoId ? <>
                             {currentUser && currentUserChapters[chapterId].video_completed && 
                             <img src='/alreadyWatched.png' className='sm:h-full h-2/3 sm:-top-[15px] sm:-left-[44px]   absolute  -rotate-12'/>
                             }
                             <div>Video for {chapter.name}</div></>: ''}
                         </div>
-                        <div>
-                            {/* {currentUser && watchedStatus(chapterId) && <>Watched!</>} */}
-
-                        </div>
+                        
                         {videoId && (
-                        <>
+                        <div className='w-full'>
+                         <div className="  sm:mt-8 sm:mb-12 sm:min-h-[65vh] mx-auto px-8 grid grid-cols-1  sm:grid-cols-[4fr_3fr]  items-start">
                         <div className='sm:w-11/12 w-full max-w-6xl aspect-video'>
                             <iframe 
                                 className="w-full h-full"
                                 src={videoId} 
                                 allowFullScreen>
                             </iframe>
-                        </div>
-                        {/* <div className='flex justify-around  w-3/4'> */}
-                        <div className='w-full justify-center flex flex-col sm:flex-row items-center mt-8'>
+                            <div className='w-full justify-center flex flex-col sm:flex-row items-center mt-8'>
                             
                             {LeftButton()}
                             {/* <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
@@ -153,12 +151,17 @@ export const VideoIndexVideo = () => {
                                 
                             </div>
                         </div>
+                        </div>
+                        <p className="whitespace-pre-line sm:w-11/12 w-full sm:mt-2 mt-4 sm:block" dangerouslySetInnerHTML={{ __html: blurb }}></p>
+                        </div>
+                        {/* <div className='flex justify-around  w-3/4'> */}
+                     
                             {/* <div className='my-8 border py-4 px-2 bg-slate-400 border-black rounded-xl hover:bg-slate-600 hover:cursor-pointer' onClick={()=>videoGo(videoId, 'short')}>
                                 Feeling Lazy?  Watch the (SUPER) short version.
                             </div> */}
                         {/* </div> */}
                         
-                        </>
+                        </div>
                         )}
                     </div>
     </>
