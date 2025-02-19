@@ -10,8 +10,8 @@ export const SearchResults = () => {
     const search_term = location.state?.searchTerm
     const searchObj = search_results.chapters
 
-    const goToAllVids = (videoUrl) => {
-        navigate('/videoindex', {state:{videoUrl:videoUrl}})
+    const goToAllVids = (slug) => {
+        navigate(`/video-library/${slug}`)
     }
 
     const goToThisVid = ( (chapterId) => {
@@ -39,8 +39,8 @@ export const SearchResults = () => {
                                 </div>
                                 { !user.username && 
                                     
-                                <button className="border-black border hover:cursor-pointer bg-slate-300 hover:bg-slate-500 rounded my-4"
-                                        onClick = {()=>goToAllVids(chapter.video_url)}>
+                                <button className="button py-2 my-4"
+                                        onClick = {()=>goToAllVids(chapter.slug)}>
                                     Jump to this Video
                                 </button>
 
