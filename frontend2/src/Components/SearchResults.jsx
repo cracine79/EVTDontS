@@ -1,7 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { getAllChapters } from "../Slices/chaptersActions"
 
 export const SearchResults = () => {
+    const dispatch = useDispatch()
     const user = useSelector((state)=>state.user)
     const location = useLocation()
     const navigate = useNavigate()
@@ -9,9 +11,10 @@ export const SearchResults = () => {
     const search_results = location.state?.results
     const search_term = location.state?.searchTerm
     const searchObj = search_results.chapters
-
-    const goToAllVids = (slug) => {
-        navigate(`/video-library/${slug}`)
+    console.log(searchObj)
+    const goToAllVids = async(chapter) => {
+        await dispatch(getAllChapters())
+        navigate(`/video-library/${chapter.slug}`, {state:{chapter}})
     }
 
     const goToThisVid = ( (chapterId) => {
@@ -40,7 +43,7 @@ export const SearchResults = () => {
                                 { !user.username && 
                                     
                                 <button className="button py-2 my-4"
-                                        onClick = {()=>goToAllVids(chapter.slug)}>
+                                        onClick = {()=>goToAllVids(chapter)}>
                                     Jump to this Video
                                 </button>
 

@@ -23,7 +23,7 @@ export const SearchBar = ({onSearchSubmit}) =>{
                 findIt()}} className="flex justify-center h-12 w-full">
             <input className='w-1/2 border-white bg-transparent text-white border-b pl-4 focus:outline-none placeholder-white text-xxs sm:text-sm focus:ring-0'   
                     value={searchTerm}
-                    placeholder='Search For Your Next Econ Video Here' 
+                    placeholder='Search For Econ Videos Here' 
                     onChange={(e)=>setSearchTerm(e.target.value)}></input>
             <button type='submit' className='bg-transparent hover:cursor-pointer w-1/12 min-w-12 r
                                 border-white border-b text-2xl text-white hover:text-[#344A53]'

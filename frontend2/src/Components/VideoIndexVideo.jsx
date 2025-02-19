@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, useLocation } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { openSignupModal } from "../Slices/modalSlice";
@@ -7,12 +7,19 @@ import { updateVideoProgress } from "../Slices/videoActions";
 export const VideoIndexVideo = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const location = useLocation()
     const {slug} = useParams()
+
+
+
     const chapterEntry = useSelector((state)=>
         Object.entries(state.chapters).find(([id, chapter]) => chapter.slug === slug)
     );
-    const userProg = useSelector((state)=>state.topicProg)
     const [chapterId, chapter] = chapterEntry
+  
+   
+    const userProg = useSelector((state)=>state.topicProg)
+    
     const userChapter = useSelector((state)=>state.userChapters[chapterId])
     console.log(userChapter)
     const topics = useSelector((state)=>state.topics)
