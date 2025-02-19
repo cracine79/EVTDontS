@@ -25,7 +25,7 @@ class DevConfig(Config):
     
 class ProdConfig(Config):
     DEBUG=True
-    APP_DOMAIN = config('DEV_APP_DOMAIN', default='https://evtds.com')
+    APP_DOMAIN = config('PROD_APP_DOMAIN', default='https://www.evtds.com')
     ENV = 'production'
 
 class TestConfig(Config):

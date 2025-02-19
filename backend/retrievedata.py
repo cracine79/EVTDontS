@@ -94,7 +94,7 @@ class RetrieveUsername(Resource):
 class RetrievePassword(Resource):
     def post(self):
         app_domain = current_app.config['APP_DOMAIN']
-       
+
         data=request.get_json()
         email = data.get('email')
         token = generate_reset_token(email, current_app.config['SECRET_KEY'], 'password-reset-salt')
