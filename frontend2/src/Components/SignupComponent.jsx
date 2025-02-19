@@ -7,6 +7,7 @@ import { IoMdClose } from 'react-icons/io';
 import { GetStarted } from './GetStarted';
 import { useNavigate } from 'react-router-dom';
 import { signupUser } from '../Slices/userActions';
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 const SignupComponent = (results) => {
   const showModal= useSelector(state=>(state.modal.isSignupOpen))
@@ -16,6 +17,7 @@ const SignupComponent = (results) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('')
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
 
   console.log(quizData)
   
@@ -140,14 +142,16 @@ const SignupComponent = (results) => {
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
               />
+              <div className='relative w-4/5'>
+
               <input
                 className='
                 p-2
-                w-4/5
+                w-full
                 border-2
                 border-neutral-300
                 my-5'
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={password}
@@ -160,6 +164,9 @@ const SignupComponent = (results) => {
                 title='Password must include at least one uppercase letter, one lowercase letter, one numeral(0-9), and one special character?=.*[!@#$%^&*(),.?\, and be beween 8 and 20 chars long'
                 
               />
+              
+              <button type="button" className="absolute inset-y-0 right-3  flex items-center" onClick = {()=>setShowPassword((prev)=>!prev)}> {showPassword ? <BsFillEyeSlashFill className="text-gray-400"  size={24}/> : <BsFillEyeFill className="text-gray-400" size={24} />} </button>
+            </div>
               <button type="submit" className='mt-2
                             button !text-base !py-0 !px-4 my-4 !rounded-3xl !px-8
                             mb-4'>Sign Up</button>

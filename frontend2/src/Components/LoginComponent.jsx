@@ -11,6 +11,9 @@ import { storeTopicProg } from '../Slices/topicProgSlice';
 import { storeUserChapters } from '../Slices/userChaptersSlice';
 import { storeTopics } from '../Slices/topicsSlice';
 import { loginUser } from '../Slices/userActions';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6';
+import { Eye, EyeOff } from "lucide-react";
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 const LoginComponent = () => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
@@ -18,6 +21,7 @@ const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -137,25 +141,27 @@ const LoginComponent = () => {
                
                 <button onClick={goToForgotUsername} className='text-xs text-blue-400 font-bold' type='button'>Forgot Username?</button>
               </div>
+              <div className='relative w-4/5'>
               <input
                 className='
                 p-2
-                w-4/5
+                w-full
                 border-2
                 border-neutral-300
                 mt-5'
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
               />
-              <div className='w-4/5'>
+              <button type="button" className="absolute inset-y-0 right-3 bottom-8 flex items-center" onClick = {()=>setShowPassword((prev)=>!prev)}> {showPassword ? <BsFillEyeSlashFill className="text-gray-400"  size={24}/> : <BsFillEyeFill className="text-gray-400" size={24} />} </button>
+                <div className='w-4/5'>
               <button onClick={goToForgot} className='text-xs text-blue-400 font-bold' type='button'>Forgot Password?</button>
              
               </div>
               <button type="submit" className='mt-2 button !px-8'>Login</button>
 
-
+              </div>
               
             </form>
           </div>
