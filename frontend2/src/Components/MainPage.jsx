@@ -151,7 +151,7 @@ export const MainPage = () => {
 
 
     return(
-        <div className='flex flex-col w-screen items-center bg-[#344A53] text-white'>
+        <div className='flex flex-col w-screen items-center bg-[#344A53] text-white relative'>
             <div className="flex  justify-center sm:mt-8">
 
                 <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block rounded-3xl z-20' autoPlay={isAutoplay} loop muted>
@@ -160,8 +160,29 @@ export const MainPage = () => {
                 <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
        
             </div>
-            <div className=' w-11/12 sm:text-2xl flex justify-around  border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Watch.</span><span>Quiz.</span><span>Learn.</span><span>Adapt.</span><span>Repeat.</span></div>
-            <div className='w-5/6 items-center justify-center flex'>
+            <div className=' w-11/12 sm:text-2xl flex justify-around  px-28 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Stop memorizing.</span><span>Start understanding.</span><span>Economics, but finally entertaining.</span></div>
+            <div className=' bg-[#2B3D45] w-full pt-12 w-full relative flex '>
+            <div className='w-full flex justify-start items-center relative flex-col'>
+                    <div className='flex flex-col items-center justify-center text-center text-xl w-['>
+                        <div className='text-5xl mb-8'>Ready to Go?</div>
+                        <div>Browse our <em>free library</em> of economics videos and quizzes!</div>
+                        <div className='py-6'>Think of it as an all-you-can-eat buffet of knowledge—without the regret.</div>
+                    </div>
+                    <div className='button flex flex-col w-[35%]  h-12 mb-16 !font-light !py-2 !px-6  z-40 '
+                        onClick={()=> {
+                            dispatch(getAllChapters())
+                            navigate('/video-library')
+                        }}>
+                                <div className='sm:text-lg xl:text-2xl  '>Take Me to the Videos & Quizzes!</div>
+                    </div> 
+                    <div className='text-2xl absolute bottom-0  ml-[17%] p-4 '>Or scroll on to learn more!</div>
+            </div>
+      
+            </div>
+            
+            <div className='w-5/6 items-center justify-center flex relative'>
+            
+                
                 <img className="w-7/12" src='leg1.png'/>
                 <div className='w-1/3'></div>
             </div>
@@ -274,7 +295,7 @@ export const MainPage = () => {
                 <div className=' sm:mt-16 mb-20'>
                     <div className="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row "  ref={scrollRef}>
                         <div>
-                            <video className={`sm:w-[40%] pt-40 sm:ml-20 rounded-2xl w-11/12 h-auto z-40 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10 ":" absolute left-10 "} ${warriorVisible ? "opacity-100": "opacity-0"}  
+                            <video className={`sm:w-[40%] pt-40 sm:ml-20 rounded-2xl w-11/12 h-auto z-30 duration-1000 transition-opacity hidden sm:block opacity-0 ${warriorIsFixed ? "fixed top-11 left-10 ":" absolute left-10 "} ${warriorVisible ? "opacity-100": "opacity-0"}  
                                 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_98%,rgba(0,0,0,0)_100%),]
                                 
                                 [webkit-mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_50%,rgba(0,0,0,0)_100%)]`} 
@@ -309,7 +330,7 @@ export const MainPage = () => {
                             
                 <div className='w-11/12'>
                 
-                     <div className='w-5/6 tems-center flex justify-center relative -right-10 z-40'>
+                     <div className='w-5/6 tems-center flex justify-center relative -right-10 z-30'>
                
                             <img className="ml-[70%] -mt-[14%] w-7/12 sm:w-9/12" src='leg5test.png'/>
                             
@@ -317,8 +338,9 @@ export const MainPage = () => {
                 </div>
                 
             </div>
+            <div className='bg-[#2B3D45] w-full'>
             <div className='flex flex-col justify-center items-center sm:w-full w-3/4  mb-12 z-20'>
-                    <div className='sm:text-5xl text-2xl text-center sm:mb-10 mb-4 text-md'>Sign up to access quizzes, track progress, and more!</div>
+                    <div className='sm:text-5xl text-2xl text-center sm:mb-10 mb-4 mt-8 text-md'>Sign up to access quizzes, track progress, and more!</div>
                    <div className="sm: mt-20 button flex flex-col !font-light !py-2 !px-6"
                    onClick={handleGetStarted}>
                         <div className='sm:text-4xl text-2xl '>Get Started!</div>
@@ -328,7 +350,7 @@ export const MainPage = () => {
             <div className='text-center text-5xl ] font-bold '>
                 OR
             </div>
-            <div className='flex flex-col justify-center items-center w-full mt-12 mb-12 z-20 sm:mb-96'>
+            <div className='flex flex-col justify-center items-center w-full mt-12 mb-12 z-20 '>
                    <div className='button flex flex-col !font-light !py-2 !px-6'
                    onClick={()=> {
                     dispatch(getAllChapters())
@@ -338,6 +360,7 @@ export const MainPage = () => {
                     </div> 
 
                     <div className='m:text-xl text-lg sm:mt-4'>You can always sign up later</div>
+            </div>
             </div>
             <div className='flex w-full items-center justify-center flex-col sm:mt-12'>
                 <div className='text-3xl mb-8 text-center'>Building The Future of Economics (One Quirk at a Time)</div>

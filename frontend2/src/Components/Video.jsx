@@ -66,7 +66,7 @@ export const Video = () => {
   
     return(
         <div className='flex flex-col justify-center items-center'>
-            <div className="mt-24 sm:mb-12 sm:min-h-[65vh] mx-auto px-8 grid grid-cols-1  sm:grid-cols-2  items-start">
+            <div className="mt-24 sm:mt-40 sm:mb-12 sm:min-h-[65vh] mx-auto px-8 grid grid-cols-1  sm:grid-cols-2  items-start">
                 <div className="w-full">
                     <iframe
                     className="w-full aspect-video rounded-lg shadow-lg"
