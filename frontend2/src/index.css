@@ -75,6 +75,7 @@
   
   .button:hover {
     box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+    transform: translateY(2px);
   }
   
   .button:active {
@@ -85,3 +86,28 @@
     box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
   }
   
+  .custom-button {
+    @apply flex items-center justify-center outline-none cursor-pointer rounded-full border border-gray-600 font-sans font-semibold text-gray-600 text-center px-2 py-2; /* Add padding */
+    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+    transition: all 0.2s ease;
+
+    /* Default states */
+}
+
+.custom-button:hover {
+    box-shadow: 
+        0 2px 6px rgba(255, 255, 255, 0.5), /* Brighter bottom shadow */
+        0 -2px 6px rgba(255, 255, 255, 0.5), /* Brighter top shadow */
+        0 4px 10px rgba(0, 0, 0, 0.3), /* Stronger neutral shadow for depth */
+        inset 0 0 5px rgba(255, 255, 255, 0.3); /* Brighter inner glow */
+    border-color: #A0A3A6; /* Lighten the border without a purple hue */
+    transform: translateY(2px); /* Reduced sinking effect on hover */
+}
+
+.custom-button:active,
+.custom-button:focus {
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.4), /* More pronounced shadow */
+        inset 0 0 5px rgba(255, 255, 255, 0.2); /* Maintain inner glow */
+    transform: translateY(1px); /* Slightly deeper sink when active */
+}

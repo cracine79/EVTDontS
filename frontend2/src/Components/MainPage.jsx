@@ -157,25 +157,25 @@ export const MainPage = () => {
                 <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block rounded-3xl z-20' autoPlay={isAutoplay} loop muted>
                     <source src="intro2.mp4" type="video/mp4" />t
                 </video>
-                <img src="/MobileBannerTopReal.jpg" className='mt-24 sm:hidden'></img>
+                <img src="/MobileBannerTopReal.jpg" className='mt-20 sm:hidden'></img>
        
             </div>
-            <div className=' w-11/12 sm:text-2xl flex justify-around  px-28 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Stop memorizing.</span><span>Start understanding.</span><span>Economics, but finally entertaining.</span></div>
+            <div className=' w-11/12 sm:text-2xl text-xs flex justify-around text-center sm:px-28 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Stop memorizing.</span><span>Start understanding.</span><span>Economics, but finally entertaining.</span></div>
             <div className=' bg-[#2B3D45] w-full pt-12 w-full relative flex '>
             <div className='w-full flex justify-start items-center relative flex-col'>
                     <div className='flex flex-col items-center justify-center text-center text-xl w-['>
-                        <div className='text-5xl mb-8'>Ready to Go?</div>
+                        <div className='text-5xl mb-8'>Ready to Dive In?</div>
                         <div>Browse our <em>free library</em> of economics videos and quizzes!</div>
                         <div className='py-6'>Think of it as an all-you-can-eat buffet of knowledge—without the regret.</div>
                     </div>
-                    <div className='button flex flex-col w-[35%]  h-12 mb-16 !font-light !py-2 !px-6  z-40 '
+                    <div className='custom-button flex flex-col w-[35%]  h-12 mb-16 !font-light !py-2 !px-6  z-40 '
                         onClick={()=> {
                             dispatch(getAllChapters())
                             navigate('/video-library')
                         }}>
-                                <div className='sm:text-lg xl:text-2xl  '>Take Me to the Videos & Quizzes!</div>
+                                <div className='sm:text-lg xl:text-2xl'><span className='hidden sm:inline'>Take Me to the </span>Videos & Quizzes!</div>
                     </div> 
-                    <div className='text-2xl absolute bottom-0  ml-[17%] p-4 '>Or scroll on to learn more!</div>
+                    <div className='text-xl absolute bottom-0  ml-[17%] p-4 '>Or scroll on to learn how it works!</div>
             </div>
       
             </div>
@@ -339,11 +339,11 @@ export const MainPage = () => {
                 
             </div>
             <div className='bg-[#2B3D45] w-full'>
-            <div className='flex flex-col justify-center items-center sm:w-full w-3/4  mb-12 z-20'>
+            <div className='flex flex-col justify-center items-center sm:w-full mb-12 z-20'>
                     <div className='sm:text-5xl text-2xl text-center sm:mb-10 mb-4 mt-8 text-md'>Sign up to access quizzes, track progress, and more!</div>
-                   <div className="sm: mt-20 button flex flex-col !font-light !py-2 !px-6"
+                   <div className="sm:mt-12 button flex flex-col !font-light !py-2 !px-6"
                    onClick={handleGetStarted}>
-                        <div className='sm:text-4xl text-2xl '>Get Started!</div>
+                        <div className='sm:text-4xl text-2xl z-50'>Get Started!</div>
                     </div> 
                     <div className='sm:text-xl text-lg mb-2 sm:mb-0 text-md text-center mt-4 '>It's 100% free and we never send you emails.  </div><div>C'mon, what else are you doing right now?</div>
             </div>
@@ -359,10 +359,10 @@ export const MainPage = () => {
                         <div className='sm:text-4xl text-2xl '>Jump to Videos</div>
                     </div> 
 
-                    <div className='m:text-xl text-lg sm:mt-4'>You can always sign up later</div>
+                    <div className='m:text-xl text-lg mt-4'>You can always sign up later</div>
             </div>
             </div>
-            <div className='flex w-full items-center justify-center flex-col sm:mt-12'>
+            <div className='flex w-full items-center justify-center flex-col mt-12'>
                 <div className='text-3xl mb-8 text-center'>Building The Future of Economics (One Quirk at a Time)</div>
                 <img className='w-1/2 md:w-auto'src='/Worker.png'></img>
                 <div className='sm:w-1/2 w-3/4 mt-4 mb-24'>Welcome to the early days of what will soon be the most exciting corner of the internet (or at least we hope). Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. But don't worry, we're not done building. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. Stick around—it’s only going to get better. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
