@@ -1,4 +1,4 @@
-## WELCOME TO ECONOMICS VIDEOS THAT DON'T SUCK
+# Welcome to *Economics Videos That Don't Suck!*
 
 Please visit the [Live Site!](https://www.economicsvideos.com/)
 
