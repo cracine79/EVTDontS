@@ -70,7 +70,7 @@ class SearchChapters(Resource):
         ]
 
         return{'chapters': result}, 200
-    ```
+```
 
 ## User Customized Learning Plans
 
