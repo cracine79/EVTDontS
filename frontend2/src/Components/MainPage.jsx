@@ -343,7 +343,7 @@ export const MainPage = () => {
                     <div className='sm:text-5xl text-2xl text-center sm:mb-10 mb-4 mt-8 text-md'>Sign up to access quizzes, track progress, and more!</div>
                    <div className="sm:mt-12 button flex flex-col !font-light !py-2 !px-6"
                    onClick={handleGetStarted}>
-                        <div className='sm:text-4xl text-2xl z-50'>Get Started!</div>
+                        <div className='sm:text-4xl text-2xl z-40'>Get Started!</div>
                     </div> 
                     <div className='sm:text-xl text-lg mb-2 sm:mb-0 text-md text-center mt-4 '>It's 100% free and we never send you emails.  </div><div>C'mon, what else are you doing right now?</div>
             </div>

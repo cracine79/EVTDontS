@@ -3,7 +3,7 @@ from models import Question, Answer, UserPerformance, User, QuestionTopic, UserT
 from flask import request, jsonify
 from urllib.parse import unquote
 from collections import defaultdict
-import json, random, math
+import json, random, math, heapq
 
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -67,6 +67,7 @@ class AccessQuiz(Resource):
                     questions.extend(questions_to_add)
 
         elif type in['shortWeakspotQuiz','longWeakspotQuiz']:
+            # currently there is only one weak spot quiz being requested from frontend, shortWeakspotQuiz
             progressArray = user.topic_progresses
             percentageList = {}
             numberTopics = 0
@@ -76,16 +77,34 @@ class AccessQuiz(Resource):
                 percentageList[progress.topic_id] = (percentCorrect)
                 numberTopics += 1
                 percentSum += percentCorrect
-            averageScore = percentSum/numberTopics
-            topic_ids = []
-            baselineScore = 50
+       
 
-            while len(topic_ids) < 3 and baselineScore <101:
-                for key, value in percentageList.items():            
-                    if value <= baselineScore and key not in topic_ids:
-                        topic_ids.append(key)
-                baselineScore += 10
+            averageScore = percentSum/numberTopics
+
+            lowPercentageList = {}
+
+            for key, value in percentageList.items():
+                if value < averageScore:
+                    lowPercentageList[key]=value
             
+            if len(lowPercentageList) == 0:
+                lowPercentageList = percentageList
+            
+            
+
+            if len(lowPercentageList) > 4:
+                topic_ids = [topicId for topicId, _ in heapq.nsmallest(4, lowPercentageList.items(), key=lambda x:x[1])]
+            else:
+                topic_ids = [topicId for topicId, _ in lowPercentageList]
+            # baselineScore = 50
+
+            # while len(topic_ids) < 3 and baselineScore <101:
+            #     for key, value in percentageList.items():            
+            #         if value <= baselineScore and key not in topic_ids:
+            #             topic_ids.append(key)
+            #     baselineScore += 10
+            
+            print('topicsareyoooo', topic_ids)
             performances = UserPerformance.query.filter_by(user_id=user_id).all()
             for topic_id in topic_ids:
                 all_topic_questions = Question.query.filter_by(topic_id = topic_id).all()
@@ -107,10 +126,11 @@ class AccessQuiz(Resource):
                         for question_id in total_counts
                         if incorrect_counts[question_id] / total_counts[question_id] >= 0.5
                     }
+
                     questions_to_go = random.sample(question_ids_with_high_failure_rate, min(2, len(question_ids_with_high_failure_rate)))
 
                     for questionId in questions_to_go:
-                        question_to_add = next((obj for obj in all_topic_questions if obj.id == questionId), None)
+                        question_to_add = next((question for question in all_topic_questions if question.id == questionId), None)
                         questions.append(question_to_add)
 
                 asked_question_ids = {performance.question_id for performance in question_performances}    
