@@ -168,7 +168,7 @@ export const MainPage = () => {
                         <div>Browse our <em>free library</em> of economics videos and quizzes!</div>
                         <div className='py-6'>Think of it as an all-you-can-eat buffet of knowledge—without the regret.</div>
                     </div>
-                    <div className='custom-button flex flex-col w-[35%]  h-12 mb-16 !font-light !py-2 !px-6  z-40 '
+                    <div className='button flex flex-col w-[32%] max-w-[450px] h-12 mb-16 !font-light !py-2 !px-6  z-40 '
                         onClick={()=> {
                             dispatch(getAllChapters())
                             navigate('/video-library')
