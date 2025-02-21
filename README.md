@@ -107,7 +107,7 @@ In addition, users can opt for the website to generate a quiz for them.  In this
 
 
 ## Backend algorithm to craft quizzes focusing on user weakness
-The backend relies upon historical performance to generate the quiz of reckoning.  All three different quiz types make fetch to same backend route, with quiz type in params:
+The backend relies upon historical performance to generate the quiz of reckoning.  All three different quiz types make fetch requests to the same backend route, with quiz type passed in params:
 
 ```
 @quiz_ns.route('/questions')
@@ -125,7 +125,7 @@ class AccessQuiz(Resource):
 
 ```
 
-For quizzes focusing on the users' weak spots, the backend first uses current progress data to calculate percentage of questions answered correctly for each topic that they have faced to date.  It also calculates the user's average score on all questions faced as a comparision.  
+For quizzes focusing on the user's weak spots, the backend first uses current progress data to calculate percentage of questions answered correctly for each topic that they have faced to date.  It also calculates the user's average score on all questions faced as a baseline to compare against.  
 
 ```
         ...
@@ -143,7 +143,7 @@ For quizzes focusing on the users' weak spots, the backend first uses current pr
             averageScore = percentSum/numberTopics
 ```
 
-The topics with the lowest percentage of questions asked correctly are selected for the quiz.
+The topics with the lowest percentage of questions asked correctly are selected for the quiz. 
 
 ```
             lowPercentageList = {}
@@ -161,7 +161,7 @@ The topics with the lowest percentage of questions asked correctly are selected 
                 topic_ids = [topicId for topicId, _ in lowPercentageList]
 ```
 
-The backend grabs all questions that the user has faced and the number of times they have answered correctly/incorrectly. It then filters out from those the questions included in the topics for the test:
+The backend pulls from the database all of the questions on the identified topics that the user has been asked, the number of times asked, and the number of times answered correctly. 
 
 ```
             performances = UserPerformance.query.filter_by(user_id=user_id).all()
@@ -171,7 +171,7 @@ The backend grabs all questions that the user has faced and the number of times 
                 question_ids = {question.id for question in all_topic_questions}
                 question_performances = [performance for performance in performances if performance.question_id in question_ids]
 ```
-It then further filters these questions down to the ones which have been asked to the user previously based upon data from UserPerformance, and the user has failed to answer correctly twice (technically 50% of the time).  Finally, it selects a maximum of two of those questions for each topic and adds them to the questions to be included for the quiz.
+It then further filters these questions down to the ones which have the user has failed to answer correctly at least 50% of the time that they have seen them.  It then randomly selects a maximum of two of those questions for each topic and adds them to the questions to be included for the quiz.
 
 ```
                if(len(question_performances) > 0):
@@ -227,3 +227,5 @@ If the number of questions selected is more than 12, the backend randomly select
 EVTDS is still in Beta mode.  Currently we are in the progress of preparing to migrate the frontend from a Vite app to Next.js for long term SEO optimization. 
 
 We also plan on integrating an AI assistant to provide answers to questions on content that registered users have. 
+
+Thank you for taking the time to read about EVTDS.  I'd love to hear your thoughts on education websites, the algorithm to better craft review quizzes, employment opportunities, or anything else!
