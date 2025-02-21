@@ -39,6 +39,39 @@ Users are provided with instant feedback upon completion of the exam.  Users who
 
 ![VideoLibraryResults](/rm_assets/vidlibresults.png)
 
+
+## Search
+The search functionality in EVTDS.com leverages PostgreSQL full-text search to efficiently retrieve relevant chapters based on user queries. Each chapter is indexed using a tsvector stored in the database, allowing for rapid lookup via to_tsquery(). The search query ranks results using ts_rank(), ensuring that more relevant chapters appear higher in the results. By filtering with the @@ operator and ordering by rank in descending order, the system provides accurate and performant search results with minimal latency.
+
+
+```
+@chapters_ns.route('/search/<string:search_terms>')
+class SearchChapters(Resource):
+    def get(self, search_terms):
+        or_query = ' | '.join(search_terms.split())
+        print(or_query)
+
+        chapters = db.session.query(
+            Chapter,
+            db.func.ts_rank(Chapter.search_vector, text("to_tsquery('english', :terms)")).label('rank')
+        ).filter(
+            Chapter.search_vector.op('@@')(text("to_tsquery('english', :terms)"))
+        ).params(terms=or_query).order_by(db.desc('rank')).all()
+
+        result = [{
+            'id': chapter.id,
+            'name': chapter.name,
+            'quiz_blurb': chapter.quiz_blurb,
+            'video_blurb': chapter.video_blurb,
+            'video_url': chapter.video_url,
+            'rank': rank,
+            'slug': chapter.slug
+        } for chapter, rank in chapters
+        ]
+
+        return{'chapters': result}, 200
+    ```
+
 ## User Customized Learning Plans
 
 Registered users can select units to add to their study plan, which will then be displayed on their homepage. This includes metrics on their progress, such as quiz scores, video completion, and topic mastery. 
@@ -185,8 +218,6 @@ Finally, the backend seeks out the questions on the selected topics that have no
 
 If the number of questions selected is more than 12, the backend randomly selects 12 of them to send to the frontend. 
 
-## Search
-The search functionality in EVTDS.com leverages PostgreSQL full-text search to efficiently retrieve relevant chapters based on user queries. Each chapter is indexed using a tsvector stored in the database, allowing for rapid lookup via to_tsquery(). The search query ranks results using ts_rank(), ensuring that more relevant chapters appear higher in the results. By filtering with the @@ operator and ordering by rank in descending order, the system provides accurate and performant search results with minimal latency.
 
 
 # Future Plans
