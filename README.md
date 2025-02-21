@@ -72,6 +72,9 @@ class SearchChapters(Resource):
         return{'chapters': result}, 200
 ```
 
+
+![SearchResults](/rm_assets/searchres.png)
+
 ## User Customized Learning Plans
 
 Registered users can select units to add to their study plan, which will then be displayed on their homepage. This includes metrics on their progress, such as quiz scores, video completion, and topic mastery. 
