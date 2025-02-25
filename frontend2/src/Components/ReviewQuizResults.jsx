@@ -98,7 +98,7 @@ export const ReviewQuizResults = () => {
 
     const topicMastery = () => {
         return(
-            <div className='flex sm:flex-wrap sm:flex-row flex-col justify-start sm:mr-8 mt-6'>
+            <div className='flex sm:flex-wrap sm:flex-row flex-col justify-center sm:mr-8 mt-6'>
                 {mergedTopics.map((topic=>{
                     return(
                         <div key={topic.id} className=' sm:basis-1/5 mx-6 my-2 border-2 rounded-lg border-slate-300'>  
@@ -154,9 +154,9 @@ export const ReviewQuizResults = () => {
     ]
     const scorePraise = () => {
         const randomNumber = Math.floor(Math.random() * 5);
-        if(percentageScore > 85){
+        if(percentageScore > 65){
             return goodSentence[randomNumber] 
-        } else if (percentageScore > 50){
+        } else if (percentageScore > 49){
             return mediumSentence[randomNumber] 
         } else {
             return badSentence[randomNumber]
@@ -188,13 +188,13 @@ export const ReviewQuizResults = () => {
                 </div>
                 </div>
                 </div>
-                <div className='flex flex-row justify-around my-10 w-full'>
+                <div className='flex flex-row justify-center my-10 w-full'>
                     <button className='
                             button' 
                             onClick={showResults }>Show Me What I Missed</button>
                     {type == 'topicQuiz' &&
                     <button className='
-                    button' 
+                    button mx-28' 
                     onClick={goAgain }>Take Another One</button>
                     }
 

@@ -53,10 +53,12 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     
     const names = topics.map(topic => topic.topic_name)
 
-    const topicQuizName = names.length > 3 
-    ? names.slice(0, 3).join (', ') + ', and ' + (names.length - 3).toString() + ' more topics'   
+    const topicQuizName = names.length == 4 
+    ? names.slice(0, 3).join (', ') + ', and one more topic'
+    : names.length > 4
+    ? names.slice(0, 3).join (', ') + ', and ' + (names.length - 3).toString() + ' more topics'
     : names.length > 1
-    ? names.slice(0,2).join(', ') + ', and ' + names[names.length-1]
+    ? names.slice(0,names.length -1 ).join(', ') + ', and ' + names[names.length-1]
     : names[0]
     const newTopics = []
 

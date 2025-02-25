@@ -91,7 +91,7 @@ export const RetrieveData = () => {
                             and what the heck that website was.
                         </p>
                         <input placeholder = 'Submit Email to Reset Password' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <input type="submit" value='Send Password Reset Email' className='my-6'></input>
+                        <input type="submit" value='Send Password Reset Email' className='my-6 py-2 px-2 button'></input>
                     </>
                     }
                     {
@@ -119,7 +119,7 @@ export const RetrieveData = () => {
                 </>}
                 <p>Be sure to check your spam folder as well, because your email inbox might hate us for some unfathomable reason.</p>
             </div>
-            <button className='mb-8' onClick={submitAgain}>Submit email again</button>
+            <button className='mb-8 button p-2' onClick={submitAgain}>Submit email again</button>
             
             </>}
             

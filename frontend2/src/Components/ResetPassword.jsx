@@ -96,7 +96,7 @@ export const ResetPassword = () => {
                 <form className='flex flex-col items-center w-3/4' onSubmit = {submitReset}>
                     <input type="password"  onChange = {(e)=>setPassword1(e.target.value)} className='text-center text-lg my-4 border-2 rounded-md w-full border-black border-solid ' placeholder="New Password" />
                     <input type="password" onChange = {(e)=>setPassword2(e.target.value)} className='text-center  text-lg my-4 border-2 rounded-md w-full border-black border-solid ' placeholder="Confirm Password" />
-                    <button type="submit" className='my-4'>Reset Password</button>
+                    <button type="submit" className='my-4 button py-2'>Reset Password</button>
                     {errorMessage &&
                         <div className='mb-2 text-sm text-red-400'>{errorMessage}</div>
                     }
