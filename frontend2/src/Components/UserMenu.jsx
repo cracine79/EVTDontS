@@ -37,7 +37,7 @@ export const UserMenu = () => {
 
     const goAllVids = () => {
         dispatch(getAllChapters())
-        navigate('/videoindex')
+        navigate('/video-library')
     }
 
     return(

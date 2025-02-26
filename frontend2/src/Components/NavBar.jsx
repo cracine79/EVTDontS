@@ -35,6 +35,7 @@ export const NavBar = () => {
             <div className="w-16  text-white flex items-center mr-4 text-center justify-end mt-2 flex-col hover:cursor-pointer hover:text-[#97afb9]" onClick={()=>{navigate('/userhome')}}>
                 <i className="fa-solid fa-house text-xl "></i>
                 <p> Home</p>
+                
             </div>
             
             <UserMenu/>
