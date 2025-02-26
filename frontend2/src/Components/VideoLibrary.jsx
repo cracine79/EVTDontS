@@ -37,15 +37,6 @@ export const VideoLibrary = () => {
         }
     }, [selectedChapterVideoUrl])
     
-    const videoGo = (chapter, type) => {
-        setMenuOpen(false)
-        if(type==='long'){
-            setVideoId(chapter.video_url)
-            setChapterId(chapter.id)
-        } else {
-            setVideoId(false);
-        }
-    }
     return<>
      <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#D6E6E2] mt-2 z-10 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
                 <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6  bg-[#D6E6E2]  z-10 text-sm text-black transform ${

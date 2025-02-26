@@ -3,13 +3,17 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { openSignupModal } from "../Slices/modalSlice";
 import { updateVideoProgress } from "../Slices/videoActions";
-
+import { useEffect } from "react";
 export const VideoIndexVideo = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
     const {slug} = useParams()
 
+    useEffect(()=>{
+            window.scrollTo(0,0)
+          
+    },[slug])
 
 
     const chapterEntry = useSelector((state)=>
@@ -46,7 +50,7 @@ export const VideoIndexVideo = () => {
     }
 
 
-    const LeftButton = () => {
+    const leftButton = () => {
         if (currentUser){
             if(currentUserChapters[chapterId].video_completed==false){
                 return<>
@@ -148,13 +152,10 @@ export const VideoIndexVideo = () => {
                             </iframe>
                             <div className='w-full justify-center flex flex-col sm:flex-row items-center mt-8'>
                             
-                            {LeftButton()}
-                            {/* <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
-                                {currentUser ? 'Mark Video As Watched' : 'Sign Up to Access Quizzes & More!'}
-                            </div> */}
+                            {leftButton()}
                             <div className='mx-12 py-2 sm:py-0 text-2xl'></div>
                             <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleGoToQuiz}>
-                                {rightButton()}
+                            {rightButton()}
                                 
                             </div>
                         </div>
