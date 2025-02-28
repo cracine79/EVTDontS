@@ -83,6 +83,7 @@ const LoginComponent = () => {
           flex
           justify-center
           items-center
+          
         `}
       >
         <div
@@ -159,7 +160,10 @@ const LoginComponent = () => {
               <button onClick={goToForgot} className='text-xs text-blue-400 font-bold' type='button'>Forgot Password?</button>
              
               </div>
-              <button type="submit" className='mt-2 button !px-8'>Login</button>
+              <div className='w-full flex items-center justify-center'>
+
+                <button type="submit" className='mt-2 button !px-8'>Login</button>
+              </div>
 
               </div>
               
