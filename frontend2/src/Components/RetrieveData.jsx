@@ -91,7 +91,7 @@ export const RetrieveData = () => {
                             and what the heck that website was.
                         </p>
                         <input placeholder = 'Submit Email to Reset Password' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <input type="submit" value='Send Password Reset Email' className='my-6 py-2 px-2 button'></input>
+                        <button  onClick={handleSubmit} className='my-6 py-2 px-2 button'>Reset My Password</button>
                     </>
                     }
                     {
@@ -102,7 +102,7 @@ export const RetrieveData = () => {
                         </p>
                         <p className = 'text-xl mx-8 my-2'>Oh, forgotten your username, have you? Classic. Don’t worry; it happens to the best of us—and by ‘best,’ we mean people who may have a dozen variations of the same username across different platforms. Just pop your email into the box below, and we’ll send your username straight to your inbox. Because who needs memory when you’ve got us?</p>
                         <input placeholder = 'Submit Email to Retrieve Username' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <input type="submit" value='Send Username To My Email' className='my-6'></input>
+                        <button className="button mb-20" onClick={handleSubmit} >Send Username To My Email</button>
                         </>
                     }
                     {errorMessageVisible && <p className="mb-6 text-red-600 text-xs">There was a problem finding your account.  Please check email and try again.</p>}

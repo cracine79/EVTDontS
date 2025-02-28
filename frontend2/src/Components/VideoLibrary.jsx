@@ -36,19 +36,30 @@ export const VideoLibrary = () => {
             setVideoId(selectedChapterVideoUrl)
         }
     }, [selectedChapterVideoUrl])
+
+    const openMenu = () => {
+        setMenuOpen(true);
+        document.body.style.overflow = 'hidden'
+
+    }
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+        document.body.style.overflow = 'auto';
+    }
     
     return<>
-     <div onClick={()=>setMenuOpen(true)} className='sm:hidden absolute bg-[#D6E6E2] mt-2 z-10 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
-                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6  bg-[#D6E6E2]  z-10 text-sm text-black transform ${
-                    menuOpen ? 'translate-x-0' : '-translate-x-full'
-                } transition-transform sm:translate-x-0`}>
+     <div onClick={()=>openMenu()} className='sm:hidden absolute bg-[#D6E6E2] mt-2 z-10 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
+                <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6  bg-[#D6E6E2]  z-30 text-sm text-black transform ${
+                    menuOpen ? 'translate-x-0 overflow-auto h-screen pb-28' : '-translate-x-full'
+                } transition-transform sm:translate-x-0 `}>
                     <div className='ml-4'>
-                    <div className='sm:hidden mt-2 -mb-4' onClick={()=>{setMenuOpen(false)}}>X Close</div>
+                    <div className='sm:hidden mt-2 -mb-4' onClick={()=>closeMenu()}>X Close</div>
                     <div className='text-2xl font-bold text-center mt-4 -ml-8'>Video Library</div>
                     <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
                     {chaptersObj.slice(0,7).map(chapter=>{
                         return(
-                            <div key={chapter.id} onClick = {()=>(setMenuOpen(false))}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
+                            <div key={chapter.id} onClick = {()=>closeMenu()}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
                                 <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
                             </div>
                         )
@@ -56,7 +67,7 @@ export const VideoLibrary = () => {
                     <div className='font-bold mt-2 text-lg'>Unit 2: Supply & Demand</div>
                     {chaptersObj.slice(7, 18).map(chapter=>{
                         return(
-                            <div key={chapter.id} onClick = {()=>(setMenuOpen(false))}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
+                            <div key={chapter.id} onClick = {()=>closeMenu()}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
                                 <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
                             </div>
                         )
@@ -64,7 +75,7 @@ export const VideoLibrary = () => {
                     <div className='font-bold mt-2 text-lg'>Unit 3: Elasticities</div>
                        {chaptersObj.slice(18, 24).map(chapter=>{
                         return(
-                            <div key={chapter.id} onClick = {()=>(setMenuOpen(false))}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
+                            <div key={chapter.id} onClick = {()=>closeMenu()}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
                                 <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
                             </div>  
                         )

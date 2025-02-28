@@ -1,13 +1,13 @@
 export const VideoIndexHome = () => {
     return(<>
-     <div className='sm:w-5/6 w-full'>
+     <div className='sm:w-5/6 w-full mb-6'>
                     <div className='flex flex-col items-center'>
                     
-                            <div className='text-center mt-6 text-4xl font-bold'>
+                            <div className='text-center sm:mt-6 mt-10 text-4xl font-bold'>
                         Welcome to the Video Cache!
                         </div>
                         <img className='max-h-[50vh] rounded-2xl 'src='https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png'></img>
-                        <div className="w-[80%]">
+                        <div className="sm:w-[80%]">
                         <div className='mx-8 mt-4 text-lg'>
                         Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand, 
                             and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a 

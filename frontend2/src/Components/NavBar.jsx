@@ -94,7 +94,7 @@ export const NavBar = () => {
                         {sessionLinks}
                     </div>
                 </nav>
-                <div className={`left-0  absolute bg-[#0088a8] py-2 mt-[70px] w-full shadow-md z-30 transition-transform x-51 duration-300 ${
+                <div className={`left-0  absolute bg-[#0088a8] py-2 mt-[70px] w-full shadow-md z-40 transition-transform x-51 duration-300 ${
                     mobileSearchBarVisible ? 'translate-y-0' : '-translate-y-full'
                         } ` }>
                     <div className='flex w-full flex-col items-center justify-center relative '>
