@@ -51,7 +51,7 @@ export const VideoLibrary = () => {
     return<>
      <div onClick={()=>openMenu()} className='sm:hidden absolute bg-[#D6E6E2] mt-2 z-10 w-1/2 text-center border-blue-600 border-solid border text-black'> ☰ Video Library</div>
                 <div className={`sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6  bg-[#D6E6E2]  z-30 text-sm text-black transform ${
-                    menuOpen ? 'translate-x-0 overflow-auto h-screen pb-28' : '-translate-x-full'
+                    menuOpen ? 'translate-x-0 overflow-auto h-screen' : '-translate-x-full'
                 } transition-transform sm:translate-x-0 `}>
                     <div className='ml-4'>
                     <div className='sm:hidden mt-2 -mb-4' onClick={()=>closeMenu()}>X Close</div>
@@ -95,6 +95,7 @@ export const VideoLibrary = () => {
                     })} 
                     <div className='text-gray-600'>4.3 Price Floors (coming soon!)</div>
                     <div className='text-gray-600'>4.4 Price Ceilings (coming soon!)</div>
+                    <div className='h-28'></div>
                     </div>
                 </div>
     </>
