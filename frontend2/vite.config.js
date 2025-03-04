@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // Proxy API requests to Flask backend
       '/api': {
-        target: process.env.ENV === 'production' ? 'https://evtds-b5fec09435ac.herokuapp.com/' : 'http://127.0.0.1:3000', // Flask server address
+        target: process.env.ENV === 'production' ? 'https://evtds-b5fec09435ac.herokuapp.com/' : 'http://127.0.0.1:8080', // Flask server address
         changeOrigin: true,
         // rewrite: (path) => path.startsWith('/api') ? path.replace('/api', '/back_api') : path
       },
