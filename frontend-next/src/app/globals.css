@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+#overlay::after {
+  content: "";
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px; /* Adjust size as needed */
+  height: 100px;
+  background: transparent;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6); /* Creates the spotlight */
+  border-radius: 8px; /* Rounds the corners of the highlighted area */
+  pointer-events: none; /* Allows clicking on the content below */
+}
+/* 
+@layer components {
+  .fancy-button {
+    @apply relative text-slate-600 border-2 border-[#0088a8] px-4 text-center 
+       py-0 text-lg rounded font-bold transition-all duration-200 ease-in 
+      hover:bg-[#0088a8] hover:text-white hover:shadow-[0_0_30px_#00c7ec50] 
+      active:shadow-none cursor-pointer overflow-hidden;
   }
+
+  .fancy-button::before {
+    content: "";
+    @apply absolute top-[7%] left-[-20%] w-0 h-[86%] bg-white opacity-0 
+      shadow-[0_0_15px_3px_white] skew-x-[-20deg];
+  }
+
+  .fancy-button:hover::before {
+    @apply animate-shine;
+  }
+
+  @keyframes shine {
+    from {
+      opacity: 0;
+      left: 0%;
+    }
+    50% {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      left: 100%;
+    }
+  }
+} */
+
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+  /* height: 50px; */
+  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+  border-radius: 30px;
+  border: 1px solid #8F9092;
+  transition: all 0.2s ease;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #606060;
+  text-shadow: 0 1px #fff;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.button:hover {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
+  transform: translateY(2px);
+}
+
+.button:active {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.button:focus {
+  box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
+}
+
+.custom-button {
+  @apply flex items-center justify-center outline-none cursor-pointer rounded-full border border-gray-600 font-sans font-semibold text-gray-600 text-center px-2 py-2; /* Add padding */
+  background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
+  transition: all 0.2s ease;
+
+  /* Default states */
+}
+
+.custom-button:hover {
+  box-shadow: 
+      0 2px 6px rgba(255, 255, 255, 0.5), /* Brighter bottom shadow */
+      0 -2px 6px rgba(255, 255, 255, 0.5), /* Brighter top shadow */
+      0 4px 10px rgba(0, 0, 0, 0.3), /* Stronger neutral shadow for depth */
+      inset 0 0 5px rgba(255, 255, 255, 0.3); /* Brighter inner glow */
+  border-color: #A0A3A6; /* Lighten the border without a purple hue */
+  transform: translateY(2px); /* Reduced sinking effect on hover */
+}
+
+.custom-button:active,
+.custom-button:focus {
+  box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.4), /* More pronounced shadow */
+      inset 0 0 5px rgba(255, 255, 255, 0.2); /* Maintain inner glow */
+  transform: translateY(1px); /* Slightly deeper sink when active */
 }
