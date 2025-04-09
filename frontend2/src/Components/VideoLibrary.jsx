@@ -82,7 +82,7 @@ export const VideoLibrary = () => {
                     })}
 
                     <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention </div>
-                    {chaptersObj.slice(24, 26).map(chapter=>{
+                    {chaptersObj.slice(24, 27).map(chapter=>{
                         return(
                             <>
                                 
@@ -93,8 +93,7 @@ export const VideoLibrary = () => {
                             </>
                         )
                     })} 
-                    <div className='text-gray-600'>4.3 Price Floors (coming soon!)</div>
-                    <div className='text-gray-600'>4.4 Price Ceilings (coming soon!)</div>
+                    <div className='text-gray-600'>4.4 Price Floors (coming soon!)</div>
                     <div className='h-28'></div>
                     </div>
                 </div>
