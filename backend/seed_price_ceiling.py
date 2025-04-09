@@ -27,13 +27,13 @@ def seed_price_ceiling_chapter():
 
 
     question1 = Question(text="Which of the following is NOT expected to be an impact of implementing a price ceiling?", chapter=chapter4_3, topic=topic40)
-    question2 = Question(text="The above diagram shows the market for a good.  If a price ceiling is implemented at P2, what is the total quantity that will be purchased in the market?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PcPf_3.png")
-    question3 = Question(text="The above diagram shows the market for a good.  If a price ceiling is implemented at P2, which of the following is true?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PcPf_3.png")
-    question4 = Question(text="The above diagram shows a market for a good.  If a price ceiling is implemented at P2, which area represents total social surplus after implementation of the price ceiling?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PcPf_3.png")
+    question2 = Question(text="The above diagram shows the market for a good.  If a price ceiling is implemented at P2, what is the total quantity that will be purchased in the market?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PCPFFinalpng.png")
+    question3 = Question(text="The above diagram shows the market for a good.  If a price ceiling is implemented at P2, which of the following is true?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PCPFFinalpng.png")
+    question4 = Question(text="The above diagram shows a market for a good.  If a price ceiling is implemented at P2, which area represents total loss of social surplus/deadweight loss after implementation of the price ceiling?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PCPFFinalpng.png")
     question5 = Question(text="Assume that the current market equilibrium price for eggs is $8 per carton and that 3 million cartons of eggs are sold per day.  If the government sets a price ceiling of $6.50 per carton, which of the following is true?", chapter=chapter4_3, topic=topic40)
-    question6 = Question(text="In the diagram above, if there is a price ceiling set at P2, consumer surplus will be represented by the area", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PcPf_3.png")
-    question7 = Question(text="The diagram above depicts the supply and demand curves for a city's rental housing market.  If a price ceiling is imposed at P2, which of the followin gwill occur?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PcPf_3.png")
-    question8 = Question(text="If the market depicted in the diagram above is initially in equilibrium, which of the following will result from the government setting a price ceiling at P4?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PcPf_3.png")
+    question6 = Question(text="In the diagram above, if there is a price ceiling set at P2, consumer surplus will be represented by the area", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PCPFFinalpng.png")
+    question7 = Question(text="The diagram above depicts the supply and demand curves for a city's rental housing market.  If a price ceiling is imposed at P2, which of the following will occur?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PCPFFinalpng.png")
+    question8 = Question(text="If the market depicted in the diagram above is initially in equilibrium, which of the following will result from the government setting a price ceiling at P4?", chapter=chapter4_3, topic=topic40, image_url = "https://evtds-seeds.s3.us-east-2.amazonaws.com/PCPFFinalpng.png")
     questions = [question1, question2, question3, question4, question5, question6, question7, question8]
 
     answer1a = Answer(text="A shortage of the good will arise", question=question1, is_correct=False)
@@ -52,7 +52,7 @@ def seed_price_ceiling_chapter():
     answer3b = Answer(text="Total producer revenue changes from area P3,D,Q2,0 to P2, E, Q3, 0", question=question3, is_correct=True)
     answer3c = Answer(text="Deadweight loss is area B, D, G", question=question3, is_correct=False)
     answer3d = Answer(text="Producer revenue definitely rises", question=question3, is_correct=False)
-    answer3e = Answer(text="Consumer excpenditure definitely rises", question=question3, is_correct=False)
+    answer3e = Answer(text="Consumer expenditure definitely rises", question=question3, is_correct=False)
 
     answer4a = Answer(text="ADC", question=question4, is_correct=False)
     answer4b = Answer(text="CDE", question=question4, is_correct=False)
@@ -76,7 +76,7 @@ def seed_price_ceiling_chapter():
     answer7b = Answer(text="The supply curve for housing will shift to the right", question=question7, is_correct=False)
     answer7c = Answer(text="There will be a surplus of rental housing in the city", question=question7, is_correct=False)
     answer7d = Answer(text="The quantity of rental housing supplied will decrease", question=question7, is_correct=True)
-    answer7e = Answer(text="The quantity of rental housind demanded will decrease", question=question7, is_correct=False)
+    answer7e = Answer(text="The quantity of rental housing demanded will decrease", question=question7, is_correct=False)
 
     answer8a = Answer(text="Quantity demanded will exceed quantity supplied", question=question8, is_correct=False)
     answer8b = Answer(text="Quantity supplied will exceed quantity demanded", question=question8, is_correct=False)
