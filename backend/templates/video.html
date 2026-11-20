@@ -69,9 +69,11 @@
             {% if yt %}
             <button type="button" id="play-button" class="group absolute inset-0 w-full h-full" aria-label="Play video: {{ chapter.name }}"
                     data-yt="{{ yt }}" data-title="{{ chapter.name }}">
+              {# Not every video has a 1280x720 thumbnail. For a missing size YouTube serves a 120x90 grey
+                 placeholder instead of an error, so step down through the sizes until a real one loads. #}
               <img src="https://i.ytimg.com/vi/{{ yt }}/maxresdefault.jpg" alt="" width="1280" height="720"
-                   class="w-full h-full object-cover" fetchpriority="high"
-                   onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg'">
+                   class="w-full h-full object-cover" fetchpriority="high" data-yt="{{ yt }}"
+                   onload="ytThumbFallback(this)" onerror="ytThumbFallback(this, true)">
               <span class="absolute inset-0 flex items-center justify-center">
                 <span class="w-20 h-14 rounded-2xl bg-[#ff0000] group-hover:bg-[#cc0000] flex items-center justify-center shadow-lg">
                   <span class="ml-1 w-0 h-0 border-y-[12px] border-y-transparent border-l-[20px] border-l-white"></span>
@@ -171,6 +173,16 @@
 
 {% block scripts %}
 <script>
+  function ytThumbFallback(img, failed) {
+    if (!failed && img.naturalWidth > 120) return;          // a real thumbnail loaded
+    var sizes = ['maxresdefault', 'sddefault', 'hqdefault'];
+    var current = sizes.findIndex(function (s) { return img.src.indexOf('/' + s + '.jpg') !== -1; });
+    if (current === -1 || current === sizes.length - 1) { img.onload = img.onerror = null; return; }
+    img.src = 'https://i.ytimg.com/vi/' + img.dataset.yt + '/' + sizes[current + 1] + '.jpg';
+  }
+  // The image can finish loading before this script runs, so check it now as well
+  document.querySelectorAll('img[data-yt]').forEach(function (img) { if (img.complete) ytThumbFallback(img); });
+
   (function () {
     var btn = document.getElementById('play-button');
     var player = document.getElementById('player');

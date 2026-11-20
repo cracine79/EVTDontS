@@ -306,8 +306,7 @@ def video(slug):
             '@type': 'VideoObject',
             'name': chapter.name,
             'description': description,
-            'thumbnailUrl': [f'https://i.ytimg.com/vi/{yt}/maxresdefault.jpg',
-                             f'https://i.ytimg.com/vi/{yt}/hqdefault.jpg'],
+            'thumbnailUrl': [f'https://i.ytimg.com/vi/{yt}/hqdefault.jpg'],  # every video has this size
             'embedUrl': f'https://www.youtube.com/embed/{yt}',
             'contentUrl': f'https://www.youtube.com/watch?v={yt}',
             'url': base + request.path,
