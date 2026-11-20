@@ -6,10 +6,9 @@ import LogoutButton from './Components/LogoutComponent';
 import { useEffect } from 'react';
 import { restoreCSRF } from './csrf';
 import './index.css'
-import { AuthRoute, ProtectedRoute } from './Components/routes';
+import { AppRoot, ProtectedRoute } from './Components/routes';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { NavBar } from './Components/NavBar';
-import { MainPage } from './Components/MainPage';
 import { restoreUser } from './Slices/userActions';
 import { useDispatch } from 'react-redux';
 import { UserHome } from './Components/UserHome';
@@ -61,7 +60,7 @@ const router = createBrowserRouter([
     children:[
       {
         path:"/",
-        element: <AuthRoute component={MainPage} />
+        element: <AppRoot />
       },
       {
         path:"/userhome",

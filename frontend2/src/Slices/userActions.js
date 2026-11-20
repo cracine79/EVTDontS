@@ -34,10 +34,12 @@ export const restoreUser = () => async(dispatch) => {
         dispatch(storeTopicProg(data.topic_progress))
         dispatch(storeUserChapters(data.user_chapters))
       } else {
+        localStorage.removeItem('access_token');
         dispatch(logout());
       }
     } catch (error) {
       console.error('Failed to restore user:', error);
+      localStorage.removeItem('access_token');
       dispatch(logout());
     }
   };

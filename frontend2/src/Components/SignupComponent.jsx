@@ -6,10 +6,11 @@ import { closeSignupModal } from '../Slices/modalSlice';
 import { IoMdClose } from 'react-icons/io';
 import { GetStarted } from './GetStarted';
 import { useNavigate } from 'react-router-dom';
+import { friendlyAuthError } from './routes';
 import { signupUser } from '../Slices/userActions';
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
-const SignupComponent = (results) => {
+const SignupComponent = ({ onClose }) => {
   const showModal= useSelector(state=>(state.modal.isSignupOpen))
   const dispatch = useDispatch();
   const quizData = useSelector((state)=>state.modal.sourceData)
@@ -18,22 +19,30 @@ const SignupComponent = (results) => {
   const [username, setUsername] = useState('')
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   console.log(quizData)
   
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+    if (submitting) return
+    setSubmitting(true)
+    setErrorMessage('')
     const result = await dispatch(signupUser(username, email, password, quizData))
-    dispatch(closeSignupModal())
+    setSubmitting(false)
     if(result.error){
-      navigate('/whoops', {state: {error: result.error, source: 'signup'}})
+      // Stay in the box so they can fix the problem (e.g. username taken)
+      setErrorMessage(friendlyAuthError(result.error, "Something went wrong signing up. Please try again."))
     } else {
+      dispatch(closeSignupModal())
       navigate('/getstarted')
     }
   };
 
   const handleClose = ()=>{
     dispatch(closeSignupModal())
+    if (onClose) onClose()   // e.g. /app/signup sends the visitor back to the page they came from
   }
 
   return (
@@ -167,9 +176,10 @@ const SignupComponent = (results) => {
               
               <button type="button" className="absolute inset-y-0 right-3  flex items-center" onClick = {()=>setShowPassword((prev)=>!prev)}> {showPassword ? <BsFillEyeSlashFill className="text-gray-400"  size={24}/> : <BsFillEyeFill className="text-gray-400" size={24} />} </button>
             </div>
+              {errorMessage && <p className='mt-3 mx-8 text-sm text-red-600 text-center' role='alert'>{errorMessage}</p>}
               <button type="submit" className='mt-2
                             button !text-base !py-0 !px-4 my-4 !rounded-3xl !px-8
-                            mb-4'>Sign Up</button>
+                            mb-4 disabled:opacity-60' disabled={submitting}>{submitting ? 'Signing up…' : 'Sign Up'}</button>
             </form>
           </div>
         </div>

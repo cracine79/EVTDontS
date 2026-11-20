@@ -4,10 +4,11 @@ import SignupComponent from "./SignupComponent"
 import LogoutButton from "./LogoutComponent"
 import { openLoginModal, openSignupModal } from "../Slices/modalSlice"
 import { UserMenu } from "./UserMenu"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { goToPublicHome } from "./routes"
 import { getAllChapters } from "../Slices/chaptersActions"
 import { SearchBar } from "./SearchBar"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 
 export const NavBar = () => {
@@ -17,17 +18,6 @@ export const NavBar = () => {
     const currentUser = useSelector(state=>(state.user.username))
     const [mobileSearchBarVisible, setMobileSearchBarVisible] = useState(false)
     const dispatch = useDispatch()
-    const location = useLocation()
-
-    // Public (server-rendered) pages link to /app/?login=1 and /app/?signup=1
-    useEffect(()=>{
-        const params = new URLSearchParams(location.search)
-        const token = localStorage.getItem('access_token')
-        const hasToken = token && token !== 'null' && token !== 'undefined'
-        if (hasToken) return
-        if (params.has('login')) dispatch(openLoginModal())
-        else if (params.has('signup')) dispatch(openSignupModal())
-    }, [location.search, dispatch])
    
     const handleLogin = ()=>{
         dispatch(openLoginModal())
@@ -77,7 +67,7 @@ export const NavBar = () => {
                     z-50">
                     <div className='flex w-2/3  items-center  h-full py-4 '>
                         <span className='flex sm:w-1/6 sm:min-w-72 max-w-72 items-center'>
-                            <img src="/app/EvtdsDarkerGBlue.png" onClick = {()=>navigate('/')}alt="EVTDS Logo" className=" w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16 hover:cursor-pointer"/>
+                            <img src="/app/EvtdsDarkerGBlue.png" onClick = {()=>(currentUser ? navigate('/userhome') : goToPublicHome())} alt="EVTDS Logo" className=" w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16 hover:cursor-pointer"/>
                             <span className='ml-2 md:text-2xl text-sm font-bold text-white text-slate-600'>BETA</span>
                         </span>
 

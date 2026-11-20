@@ -11,33 +11,40 @@ import { storeTopicProg } from '../Slices/topicProgSlice';
 import { storeUserChapters } from '../Slices/userChaptersSlice';
 import { storeTopics } from '../Slices/topicsSlice';
 import { loginUser } from '../Slices/userActions';
+import { friendlyAuthError } from './routes';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
 import { Eye, EyeOff } from "lucide-react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
-const LoginComponent = () => {
+const LoginComponent = ({ onClose }) => {
   const showModal= useSelector(state=>(state.modal.isLoginOpen))
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return
+    setSubmitting(true)
+    setErrorMessage('')
     const result = await dispatch(loginUser(username, password))
-    dispatch(closeLoginModal())
+    setSubmitting(false)
     if(result.error){
-
-      navigate('/whoops', {state: {error: result.error, source: 'login'}})
+      // Stay in the box and let them try again
+      setErrorMessage(friendlyAuthError(result.error, "Something went wrong logging in. Please try again."))
     } else {
-
+      dispatch(closeLoginModal())
       navigate('/userhome')
     }
   };
 
   const handleClose = ()=>{
     dispatch(closeLoginModal())
+    if (onClose) onClose()   // e.g. /app/login sends the visitor back to the page they came from
   }
 
   const goToForgot = () => {
@@ -162,7 +169,8 @@ const LoginComponent = () => {
               </div>
               <div className='w-full flex items-center justify-center'>
 
-                <button type="submit" className='mt-2 button !px-8'>Login</button>
+                {errorMessage && <p className='mt-3 mx-8 text-sm text-red-600 text-center' role='alert'>{errorMessage}</p>}
+                <button type="submit" disabled={submitting} className='mt-2 button !px-8 disabled:opacity-60'>{submitting ? 'Logging in…' : 'Login'}</button>
               </div>
 
               </div>

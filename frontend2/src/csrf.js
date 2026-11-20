@@ -14,7 +14,7 @@ export async function csrfFetch(url, options = {}) {
         }
     }
     const auth_token = localStorage.getItem('access_token')
-    if(auth_token){
+    if(auth_token && auth_token !== 'null' && auth_token !== 'undefined'){
         options.headers['Authorization'] = `Bearer ${auth_token}`
     }
 
@@ -49,7 +49,7 @@ export async function csrfFetch(url, options = {}) {
 
         const { csrf_token } = data;
         sessionStorage.setItem('X-CSRF-Token', csrf_token);
-    } catch {
-        console.lerror('Error fetching CSRF token:', error)
+    } catch (error) {
+        console.error('Error fetching CSRF token:', error)
     }
   }

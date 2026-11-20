@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { openLoginModal, openSignupModal } from '../Slices/modalSlice'
@@ -11,7 +11,8 @@ const safeNext = (value) => (value && value.startsWith('/') && !value.startsWith
 /**
  * /app/login and /app/signup: the login/signup modal over a plain background in the public
  * site's colors, used by the server-rendered pages' "Log In" / "Get Started" buttons.
- * Closing the modal returns the visitor to the page they came from (?next=...).
+ * Clicking the modal's close button returns the visitor to the page they came from (?next=...).
+ * A failed login/signup keeps the modal open with the error shown inside it.
  */
 export const AuthGate = ({ mode }) => {
     const dispatch = useDispatch()
@@ -20,7 +21,6 @@ export const AuthGate = ({ mode }) => {
     const next = safeNext(new URLSearchParams(location.search).get('next'))
     const loggedIn = useSelector((state) => !!state.user.username)
     const isOpen = useSelector((state) => (mode === 'signup' ? state.modal.isSignupOpen : state.modal.isLoginOpen))
-    const wasOpen = useRef(false)
 
     useEffect(() => {
         dispatch(mode === 'signup' ? openSignupModal() : openLoginModal())
@@ -30,15 +30,6 @@ export const AuthGate = ({ mode }) => {
     useEffect(() => {
         if (loggedIn && !isOpen) navigate('/userhome', { replace: true })
     }, [loggedIn, isOpen, navigate])
-
-    // Modal closed without logging in -> back to the page they came from
-    useEffect(() => {
-        if (isOpen) {
-            wasOpen.current = true
-        } else if (wasOpen.current && !loggedIn && location.pathname.match(/\/(login|signup)$/)) {
-            window.location.assign(next)
-        }
-    }, [isOpen, loggedIn, location.pathname, next])
 
     return (
         <div className="min-h-screen bg-[#344A53] flex flex-col">
@@ -54,7 +45,9 @@ export const AuthGate = ({ mode }) => {
                 </div>
             </div>
             {/* the modals bring their own (dark-text) styling */}
-            {mode === 'signup' ? <SignupComponent /> : <LoginComponent />}
+            {mode === 'signup'
+                ? <SignupComponent onClose={() => window.location.assign(next)} />
+                : <LoginComponent onClose={() => window.location.assign(next)} />}
         </div>
     )
 }
