@@ -4,7 +4,7 @@ import json
 import os
 import re
 from html import unescape
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 from flask import (Blueprint, Response, abort, current_app, redirect, render_template,
                    request, send_from_directory, url_for)
@@ -237,9 +237,16 @@ def redirect_to_canonical_host():
         return redirect(target, 301)
 
 
+def auth_url(mode):
+    """/app/login or /app/signup, returning to the current page if the visitor closes the box."""
+    here = request.full_path.rstrip('?') if request else '/'
+    return f'/app/{mode}?next={quote(here, safe="/")}'
+
+
 @public_bp.app_context_processor
 def inject_globals():
     return {
+        'auth_url': auth_url,
         'site_url': current_app.config.get('SITE_URL', 'https://www.economicsvideos.com'),
         'spa_css': _spa_css(),
         'youtube_id': youtube_id,

@@ -38,6 +38,7 @@ import { UserlessResults } from './Components/UserlessResults';
 import { VideoIndexVideo } from './Components/VideoIndexVideo';
 import { VideoIndexHome } from './Components/VideoIndexHome';
 import { FreeQuiz } from './Components/FreeQuiz';
+import { AuthGate } from './Components/AuthGate';
 
 const Layout = () => {
   return(
@@ -52,6 +53,9 @@ const Layout = () => {
 }
 
 const router = createBrowserRouter([
+  // Login/signup pages used by the public (server-rendered) site; outside Layout on purpose
+  { path: '/login', element: <AuthGate mode="login" /> },
+  { path: '/signup', element: <AuthGate mode="signup" /> },
   {
     element: <Layout />,
     children:[

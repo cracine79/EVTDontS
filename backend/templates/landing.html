@@ -35,7 +35,7 @@
       </p>
       <div class="mt-8 flex flex-col sm:flex-row gap-4 sm:items-center">
         <a href="{{ url_for('public.videos') }}" class="btn-primary text-lg sm:text-xl px-8 py-3 whitespace-nowrap"><i class="fa-solid fa-play"></i> Browse the free videos</a>
-        <a href="/app/?signup=1" class="text-center font-bold whitespace-nowrap underline underline-offset-4 decoration-2 hover:text-[#7fd3e6]">or sign up to track your progress →</a>
+        <a href="{{ auth_url('signup') }}" class="text-center font-bold whitespace-nowrap underline underline-offset-4 decoration-2 hover:text-[#7fd3e6]">or sign up to track your progress →</a>
       </div>
       <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-gray-200">
         <li><i class="fa-solid fa-video mr-2 text-[#FFC93C]"></i>{{ total_videos }} videos</li>
@@ -161,7 +161,7 @@
   <h2 class="text-3xl sm:text-5xl font-bold">Sign up to access quizzes, track progress, and more!</h2>
   <p class="mt-4 text-lg sm:text-xl text-gray-200">It's 100% free and we never send you emails. C'mon, what else are you doing right now?</p>
   <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-    <a href="/app/?signup=1" class="btn-primary text-xl px-10 py-3">Get Started!</a>
+    <a href="{{ auth_url('signup') }}" class="btn-primary text-xl px-10 py-3">Get Started!</a>
     <a href="{{ url_for('public.videos') }}" class="btn-secondary text-xl px-10 py-3">Jump to Videos</a>
   </div>
   <p class="mt-4 text-gray-300">You can always sign up later.</p>

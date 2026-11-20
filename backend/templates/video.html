@@ -88,7 +88,7 @@
 
           <div class="mt-6 flex flex-col sm:flex-row gap-4">
             <a href="/app/freequiz/{{ chapter.slug | urlencode }}" class="btn-primary text-lg px-7 py-3"><i class="fa-solid fa-pen-to-square"></i> Take the free quiz</a>
-            <a href="/app/?signup=1" class="btn-secondary text-lg px-7 py-3"><i class="fa-solid fa-chart-line"></i> Sign up to track progress</a>
+            <a href="{{ auth_url('signup') }}" class="btn-secondary text-lg px-7 py-3"><i class="fa-solid fa-chart-line"></i> Sign up to track progress</a>
           </div>
 
           {% if key_moments %}

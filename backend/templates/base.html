@@ -52,8 +52,8 @@
           <a class="hidden md:block hover:text-[#344A53]" href="/app/aboutus">About Us</a>
           <a class="hidden md:block hover:text-[#344A53]" href="/app/contactus">Contact Us</a>
           <button type="button" class="lg:hidden hover:text-[#344A53]" id="mobile-search-toggle" aria-label="Search videos"><i class="fa-solid fa-magnifying-glass"></i></button>
-          <a class="hover:text-[#344A53]" href="/app/?login=1">Log In</a>
-          <a class="btn-primary px-4 sm:px-5 py-2 text-sm sm:text-base" href="/app/?signup=1">Get Started</a>
+          <a class="hover:text-[#344A53]" href="{{ auth_url('login') }}">Log In</a>
+          <a class="btn-primary px-4 sm:px-5 py-2 text-sm sm:text-base" href="{{ auth_url('signup') }}">Get Started</a>
         </div>
       </nav>
       <div id="mobile-search" class="left-0 fixed top-0 bg-[#0088a8] py-2 mt-[64px] sm:mt-[80px] w-full shadow-md z-40 transition-transform duration-300 -translate-y-[200%] lg:hidden">
