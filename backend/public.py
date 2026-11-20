@@ -69,6 +69,20 @@ def plain_text(html, limit=None):
     return txt
 
 
+def iso_duration(seconds):
+    """823 -> 'PT13M43S' (ISO 8601, as schema.org expects)."""
+    if not seconds:
+        return None
+    h, rem = divmod(int(seconds), 3600)
+    m, s = divmod(rem, 60)
+    return 'PT' + (f'{h}H' if h else '') + (f'{m}M' if m else '') + f'{s}S'
+
+
+def embed_autoplay_url(video_url):
+    sep = '&' if '?' in video_url else '?'
+    return f'{video_url}{sep}autoplay=1'
+
+
 def clean_blurb(blurb):
     # Some seeded blurbs used "/n" where a newline was intended
     return (blurb or '').replace('/n', '\n')
@@ -146,15 +160,44 @@ def video(slug):
     prev_ch = ordered[idx - 1] if idx > 0 else None
     next_ch = ordered[idx + 1] if idx + 1 < len(ordered) else None
 
+    yt = youtube_id(chapter.video_url)
+    description = plain_text(chapter.video_blurb, 155)
+    transcript_paragraphs = [p for p in (chapter.transcript or '').split('\n\n') if p.strip()]
+    base = current_app.config['SITE_URL']
+    video_ld = None
+    if yt:
+        video_ld = {k: v for k, v in {
+            '@context': 'https://schema.org',
+            '@type': 'VideoObject',
+            'name': chapter.name,
+            'description': description,
+            'thumbnailUrl': [f'https://i.ytimg.com/vi/{yt}/maxresdefault.jpg',
+                             f'https://i.ytimg.com/vi/{yt}/hqdefault.jpg'],
+            'embedUrl': f'https://www.youtube.com/embed/{yt}',
+            'contentUrl': f'https://www.youtube.com/watch?v={yt}',
+            'url': base + request.path,
+            'uploadDate': chapter.video_upload_date.isoformat() if chapter.video_upload_date else None,
+            'duration': iso_duration(chapter.video_duration_seconds),
+            'transcript': '\n\n'.join(transcript_paragraphs) or None,
+            'inLanguage': 'en',
+            'isFamilyFriendly': True,
+            'publisher': {'@type': 'Organization', 'name': "Economics Videos That Don't Suck", 'url': base + '/'},
+        }.items() if v is not None}
+
     return render_template(
         'video.html',
         chapter=chapter,
-        yt=youtube_id(chapter.video_url),
+        video_ld=video_ld,
+        yt=yt,
         units=units_with_chapters(),
         prev_ch=prev_ch,
         next_ch=next_ch,
         video_blurb=clean_blurb(chapter.video_blurb),
-        description=plain_text(chapter.video_blurb, 155),
+        embed_url=embed_autoplay_url(chapter.video_url),
+        duration_label=(f'{chapter.video_duration_seconds // 60}:{chapter.video_duration_seconds % 60:02d}'
+                        if chapter.video_duration_seconds else None),
+        transcript_paragraphs=transcript_paragraphs,
+        description=description,
         short_name=chapter.name.split(' ', 1)[-1],
     )
 
@@ -202,7 +245,12 @@ def spa_root():
 @public_bp.route('/app/<path:path>')
 def spa(path=''):
     if path and os.path.isfile(os.path.join(BUILD_DIR, path)):
-        return send_from_directory(BUILD_DIR, path)
+        # assets/ files have a content hash in their name, so they can be cached "forever"
+        max_age = 31536000 if path.startswith('assets/') else 86400
+        resp = send_from_directory(BUILD_DIR, path, max_age=max_age)
+        if path.startswith('assets/'):
+            resp.headers['Cache-Control'] = f'public, max-age={max_age}, immutable'
+        return resp
     return _spa_index()
 
 

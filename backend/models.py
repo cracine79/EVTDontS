@@ -116,6 +116,10 @@ class Chapter(db.Model):
     quiz_blurb: Mapped[str] = mapped_column(Text, nullable=True)
     order: Mapped[int] = mapped_column(Integer, nullable=False)
     quiz_blurb_img_url: Mapped[str] = mapped_column(String(255), nullable = True)
+    # YouTube metadata for SEO (VideoObject structured data + transcript on the public page)
+    video_upload_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    video_duration_seconds: Mapped[int] = mapped_column(Integer, nullable=True)
+    transcript: Mapped[str] = mapped_column(Text, nullable=True)
 
     search_vector: Mapped[TSVECTOR] = mapped_column(TSVECTOR)
     

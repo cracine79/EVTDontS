@@ -8,6 +8,7 @@ from questions import questions_ns
 from csrf import csrf_ns
 from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
+from flask_compress import Compress
 from flask_migrate import Migrate
 from progress import progress_ns
 from quiz import quiz_ns
@@ -32,6 +33,7 @@ def create_app(config):
     
     CORS(app)
     app.config.from_object(config)
+    Compress(app)  # gzip/brotli for HTML, CSS, JS and JSON
 
     db.init_app(app)
     JWTManager(app)

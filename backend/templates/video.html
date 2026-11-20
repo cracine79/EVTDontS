@@ -8,21 +8,9 @@
 {% block spa_redirect %}{% with target="/app/video-library/" ~ chapter.slug %}{% include "_spa_redirect.html" %}{% endwith %}{% endblock %}
 
 {% block structured_data %}
-{% if yt %}
+{% if video_ld %}
 <script type="application/ld+json">
-{{ {
-  "@context": "https://schema.org",
-  "@type": "VideoObject",
-  "name": chapter.name,
-  "description": description,
-  "thumbnailUrl": ["https://i.ytimg.com/vi/" ~ yt ~ "/hqdefault.jpg"],
-  "embedUrl": "https://www.youtube.com/embed/" ~ yt,
-  "contentUrl": "https://www.youtube.com/watch?v=" ~ yt,
-  "url": site_url ~ request.path,
-  "inLanguage": "en",
-  "isFamilyFriendly": true,
-  "publisher": {"@type": "Organization", "name": "Economics Videos That Don't Suck", "url": site_url ~ "/"}
-} | tojson }}
+{{ video_ld | tojson }}
 </script>
 {% endif %}
 <script type="application/ld+json">
@@ -49,10 +37,23 @@
         <div class="w-full">
           <div class="sm:mt-8 sm:mb-12 sm:min-h-[65vh] mx-auto px-8 grid grid-cols-1 sm:grid-cols-[4fr_3fr] items-start">
             <div class="sm:w-11/12 w-full max-w-6xl">
-              <div class="aspect-video">
-                <iframe class="w-full h-full" src="{{ chapter.video_url }}" title="{{ chapter.name }}"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              <div class="aspect-video relative bg-black" id="player">
+                {% if yt %}
+                <button type="button" id="play-button" class="group absolute inset-0 w-full h-full" aria-label="Play video: {{ chapter.name }}"
+                        data-embed="{{ embed_url }}" data-title="{{ chapter.name }}">
+                  <img src="https://i.ytimg.com/vi/{{ yt }}/maxresdefault.jpg" alt="" width="1280" height="720"
+                       class="w-full h-full object-cover"
+                       onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg'">
+                  <span class="absolute inset-0 flex items-center justify-center">
+                    <span class="w-20 h-14 rounded-2xl bg-[#ff0000] group-hover:bg-[#cc0000] flex items-center justify-center shadow-lg">
+                      <span class="ml-1 w-0 h-0 border-y-[12px] border-y-transparent border-l-[20px] border-l-white"></span>
+                    </span>
+                  </span>
+                  {% if duration_label %}<span class="absolute bottom-2 right-2 bg-black/80 text-white text-sm px-2 py-0.5 rounded">{{ duration_label }}</span>{% endif %}
+                </button>
+                {% else %}
+                <iframe class="w-full h-full" src="{{ chapter.video_url }}" title="{{ chapter.name }}" allowfullscreen></iframe>
+                {% endif %}
               </div>
               <div class="w-full justify-center flex flex-col sm:flex-row items-center mt-8">
                 <a class="button w-11/12 sm:w-auto sm:h-12" href="/app/?signup=1">Sign Up To Track Progress &amp; More!</a>
@@ -62,6 +63,14 @@
             </div>
             <div class="sm:w-11/12 w-full sm:mt-2 mt-4">
               <div class="whitespace-pre-line">{{ video_blurb | safe }}</div>
+              {% if transcript_paragraphs %}
+                <details class="mt-8 border-t border-gray-300 pt-4">
+                  <summary class="cursor-pointer text-lg font-bold text-[#0088A8]">Read the video transcript</summary>
+                  <div class="mt-4 space-y-4 text-gray-800">
+                    {% for para in transcript_paragraphs %}<p>{{ para }}</p>{% endfor %}
+                  </div>
+                </details>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -74,4 +83,30 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var btn = document.getElementById('play-button');
+    if (!btn) return;
+    // Warm up the connection to YouTube when the visitor shows intent
+    function preconnect() {
+      ['https://www.youtube.com', 'https://www.google.com'].forEach(function (href) {
+        var l = document.createElement('link'); l.rel = 'preconnect'; l.href = href; document.head.appendChild(l);
+      });
+    }
+    btn.addEventListener('pointerover', preconnect, { once: true });
+    btn.addEventListener('click', function () {
+      var iframe = document.createElement('iframe');
+      iframe.className = 'w-full h-full';
+      iframe.src = btn.dataset.embed;
+      iframe.title = btn.dataset.title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+      btn.replaceWith(iframe);
+    });
+  })();
+</script>
 {% endblock %}

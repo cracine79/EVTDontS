@@ -155,9 +155,9 @@ export const MainPage = () => {
             <div className="flex  justify-center sm:mt-8">
 
                 <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block rounded-3xl z-20' autoPlay={isAutoplay} loop muted>
-                    <source src="intro2.mp4" type="video/mp4" />t
+                    <source src="/app/intro2-web.mp4" type="video/mp4" />t
                 </video>
-                <img src="/app/MobileBannerTopReal.jpg" className='mt-20 sm:hidden'></img>
+                <img src="/app/MobileBannerTopReal.webp" className='mt-20 sm:hidden'></img>
        
             </div>
             <div className=' w-11/12 sm:text-2xl text-xs flex justify-around text-center sm:px-28 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Stop memorizing.</span><span>Start understanding.</span><span>Economics, but finally entertaining.</span></div>
@@ -208,10 +208,10 @@ export const MainPage = () => {
                     <div className="flex flex-col items-center">
                        <div >
                             <video autoPlay={isAutoplay} ref={videoRef} loop muted className={`fixed top-1/4 right-0 w-5/12 rounded-3xl hidden sm:block transform  transition-opacity duration-700 sm:mr-12 mt-4 sm:mt-0 ${vidVisible ? "opacity-100":"opacity-0"}`}>
-                                <source src="Sample.mp4" type="video/mp4" />
+                                <source src="/app/Sample-web.mp4" type="video/mp4" />
                             </video>
                        </div>
-                        <img src="MobileMiniVid.jpg" className= "mt-6 w-5/6 rounded-3xl sm:hidden"></img>
+                        <img src="/app/MobileMiniVid.webp" className= "mt-6 w-5/6 rounded-3xl sm:hidden"></img>
                     </div>
                     
                 </div>
@@ -305,7 +305,7 @@ export const MainPage = () => {
                                 muted 
                                 ref={stickyRef}
                             >
-                                <source src="BlueWarrior.mp4" type="video/webm" />
+                                <source src="/app/BlueWarrior-web.mp4" type="video/mp4" />
                             </video>       
                         </div>
                         <div className='flex flex-col items-center sm:mt-10 sm:-ml-28 sm:w-1/2 sm:ml-[40%] z-30'>
@@ -322,7 +322,7 @@ export const MainPage = () => {
                             <p className="mt-2  w-5/6 text-xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>
                         <div className='flex flex-col justify-center ml-4 -mb-8 items-center sm:hidden my-4'>
-                        <img src='Econowarrior.png' className='w-5/6'></img>
+                        <img src='/app/Econowarrior.webp' className='w-5/6'></img>
                         </div>
                     </div>
                 </div>
