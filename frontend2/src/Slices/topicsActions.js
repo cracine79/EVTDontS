@@ -3,7 +3,7 @@ import { updateTopics } from "./topicsSlice"
 
 export const getAllTopics = () => async(dispatch) => {
     try{
-        const response = await csrfFetch('api/topics')
+        const response = await csrfFetch('/api/topics')
 
         if (!response.ok) {
             const errorText = await response.text();

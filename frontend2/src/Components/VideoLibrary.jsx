@@ -3,6 +3,15 @@ import { getAllChapters } from "../Slices/chaptersActions"
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import { useState, useEffect } from "react"
 
+// Sidebar headings; chapters are grouped under each by their unit_id
+const LIBRARY_UNITS = [
+    { id: 1, title: 'Unit 1: Intro to Economic Concepts' },
+    { id: 2, title: 'Unit 2: Supply & Demand' },
+    { id: 3, title: 'Unit 3: Elasticities' },
+    { id: 4, title: 'Unit 4: Government Intervention' },
+    { id: 5, title: 'Unit 5: Market Failure' },
+    { id: 6, title: 'Unit 6: Production, Costs, Perfect & Imperfect Competition' },
+]
 
 
 export const VideoLibrary = () => {
@@ -56,44 +65,16 @@ export const VideoLibrary = () => {
                     <div className='ml-4'>
                     <div className='sm:hidden mt-2 -mb-4' onClick={()=>closeMenu()}>X Close</div>
                     <div className='text-2xl font-bold text-center mt-4 -ml-8'>Video Library</div>
-                    <div className='font-bold mt-2 text-lg'>Unit 1: Intro to Economic Concepts</div>
-                    {chaptersObj.slice(0,7).map(chapter=>{
-                        return(
-                            <div key={chapter.id} onClick = {()=>closeMenu()}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
-                                <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
-                            </div>
-                        )
-                    })}
-                    <div className='font-bold mt-2 text-lg'>Unit 2: Supply & Demand</div>
-                    {chaptersObj.slice(7, 18).map(chapter=>{
-                        return(
-                            <div key={chapter.id} onClick = {()=>closeMenu()}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
-                                <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
-                            </div>
-                        )
-                    })}
-                    <div className='font-bold mt-2 text-lg'>Unit 3: Elasticities</div>
-                       {chaptersObj.slice(18, 24).map(chapter=>{
-                        return(
-                            <div key={chapter.id} onClick = {()=>closeMenu()}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
-                                <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
-                            </div>  
-                        )
-                    })}
-
-                    <div className='font-bold mt-2 text-lg'>Unit 4: Government Intervention </div>
-                    {chaptersObj.slice(24, 27).map(chapter=>{
-                        return(
-                            <>
-                                
-                            <div key={chapter.id} onClick = {()=>(setMenuOpen(false))}className='hover:cursor-pointer  hover:text-[#0088A8]'  >
-                                <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
-                            </div>
-                              
-                            </>
-                        )
-                    })} 
-                    <div className='text-gray-600'>4.4 Price Floors (coming soon!)</div>
+                    {LIBRARY_UNITS.map(unit=>(
+                        <div key={unit.id}>
+                            <div className='font-bold mt-2 text-lg'>{unit.title}</div>
+                            {chaptersObj.filter(chapter=>chapter.unit_id===unit.id).map(chapter=>(
+                                <div key={chapter.id} onClick = {()=>closeMenu()} className='hover:cursor-pointer  hover:text-[#0088A8]'  >
+                                    <Link to={`/video-library/${chapter.slug}`}  >{chapter.name}</Link>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
                     <div className='h-28'></div>
                     </div>
                 </div>

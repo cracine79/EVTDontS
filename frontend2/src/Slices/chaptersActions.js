@@ -4,7 +4,7 @@ import { updateChapters } from "./chaptersSlice";
 
 export const getAllChapters = () => async(dispatch) => {
     try {
-        const response = await csrfFetch('api/chapters/getall')
+        const response = await csrfFetch('/api/chapters/getall')
     
         if (!response.ok) {
             // Log the status and response text for debugging
