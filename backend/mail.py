@@ -1,59 +1,40 @@
-import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from html import escape
+
+from flask import request
 from flask_restx import Namespace, Resource
-from flask import request, jsonify, current_app
+
+from email_client import ADMIN_EMAIL, EmailError, send_email
 
 mail_ns = Namespace('mail', description = "A namespace for mail")
 
-def send_mail(subject, email, body, sender_email):
-    message = Mail(
-        from_email = sender_email, 
-        to_emails =sender_email,
-        subject=f"EVTDS EMAIL from {email}",
-        html_content=f"""
-        <p>You have received an email from {email}</p>
+
+def send_mail(subject, email, body, sender_email=ADMIN_EMAIL):
+    """Contact form: forward a visitor's message to the site's inbox. Replying goes to the visitor."""
+    # Everything here is typed by a visitor, so escape it before putting it in HTML
+    send_email(
+        to=sender_email,
+        subject=f"EVTDS EMAIL from {email}"[:200],
+        reply_to=email if email and '@' in email else None,
+        html=f"""
+        <p>You have received an email from {escape(email or '')}</p>
         <p>The Subject Is</p>
-        <p>{subject}</p>
+        <p>{escape(subject or '')}</p>
         <p>The content is:</p>
-        <p>{body}</p>
-        """
+        <p style="white-space: pre-line">{escape(body or '')}</p>
+        """,
     )
-    try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sg.send(message)
-        print(f"Email sent!  Status Code: {response.status_code}")
-    except Exception as e:
-        print(f"Error sending email: {e}")
-        raise e
-    
+
+
 @mail_ns.route('/send')
 class SendMail(Resource):
     def post(self):
-        data=request.get_json()
+        data = request.get_json() or {}
         email = data.get('email')
         body = data.get('body')
         subject = data.get('subject')
 
         try:
-            send_mail(subject, email, body, 'admin@evtds.com')
+            send_mail(subject, email, body)
             return({"message":"Email Sent Successfully"}), 200
-        except Exception as e:
+        except EmailError:
             return ({"error": "Failed to send email !"}), 500
-    
-
-
-# Debug environment variable
-
-# message = Mail(
-#     from_email='admin@evtds.com',
-#     to_emails='charleelracine@gmail.com',
-#     subject='Test',
-#     html_content='Does it work?')
-
-# try:
-#     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-#     response = sg.send(message)
-
-# except Exception as e:
-#     print("Error:", str(e))

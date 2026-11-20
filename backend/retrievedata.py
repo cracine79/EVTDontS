@@ -3,8 +3,8 @@ from flask_restx import Namespace, Resource
 from flask import request, jsonify, current_app
 from models import User
 from itsdangerous import URLSafeTimedSerializer
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+from html import escape
+from email_client import send_email
 from werkzeug.security import generate_password_hash, check_password_hash
 from exts import db
 
@@ -17,52 +17,35 @@ def generate_reset_token(email, secret_key, salt):
 
 def send_reset_email(email, token, domain, sender_email, username):
     reset_url = f"{domain}/app/reset-password?token={token}"
-    message = Mail(
-        from_email=sender_email,
-        to_emails=email,
+    send_email(
+        to=email,
         subject="Password Reset Request",
-        html_content=f"""
-        <p>Hello, {username}</p>
+        html=f"""
+        <p>Hello, {escape(username)}</p>
         <p>We received a request to reset your password. If you made this request, please click the link below:</p>
-        <a href="{reset_url}">Reset Your Password </a>
-        <p>If you did not request a password reset, you can safely ignore this email.</p>
+        <a href="{escape(reset_url)}">Reset Your Password</a>
+        <p>This link expires in one hour. If you did not request a password reset, you can safely ignore this email.</p>
         <p>Thanks,</p>
         <p>EVTDS Help</p>
-
-        """
+        """,
     )
 
-    try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sg.send(message)
-        print(f"EMail sent!  Status Code: {response.status_code}")
-    except Exception as e:
-        print(f"Error sending email: {e}")
-        raise e
 
 def send_username_email(email, sender_email, username):
-    message = Mail(
-        from_email = sender_email,
-        to_emails = email,
+    send_email(
+        to=email,
         subject="EVTDS Username Retrieval",
-        html_content=f"""
+        html=f"""
         <p>Hello,</p>
-        <p>We have recieved a request to retrieve your username for www.evtds.com.  We're not judging you.</p>
+        <p>We have received a request to retrieve your username for Economics Videos That Don't Suck (www.economicsvideos.com). We're not judging you.</p>
         <p>Your username is:</p>
-        <p>{username}<p>
+        <p><strong>{escape(username)}</strong></p>
         <p>If you did not request an email with your username, then you can safely ignore this email and go about your day.</p>
         <p>Thanks,</p>
         <p>EVTDS Help</p>
-        """
+        """,
     )
-    try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = sg.send(message)
-        print(f"EMail sent!  Status Code: {response.status_code}")
-    except Exception as e:
-        print(f"Error sending email: {e}")
-        raise e
-    
+
 
 def verify_reset_token(token, secret_key, salt, max_age=3600):
     serializer = URLSafeTimedSerializer(secret_key)
