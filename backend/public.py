@@ -154,7 +154,6 @@ def video(slug):
         prev_ch=prev_ch,
         next_ch=next_ch,
         video_blurb=clean_blurb(chapter.video_blurb),
-        quiz_blurb=clean_blurb(chapter.quiz_blurb),
         description=plain_text(chapter.video_blurb, 155),
         short_name=chapter.name.split(' ', 1)[-1],
     )
