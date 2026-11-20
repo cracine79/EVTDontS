@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom"
 import { useState } from "react"
-import { csrfFetch } from "../csrf"
 
 
 export const RetrieveData = () => {
@@ -15,53 +14,39 @@ export const RetrieveData = () => {
 
     const source = location.state?.source
 
+    const [sending, setSending] = useState(false)
+
     const handleSubmit = async () => {
-        try{
-            if(source == 'forgotPassword'){
-                const response = await csrfFetch('/api/retrieve/password', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({email})
-                })
-
-                if(!response.ok){
-                    setErrorMessageVisible(true)
-                } else {
-                    setFirstBoxStatus(false)
-                    setSuccessBoxStatus(true)
-                    setErrorMessageVisible(false)
-                    window.scrollTo(0,0)
-                }
-                const output = await response.json()
-
-
-            } else if (source == 'forgotUsername'){
-                const response = await csrfFetch('/api/retrieve/username', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({email})
-                })
-
-
-                if(!response.ok){
-                    setErrorMessageVisible(true)
-                } else {
-                    const data = await response.json()
-                    window.scrollTo(0,0)
-                    setFirstBoxStatus(false)
-                    setSuccessBoxStatus(true)
-                    setErrorMessageVisible(false)
-                }
+        if (sending) return            // ignore double clicks / double submits
+        const endpoint = source == 'forgotPassword' ? '/api/retrieve/password'
+                       : source == 'forgotUsername' ? '/api/retrieve/username' : null
+        if (!endpoint) return
+        setSending(true)
+        setErrorMessageVisible(false)
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email }),
+            })
+            if (response.ok) {
+                window.scrollTo(0, 0)
+                setFirstBoxStatus(false)
+                setSuccessBoxStatus(true)
+            } else if (response.status == 404) {
+                setErrorMessage("We couldn't find an account with that email address. Please check it and try again.")
+                setErrorMessageVisible(true)
+            } else {
+                setErrorMessage("We couldn't send the email right now. Please try again in a few minutes.")
+                setErrorMessageVisible(true)
             }
         } catch (error) {
-            console.error('POOP', error)
+            console.error('Error requesting account email', error)
+            setErrorMessage("We couldn't reach the server. Please check your connection and try again.")
             setErrorMessageVisible(true)
+        } finally {
+            setSending(false)
         }
-
     }
 
     const submitAgain = () => {
@@ -90,8 +75,8 @@ export const RetrieveData = () => {
                             in 11th grade when I was also trying to figure out my future... 
                             and what the heck that website was.
                         </p>
-                        <input placeholder = 'Submit Email to Reset Password' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <button  onClick={handleSubmit} className='my-6 py-2 px-2 button'>Reset My Password</button>
+                        <input type='email' required placeholder = 'Submit Email to Reset Password' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
+                        <button type='submit' disabled={sending} className='my-6 py-2 px-2 button disabled:opacity-60'>{sending ? 'Sending…' : 'Reset My Password'}</button>
                     </>
                     }
                     {
@@ -101,11 +86,11 @@ export const RetrieveData = () => {
                             Forgot your username, huh?
                         </p>
                         <p className = 'text-xl mx-8 my-2'>Oh, forgotten your username, have you? Classic. Don’t worry; it happens to the best of us—and by ‘best,’ we mean people who may have a dozen variations of the same username across different platforms. Just pop your email into the box below, and we’ll send your username straight to your inbox. Because who needs memory when you’ve got us?</p>
-                        <input placeholder = 'Submit Email to Retrieve Username' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <button className="button mb-20" onClick={handleSubmit} >Send Username To My Email</button>
+                        <input type='email' required placeholder = 'Submit Email to Retrieve Username' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
+                        <button type='submit' disabled={sending} className="button mb-20 disabled:opacity-60">{sending ? 'Sending…' : 'Send Username To My Email'}</button>
                         </>
                     }
-                    {errorMessageVisible && <p className="mb-6 text-red-600 text-xs">There was a problem finding your account.  Please check email and try again.</p>}
+                    {errorMessageVisible && <p className="mb-6 mx-8 text-red-600 text-sm text-center">{errorMessage}</p>}
                 </form>
             </>
             }
