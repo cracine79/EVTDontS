@@ -7,6 +7,19 @@ import json, random
 from mastery import build_review_quiz
 
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
+
+# Chapter quiz size (also used for the free quiz): this many questions from each topic,
+# or SINGLE_TOPIC_QUESTIONS when the chapter has only one topic.
+QUESTIONS_PER_TOPIC = 3
+SINGLE_TOPIC_QUESTIONS = 6
+
+
+def chapter_quiz_size(topic_question_counts):
+    """How many questions a chapter quiz will have, given each topic's question count."""
+    counts = list(topic_question_counts)
+    if len(counts) == 1:
+        return min(SINGLE_TOPIC_QUESTIONS, counts[0])
+    return sum(min(QUESTIONS_PER_TOPIC, c) for c in counts)
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 @quiz_ns.route('/questions')
@@ -29,10 +42,10 @@ class AccessQuiz(Resource):
 
             if len(topics)>1:
                 for topic in topics:
-                    topic_questions = Question.query.filter_by(topic_id=topic.id).order_by(Question.id).limit(3).all()
+                    topic_questions = Question.query.filter_by(topic_id=topic.id).order_by(Question.id).limit(QUESTIONS_PER_TOPIC).all()
                     questions.extend(topic_questions)
             else:
-                topic_questions = Question.query.filter_by(topic_id=topics[0].id).order_by(Question.id).limit(6).all()
+                topic_questions = Question.query.filter_by(topic_id=topics[0].id).order_by(Question.id).limit(SINGLE_TOPIC_QUESTIONS).all()
                 questions.extend(topic_questions)
 
         
@@ -45,7 +58,7 @@ class AccessQuiz(Resource):
             per_topic = 3 if len(topic_ids) > 1 else 6
             for topic_id in topic_ids:
                 # Skip the questions reserved for the chapter quiz, unless that leaves nothing
-                all_topic_questions = (Question.query.filter_by(topic_id=topic_id).order_by(Question.id).offset(3).all()
+                all_topic_questions = (Question.query.filter_by(topic_id=topic_id).order_by(Question.id).offset(QUESTIONS_PER_TOPIC).all()
                                        or Question.query.filter_by(topic_id=topic_id).all())
                 questions.extend(random.sample(all_topic_questions, min(per_topic, len(all_topic_questions))))
         
@@ -118,11 +131,11 @@ class AccessQuizLoggedout(Resource):
 
         if len(topics)>1:
             for topic in topics:
-                topic_questions = Question.query.filter_by(topic_id=topic.id).order_by(Question.id).limit(3).all()
+                topic_questions = Question.query.filter_by(topic_id=topic.id).order_by(Question.id).limit(QUESTIONS_PER_TOPIC).all()
                 questions.extend(topic_questions)
 
         else:
-            topic_questions = Question.query.filter_by(topic_id=topics[0].id).order_by(Question.id).limit(6).all()
+            topic_questions = Question.query.filter_by(topic_id=topics[0].id).order_by(Question.id).limit(SINGLE_TOPIC_QUESTIONS).all()
             questions.extend(topic_questions)
     
 

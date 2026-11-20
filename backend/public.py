@@ -13,7 +13,8 @@ from sqlalchemy import text
 from exts import db
 from datetime import datetime, timedelta, timezone
 
-from models import Chapter, Question, Unit
+from models import Chapter, Question, QuestionTopic, Unit
+from quiz import chapter_quiz_size
 
 public_bp = Blueprint('public', __name__)
 
@@ -158,8 +159,14 @@ def first_sentence(html, limit=120):
 
 
 def quiz_counts():
-    rows = db.session.query(Question.chapter_id, db.func.count(Question.id)).group_by(Question.chapter_id).all()
-    return dict(rows)
+    """{chapter_id: number of questions in that chapter's practice quiz} (the quiz's size, not the question bank)."""
+    rows = (db.session.query(QuestionTopic.chapter_id, QuestionTopic.id, db.func.count(Question.id))
+            .join(Question, Question.topic_id == QuestionTopic.id)
+            .group_by(QuestionTopic.chapter_id, QuestionTopic.id).all())
+    per_chapter = {}
+    for chapter_id, _, count in rows:
+        per_chapter.setdefault(chapter_id, []).append(count)
+    return {chapter_id: chapter_quiz_size(counts) for chapter_id, counts in per_chapter.items()}
 
 
 def chapter_card(ch, counts=None):
