@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getQuestions } from "../Slices/questionsActions"
+import { getAllChapters } from "../Slices/chaptersActions"
 import { useEffect } from "react"
 import { QuestionComponent } from "./QuestionComponent"
 import { openQuizModal } from "../Slices/modalSlice"
@@ -18,7 +19,8 @@ export const FreeQuiz = () => {
     const chapterEntry = useSelector((state)=>
         Object.entries(state.chapters).find(([id, chapter]) => chapter.slug === chapterslug)
     );
-    const [chapterId, chapter] = chapterEntry
+    // chapterEntry is undefined until chapters load (e.g. when opened from a public page)
+    const [chapterId, chapter] = chapterEntry || []
 
     const [quizBlurb, setQuizBlurb] = useState("")
     const [quizBlurbImgUrl, setQuizBlurbImgUrl] = useState("")
@@ -30,6 +32,11 @@ export const FreeQuiz = () => {
     }
 
     useEffect(()=>{
+        if (!chapterEntry) dispatch(getAllChapters())
+    }, [chapterEntry, dispatch])
+
+    useEffect(()=>{
+        if (!chapterId) return
         const fetchData = async () => {
             const results =  await dispatch(getQuestions(data))
             
@@ -47,6 +54,10 @@ export const FreeQuiz = () => {
         
     }, [chapterId, dispatch]
     )
+
+    if (!chapter) {
+        return <div className='mt-32 mb-32 text-center text-xl'>Loading quiz...</div>
+    }
 
     const chapterName = chapter.name
 

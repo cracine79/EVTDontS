@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}{{ short_name }} | Economics Video &amp; Practice Quiz{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block og_type %}video.other{% endblock %}
+{% block og_image %}{% if yt %}https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg{% else %}{{ site_url }}/app/EVTDSBlue.png{% endif %}{% endblock %}
+
+{% block spa_redirect %}{% with target="/app/video-library/" ~ chapter.slug %}{% include "_spa_redirect.html" %}{% endwith %}{% endblock %}
+
+{% block structured_data %}
+{% if yt %}
+<script type="application/ld+json">
+{{ {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": chapter.name,
+  "description": description,
+  "thumbnailUrl": ["https://i.ytimg.com/vi/" ~ yt ~ "/hqdefault.jpg"],
+  "embedUrl": "https://www.youtube.com/embed/" ~ yt,
+  "contentUrl": "https://www.youtube.com/watch?v=" ~ yt,
+  "url": site_url ~ request.path,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "publisher": {"@type": "Organization", "name": "Economics Videos That Don't Suck", "url": site_url ~ "/"}
+} | tojson }}
+</script>
+{% endif %}
+<script type="application/ld+json">
+{{ {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Video Library", "item": site_url ~ "/videos"},
+    {"@type": "ListItem", "position": 2, "name": chapter.name, "item": site_url ~ request.path}
+  ]
+} | tojson }}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="sm:mt-24 mt-[78px]">
+  <div class="min-h-screen w-100 flex">
+    {% with current_id=chapter.id %}{% include "_library_sidebar.html" %}{% endwith %}
+
+    <div class="sm:w-5/6 w-full">
+      <article class="flex flex-col items-center justify-center sm:mt-10 mt-6">
+        <h1 class="sm:text-2xl mt-4 sm:mt-0 text-center text-lg mb-4">Video for {{ chapter.name }}</h1>
+
+        <div class="w-full">
+          <div class="sm:mt-8 sm:mb-12 sm:min-h-[65vh] mx-auto px-8 grid grid-cols-1 sm:grid-cols-[4fr_3fr] items-start">
+            <div class="sm:w-11/12 w-full max-w-6xl">
+              <div class="aspect-video">
+                <iframe class="w-full h-full" src="{{ chapter.video_url }}" title="{{ chapter.name }}"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <div class="w-full justify-center flex flex-col sm:flex-row items-center mt-8">
+                <a class="button w-11/12 sm:w-auto sm:h-12" href="/app/?signup=1">Sign Up To Track Progress &amp; More!</a>
+                <div class="mx-12 py-2 sm:py-0 text-2xl"></div>
+                <a class="button w-11/12 sm:w-auto sm:h-12" href="/app/freequiz/{{ chapter.slug | urlencode }}">Take a Free Quiz on {{ short_name }}</a>
+              </div>
+            </div>
+            <div class="sm:w-11/12 w-full sm:mt-2 mt-4">
+              <div class="whitespace-pre-line">{{ video_blurb | safe }}</div>
+              {% if quiz_blurb %}
+                <h2 class="text-xl font-bold mt-8">About the practice quiz</h2>
+                <div class="whitespace-pre-line mt-2">{{ quiz_blurb | safe }}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <nav class="w-full px-8 mb-12 flex justify-between gap-4 text-[#0088A8]" aria-label="More videos">
+          {% if prev_ch %}<a class="hover:underline" href="{{ url_for('public.video', slug=prev_ch.slug) }}">← {{ prev_ch.name }}</a>{% else %}<span></span>{% endif %}
+          {% if next_ch %}<a class="hover:underline text-right" href="{{ url_for('public.video', slug=next_ch.slug) }}">{{ next_ch.name }} →</a>{% endif %}
+        </nav>
+      </article>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{# Server-rendered version of the SPA's VideoLibrary sidebar #}
+<button type="button" id="library-open" class="sm:hidden absolute bg-[#D6E6E2] mt-2 z-10 w-1/2 text-center border-blue-600 border-solid border text-black">☰ Video Library</button>
+<nav id="library-panel" aria-label="Video Library"
+     class="sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#D6E6E2] z-30 text-sm text-black transform -translate-x-full transition-transform sm:translate-x-0 overflow-auto sm:overflow-visible top-[78px] sm:top-auto h-screen sm:h-auto">
+  <div class="ml-4">
+    <button type="button" id="library-close" class="sm:hidden mt-2 -mb-4">X Close</button>
+    <h2 class="text-2xl font-bold text-center mt-4 -ml-8"><a href="/videos">Video Library</a></h2>
+    {% for unit, chapters in units %}
+      <h3 class="font-bold mt-2 text-lg">{{ unit.name }}</h3>
+      <ul>
+        {% for ch in chapters %}
+          <li class="hover:text-[#0088A8] {% if current_id == ch.id %}font-bold text-[#0088A8]{% endif %}">
+            <a href="{{ url_for('public.video', slug=ch.slug) }}"{% if current_id == ch.id %} aria-current="page"{% endif %}>{{ ch.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+    <div class="h-28"></div>
+  </div>
+</nav>
+<script>
+  (function () {
+    var panel = document.getElementById('library-panel');
+    document.getElementById('library-open').addEventListener('click', function () {
+      panel.classList.remove('-translate-x-full'); document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('library-close').addEventListener('click', function () {
+      panel.classList.add('-translate-x-full'); document.body.style.overflow = 'auto';
+    });
+  })();
+</script>

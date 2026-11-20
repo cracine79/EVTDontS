@@ -167,7 +167,7 @@ const router = createBrowserRouter([
       }
     ]
   }
-])
+], { basename: '/app' })
 
 function App() {
   const dispatch = useDispatch();

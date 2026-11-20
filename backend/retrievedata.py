@@ -16,7 +16,7 @@ def generate_reset_token(email, secret_key, salt):
     return serializer.dumps(email, salt=salt)
 
 def send_reset_email(email, token, domain, sender_email, username):
-    reset_url = f"{domain}/reset-password?token={token}"
+    reset_url = f"{domain}/app/reset-password?token={token}"
     message = Mail(
         from_email=sender_email,
         to_emails=email,

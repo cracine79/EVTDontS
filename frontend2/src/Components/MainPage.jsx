@@ -157,7 +157,7 @@ export const MainPage = () => {
                 <video className='w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block rounded-3xl z-20' autoPlay={isAutoplay} loop muted>
                     <source src="intro2.mp4" type="video/mp4" />t
                 </video>
-                <img src="/MobileBannerTopReal.jpg" className='mt-20 sm:hidden'></img>
+                <img src="/app/MobileBannerTopReal.jpg" className='mt-20 sm:hidden'></img>
        
             </div>
             <div className=' w-11/12 sm:text-2xl text-xs flex justify-around text-center sm:px-28 border-white border-2 border-solid rounded-2xl h-20 items-center'><span>Stop memorizing.</span><span>Start understanding.</span><span>Economics, but finally entertaining.</span></div>
@@ -192,7 +192,7 @@ export const MainPage = () => {
                 {/* 1. Watch the videos an video  */}
                 <div className="sm:mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center" >
                     <div className='h-100 w-100 flex flex-col items-center 'ref={videoLeftRef}>
-                        {/* <img src="/Watch.png" alt="1: Watch the Videos that Don't Suck" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
+                        {/* <img src="/app/Watch.png" alt="1: Watch the Videos that Don't Suck" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
                         <div className='flex'>
                                                     
                             <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px]  w-[60px] h-[60px] sm:text-[60px] text-4xl  font-bold sm:font-extrabold  rounded-full  border-[4px] sm:border-[6px] border-[#007ea3]">
@@ -228,7 +228,7 @@ export const MainPage = () => {
                 <div>
                     <div className=" sm:ml-20 flex justify-around flex-col sm:flex-row items-center">
                         <div className={`w-5/6 sm:w-1/3  sm:ml-[5%] sm:block hidden fixed top-[15%] left-20  duration-1000 transition-opacity transform ${quizVisible ? "opacity-100":"opacity-0"}`} ref={quizRef}>
-                            <img src='/Sampleq.png' className='rounded-xl'></img>
+                            <img src='/app/Sampleq.png' className='rounded-xl'></img>
                         </div>
                         <div className='h-100 sm:w-1/2 sm:ml-[40%] flex flex-col items-center'>
                         {/* <div className='sm:h-96'></div> */}
@@ -243,11 +243,11 @@ export const MainPage = () => {
                                 <div>quizzes like a Boss</div>
                             </div>
                         </div>
-                            {/* <img src="/Practice.png" alt="2: Take the Quizzes like a Boss" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
+                            {/* <img src="/app/Practice.png" alt="2: Take the Quizzes like a Boss" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
                             <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Unlike some resources, our practice quizzes DON'T suck.  Nope, these bad boys are almost identical to the AP questions you’ll face on game day.  Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
                         </div>
                         <div className='sm:w-5/6 w-11/12 mt-4 sm:mt-0 sm:hidden xs:block'>
-                            <img src='/Sampleq.png' className='rounded-xl'></img>
+                            <img src='/app/Sampleq.png' className='rounded-xl'></img>
                         </div>
                     </div>
                 </div>
@@ -270,15 +270,15 @@ export const MainPage = () => {
                                 <div>Turn Goofs into Gold</div>
                             </div>
                         </div>
-                        {/* <img src="/goofs.png" alt="3: Turn Goofs into Gold" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
+                        {/* <img src="/app/goofs.png" alt="3: Turn Goofs into Gold" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
                         <p className="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja</p>
                     </div>
 
                         <div className={`sm:w-[45%] w-5/6  rounded-3xl  hidden sm:block mt-4 sm:mt-0 sm:fixed sm:top-1/4 sm:right-20 duration-1000 transition-opacity  ${resultsVisible ? "opacity-100":"opacity-0"}`}>
-                            <img src='/qresults.png' className='rounded-xl'></img>
+                            <img src='/app/qresults.png' className='rounded-xl'></img>
                         </div>
                         <div className={`sm:hidden w-5/6  rounded-3xl   mt-4 `}>
-                            <img src='/qresults.png' className='rounded-xl'></img>
+                            <img src='/app/qresults.png' className='rounded-xl'></img>
                         </div>
              
                 </div>
@@ -318,7 +318,7 @@ export const MainPage = () => {
                                 <div>you Econo-Warrior</div>
                             </div>
                         </div>
-                            {/* <img src="/keepGoing.png" alt="4. Keep Going You Econo Warrior" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
+                            {/* <img src="/app/keepGoing.png" alt="4. Keep Going You Econo Warrior" className="sm:w-1/2 sm:h-1/2 w-3/4" /> */}
                             <p className="mt-2  w-5/6 text-xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
                         </div>
                         <div className='flex flex-col justify-center ml-4 -mb-8 items-center sm:hidden my-4'>
@@ -364,7 +364,7 @@ export const MainPage = () => {
             </div>
             <div className='flex w-full items-center justify-center flex-col mt-12'>
                 <div className='text-3xl mb-8 text-center'>Building The Future of Economics (One Quirk at a Time)</div>
-                <img className='w-1/2 md:w-auto'src='/Worker.png'></img>
+                <img className='w-1/2 md:w-auto'src='/app/Worker.png'></img>
                 <div className='sm:w-1/2 w-3/4 mt-4 mb-24'>Welcome to the early days of what will soon be the most exciting corner of the internet (or at least we hope). Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. But don't worry, we're not done building. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. Stick around—it’s only going to get better. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
             </div>
         </div>

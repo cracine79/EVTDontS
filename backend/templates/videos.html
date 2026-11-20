@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{% if q %}Search results for “{{ q }}” | {% endif %}Economics Video Library | Economics Videos That Don't Suck{% endblock %}
+{% block description %}Free economics videos and practice quizzes for AP Microeconomics, AP Macroeconomics, IB, and college economics, from scarcity and supply & demand to elasticity, market failure, and production.{% endblock %}
+{% block canonical %}{{ site_url }}/videos{% endblock %}
+{% block robots %}{% if q %}<meta name="robots" content="noindex, follow" />{% endif %}{% endblock %}
+
+{% block spa_redirect %}{% if not q %}{% with target="/app/video-library" %}{% include "_spa_redirect.html" %}{% endwith %}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="sm:mt-24 mt-[78px]">
+  <div class="min-h-screen w-100 flex">
+    {% with current_id=None %}{% include "_library_sidebar.html" %}{% endwith %}
+
+    <div class="sm:w-5/6 w-full mb-12">
+      {% if q %}
+        <div class="mx-8 sm:mt-6 mt-12">
+          <h1 class="text-3xl font-bold">Search results for “{{ q }}”</h1>
+          {% if results %}
+            <ul class="mt-6 space-y-6">
+              {% for ch in results %}
+                <li>
+                  <a class="text-xl font-bold text-[#0088A8] hover:underline" href="{{ url_for('public.video', slug=ch.slug) }}">{{ ch.name }}</a>
+                  <p class="mt-1">{{ plain_text(ch.video_blurb, 220) }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="mt-6 text-lg">No videos matched that search. Try another word, or browse the full library below.</p>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="flex flex-col items-center">
+          <h1 class="text-center sm:mt-6 mt-10 text-4xl font-bold">Welcome to the Video Cache!</h1>
+          <img class="max-h-[50vh] rounded-2xl" src="https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png" alt="Choose wisely">
+          <div class="sm:w-[80%]">
+            <p class="mx-8 mt-4 text-lg">
+              Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand,
+              and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a
+              stepping stone to mastering economic concepts, and you can access any and all of our goldmine Videos that absolutely don't suck below.
+            </p>
+            <p class="mx-8 mt-4 text-lg">After watching the video you can also try a practice quiz to test your economic skills.</p>
+            <p class="mx-8 mt-4 text-lg">Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.</p>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="mx-8 mt-12">
+        {% for unit, chapters in units %}
+          <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">{{ unit.name }}</h2>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {% for ch in chapters %}
+                {% set yt = youtube_id(ch.video_url) %}
+                <li>
+                  <a href="{{ url_for('public.video', slug=ch.slug) }}" class="block group">
+                    {% if yt %}<img src="https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" class="w-full aspect-video object-cover rounded-xl">{% endif %}
+                    <h3 class="mt-2 font-bold text-lg group-hover:text-[#0088A8]">{{ ch.name }}</h3>
+                  </a>
+                  <p class="text-sm mt-1">{{ plain_text(ch.video_blurb, 140) }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

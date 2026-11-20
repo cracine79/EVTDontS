@@ -14,6 +14,8 @@ class Config:
     AWS_S3_BUCKET = config('AWS_S3_BUCKET')
     AWS_REGION = config('AWS_REGION')
     APP_DOMAIN = config('APP_DOMAIN', default='http://localhost:5173')
+    # Public canonical domain used in SEO tags, sitemap.xml and robots.txt
+    SITE_URL = config('SITE_URL', default='https://www.economicsvideos.com').rstrip('/')
 
 
 class DevConfig(Config):

@@ -55,7 +55,8 @@ class CreateChapterProgress(Resource):
         elif progress and status == 'unwatched':
             progress.video_completed = False
         else:
-            progress = UserChapterProgress(user_id = user_id, chapter_id=chapter_id, video_completed=True)
+            progress = UserChapterProgress(user_id = user_id, chapter_id=chapter_id, video_completed=(status != 'unwatched'))
+            db.session.add(progress)
 
         try:
             db.session.commit()

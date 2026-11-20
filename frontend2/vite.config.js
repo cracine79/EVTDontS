@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  // The SPA (logged-in student area) is served under /app; public pages are Flask/Jinja
+  base: '/app/',
   server: {
     proxy: {
       // Proxy API requests to Flask backend
@@ -18,5 +20,6 @@ export default defineConfig({
     build: {
     outDir: '../backend/static/build', // Build output directory for Flask
     emptyOutDir: true, // Clears the output directory before building
+    manifest: 'manifest.json', // Lets the Jinja templates find the hashed CSS file
   },
 })

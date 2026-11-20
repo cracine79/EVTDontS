@@ -19,15 +19,18 @@ export const VideoIndexVideo = () => {
     const chapterEntry = useSelector((state)=>
         Object.entries(state.chapters).find(([id, chapter]) => chapter.slug === slug)
     );
-    const [chapterId, chapter] = chapterEntry
+    // chapterEntry is undefined until chapters load (VideoLibrary fetches them on mount)
+    const [chapterId, chapter] = chapterEntry || []
   
    
     const userProg = useSelector((state)=>state.topicProg)
     
-    const userChapter = useSelector((state)=>state.userChapters[chapterId])
-    console.log(userChapter)
+    // Students only have progress records for chapters in units they chose,
+    // so fall back to "not watched, no quiz yet" for any other chapter
+    const NO_PROGRESS = { video_completed: false, quiz_grade: null }
+    const userChapter = useSelector((state)=>state.userChapters[chapterId]) || NO_PROGRESS
     const topics = useSelector((state)=>state.topics)
-   const videoId = chapter.video_url
+   const videoId = chapter?.video_url
    const currentUser = useSelector((state)=>state.user.username)
    const currentUserChapters = useSelector(state=>state.userChapters)
    const chapters = useSelector(state=>(state.chapters))
@@ -52,7 +55,7 @@ export const VideoIndexVideo = () => {
 
     const leftButton = () => {
         if (currentUser){
-            if(currentUserChapters[chapterId].video_completed==false){
+            if(userChapter.video_completed==false){
                 return<>
                           <div className='button w-11/12 sm:w-auto sm:h-12' onClick={handleSignUp}>
                                 Mark Video As Watched
@@ -93,7 +96,7 @@ export const VideoIndexVideo = () => {
         const handleSignUp = () => {
             if(!currentUser){
                 dispatch(openSignupModal())
-            } else if (currentUserChapters[chapterId].video_completed == false){
+            } else if (userChapter.video_completed == false){
                 dispatch(updateVideoProgress(chapterId, 'watched'))
             } else {
                 dispatch(updateVideoProgress(chapterId, 'unwatched'))
@@ -108,13 +111,13 @@ export const VideoIndexVideo = () => {
                 </>
             )
         } else {
-            if (currentUserChapters[chapterId].quiz_grade == null) {
+            if (userChapter.quiz_grade == null) {
                 return(
                     <>
                         Take the Chapter Quiz for: &nbsp; <span className='text-[#0088A8]'>{shortenedVideoName(chapterVid(videoId))}   </span>
                     </>
                 )
-            } else if (currentUserChapters[chapterId].quiz_grade <= 50)
+            } else if (userChapter.quiz_grade <= 50)
             {
             return(
                     <>
@@ -130,13 +133,17 @@ export const VideoIndexVideo = () => {
         }
     }
 
+    if (!chapter) {
+        return <div className='mt-32 text-center text-xl'>Loading video...</div>
+    }
+
     const blurb = chapter.video_blurb
    return <>
          <div className='flex flex-col items-center  justify-center sm:mt-10 mt-6 '>
                         <div className='sm:text-2xl mt-4 sm:mt-0 text-center text-lg mb-4   relative'>
                             {videoId ? <>
-                            {currentUser && currentUserChapters[chapterId].video_completed && 
-                            <img src='/alreadyWatched.png' className='sm:h-full h-2/3 sm:-top-[15px] sm:-left-[44px]   absolute  -rotate-12'/>
+                            {currentUser && userChapter.video_completed && 
+                            <img src='/app/alreadyWatched.png' className='sm:h-full h-2/3 sm:-top-[15px] sm:-left-[44px]   absolute  -rotate-12'/>
                             }
                             <div>Video for {chapter.name}</div></>: ''}
                         </div>

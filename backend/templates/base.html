@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Economics Videos That Don't Suck{% endblock %}</title>
+  <meta name="description" content="{% block description %}Economics videos, quizzes, and feedback to help you learn and master AP Microeconomics, AP Macroeconomics, and university-level economics courses.{% endblock %}" />
+  {% set canonical = site_url ~ request.path %}
+  <link rel="canonical" href="{% block canonical %}{{ canonical }}{% endblock %}" />
+  {% block robots %}{% endblock %}
+
+  <meta property="og:site_name" content="Economics Videos That Don't Suck" />
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+  <meta property="og:title" content="{{ self.title() }}" />
+  <meta property="og:description" content="{{ self.description() }}" />
+  <meta property="og:url" content="{{ self.canonical() }}" />
+  <meta property="og:image" content="{% block og_image %}{{ site_url }}/app/EVTDSBlue.png{% endblock %}" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  {# Logged-in students keep using the app: send them to the SPA equivalent of this page #}
+  {% block spa_redirect %}{% endblock %}
+
+  <link rel="icon" type="image/png" href="/app/MiniLogo.png" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  {% for css in spa_css %}<link rel="stylesheet" href="{{ css }}">{% endfor %}
+  {% block structured_data %}{% endblock %}
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NVR5XLFCQ3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NVR5XLFCQ3');
+  </script>
+</head>
+<body>
+  <div class="flex flex-col">
+    <div class="relative">
+      <nav class="w-full bg-[#0088A8] items-center flex justify-between fixed top-0 z-50">
+        <div class="flex w-2/3 items-center h-full py-4">
+          <span class="flex sm:w-1/6 sm:min-w-72 max-w-72 items-center">
+            <a href="/" class="w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16">
+              <img src="/app/EvtdsDarkerGBlue.png" alt="Economics Videos That Don't Suck logo" />
+            </a>
+            <span class="ml-2 md:text-2xl text-sm font-bold text-white">BETA</span>
+          </span>
+          <div class="sm:flex flex-auto px-4 xl:ml-0 hidden w-1/2">
+            <div class="flex items-center w-11/12">
+              {% include "_search.html" %}
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between w-2/3">
+          <a class="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" href="/videos">Jump To Videos</a>
+          <a class="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" href="/app/aboutus">About Us</a>
+          <a class="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" href="/app/contactus">Contact Us</a>
+          <button type="button" class="text-xs text-white sm:hidden" id="mobile-search-toggle">Search Videos</button>
+          <div class="flex sm:w-1/4 justify-between items-center mr-4 sm:mr-36 text-xs md:text-sm text-white">
+            <a class="hover:text-[#344A53] sm:text-lg font-bold text-center" href="/app/?login=1">Log In</a>
+            <a class="button sm:block text-center font-bold sm:!px-6 sm:!py-2" href="/app/?signup=1">Get Started</a>
+          </div>
+        </div>
+      </nav>
+      <div id="mobile-search" class="left-0 fixed top-0 bg-[#0088a8] py-2 mt-[70px] w-full shadow-md z-40 transition-transform duration-300 -translate-y-[200%] sm:hidden">
+        <div class="flex w-full flex-col items-center justify-center relative">
+          {% include "_search.html" %}
+        </div>
+      </div>
+    </div>
+
+    <main class="flex flex-col">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="w-full">
+      <div class="h-auto bg-[#0088a8] flex flex-col items-center w-full">
+        <div class="mt-8 text-white sm:text-lg md:text-lg lg:text-xl text-xs w-11/12 sm:w-3/4 md:w-1/3 flex justify-between z-20">
+          <a class="text-center" href="/app/aboutus">About Us</a> |
+          <a class="text-center" href="/app/privacypolicy">Privacy Policy</a> |
+          <a class="text-center" href="/app/termsofservice">Terms of Service</a> |
+          <a class="text-center" href="/app/contactus">Contact Us</a>
+        </div>
+        <div class="flex sm:w-1/4 sm:justify-around w-3/4 justify-around">
+          <a class="text-white hover:text-[#99AEBB] text-2xl sm:text-4xl mt-6 z-20" href="https://github.com/cracine79" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a class="text-white hover:text-[#99AEBB] text-2xl sm:text-4xl mt-6 z-20" href="https://www.youtube.com/channel/UC84BLMH2b5kquBloCaiddrw" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a class="text-white hover:text-[#99AEBB] text-2xl sm:text-4xl mt-6 z-20" href="https://www.instagram.com/econ_quick_hits/?igsh=MTl5cWM1aWN6ZnBoaw%3D%3D" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="text-white hover:text-[#99AEBB] text-2xl sm:text-4xl mt-6 z-20" href="https://www.linkedin.com/in/charlee-racine-50241a7b/" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a class="text-white hover:text-[#99AEBB] text-2xl sm:text-4xl mt-6 z-20" href="https://cracine79.github.io/CharLee-Portfolio/" aria-label="Portfolio"><i class="fa-solid fa-folder-open"></i></a>
+        </div>
+        <div class="text-white ml-8 mt-4 flex flex-col text-sm sm:text-md justify-center items-center mb-4">
+          <p>EVTDS is a work in progress</p>
+          <p>Built from scratch by CharLee Racine</p>
+          <p>© 2024 EVTDS. All rights reserved</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('mobile-search-toggle');
+      var panel = document.getElementById('mobile-search');
+      if (toggle && panel) {
+        toggle.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          panel.classList.toggle('-translate-y-[200%]');
+        });
+      }
+    })();
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

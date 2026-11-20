@@ -1,0 +1,10 @@
+{# Logged-in students (token in localStorage) go to the SPA version of this page.
+   Crawlers and logged-out visitors never have a token, so they stay here. #}
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('access_token');
+      if (t && t !== 'null' && t !== 'undefined') { location.replace({{ target | tojson }}); }
+    } catch (e) {}
+  })();
+</script>

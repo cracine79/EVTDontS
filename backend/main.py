@@ -19,6 +19,7 @@ from retrievedata import retrieve_ns
 from dotenv import load_dotenv
 import os
 from mail import mail_ns
+from public import public_bp
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 migrate = Migrate()
@@ -64,19 +65,9 @@ def create_app(config):
             "user":User
         }   
 
-    def serve_frontend(app):
-        @app.route('/', defaults={'path': ''})
-        @app.route('/<path:path>')
-        def serve(path):
-            static_dir = os.path.join(app.root_path, 'static/build')
-
-            if path != "" and os.path.exists(os.path.join(static_dir, path)):
-                return send_from_directory(static_dir, path)
-            else:
-                return send_from_directory(static_dir, 'index.html')
-            
-    if app.config["ENV"] == "production":
-        serve_frontend(app)
+    # Public SEO pages, sitemap/robots, the SPA at /app, and legacy redirects.
+    # Registered last so the /api routes above take precedence.
+    app.register_blueprint(public_bp)
 
     return app
 
