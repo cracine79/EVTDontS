@@ -51,9 +51,9 @@ export const ResetPassword = () => {
         }
     }, [token, navigate])
 
-    const submitNewPassword = async (email, password) => {
+    const submitNewPassword = async (password) => {
         const data = {
-            email,
+            token,
             password
         }
         try{
@@ -64,11 +64,14 @@ export const ResetPassword = () => {
             })
 
             if(response.ok){
-                const data = await response.json()
-
+                setResetSuccessful(true)
+            } else {
+                const data = await response.json().catch(()=>({}))
+                setErrorMessage(data.error || data.message || "Something went wrong. Please request a new reset link.")
             }
         } catch(error){
             console.error("Error resetting password", error)
+            setErrorMessage("Something went wrong. Please try again.")
         }
     }
 
@@ -79,8 +82,7 @@ export const ResetPassword = () => {
         } else if (password1.length < 8) {
             setErrorMessage("Passwords must be a minimum of 8 characters")
         } else {
-            submitNewPassword(email, password1)
-            setResetSuccessful(true)
+            submitNewPassword(password1)
         }
     }
 

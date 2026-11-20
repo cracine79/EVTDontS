@@ -127,9 +127,17 @@ class ValidateToken(Resource):
 @retrieve_ns.route('/reset-password')
 class ResetPassword(Resource):
     def post(self):
-        data = request.get_json()
-        email = data.get('email')
+        data = request.get_json() or {}
+        token = data.get('token')
         password = data.get('password')
+
+        if not password or len(password) < 8:
+            return ({"error": "Password must be at least 8 characters"}), 400
+
+        # The email comes from the signed, time-limited token, never from the request body
+        email = verify_reset_token(token, secret_key=current_app.config['SECRET_KEY'], salt='password-reset-salt') if token else None
+        if not email:
+            return ({"error": "Invalid or expired reset link. Please request a new one."}), 400
 
         user = User.query.filter_by(email = email).first()
 

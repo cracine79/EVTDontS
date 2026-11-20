@@ -303,11 +303,9 @@ class Login(Resource):
 
         db_user = User.query.filter_by(username=username).first()
         
-        if db_user is None:
-            return({"error": "Username not found"}, 404)
-        
-        if not check_password_hash(db_user.password_hash, password):
-            return({"error": "Password does not match username"}, 401)
+        # Same response for unknown username and wrong password, so usernames can't be probed
+        if db_user is None or not check_password_hash(db_user.password_hash, password or ''):
+            return({"error": "Invalid username or password"}, 401)
 
 
         if db_user:
@@ -410,7 +408,6 @@ class Login(Resource):
                 })
 
                 # print(jsonify(user_data))
-                session['access_token'] = access_token
                 code = 200
                 return (user_data, 200)
             else:
