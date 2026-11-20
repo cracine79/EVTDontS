@@ -2,8 +2,9 @@ from flask_restx import Namespace, Resource
 from models import Question, Answer, UserPerformance, User, QuestionTopic, UserTopicProgress, Chapter, Unit, UserChapterProgress
 from flask import request, jsonify
 from urllib.parse import unquote
-from collections import defaultdict
-import json, random, math, heapq
+import json, random
+
+from mastery import build_review_quiz
 
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -28,10 +29,10 @@ class AccessQuiz(Resource):
 
             if len(topics)>1:
                 for topic in topics:
-                    topic_questions = Question.query.filter_by(topic_id=topic.id).limit(3).all()
+                    topic_questions = Question.query.filter_by(topic_id=topic.id).order_by(Question.id).limit(3).all()
                     questions.extend(topic_questions)
             else:
-                topic_questions = Question.query.filter_by(topic_id=topics[0].id).limit(6).all()
+                topic_questions = Question.query.filter_by(topic_id=topics[0].id).order_by(Question.id).limit(6).all()
                 questions.extend(topic_questions)
 
         
@@ -41,15 +42,12 @@ class AccessQuiz(Resource):
             user_topics = json.loads(decoded_params_topics)
             topic_ids = [topic['topic_id'] for topic in user_topics]
             
-            if len(topic_ids)>1:
-                for topic_id in topic_ids:
-                    all_topic_questions = Question.query.filter_by(topic_id = topic_id).offset(3).all()
-                    topic_questions = random.sample(all_topic_questions, min(3, len(all_topic_questions)))
-                    questions.extend(topic_questions)
-            else:
-                all_topic_questions = Question.query.filter_by(topic_id = topic_ids[0]).offset(3).all()
-                topic_questions = random.sample(all_topic_questions, min(6, len(all_topic_questions)))
-                questions.extend(topic_questions)
+            per_topic = 3 if len(topic_ids) > 1 else 6
+            for topic_id in topic_ids:
+                # Skip the questions reserved for the chapter quiz, unless that leaves nothing
+                all_topic_questions = (Question.query.filter_by(topic_id=topic_id).order_by(Question.id).offset(3).all()
+                                       or Question.query.filter_by(topic_id=topic_id).all())
+                questions.extend(random.sample(all_topic_questions, min(per_topic, len(all_topic_questions))))
         
         elif type == 'unitQuiz':
             current_chapter_id = request.args.get('chapter')
@@ -66,98 +64,16 @@ class AccessQuiz(Resource):
                     questions_to_add = random.sample(topic_questions, min(qnum, len(topic_questions)))
                     questions.extend(questions_to_add)
 
-        elif type in['shortWeakspotQuiz','longWeakspotQuiz']:
-            # currently there is only one weak spot quiz being requested from frontend, shortWeakspotQuiz
-            progressArray = user.topic_progresses
-            percentageList = {}
-            numberTopics = 0
-            percentSum = 0
-            for progress in progressArray:
-                percentCorrect = math.floor((progress.answered_correctly/progress.questions_asked)*100)
-                percentageList[progress.topic_id] = (percentCorrect)
-                numberTopics += 1
-                percentSum += percentCorrect
-       
-
-            averageScore = percentSum/numberTopics
-
-            lowPercentageList = {}
-
-            for key, value in percentageList.items():
-                if value < averageScore:
-                    lowPercentageList[key]=value
-            
-            if len(lowPercentageList) == 0:
-                lowPercentageList = percentageList
-            
-            
-
-            if len(lowPercentageList) > 4:
-                topic_ids = [topicId for topicId, _ in heapq.nsmallest(4, lowPercentageList.items(), key=lambda x:x[1])]
-            else:
-                topic_ids = [topicId for topicId, _ in lowPercentageList]
-            # baselineScore = 50
-
-            # while len(topic_ids) < 3 and baselineScore <101:
-            #     for key, value in percentageList.items():            
-            #         if value <= baselineScore and key not in topic_ids:
-            #             topic_ids.append(key)
-            #     baselineScore += 10
-            
-            print('topicsareyoooo', topic_ids)
-            performances = UserPerformance.query.filter_by(user_id=user_id).all()
-            for topic_id in topic_ids:
-                all_topic_questions = Question.query.filter_by(topic_id = topic_id).all()
-
-                question_ids = {question.id for question in all_topic_questions}
-                question_performances = [performance for performance in performances if performance.question_id in question_ids]
-
-                if(len(question_performances) > 0):
-                    incorrect_counts = defaultdict(int)
-                    total_counts = defaultdict(int)
-                    
-                    for performance in question_performances:
-                        total_counts[performance.question_id] += 1
-                        if not performance.is_correct:
-                            incorrect_counts[performance.question_id] += 1
-
-                    question_ids_with_high_failure_rate = {
-                        question_id
-                        for question_id in total_counts
-                        if incorrect_counts[question_id] / total_counts[question_id] >= 0.5
-                    }
-
-                    questions_to_go = random.sample(question_ids_with_high_failure_rate, min(2, len(question_ids_with_high_failure_rate)))
-
-                    for questionId in questions_to_go:
-                        question_to_add = next((question for question in all_topic_questions if question.id == questionId), None)
-                        questions.append(question_to_add)
-
-                asked_question_ids = {performance.question_id for performance in question_performances}    
-                # print('QUESTIONS THAT ARE ANSWERED WRONG INCLUDE', questions)
-
-                available_questions = [q for q in all_topic_questions if q not in questions and q.id not in asked_question_ids]
-                target_count = 4 - len(questions_to_go)
-                while len(available_questions) < target_count:
-                    question = random.choice(all_topic_questions)
-                    if question not in available_questions:
-                        available_questions.append(question)
-
-
-                while target_count > 0:
-               
-                    index_number = random.randint(0, len(available_questions) - 1)
-                    selected_question = available_questions[index_number]
-
-                    questions.append(selected_question)
-                    target_count -=1
-
-                    available_questions.pop(index_number)
-                
-                
-            random.shuffle(questions)
-            questions = questions[:12]
-
+        elif type in ['shortWeakspotQuiz', 'longWeakspotQuiz']:
+            # Mastery-based review: weakest topics first, plus mastered topics due for a refresher.
+            # See mastery.py for how scores, statuses and review timing work.
+            started = UserChapterProgress.query.filter_by(user_id=user_id).filter(
+                (UserChapterProgress.video_completed.is_(True)) | (UserChapterProgress.quiz_grade.isnot(None))).all()
+            fallback_chapter_ids = [p.chapter_id for p in started] or [c.id for c in user.chapters]
+            fallback_topic_ids = [t.id for t in QuestionTopic.query.filter(
+                QuestionTopic.chapter_id.in_(fallback_chapter_ids)).order_by(QuestionTopic.id).all()]
+            questions = build_review_quiz(user_id, fallback_topic_ids,
+                                          max_questions=20 if type == 'longWeakspotQuiz' else 12)
 
         question_ids = [question.id for question in questions]
         # performances = UserPerformance.query.filter(UserPerformance.user_id == user_id, UserPerformance.question_id.in_(question_ids)).all()
@@ -202,11 +118,11 @@ class AccessQuizLoggedout(Resource):
 
         if len(topics)>1:
             for topic in topics:
-                topic_questions = Question.query.filter_by(topic_id=topic.id).limit(3).all()
+                topic_questions = Question.query.filter_by(topic_id=topic.id).order_by(Question.id).limit(3).all()
                 questions.extend(topic_questions)
 
         else:
-            topic_questions = Question.query.filter_by(topic_id=topics[0].id).limit(6).all()
+            topic_questions = Question.query.filter_by(topic_id=topics[0].id).order_by(Question.id).limit(6).all()
             questions.extend(topic_questions)
     
 
