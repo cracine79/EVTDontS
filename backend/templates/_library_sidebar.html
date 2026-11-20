@@ -1,31 +1,57 @@
-{# Server-rendered version of the SPA's VideoLibrary sidebar #}
-<button type="button" id="library-open" class="sm:hidden absolute bg-[#D6E6E2] mt-2 z-10 w-1/2 text-center border-blue-600 border-solid border text-black">☰ Video Library</button>
-<nav id="library-panel" aria-label="Video Library"
-     class="sm:static fixed sm:w-1/5 min-h-[100vh] w-5/6 bg-[#D6E6E2] z-30 text-sm text-black transform -translate-x-full transition-transform sm:translate-x-0 overflow-auto sm:overflow-visible top-[78px] sm:top-auto h-screen sm:h-auto">
-  <div class="ml-4">
-    <button type="button" id="library-close" class="sm:hidden mt-2 -mb-4">X Close</button>
-    <h2 class="text-2xl font-bold text-center mt-4 -ml-8"><a href="/videos">Video Library</a></h2>
-    {% for unit, chapters in units %}
-      <h3 class="font-bold mt-2 text-lg">{{ unit.name }}</h3>
-      <ul>
-        {% for ch in chapters %}
-          <li class="hover:text-[#0088A8] {% if current_id == ch.id %}font-bold text-[#0088A8]{% endif %}">
-            <a href="{{ url_for('public.video', slug=ch.slug) }}"{% if current_id == ch.id %} aria-current="page"{% endif %}>{{ ch.name }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endfor %}
-    <div class="h-28"></div>
+{# Video Library sidebar for /videos and /videos/<slug>.
+   Expects: units (from public.library()), current_id (chapter id or None). #}
+<button type="button" id="library-open"
+        class="md:hidden fixed bottom-4 left-4 z-40 btn-primary px-5 py-3 shadow-lg">
+  <i class="fa-solid fa-list"></i> Video Library
+</button>
+<div id="library-backdrop" class="md:hidden fixed inset-0 bg-black/50 z-40 hidden"></div>
+<aside id="library-panel" aria-label="Video Library"
+       class="fixed md:static inset-y-0 left-0 z-50 md:z-auto w-80 max-w-[85vw] md:w-72 lg:w-80 shrink-0
+              bg-[#2B3D45] border-r border-white/10 transform -translate-x-full md:translate-x-0 transition-transform">
+  <div class="p-5 md:sticky md:top-[80px] h-full md:h-auto md:max-h-[calc(100vh-80px)] overflow-y-auto">
+    <div class="flex items-center justify-between">
+      <a href="{{ url_for('public.videos') }}" class="text-xl font-extrabold hover:underline">Video Library</a>
+      <button type="button" id="library-close" class="md:hidden text-2xl" aria-label="Close video library">&times;</button>
+    </div>
+    <p class="text-xs uppercase tracking-widest text-gray-400 mt-4 mb-2">Microeconomics</p>
+    <div class="space-y-1">
+      {% for u in units %}
+        {% set is_current = current_id and u.cards | selectattr('chapter.id', 'equalto', current_id) | list %}
+        <details class="plain" {% if is_current %}open{% endif %}
+                 style="--unit: {{ u.color }}; --unit-text: {{ u.text }}; --unit-light: {{ u.light }}">
+          <summary class="cursor-pointer flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-white/5 {% if u.coming_soon %}opacity-50 cursor-default{% endif %}">
+            <span class="w-3 h-3 rounded-full shrink-0" style="background: var(--unit)"></span>
+            <span class="flex-1 text-sm font-bold leading-tight">Unit {{ u.number }}: {{ u.title }}</span>
+            <span class="text-xs text-gray-400">{{ 'soon' if u.coming_soon else u.video_count }}</span>
+          </summary>
+          {% if u.cards %}
+            <ul class="ml-4 mt-1 mb-2 border-l-2 unit-border pl-3 space-y-1 text-sm">
+              {% for c in u.cards %}
+                <li>
+                  <a href="{{ url_for('public.video', slug=c.slug) }}"
+                     class="block py-1 px-2 rounded {% if current_id == c.chapter.id %}unit-bg font-bold{% else %}text-gray-200 hover:text-white hover:bg-white/5{% endif %}"
+                     {% if current_id == c.chapter.id %}aria-current="page"{% endif %}>{{ c.num }} {{ c.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </details>
+      {% endfor %}
+    </div>
   </div>
-</nav>
+</aside>
 <script>
   (function () {
     var panel = document.getElementById('library-panel');
-    document.getElementById('library-open').addEventListener('click', function () {
-      panel.classList.remove('-translate-x-full'); document.body.style.overflow = 'hidden';
-    });
-    document.getElementById('library-close').addEventListener('click', function () {
-      panel.classList.add('-translate-x-full'); document.body.style.overflow = 'auto';
+    var backdrop = document.getElementById('library-backdrop');
+    function open() { panel.classList.remove('-translate-x-full'); backdrop.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    function close() { panel.classList.add('-translate-x-full'); backdrop.classList.add('hidden'); document.body.style.overflow = ''; }
+    document.getElementById('library-open').addEventListener('click', open);
+    document.getElementById('library-close').addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+    // "Coming soon" units have nothing to expand
+    panel.querySelectorAll('details').forEach(function (d) {
+      if (!d.querySelector('ul')) d.querySelector('summary').addEventListener('click', function (e) { e.preventDefault(); });
     });
   })();
 </script>

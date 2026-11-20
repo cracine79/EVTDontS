@@ -4,223 +4,1239 @@
     "video_id": "mfGKKxwC_fE",
     "upload_date": "2023-08-25T12:23:21-07:00",
     "duration_seconds": 648,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 75,
+        "label": "Scarcity Defined & Introduced"
+      },
+      {
+        "start": 178,
+        "label": "Assumption of Scarcity as Inevitable"
+      },
+      {
+        "start": 297,
+        "label": "Scarcity Necessitates Choice & Tradeoffs"
+      },
+      {
+        "start": 399,
+        "label": "Opportunity Cost"
+      },
+      {
+        "start": 559,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "factors-of-production": {
     "name": "1.2 Factors of Production",
     "video_id": "WqlGzTYXd0U",
     "upload_date": "2023-08-25T12:35:41-07:00",
     "duration_seconds": 566,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 86,
+        "label": "The Production Model Introduced"
+      },
+      {
+        "start": 125,
+        "label": "Building Examples of Inputs and Outputs"
+      },
+      {
+        "start": 217,
+        "label": "The Four Factors of Production - Definitions & Examples"
+      },
+      {
+        "start": 366,
+        "label": "Who Cares? - Real World Relevance"
+      },
+      {
+        "start": 458,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "economic-systems": {
     "name": "1.3 Economic Systems",
     "video_id": "X0ak8ID7zY8",
     "upload_date": "2023-08-29T21:45:47-07:00",
     "duration_seconds": 622,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 50,
+        "label": "The Three Fundamental Questions of Economics"
+      },
+      {
+        "start": 101,
+        "label": "Economic Systems"
+      },
+      {
+        "start": 133,
+        "label": "Command Economic System"
+      },
+      {
+        "start": 255,
+        "label": "Market Economic System - Example"
+      },
+      {
+        "start": 285,
+        "label": "Market Economic System - Definition"
+      },
+      {
+        "start": 406,
+        "label": "Mixed Economic System"
+      },
+      {
+        "start": 522,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "the-production-possibilities-curve": {
     "name": "1.4a The Production Possibilities Curve",
     "video_id": "HeUTq7VwZaI",
     "upload_date": "2023-08-25T12:43:22-07:00",
     "duration_seconds": 913,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 29,
+        "label": "Introducing & Building the Production Possibilities Curve (PPC)"
+      },
+      {
+        "start": 359,
+        "label": "Interpreting the PPC"
+      },
+      {
+        "start": 530,
+        "label": "The PPC and Economic Growth"
+      },
+      {
+        "start": 677,
+        "label": "Who Cares? - Real World Relevance"
+      },
+      {
+        "start": 814,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "opportunity-cost-and-the-ppf": {
     "name": "1.4b Opportunity Cost and the PPF",
     "video_id": "6CQvC5rugh4",
     "upload_date": "2023-08-25T12:40:16-07:00",
     "duration_seconds": 993,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 54,
+        "label": "Opportunity Cost Quick Review"
+      },
+      {
+        "start": 94,
+        "label": "Opportunity Cost in the Context of the PPC"
+      },
+      {
+        "start": 330,
+        "label": "Slope of the PPC with Identical Factors of Production (Straight Line PPC)"
+      },
+      {
+        "start": 549,
+        "label": "That's a Stupid Assumption"
+      },
+      {
+        "start": 575,
+        "label": "Slope of the PPC with Differentiated/Specialized Factors of Production (Concave/Outward Bowed PPC)"
+      },
+      {
+        "start": 889,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "absolute-and-comparative-advantage": {
     "name": "1.5 Absolute and Comparative Advantage",
     "video_id": "Z7dXOetE3CQ",
     "upload_date": "2023-09-05T10:58:44-07:00",
     "duration_seconds": 979,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Introduction of the Topic"
+      },
+      {
+        "start": 63,
+        "label": "Absolute Advantage - An Example"
+      },
+      {
+        "start": 125,
+        "label": "Absolute Advantage Defined"
+      },
+      {
+        "start": 152,
+        "label": "Comparative Advantage - An Example"
+      },
+      {
+        "start": 237,
+        "label": "Comparative Advantage Defined"
+      },
+      {
+        "start": 290,
+        "label": "The Theory of Absolute Advantage - Example & Explanation"
+      },
+      {
+        "start": 498,
+        "label": "The Theory of Absolute Advantage - Defined"
+      },
+      {
+        "start": 553,
+        "label": "Why we can't always use the Theory of Absolute Advantage"
+      },
+      {
+        "start": 613,
+        "label": "The Theory of Comparative Advantage - Defined"
+      },
+      {
+        "start": 630,
+        "label": "The Theory of Comparative Advantage - Example & Explanation"
+      },
+      {
+        "start": 848,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "answering-ap-and-university-level-comparative-advantage-questions": {
     "name": "1.5a Answering AP and University Level Comparative Advantage Questions",
     "video_id": "euARcQwvT5Y",
     "upload_date": "2023-09-10T22:27:11-07:00",
     "duration_seconds": 766,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 53,
+        "label": "The General Question Setup - Questions generally are setup with two people/economies, and two products/services"
+      },
+      {
+        "start": 128,
+        "label": "The Answer Matrix - This is the matrix Mr. Racine recommends you use every time for comparative advantage questions"
+      },
+      {
+        "start": 183,
+        "label": "Question Setup Type 1 - Easiest (Directly giving opportunity cost of production)"
+      },
+      {
+        "start": 260,
+        "label": "Question Setup Type 2 - Most common (Giving quantity of goods/services that can be produced in a period of time)"
+      },
+      {
+        "start": 432,
+        "label": "Question Setup Type 3 - Trickiest (Giving time to produce one unit of good)"
+      },
+      {
+        "start": 562,
+        "label": "Calculating trade exchange rate - in between opportunity costs"
+      }
+    ]
   },
   "demand-introduced": {
     "name": "2.1 Demand Introduced",
     "video_id": "xiS1DiQbo74",
     "upload_date": "2023-09-14T08:17:07-07:00",
     "duration_seconds": 1141,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Video Introduction"
+      },
+      {
+        "start": 56,
+        "label": "Microeconomics Vs. Macroeconomics"
+      },
+      {
+        "start": 142,
+        "label": "Demand Introduced"
+      },
+      {
+        "start": 382,
+        "label": "The Law of Demand"
+      },
+      {
+        "start": 430,
+        "label": "The Income Effect"
+      },
+      {
+        "start": 476,
+        "label": "The Substitution Effect"
+      },
+      {
+        "start": 528,
+        "label": "The Demand Curve (and Why It Can Be Confusing!!)"
+      },
+      {
+        "start": 828,
+        "label": "Showing the Impact of Price Changes on the Demand Curve"
+      },
+      {
+        "start": 978,
+        "label": "Going from Individual Demand to Market Demand"
+      },
+      {
+        "start": 1042,
+        "label": "Recap of Today’s Topics"
+      }
+    ]
   },
   "non-price-determinants-of-demand": {
     "name": "2.1a Non-Price Determinants of Demand",
     "video_id": "t9vqT36mg2E",
     "upload_date": "2023-09-20T21:54:37-07:00",
     "duration_seconds": 965,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 77,
+        "label": "Quick Review of Demand"
+      },
+      {
+        "start": 182,
+        "label": "Increases and Decreases in Demand"
+      },
+      {
+        "start": 465,
+        "label": "Non-Price Determinants of Demand (Shifters of Demand) Introduced"
+      },
+      {
+        "start": 483,
+        "label": "Changes to Consumer Preference"
+      },
+      {
+        "start": 511,
+        "label": "Changes to Consumer Income"
+      },
+      {
+        "start": 598,
+        "label": "Changes to Price of Related Goods (Substitute & Complement Goods)"
+      },
+      {
+        "start": 736,
+        "label": "Expectations of Future Prices"
+      },
+      {
+        "start": 791,
+        "label": "Consumer Demographics"
+      },
+      {
+        "start": 821,
+        "label": "Recap of Today's Lesson"
+      }
+    ]
   },
   "supply-introduced": {
     "name": "2.2 Supply Introduced",
     "video_id": "AUPcL91u008",
     "upload_date": "2023-09-26T15:00:06-07:00",
     "duration_seconds": 781,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 86,
+        "label": "Introducing Supply"
+      },
+      {
+        "start": 199,
+        "label": "Supply is Confusing"
+      },
+      {
+        "start": 252,
+        "label": "Price is set independently of business' decision making"
+      },
+      {
+        "start": 416,
+        "label": "Introducing Supply . . . Again"
+      },
+      {
+        "start": 656,
+        "label": "From Individual Supply to Market Supply"
+      },
+      {
+        "start": 696,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   },
   "non-price-determinants-of-supply": {
     "name": "2.2a Non-Price Determinants of Supply",
     "video_id": "QByejdJI58o",
     "upload_date": "2023-10-03T20:44:28-07:00",
     "duration_seconds": 738,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 24,
+        "label": "Quick Review of Supply"
+      },
+      {
+        "start": 153,
+        "label": "Non-Price Determinants (Shifters) of Supply Introduced"
+      },
+      {
+        "start": 184,
+        "label": "Decreases in the Cost of Inputs/Factors of Production"
+      },
+      {
+        "start": 224,
+        "label": "Graphical Representation of an Increase in Supply"
+      },
+      {
+        "start": 255,
+        "label": "Increases in the Cost of Inputs/Factors of Production"
+      },
+      {
+        "start": 273,
+        "label": "Graphical Representation of a Decrease in Supply"
+      },
+      {
+        "start": 304,
+        "label": "Changes to Business Taxes and Subsidies"
+      },
+      {
+        "start": 361,
+        "label": "Technological Change"
+      },
+      {
+        "start": 380,
+        "label": "Producer Expectation of Future Prices"
+      },
+      {
+        "start": 419,
+        "label": "Competitive Supply Goods"
+      },
+      {
+        "start": 485,
+        "label": "Joint Supply Goods"
+      },
+      {
+        "start": 538,
+        "label": "Number of Firms in the Market"
+      },
+      {
+        "start": 576,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   },
   "supply-and-demand-in-equilibrium": {
     "name": "2.3 Supply and Demand in Equilibrium",
     "video_id": "V10jYy7maS4",
     "upload_date": "2023-10-12T21:59:16-07:00",
     "duration_seconds": 437,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 20,
+        "label": "Supply & Demand in Equilibrium"
+      },
+      {
+        "start": 192,
+        "label": "Market Price Above Equilibrium Price"
+      },
+      {
+        "start": 289,
+        "label": "Market Price Below Equilibrium Price"
+      },
+      {
+        "start": 352,
+        "label": "Quick Recap & Review of Pricing Mechanism"
+      }
+    ]
   },
   "shifts-to-supply-and-demand": {
     "name": "2.4 Shifts to Supply and Demand",
     "video_id": "Cf0J-2dY7Dg",
     "upload_date": "2023-10-18T14:26:47-07:00",
     "duration_seconds": 638,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 79,
+        "label": "Quick Supply & Demand Review"
+      },
+      {
+        "start": 129,
+        "label": "Increases in Demand"
+      },
+      {
+        "start": 235,
+        "label": "Decreases in Demand"
+      },
+      {
+        "start": 296,
+        "label": "Increases in Supply"
+      },
+      {
+        "start": 385,
+        "label": "Decreases in Supply"
+      },
+      {
+        "start": 438,
+        "label": "Strategies for Exam Question with Practice Question/Answer"
+      },
+      {
+        "start": 551,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   },
   "simultaneous-shifts-to-supply-and-demand": {
     "name": "2.5 Simultaneous Shifts to Supply and Demand",
     "video_id": "ZtEp5B-xeMI",
     "upload_date": "2023-10-23T13:05:44-07:00",
     "duration_seconds": 737,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 41,
+        "label": "Introduction to Simultaneous Shifts (With Example)"
+      },
+      {
+        "start": 183,
+        "label": "Concept Based Approach to Simultaneous Shifts"
+      },
+      {
+        "start": 388,
+        "label": "Graphical Approach to Simultaneous Shifts"
+      },
+      {
+        "start": 556,
+        "label": "Why Did Hand Sanitizer Cost So Much??"
+      },
+      {
+        "start": 638,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "marginal-utility-marginal-benefit-and-demand": {
     "name": "2.6a Marginal Utility, Marginal Benefit, and Demand",
     "video_id": "9UzdtdrjURY",
     "upload_date": "2023-10-31T12:00:51-07:00",
     "duration_seconds": 1106,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 99,
+        "label": "Introduction to Marginal Utility"
+      },
+      {
+        "start": 224,
+        "label": "Marginal Utility Twinkie Experiment"
+      },
+      {
+        "start": 444,
+        "label": "The Law of Diminishing Marginal Utility"
+      },
+      {
+        "start": 558,
+        "label": "Utility Maximization When the Good is Free"
+      },
+      {
+        "start": 681,
+        "label": "Introduction to Marginal Benefit"
+      },
+      {
+        "start": 784,
+        "label": "The Marginal Benefit Curve (Is the Demand Curve!!)"
+      },
+      {
+        "start": 994,
+        "label": "Recap of Today's Lesson"
+      }
+    ]
   },
   "marginal-cost-and-supply": {
     "name": "2.6b Marginal Cost and Supply",
     "video_id": "HNhtJYbagF0",
     "upload_date": "2023-11-07T08:09:58-08:00",
     "duration_seconds": 837,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 45,
+        "label": "A (Hot Dog) Example to Illustrate Marginal Cost"
+      },
+      {
+        "start": 204,
+        "label": "Marginal Cost Defined & Calculated"
+      },
+      {
+        "start": 399,
+        "label": "Marginal Cost - Diagram"
+      },
+      {
+        "start": 453,
+        "label": "Marginal Cost and Output Decisions"
+      },
+      {
+        "start": 651,
+        "label": "The Supply Curve is a Marginal Cost Curve!!!"
+      },
+      {
+        "start": 730,
+        "label": "Recap of Today's Lesson"
+      }
+    ]
   },
   "consumer-surplus-producer-surplus-and-social-surplus": {
     "name": "2.7 Consumer Surplus, Producer Surplus, and Social Surplus",
     "video_id": "kPwEpVKTD0A",
     "upload_date": "2023-11-09T09:22:05-08:00",
     "duration_seconds": 691,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 48,
+        "label": "An Example to Illustrate Consumer & Producer Surplus"
+      },
+      {
+        "start": 188,
+        "label": "Consumer Surplus - Defined & Calculated"
+      },
+      {
+        "start": 317,
+        "label": "Producer Surplus - Defined & Calculated"
+      },
+      {
+        "start": 455,
+        "label": "Social Surplus is Maximized at Equilibrium (In well functioning markets)"
+      },
+      {
+        "start": 588,
+        "label": "Recap of Today's Lesson"
+      }
+    ]
   },
   "allocative-efficiency": {
     "name": "2.8 Allocative Efficiency",
     "video_id": "oH_crlyNmtg",
     "upload_date": "2023-11-14T14:42:51-08:00",
     "duration_seconds": 525,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 32,
+        "label": "Quick Review of Marginal Benefit & Marginal Cost"
+      },
+      {
+        "start": 133,
+        "label": "Allocative Efficiency - Example & Definition"
+      },
+      {
+        "start": 229,
+        "label": "Market Quantity Less Than Equilibrium Quantity"
+      },
+      {
+        "start": 324,
+        "label": "Market Quantity Greater Than Equilibrium Quantity"
+      },
+      {
+        "start": 382,
+        "label": "Well-Functioning Markets Achieve Allocative Efficiency (And Maximize Social Surplus!!)"
+      },
+      {
+        "start": 423,
+        "label": "Recap of Today's Lesson"
+      }
+    ]
   },
   "price-elasticity-of-demand-ped": {
     "name": "3.1 Price Elasticity of Demand (PED)",
     "video_id": "bYUkZeZfZO8",
     "upload_date": "2023-11-28T12:01:07-08:00",
     "duration_seconds": 944,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 65,
+        "label": "Price Elasticity of Demand - Defined & Calculation of PED Coefficient"
+      },
+      {
+        "start": 115,
+        "label": "Detour - Why do we use Percentage Change?"
+      },
+      {
+        "start": 235,
+        "label": "Inelastic Demand - Calculation of PED coefficient"
+      },
+      {
+        "start": 412,
+        "label": "Inelastic Demand - Interpretation"
+      },
+      {
+        "start": 502,
+        "label": "Elastic Demand - Calculation of PED coefficient (With Practice Question)"
+      },
+      {
+        "start": 588,
+        "label": "Elastic. Demand - Interpretation"
+      },
+      {
+        "start": 642,
+        "label": "Unit/Unitary Elastic Demand"
+      },
+      {
+        "start": 684,
+        "label": "Perfectly Inelastic Demand"
+      },
+      {
+        "start": 728,
+        "label": "Perfectly Elastic Demand"
+      },
+      {
+        "start": 787,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "determinants-of-price-elasticity-of-demand": {
     "name": "3.2 Determinants of Price Elasticity of Demand",
     "video_id": "40ZX1_6ebEY",
     "upload_date": "2023-12-05T10:54:03-08:00",
     "duration_seconds": 663,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 101,
+        "label": "Degree of Necessity (Luxury vs. Necessity)"
+      },
+      {
+        "start": 224,
+        "label": "Proportion of Consumer Budget/Income"
+      },
+      {
+        "start": 357,
+        "label": "Number and Closeness of Substitutes"
+      },
+      {
+        "start": 444,
+        "label": "Period of Time Considered after Price Change"
+      },
+      {
+        "start": 518,
+        "label": "Recap of Topics"
+      }
+    ]
   },
   "ped-and-total-revenue": {
     "name": "3.3 PED and Total Revenue",
     "video_id": "A7MHjOWFTv0",
     "upload_date": "2023-12-11T17:52:01-08:00",
     "duration_seconds": 561,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 48,
+        "label": "Total Revenue"
+      },
+      {
+        "start": 77,
+        "label": "Raising Price with Inelastic Demand"
+      },
+      {
+        "start": 229,
+        "label": "Lowering Price with Inelastic Demand"
+      },
+      {
+        "start": 312,
+        "label": "Raising Price with Elastic Demand"
+      },
+      {
+        "start": 420,
+        "label": "Lowering Price with Elastic Demand"
+      },
+      {
+        "start": 488,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "cross-price-elasticity-of-demand-xed": {
     "name": "3.4 Cross Price Elasticity of Demand (XED)",
     "video_id": "O-gLeuGNgAs",
     "upload_date": "2023-12-18T14:43:19-08:00",
     "duration_seconds": 657,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 44,
+        "label": "Cross Price Elasticity (XED) Calculation - Complement Goods"
+      },
+      {
+        "start": 274,
+        "label": "XED for Substitute Goods"
+      },
+      {
+        "start": 466,
+        "label": "Significance of the Absolute Value of XED"
+      },
+      {
+        "start": 539,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "income-elasticity-of-demand": {
     "name": "3.5 Income Elasticity of Demand",
     "video_id": "lZVZYc1yVbY",
     "upload_date": "2024-01-19T19:55:33-08:00",
     "duration_seconds": 689,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 69,
+        "label": "Income Elasticity of Demand Introduced"
+      },
+      {
+        "start": 120,
+        "label": "Income Elasticity of Demand Calculation & Interpretation"
+      },
+      {
+        "start": 184,
+        "label": "YED for Normal Goods"
+      },
+      {
+        "start": 285,
+        "label": "YED for Inferior Goods"
+      },
+      {
+        "start": 409,
+        "label": "YED for Luxuries vs. Necessities"
+      },
+      {
+        "start": 565,
+        "label": "Recap of the Lecture"
+      }
+    ]
   },
   "price-elasticity-of-supply": {
     "name": "3.6 Price Elasticity of Supply",
     "video_id": "4Jpvus1kpr8",
     "upload_date": "2024-03-03T08:54:41-08:00",
     "duration_seconds": 809,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 54,
+        "label": "PES Introduction & The Two Businesses of Gus Fring"
+      },
+      {
+        "start": 133,
+        "label": "PES: Calculation & Interpretation"
+      },
+      {
+        "start": 190,
+        "label": "Elastic Supply"
+      },
+      {
+        "start": 215,
+        "label": "Practice Question - Calculation"
+      },
+      {
+        "start": 276,
+        "label": "PES is always positive"
+      },
+      {
+        "start": 318,
+        "label": "Inelastic Supply"
+      },
+      {
+        "start": 416,
+        "label": "Determinants of Price Elasticity of Supply"
+      }
+    ]
   },
   "taxes": {
     "name": "4.1 Taxes",
     "video_id": "RakGotBbbKY",
     "upload_date": "2025-01-28T13:16:27-08:00",
     "duration_seconds": 1150,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 38,
+        "label": "Taxes Introduced - Direct vs. Indirect Taxes"
+      },
+      {
+        "start": 69,
+        "label": "Impact of Specific/Per-Unit Taxes on Supply"
+      },
+      {
+        "start": 358,
+        "label": "Impact of Taxes on Equilibrium Price and Quantnity"
+      },
+      {
+        "start": 474,
+        "label": "Taxes - Impact on Consumer, Producer and Government"
+      },
+      {
+        "start": 614,
+        "label": "Taxes - Impact on Consumer Surplus, Producer Surplus, and Social Surplus"
+      },
+      {
+        "start": 798,
+        "label": "Taxes - Impact on Allocative Efficiency"
+      },
+      {
+        "start": 861,
+        "label": "Tax Incidence/Tax Burden"
+      },
+      {
+        "start": 1038,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "subsidies": {
     "name": "4.2 Subsidies",
     "video_id": "r9td5tmpSnI",
     "upload_date": "2025-02-17T08:38:11-08:00",
     "duration_seconds": 1092,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 20,
+        "label": "Specific/Per Unit Subsidies to Suppliers Introduced"
+      },
+      {
+        "start": 151,
+        "label": "Impact of Subsidies on Supply Curve"
+      },
+      {
+        "start": 368,
+        "label": "Impact of Subsidies on Market Price & Quantity"
+      },
+      {
+        "start": 452,
+        "label": "Impact of Subsidies on Consumers, Producers & Government"
+      },
+      {
+        "start": 620,
+        "label": "Impact of Subsidies on Consumer Surplus & Producer Surplus (Deadweight Loss!)"
+      },
+      {
+        "start": 882,
+        "label": "Subsidies & Allocative Efficiency"
+      },
+      {
+        "start": 980,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "price-ceilings": {
     "name": "4.3 Price Ceilings",
     "video_id": "LAW_K3rDvdI",
     "upload_date": "2025-04-04T15:17:28-07:00",
     "duration_seconds": 894,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 0,
+        "label": "Topic Introduction"
+      },
+      {
+        "start": 50,
+        "label": "Housing Market Setup"
+      },
+      {
+        "start": 144,
+        "label": "Price Ceilings/Rent Control Introduced & Resulting Shortage"
+      },
+      {
+        "start": 351,
+        "label": "Price Ceiling Impact on Consumers & Producers I"
+      },
+      {
+        "start": 434,
+        "label": "Price Ceiling Impact on Consumers & Producers II - Consumer & Producer Surplus"
+      },
+      {
+        "start": 564,
+        "label": "Price Ceilings and Allocative Efficiency"
+      },
+      {
+        "start": 644,
+        "label": "Other impacts of price ceilings - Black Markets & Non-Price Methods of Allocation"
+      },
+      {
+        "start": 794,
+        "label": "Recap of the Lesson"
+      }
+    ]
   },
   "price-floors-minimum-wage": {
     "name": "4.4a Price Floors - Minimum Wage",
     "video_id": "_MTCi6wkUo4",
     "upload_date": "2026-06-25T11:30:25-07:00",
     "duration_seconds": 823,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 42,
+        "label": "Price Floors Introduced"
+      },
+      {
+        "start": 95,
+        "label": "Labor Markets Introduced"
+      },
+      {
+        "start": 357,
+        "label": "Minimum Wage Introduced"
+      },
+      {
+        "start": 428,
+        "label": "Unemployment"
+      },
+      {
+        "start": 486,
+        "label": "Impact on Business & Workers"
+      },
+      {
+        "start": 508,
+        "label": "Social Surplus & Allocative Efficiency"
+      },
+      {
+        "start": 687,
+        "label": "Black/Underground Markets"
+      },
+      {
+        "start": 711,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   },
   "agricultural-price-floors": {
     "name": "4.4b Agricultural Price Floors",
     "video_id": "ndjjp1B8PhA",
     "upload_date": "2026-08-20T13:38:32-07:00",
     "duration_seconds": 561,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 23,
+        "label": "Agricultural Price Floors Introduced"
+      },
+      {
+        "start": 106,
+        "label": "Impacts of Agricultural Price Floors"
+      },
+      {
+        "start": 215,
+        "label": "Agricultural Price Floors: Stakeholder Analysis"
+      },
+      {
+        "start": 452,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   },
   "introduction-to-market-failure": {
     "name": "5.1 Introduction to Market Failure",
     "video_id": "Rnhh47UME30",
     "upload_date": "2026-08-30T08:59:09-07:00",
     "duration_seconds": 542,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 38,
+        "label": "Market Failure Defined"
+      },
+      {
+        "start": 90,
+        "label": "Positive Externalities"
+      },
+      {
+        "start": 174,
+        "label": "Negative Externalities"
+      },
+      {
+        "start": 238,
+        "label": "Common Access Resources"
+      },
+      {
+        "start": 294,
+        "label": "Public Goods"
+      },
+      {
+        "start": 353,
+        "label": "Monopoly"
+      }
+    ]
   },
   "negative-externalities-of-consumption": {
     "name": "5.2 Negative Externalities of Consumption",
     "video_id": "W06iI6rFqLk",
     "upload_date": "2026-10-01T09:05:18-07:00",
     "duration_seconds": 1161,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 38,
+        "label": "Negative Externalities of Consumption Introduced"
+      },
+      {
+        "start": 482,
+        "label": "How Negative Externalities of Consumption Lead to Market Failure"
+      },
+      {
+        "start": 657,
+        "label": "Negative Externalities of Consumption & Social Surplus"
+      },
+      {
+        "start": 819,
+        "label": "Solutions to Market Failure Caused by Negative Externalities of Consumption"
+      },
+      {
+        "start": 1037,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   },
   "the-short-run-production-function": {
     "name": "6.1 The Short Run Production Function",
     "video_id": "N-m_MUmg--I",
     "upload_date": "2026-11-14T09:24:37-08:00",
     "duration_seconds": 1078,
-    "transcript": null
+    "transcript": null,
+    "chapters": [
+      {
+        "start": 58,
+        "label": "The Short Run vs. The Long Run"
+      },
+      {
+        "start": 154,
+        "label": "Total Product, Average Product & Marginal Product Introduced"
+      },
+      {
+        "start": 255,
+        "label": "Building the Short Run Production Function"
+      },
+      {
+        "start": 545,
+        "label": "Marginal Product and the Law of Diminishing Marginal Returns"
+      },
+      {
+        "start": 738,
+        "label": "The Relationship between Marginal Product and Total Product"
+      },
+      {
+        "start": 790,
+        "label": "The Relationship between Marginal Product and Average Product"
+      },
+      {
+        "start": 1004,
+        "label": "Recap of Today's Topics"
+      }
+    ]
   }
 }

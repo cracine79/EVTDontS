@@ -1,7 +1,7 @@
 from exts import db
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean, Index
+from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Boolean, Index, JSON
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from datetime import datetime
 from typing import Optional
@@ -120,6 +120,8 @@ class Chapter(db.Model):
     video_upload_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=True)
     video_duration_seconds: Mapped[int] = mapped_column(Integer, nullable=True)
     transcript: Mapped[str] = mapped_column(Text, nullable=True)
+    # [{'start': seconds, 'label': '...'}] from the YouTube description timestamps
+    video_chapters: Mapped[list] = mapped_column(JSON, nullable=True)
 
     search_vector: Mapped[TSVECTOR] = mapped_column(TSVECTOR)
     

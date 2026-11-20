@@ -7,63 +7,97 @@
 
 {% block spa_redirect %}{% if not q %}{% with target="/app/video-library" %}{% include "_spa_redirect.html" %}{% endwith %}{% endif %}{% endblock %}
 
-{% block content %}
-<div class="sm:mt-24 mt-[78px]">
-  <div class="min-h-screen w-100 flex">
-    {% with current_id=None %}{% include "_library_sidebar.html" %}{% endwith %}
+{% macro video_card(c, unit) -%}
+  <a href="{{ url_for('public.video', slug=c.slug) }}"
+     class="group block bg-[#344A53] rounded-2xl overflow-hidden transition hover:-translate-y-1 hover:ring-2 unit-ring"
+     style="--unit: {{ unit.color }}; --unit-text: {{ unit.text }}; --unit-light: {{ unit.light }}">
+    <div class="relative">
+      {% if c.yt %}<img src="https://i.ytimg.com/vi/{{ c.yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="270" class="w-full aspect-video object-cover">{% endif %}
+      {% if c.duration %}<span class="absolute bottom-2 right-2 bg-black/80 text-xs px-1.5 py-0.5 rounded">{{ c.duration }}</span>{% endif %}
+    </div>
+    <div class="p-4">
+      <h3 class="font-bold leading-snug"><span class="text-gray-400 mr-1">{{ c.num }}</span>{{ c.title }}</h3>
+      {% if c.teaser %}<p class="text-sm text-gray-300 mt-2">{{ c.teaser }}</p>{% endif %}
+      {% if c.quiz_count %}<p class="text-xs font-bold mt-3 unit-text"><i class="fa-solid fa-circle-check mr-1"></i>Practice quiz included</p>{% endif %}
+    </div>
+  </a>
+{%- endmacro %}
 
-    <div class="sm:w-5/6 w-full mb-12">
+{% block content %}
+<div class="pt-[64px] sm:pt-[80px] flex">
+  {% with current_id=None %}{% include "_library_sidebar.html" %}{% endwith %}
+
+  <div class="flex-1 min-w-0">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+
       {% if q %}
-        <div class="mx-8 sm:mt-6 mt-12">
-          <h1 class="text-3xl font-bold">Search results for “{{ q }}”</h1>
-          {% if results %}
-            <ul class="mt-6 space-y-6">
-              {% for ch in results %}
-                <li>
-                  <a class="text-xl font-bold text-[#0088A8] hover:underline" href="{{ url_for('public.video', slug=ch.slug) }}">{{ ch.name }}</a>
-                  <p class="mt-1">{{ plain_text(ch.video_blurb, 220) }}</p>
-                </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p class="mt-6 text-lg">No videos matched that search. Try another word, or browse the full library below.</p>
-          {% endif %}
-        </div>
-      {% else %}
-        <div class="flex flex-col items-center">
-          <h1 class="text-center sm:mt-6 mt-10 text-4xl font-bold">Welcome to the Video Cache!</h1>
-          <img class="max-h-[50vh] rounded-2xl" src="https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png" alt="Choose wisely">
-          <div class="sm:w-[80%]">
-            <p class="mx-8 mt-4 text-lg">
-              Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand,
-              and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting. Each video is a
-              stepping stone to mastering economic concepts, and you can access any and all of our goldmine Videos that absolutely don't suck below.
-            </p>
-            <p class="mx-8 mt-4 text-lg">After watching the video you can also try a practice quiz to test your economic skills.</p>
-            <p class="mx-8 mt-4 text-lg">Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.</p>
+        {# ---------- SEARCH RESULTS ---------- #}
+        <h1 class="text-3xl sm:text-4xl font-extrabold">Search results for “{{ q }}”</h1>
+        {% if results %}
+          <p class="mt-2 text-gray-300">{{ results | length }} video{{ '' if results | length == 1 else 's' }} found</p>
+          {% set unit_by_id = {} %}
+          {% for u in units %}{% for c in u.cards %}{% set _ = unit_by_id.update({c.chapter.id: u}) %}{% endfor %}{% endfor %}
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for c in results %}{{ video_card(c, unit_by_id.get(c.chapter.id, units[0])) }}{% endfor %}
           </div>
-        </div>
+        {% else %}
+          <p class="mt-4 text-lg text-gray-200">No videos matched that search. Try another word, or browse the library below.</p>
+        {% endif %}
+        <hr class="my-12 border-white/10">
+      {% else %}
+        {# ---------- WELCOME ---------- #}
+        <section class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
+          <img class="rounded-3xl shadow-2xl w-full" src="https://evtds-seeds.s3.us-east-2.amazonaws.com/ChooseWiselyCartoon_1.png"
+               alt="Cartoon: a knight says 'He chose... poorly.'" width="1000" height="900">
+          <div>
+            <p class="uppercase tracking-widest text-[#7fd3e6] text-sm font-bold">{{ total_videos }} free videos · {{ live_units }} units</p>
+            <h1 class="mt-2 text-4xl sm:text-5xl font-extrabold leading-tight">Welcome to the <span class="text-[#FFC93C]">Video Cache!</span></h1>
+            <div class="mt-5 space-y-4 text-lg text-gray-100 leading-relaxed">
+              <p>Welcome to the ultimate treasure trove of economics videos! Here, you'll find everything you need to navigate the wild world of supply, demand, and opportunity cost—with just the right amount of bad animation and obscure movie references to keep things interesting.</p>
+              <p>After watching a video, try the practice quiz to test your economic skills.</p>
+              <p class="text-gray-300">Choose wisely—unlike that guy in Indiana Jones and the Last Crusade. You know, the one who didn’t. Your economics journey depends on it.</p>
+            </div>
+          </div>
+        </section>
       {% endif %}
 
-      <div class="mx-8 mt-12">
-        {% for unit, chapters in units %}
-          <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-4">{{ unit.name }}</h2>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {% for ch in chapters %}
-                {% set yt = youtube_id(ch.video_url) %}
-                <li>
-                  <a href="{{ url_for('public.video', slug=ch.slug) }}" class="block group">
-                    {% if yt %}<img src="https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" class="w-full aspect-video object-cover rounded-xl">{% endif %}
-                    <h3 class="mt-2 font-bold text-lg group-hover:text-[#0088A8]">{{ ch.name }}</h3>
-                  </a>
-                  <p class="text-sm mt-1">{{ plain_text(ch.video_blurb, 140) }}</p>
-                </li>
-              {% endfor %}
-            </ul>
-          </section>
-        {% endfor %}
-      </div>
+      {# ---------- JUMP TO A UNIT ---------- #}
+      <section class="{% if not q %}mt-12{% endif %}">
+        <h2 class="text-sm uppercase tracking-widest font-bold text-gray-300">{% if q %}Or browse by unit{% else %}Jump to a unit{% endif %}</h2>
+        <div class="mt-3 flex flex-wrap gap-3">
+          {% for u in units %}
+            {% if u.coming_soon %}
+              <span class="inline-flex items-center gap-2 rounded-full pl-1 pr-4 py-1 bg-[#2B3D45]/50 border border-white/5 opacity-50"
+                    style="--unit: {{ u.color }}; --unit-text: {{ u.text }}">
+                <span class="text-xs font-extrabold px-2 py-1 rounded-full unit-bg">{{ u.number }}</span>
+                <span class="text-sm font-semibold">{{ u.title }} · soon</span></span>
+            {% else %}
+              <a href="#unit-{{ u.number }}" class="inline-flex items-center gap-2 rounded-full pl-1 pr-4 py-1 bg-[#2B3D45] hover:bg-[#23333a] border border-white/10"
+                 style="--unit: {{ u.color }}; --unit-text: {{ u.text }}">
+                <span class="text-xs font-extrabold px-2 py-1 rounded-full unit-bg">{{ u.number }}</span>
+                <span class="text-sm font-semibold">{{ u.title }}</span></a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+
+      {# ---------- UNITS ---------- #}
+      {% for u in units if not u.coming_soon %}
+        <section id="unit-{{ u.number }}" class="mt-12 scroll-mt-28 bg-[#2B3D45] rounded-3xl p-6 sm:p-8 border-t-8 unit-border"
+                 style="--unit: {{ u.color }}; --unit-text: {{ u.text }}; --unit-light: {{ u.light }}">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="text-sm font-extrabold px-2.5 py-1 rounded unit-bg">UNIT {{ u.number }}</span>
+              <h2 class="text-2xl sm:text-3xl font-bold">{{ u.title }}</h2>
+              {% if u.is_new %}<span class="text-xs font-extrabold px-2 py-0.5 rounded bg-[#E3262E] text-white">NEW</span>{% endif %}
+            </div>
+            <span class="text-sm font-semibold unit-text">{{ u.video_count }} video{{ '' if u.video_count == 1 else 's' }}{% if u.length %} · {{ u.length }}{% endif %}</span>
+          </div>
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for c in u.cards %}{{ video_card(c, u) }}{% endfor %}
+          </div>
+        </section>
+      {% endfor %}
     </div>
   </div>
 </div>

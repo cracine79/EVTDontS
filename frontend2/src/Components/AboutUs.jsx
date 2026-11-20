@@ -36,6 +36,10 @@ export const AboutUs = () => {
                     The Future Looks Bright!
                 </div>
                 <div>This site is just getting started. Over time, you can expect a tidal wave of content, features, and who knows what else. I’m aiming to make this the best resource out there for economics students and AP test-takers. And if you’re not a student? Stick around anyway. You might actually start to like economics.</div>
+                <div className='flex flex-col sm:flex-row items-center gap-6 mt-4'>
+                    <img className='w-40 shrink-0' src='/app/Worker.png' alt='Under construction' />
+                    <div>Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
+                </div>
 
                 <div className='text-xl mt-4 mb-2 font-bold'>
                     Oh, By the Way . . .

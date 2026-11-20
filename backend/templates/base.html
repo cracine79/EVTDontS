@@ -36,42 +36,34 @@
     gtag('config', 'G-NVR5XLFCQ3');
   </script>
 </head>
-<body>
-  <div class="flex flex-col">
+<body class="bg-[#344A53] text-white">
+  <div class="flex flex-col min-h-screen">
     <div class="relative">
-      <nav class="w-full bg-[#0088A8] items-center flex justify-between fixed top-0 z-50">
-        <div class="flex w-2/3 items-center h-full py-4">
-          <span class="flex sm:w-1/6 sm:min-w-72 max-w-72 items-center">
-            <a href="/" class="w-1/2 my-2 sm:ml-14 ml-4 lg:ml-16 min-w-16">
-              <img src="/app/EvtdsDarkerGBlue.png" alt="Economics Videos That Don't Suck logo" />
-            </a>
-            <span class="ml-2 md:text-2xl text-sm font-bold text-white">BETA</span>
-          </span>
-          <div class="sm:flex flex-auto px-4 xl:ml-0 hidden w-1/2">
-            <div class="flex items-center w-11/12">
-              {% include "_search.html" %}
-            </div>
-          </div>
+      <nav class="w-full bg-[#0088A8] flex items-center justify-between fixed top-0 z-50 px-4 sm:px-8 lg:px-12 py-3 gap-4">
+        <a href="/" class="flex items-center gap-2 shrink-0">
+          <img src="/app/EvtdsDarkerGBlue.png" alt="Economics Videos That Don't Suck logo" class="h-10 sm:h-14 w-auto" width="144" height="56" />
+          <span class="text-sm sm:text-2xl font-bold">BETA</span>
+        </a>
+        <div class="hidden lg:flex flex-1 max-w-md">
+          {% include "_search.html" %}
         </div>
-        <div class="flex items-center justify-between w-2/3">
-          <a class="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" href="/videos">Jump To Videos</a>
-          <a class="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" href="/app/aboutus">About Us</a>
-          <a class="sm:mr-4 mr-2 text-xs md:text-lg sm:font-bold text-white hover:text-[#344A53] hidden sm:block" href="/app/contactus">Contact Us</a>
-          <button type="button" class="text-xs text-white sm:hidden" id="mobile-search-toggle">Search Videos</button>
-          <div class="flex sm:w-1/4 justify-between items-center mr-4 sm:mr-36 text-xs md:text-sm text-white">
-            <a class="hover:text-[#344A53] sm:text-lg font-bold text-center" href="/app/?login=1">Log In</a>
-            <a class="button sm:block text-center font-bold sm:!px-6 sm:!py-2" href="/app/?signup=1">Get Started</a>
-          </div>
+        <div class="flex items-center gap-3 sm:gap-5 xl:gap-6 text-sm sm:text-base xl:text-lg font-bold whitespace-nowrap">
+          <a class="hidden md:block hover:text-[#344A53]" href="/videos">Jump To Videos</a>
+          <a class="hidden md:block hover:text-[#344A53]" href="/app/aboutus">About Us</a>
+          <a class="hidden md:block hover:text-[#344A53]" href="/app/contactus">Contact Us</a>
+          <button type="button" class="lg:hidden hover:text-[#344A53]" id="mobile-search-toggle" aria-label="Search videos"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <a class="hover:text-[#344A53]" href="/app/?login=1">Log In</a>
+          <a class="btn-primary px-4 sm:px-5 py-2 text-sm sm:text-base" href="/app/?signup=1">Get Started</a>
         </div>
       </nav>
-      <div id="mobile-search" class="left-0 fixed top-0 bg-[#0088a8] py-2 mt-[70px] w-full shadow-md z-40 transition-transform duration-300 -translate-y-[200%] sm:hidden">
-        <div class="flex w-full flex-col items-center justify-center relative">
+      <div id="mobile-search" class="left-0 fixed top-0 bg-[#0088a8] py-2 mt-[64px] sm:mt-[80px] w-full shadow-md z-40 transition-transform duration-300 -translate-y-[200%] lg:hidden">
+        <div class="flex w-full flex-col items-center justify-center relative px-4">
           {% include "_search.html" %}
         </div>
       </div>
     </div>
 
-    <main class="flex flex-col">
+    <main class="flex flex-col flex-1">
       {% block content %}{% endblock %}
     </main>
 

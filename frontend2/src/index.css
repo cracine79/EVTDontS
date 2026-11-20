@@ -111,3 +111,30 @@
         inset 0 0 5px rgba(255, 255, 255, 0.2); /* Maintain inner glow */
     transform: translateY(1px); /* Slightly deeper sink when active */
 }
+
+/* ---------- Public site (Jinja templates): buttons & unit colors ---------- */
+/* Each unit section/card sets --unit (and --unit-text / --unit-light) inline from UNIT_THEME in backend/public.py */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  background: #FFC93C; color: #1a1a1a; font-weight: 800; border-radius: 9999px;
+  box-shadow: 0 4px 0 #c99a1c; transition: transform .12s ease, box-shadow .12s ease;
+  text-align: center;
+}
+.btn-primary:hover { transform: translateY(2px); box-shadow: 0 2px 0 #c99a1c; }
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border: 2px solid #fff; color: #fff; font-weight: 700; border-radius: 9999px;
+  transition: background .15s ease; text-align: center;
+}
+.btn-secondary:hover { background: rgba(255, 255, 255, .1); }
+.unit-bg { background: var(--unit); color: var(--unit-text, #111); }
+.unit-text { color: var(--unit-light, var(--unit)); }
+.unit-border { border-color: var(--unit); }
+.unit-ring { --tw-ring-color: var(--unit); }
+.step-num {
+  width: 64px; height: 64px; border-radius: 9999px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px; font-weight: 900; color: #1a1a1a;
+}
+details.plain > summary { list-style: none; }
+details.plain > summary::-webkit-details-marker { display: none; }

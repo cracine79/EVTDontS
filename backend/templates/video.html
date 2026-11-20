@@ -19,68 +19,152 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Video Library", "item": site_url ~ "/videos"},
-    {"@type": "ListItem", "position": 2, "name": chapter.name, "item": site_url ~ request.path}
+    {"@type": "ListItem", "position": 2, "name": "Unit " ~ unit.number ~ ": " ~ unit.title, "item": site_url ~ "/videos#unit-" ~ unit.number},
+    {"@type": "ListItem", "position": 3, "name": chapter.name, "item": site_url ~ request.path}
   ]
 } | tojson }}
 </script>
 {% endblock %}
 
+{% macro small_card(c, u, active=False) -%}
+  <a href="{{ url_for('public.video', slug=c.slug) }}" class="group block"
+     style="--unit: {{ u.color }}; --unit-text: {{ u.text }}; --unit-light: {{ u.light }}">
+    <div class="relative rounded-xl overflow-hidden {% if active %}ring-4 unit-ring{% endif %}">
+      {% if c.yt %}<img src="https://i.ytimg.com/vi/{{ c.yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="270" class="w-full aspect-video object-cover">{% endif %}
+      {% if c.duration %}<span class="absolute bottom-1.5 right-1.5 bg-black/80 text-xs px-1.5 rounded">{{ c.duration }}</span>{% endif %}
+      {% if active %}<span class="absolute top-1.5 left-1.5 text-[11px] font-extrabold px-1.5 rounded unit-bg">NOW PLAYING</span>{% endif %}
+    </div>
+    <p class="mt-2 text-sm font-semibold group-hover:underline"><span class="text-gray-400">{{ c.num }}</span> {{ c.title }}</p>
+  </a>
+{%- endmacro %}
+
 {% block content %}
-<div class="sm:mt-24 mt-[78px]">
-  <div class="min-h-screen w-100 flex">
-    {% with current_id=chapter.id %}{% include "_library_sidebar.html" %}{% endwith %}
+<div class="pt-[64px] sm:pt-[80px] flex">
+  {% with current_id=chapter.id %}{% include "_library_sidebar.html" %}{% endwith %}
 
-    <div class="sm:w-5/6 w-full">
-      <article class="flex flex-col items-center justify-center sm:mt-10 mt-6">
-        <h1 class="sm:text-2xl mt-4 sm:mt-0 text-center text-lg mb-4">Video for {{ chapter.name }}</h1>
+  <div class="flex-1 min-w-0" style="--unit: {{ unit.color }}; --unit-text: {{ unit.text }}; --unit-light: {{ unit.light }}">
+    <div class="h-2 unit-bg"></div>
 
-        <div class="w-full">
-          <div class="sm:mt-8 sm:mb-12 sm:min-h-[65vh] mx-auto px-8 grid grid-cols-1 sm:grid-cols-[4fr_3fr] items-start">
-            <div class="sm:w-11/12 w-full max-w-6xl">
-              <div class="aspect-video relative bg-black" id="player">
-                {% if yt %}
-                <button type="button" id="play-button" class="group absolute inset-0 w-full h-full" aria-label="Play video: {{ chapter.name }}"
-                        data-embed="{{ embed_url }}" data-title="{{ chapter.name }}">
-                  <img src="https://i.ytimg.com/vi/{{ yt }}/maxresdefault.jpg" alt="" width="1280" height="720"
-                       class="w-full h-full object-cover"
-                       onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg'">
-                  <span class="absolute inset-0 flex items-center justify-center">
-                    <span class="w-20 h-14 rounded-2xl bg-[#ff0000] group-hover:bg-[#cc0000] flex items-center justify-center shadow-lg">
-                      <span class="ml-1 w-0 h-0 border-y-[12px] border-y-transparent border-l-[20px] border-l-white"></span>
-                    </span>
-                  </span>
-                  {% if duration_label %}<span class="absolute bottom-2 right-2 bg-black/80 text-white text-sm px-2 py-0.5 rounded">{{ duration_label }}</span>{% endif %}
-                </button>
-                {% else %}
-                <iframe class="w-full h-full" src="{{ chapter.video_url }}" title="{{ chapter.name }}" allowfullscreen></iframe>
-                {% endif %}
-              </div>
-              <div class="w-full justify-center flex flex-col sm:flex-row items-center mt-8">
-                <a class="button w-11/12 sm:w-auto sm:h-12" href="/app/?signup=1">Sign Up To Track Progress &amp; More!</a>
-                <div class="mx-12 py-2 sm:py-0 text-2xl"></div>
-                <a class="button w-11/12 sm:w-auto sm:h-12" href="/app/freequiz/{{ chapter.slug | urlencode }}">Take a Free Quiz on {{ short_name }}</a>
-              </div>
-            </div>
-            <div class="sm:w-11/12 w-full sm:mt-2 mt-4">
-              <div class="whitespace-pre-line">{{ video_blurb | safe }}</div>
-              {% if transcript_paragraphs %}
-                <details class="mt-8 border-t border-gray-300 pt-4">
-                  <summary class="cursor-pointer text-lg font-bold text-[#0088A8]">Read the video transcript</summary>
-                  <div class="mt-4 space-y-4 text-gray-800">
-                    {% for para in transcript_paragraphs %}<p>{{ para }}</p>{% endfor %}
-                  </div>
-                </details>
-              {% endif %}
-            </div>
+    <article class="max-w-6xl mx-auto px-5 sm:px-8 py-8">
+      {# ---------- breadcrumb + title ---------- #}
+      <nav class="text-sm text-gray-300 flex flex-wrap items-center gap-2" aria-label="Breadcrumb">
+        <a href="{{ url_for('public.videos') }}" class="hover:text-white">Video Library</a><span>›</span>
+        <a href="{{ url_for('public.videos') }}#unit-{{ unit.number }}" class="inline-flex items-center gap-2 hover:text-white">
+          <span class="text-xs font-extrabold px-2 py-0.5 rounded unit-bg">UNIT {{ unit.number }}</span>{{ unit.title }}
+        </a>
+      </nav>
+      <h1 class="mt-3 text-3xl sm:text-4xl font-extrabold leading-tight">
+        {% if card.num %}<span class="text-gray-400 font-bold mr-1">{{ card.num }}</span>{% endif %}{{ card.title }}
+      </h1>
+      <p class="mt-2 text-gray-300 text-sm flex flex-wrap gap-x-4 gap-y-1">
+        {% if card.duration %}<span><i class="fa-regular fa-clock mr-1"></i>{{ card.duration }}</span>{% endif %}
+        {% if upload_label %}<span><i class="fa-regular fa-calendar mr-1"></i>{{ upload_label }}</span>{% endif %}
+        {% if card.quiz_count %}<span><i class="fa-solid fa-circle-check mr-1 unit-text"></i>{{ card.quiz_count }}-question practice quiz</span>{% endif %}
+      </p>
+
+      <div class="mt-6 grid lg:grid-cols-[3fr_2fr] gap-8 items-start">
+        {# ---------- player, actions, key moments ---------- #}
+        <div>
+          <div class="aspect-video relative bg-black rounded-2xl overflow-hidden shadow-2xl ring-4 unit-ring" id="player">
+            {% if yt %}
+            <button type="button" id="play-button" class="group absolute inset-0 w-full h-full" aria-label="Play video: {{ chapter.name }}"
+                    data-yt="{{ yt }}" data-title="{{ chapter.name }}">
+              <img src="https://i.ytimg.com/vi/{{ yt }}/maxresdefault.jpg" alt="" width="1280" height="720"
+                   class="w-full h-full object-cover" fetchpriority="high"
+                   onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg'">
+              <span class="absolute inset-0 flex items-center justify-center">
+                <span class="w-20 h-14 rounded-2xl bg-[#ff0000] group-hover:bg-[#cc0000] flex items-center justify-center shadow-lg">
+                  <span class="ml-1 w-0 h-0 border-y-[12px] border-y-transparent border-l-[20px] border-l-white"></span>
+                </span>
+              </span>
+              {% if card.duration %}<span class="absolute bottom-3 right-3 bg-black/80 text-white text-sm px-2 py-0.5 rounded">{{ card.duration }}</span>{% endif %}
+            </button>
+            {% else %}
+            <iframe class="w-full h-full" src="{{ chapter.video_url }}" title="{{ chapter.name }}" allowfullscreen></iframe>
+            {% endif %}
           </div>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-4">
+            <a href="/app/freequiz/{{ chapter.slug | urlencode }}" class="btn-primary text-lg px-7 py-3"><i class="fa-solid fa-pen-to-square"></i> Take the free quiz</a>
+            <a href="/app/?signup=1" class="btn-secondary text-lg px-7 py-3"><i class="fa-solid fa-chart-line"></i> Sign up to track progress</a>
+          </div>
+
+          {% if key_moments %}
+          <section class="mt-8 bg-[#2B3D45] rounded-2xl p-5" aria-labelledby="moments-heading">
+            <h2 id="moments-heading" class="text-lg font-bold">In this video</h2>
+            <ol class="mt-3 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-[15px]">
+              {% for m in key_moments %}
+                <li>
+                  <a href="https://www.youtube.com/watch?v={{ yt }}&t={{ m.start }}s" data-start="{{ m.start }}"
+                     class="moment flex gap-3 hover:underline">
+                    <span class="font-mono font-bold w-12 shrink-0 unit-text">{{ m.time }}</span><span>{{ m.label }}</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ol>
+          </section>
+          {% endif %}
         </div>
 
-        <nav class="w-full px-8 mb-12 flex justify-between gap-4 text-[#0088A8]" aria-label="More videos">
-          {% if prev_ch %}<a class="hover:underline" href="{{ url_for('public.video', slug=prev_ch.slug) }}">← {{ prev_ch.name }}</a>{% else %}<span></span>{% endif %}
-          {% if next_ch %}<a class="hover:underline text-right" href="{{ url_for('public.video', slug=next_ch.slug) }}">{{ next_ch.name }} →</a>{% endif %}
-        </nav>
-      </article>
-    </div>
+        {# ---------- description + transcript ---------- #}
+        <div>
+          <h2 class="text-lg font-bold">About this video</h2>
+          <div class="mt-3 whitespace-pre-line text-gray-100 leading-relaxed">{{ video_blurb | safe }}</div>
+
+          {% if transcript_paragraphs %}
+            <details class="plain mt-6 bg-[#2B3D45] rounded-2xl p-5">
+              <summary class="cursor-pointer flex items-center justify-between font-bold text-lg">
+                <span><i class="fa-solid fa-file-lines mr-2 unit-text"></i>Read the transcript</span>
+                <i class="fa-solid fa-chevron-down text-sm"></i>
+              </summary>
+              <div class="mt-4 max-h-96 overflow-y-auto pr-2 space-y-3 text-gray-200 text-[15px] leading-relaxed">
+                {% for para in transcript_paragraphs %}<p>{{ para }}</p>{% endfor %}
+              </div>
+            </details>
+          {% endif %}
+        </div>
+      </div>
+
+      {# ---------- up next / previous ---------- #}
+      {% if next_card or prev_card %}
+      <nav class="mt-12 grid md:grid-cols-[2fr_1fr] gap-6" aria-label="More videos">
+        {% if next_card %}
+          {% set nu = unit_of[next_card.chapter.id] %}
+          <a href="{{ url_for('public.video', slug=next_card.slug) }}" class="group flex flex-col sm:flex-row bg-[#2B3D45] rounded-2xl overflow-hidden hover:ring-2 unit-ring"
+             style="--unit: {{ nu.color }}; --unit-text: {{ nu.text }}; --unit-light: {{ nu.light }}">
+            {% if next_card.yt %}<img src="https://i.ytimg.com/vi/{{ next_card.yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="270" class="sm:w-64 aspect-video object-cover">{% endif %}
+            <div class="p-5 flex flex-col justify-center">
+              <span class="text-xs uppercase tracking-widest font-bold unit-text">Up next →{% if nu.number != unit.number %} · Unit {{ nu.number }}{% endif %}</span>
+              <h3 class="text-xl font-bold mt-1">{{ next_card.chapter.name }}</h3>
+              {% if next_card.teaser %}<p class="text-sm text-gray-300 mt-1">{% if next_card.duration %}{{ next_card.duration }} · {% endif %}{{ next_card.teaser }}</p>{% endif %}
+            </div>
+          </a>
+        {% else %}<div></div>{% endif %}
+        {% if prev_card %}
+          <a href="{{ url_for('public.video', slug=prev_card.slug) }}" class="flex items-center gap-4 bg-[#2B3D45]/60 rounded-2xl p-4 hover:bg-[#2B3D45]">
+            {% if prev_card.yt %}<img src="https://i.ytimg.com/vi/{{ prev_card.yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="270" class="w-28 aspect-video object-cover rounded-lg">{% endif %}
+            <div>
+              <span class="text-xs uppercase tracking-widest font-bold text-gray-400">← Previous</span>
+              <h3 class="font-bold">{{ prev_card.chapter.name }}</h3>
+            </div>
+          </a>
+        {% endif %}
+      </nav>
+      {% endif %}
+
+      {# ---------- more in this unit ---------- #}
+      {% if unit.cards | length > 1 %}
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold flex items-center gap-3 flex-wrap">
+          <span class="text-xs font-extrabold px-2 py-0.5 rounded unit-bg">UNIT {{ unit.number }}</span>
+          More in {{ unit.title }}
+        </h2>
+        <div class="mt-5 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {% for c in unit.cards %}{{ small_card(c, unit, c.chapter.id == chapter.id) }}{% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </article>
   </div>
 </div>
 {% endblock %}
@@ -89,23 +173,45 @@
 <script>
   (function () {
     var btn = document.getElementById('play-button');
-    if (!btn) return;
-    // Warm up the connection to YouTube when the visitor shows intent
+    var player = document.getElementById('player');
+    if (!player) return;
+    var yt = btn ? btn.dataset.yt : null;
+    var title = btn ? btn.dataset.title : '';
+
     function preconnect() {
       ['https://www.youtube.com', 'https://www.google.com'].forEach(function (href) {
         var l = document.createElement('link'); l.rel = 'preconnect'; l.href = href; document.head.appendChild(l);
       });
     }
-    btn.addEventListener('pointerover', preconnect, { once: true });
-    btn.addEventListener('click', function () {
-      var iframe = document.createElement('iframe');
-      iframe.className = 'w-full h-full';
-      iframe.src = btn.dataset.embed;
-      iframe.title = btn.dataset.title;
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-      iframe.allowFullscreen = true;
-      btn.replaceWith(iframe);
+    // Swap the thumbnail for the real YouTube player, optionally starting at a timestamp
+    function play(start) {
+      if (!yt) return;
+      var src = 'https://www.youtube.com/embed/' + yt + '?autoplay=1&rel=0' + (start ? '&start=' + start : '');
+      var iframe = player.querySelector('iframe');
+      if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.className = 'w-full h-full';
+        iframe.title = title;
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allowFullscreen = true;
+        player.innerHTML = '';
+        player.appendChild(iframe);
+      }
+      iframe.src = src;
+    }
+    if (btn) {
+      btn.addEventListener('pointerover', preconnect, { once: true });
+      btn.addEventListener('click', function () { play(0); });
+    }
+    // "In this video" links jump the embedded player instead of leaving for YouTube
+    document.querySelectorAll('a.moment').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        if (!yt) return;
+        e.preventDefault();
+        play(parseInt(a.dataset.start, 10) || 0);
+        player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     });
   })();
 </script>

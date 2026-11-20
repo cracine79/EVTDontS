@@ -21,259 +21,179 @@
 {% endblock %}
 
 {% block content %}
-<div class="flex flex-col w-screen items-center bg-[#344A53] text-white relative">
-  <h1 class="sr-only">Economics Videos That Don't Suck: free economics videos and practice quizzes for AP Microeconomics, AP Macroeconomics, and university economics</h1>
-  <div class="flex justify-center sm:mt-8">
-    <video class="w-full sm:w-11/12 h-auto sm:mt-24 hidden sm:block rounded-3xl z-20" data-desktop-autoplay data-lazy="eager"
-           poster="/app/intro2-poster.jpg" width="1920" height="850" loop muted playsinline preload="none">
-      <source data-src="/app/intro2-web.mp4" type="video/mp4" />
-    </video>
-    <img src="/app/MobileBannerTopReal.webp" class="mt-20 sm:hidden" alt="Economics Videos That Don't Suck"
-         width="1200" height="531" fetchpriority="high">
-  </div>
-  <div class="w-11/12 sm:text-2xl text-xs flex justify-around text-center sm:px-28 border-white border-2 border-solid rounded-2xl h-20 items-center">
-    <span>Stop memorizing.</span><span>Start understanding.</span><span>Economics, but finally entertaining.</span>
-  </div>
-
-  <div class="bg-[#2B3D45] w-full pt-12 relative flex">
-    <div class="w-full flex justify-start items-center relative flex-col">
-      <div class="flex flex-col items-center justify-center text-center text-xl">
-        <h2 class="text-5xl mb-8">Ready to Dive In?</h2>
-        <div>Browse our <em>free library</em> of economics videos and quizzes!</div>
-        <div class="py-6">Think of it as an all-you-can-eat buffet of knowledge—without the regret.</div>
-      </div>
-      <a href="/videos" class="button flex flex-col w-[32%] max-w-[450px] h-12 mb-16 !font-light !py-2 !px-6 z-40">
-        <div class="sm:text-lg xl:text-2xl"><span class="hidden sm:inline">Take Me to the </span>Videos &amp; Quizzes!</div>
-      </a>
-      <div class="text-xl absolute bottom-0 ml-[17%] p-4">Or scroll on to learn how it works!</div>
-    </div>
-  </div>
-
-  <div class="w-5/6 items-center justify-center flex relative">
-    <img loading="lazy" class="w-7/12" src="/app/leg1.png" alt="">
-    <div class="w-1/3"></div>
-  </div>
-
-  <div class="w-screen h-auto items-center bg-[#344A53]">
-    {# 1. Watch the videos #}
-    <div class="sm:mt-8 flex sm:flex-row flex-col justify-between sm:w-7/12 items-center">
-      <div class="h-100 w-100 flex flex-col items-center" id="video-left">
-        <div class="flex">
-          <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px] w-[60px] h-[60px] sm:text-[60px] text-4xl font-bold sm:font-extrabold rounded-full border-[4px] sm:border-[6px] border-[#007ea3]">1</span>
-          <h2 class="sm:ml-8 wm:ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2">
-            <div>Watch the Videos</div>
-            <div>(that don't suck)</div>
-          </h2>
-        </div>
-        <p class="mt-2 sm:w-4/6 w-5/6 text-xl text-center">For real, they don’t. We’ve edited out all the parts that flopped, so all you need to do is kick back, press play, and maybe even laugh while learning. (We said maybe.)</p>
-      </div>
-      <div class="flex flex-col items-center">
-        <div>
-          <video id="sample-video" loop muted playsinline preload="none" data-lazy="near" class="fixed top-1/4 right-0 w-5/12 rounded-3xl hidden sm:block transform transition-opacity duration-700 sm:mr-12 mt-4 sm:mt-0 opacity-0">
-            <source data-src="/app/Sample-web.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <img src="/app/MobileMiniVid.webp" class="mt-6 w-5/6 rounded-3xl sm:hidden" alt="Sample economics video" loading="lazy" width="1200" height="676">
-      </div>
-    </div>
-    <div class="w-11/12">
-      <div class="w-5/6 items-center flex justify-center relative top-0">
-        <div class="w-1/6"></div>
-        <img loading="lazy" class="w-7/12" src="/app/leg2.png" alt="">
-      </div>
-    </div>
-
-    {# 2. Take practice quizzes #}
+{# ---------- HERO ---------- #}
+<section class="pt-24 sm:pt-32 pb-14 px-6 sm:px-12 lg:px-20">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
     <div>
-      <div class="sm:ml-20 flex justify-around flex-col sm:flex-row items-center">
-        <div id="quiz-image" class="w-5/6 sm:w-1/3 sm:ml-[5%] sm:block hidden fixed top-[15%] left-20 duration-1000 transition-opacity transform opacity-0">
-          <img loading="lazy" src="/app/Sampleq.png" class="rounded-xl" alt="Sample practice quiz question">
-        </div>
-        <div class="h-100 sm:w-1/2 sm:ml-[40%] flex flex-col items-center">
-          <div class="flex" id="quiz-right">
-            <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px] w-[60px] h-[60px] sm:text-[60px] text-4xl font-bold sm:font-extrabold rounded-full border-[4px] sm:border-[6px] border-[#007ea3]">2</span>
-            <h2 class="sm:ml-8 ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2">
-              <div>Take practice</div>
-              <div>quizzes like a Boss</div>
-            </h2>
-          </div>
-          <p class="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Unlike some resources, our practice quizzes DON'T suck.  Nope, these bad boys are almost identical to the AP questions you’ll face on game day.  Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
-        </div>
-        <div class="sm:w-5/6 w-11/12 mt-4 sm:mt-0 sm:hidden">
-          <img loading="lazy" src="/app/Sampleq.png" class="rounded-xl" alt="Sample practice quiz question">
-        </div>
+      <p class="uppercase tracking-widest text-[#7fd3e6] text-sm font-bold mb-4">Free AP Micro · Macro · College Econ</p>
+      <h1 class="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight">
+        Economics videos that <span class="text-[#FFC93C]">don't suck.</span>
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-gray-200 max-w-xl">
+        Short, funny videos and AP-style practice quizzes that make supply, demand and everything after actually click.
+        Stop memorizing. Start understanding.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 sm:items-center">
+        <a href="{{ url_for('public.videos') }}" class="btn-primary text-lg sm:text-xl px-8 py-3 whitespace-nowrap"><i class="fa-solid fa-play"></i> Browse the free videos</a>
+        <a href="/app/?signup=1" class="text-center font-bold whitespace-nowrap underline underline-offset-4 decoration-2 hover:text-[#7fd3e6]">or sign up to track your progress →</a>
       </div>
+      <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-gray-200">
+        <li><i class="fa-solid fa-video mr-2 text-[#FFC93C]"></i>{{ total_videos }} videos</li>
+        <li><i class="fa-solid fa-layer-group mr-2 text-[#C6E83A]"></i>{{ live_units }} units (more coming)</li>
+        <li><i class="fa-solid fa-circle-check mr-2 text-[#FF6FAE]"></i>AP-style quizzes</li>
+        <li><i class="fa-solid fa-tag mr-2 text-[#4CC2F5]"></i>100% free</li>
+      </ul>
+      <p class="mt-6 text-sm text-gray-300 max-w-xl">
+        <i class="fa-solid fa-chalkboard-user text-[#7fd3e6] mr-2"></i>Made by Mr. Racine: nearly 20 years teaching econ in high school and university classrooms, and still waiting for a student to say “opportunity cost” without being asked.
+      </p>
     </div>
-    <div class="w-11/12">
-      <div class="w-5/6 items-center flex justify-center relative top-0">
-        <div class="w-1/3"></div>
-        <img loading="lazy" class="w-7/12" src="/app/leg3.png" alt="">
-      </div>
-    </div>
-
-    {# 3. Turn goofs into gold #}
-    <div class="flex justify-left items-center flex-col sm:flex-row">
-      <div class="h-100 w-100 sm:w-[50%] flex flex-col items-center">
-        <div class="flex justify-center items-center">
-          <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px] w-[60px] h-[60px] sm:text-[60px] text-4xl font-bold sm:font-extrabold rounded-full border-[4px] sm:border-[6px] border-[#007ea3]">3</span>
-          <h2 class="sm:ml-8 ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2" id="results-left">
-            <div>Turn Goofs into Gold</div>
-          </h2>
-        </div>
-        <p class="mt-2 sm:w-4/6 w-5/6 text-xl text-center">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja</p>
-      </div>
-      <div id="results-image" class="sm:w-[45%] w-5/6 rounded-3xl hidden sm:block mt-4 sm:mt-0 sm:fixed sm:top-1/4 sm:right-20 duration-1000 transition-opacity opacity-0">
-        <img loading="lazy" src="/app/qresults.png" class="rounded-xl" alt="Personalized quiz results">
-      </div>
-      <div class="sm:hidden w-5/6 rounded-3xl mt-4">
-        <img loading="lazy" src="/app/qresults.png" class="rounded-xl" alt="Personalized quiz results">
-      </div>
-    </div>
-
-    <div class="w-11/12">
-      <div class="w-5/6 items-center flex justify-center relative top-0">
-        <img loading="lazy" class="w-11/12" src="/app/leg4.png" alt="">
-      </div>
-    </div>
-
-    {# 4. Keep going #}
-    <div class="sm:mt-16 mb-20">
-      <div class="sm:-mt-20 sm:mx-20 flex justify-center items-center flex-col sm:flex-row" id="warrior-section">
-        <div>
-          <video id="warrior-video"
-                 class="sm:w-[40%] pt-40 sm:ml-20 rounded-2xl w-11/12 h-auto z-30 duration-1000 transition-opacity hidden sm:block opacity-0 fixed top-11 left-10 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1)_98%,rgba(0,0,0,0)_100%)]"
-                 data-desktop-autoplay data-lazy="near" loop muted playsinline preload="none">
-            <source data-src="/app/BlueWarrior-web.mp4" type="video/mp4" />
-          </video>
-        </div>
-        <div class="flex flex-col items-center sm:mt-10 sm:-ml-28 sm:w-1/2 sm:ml-[40%] z-30">
-          <div class="flex">
-            <span class="flex items-center justify-center sm:w-[80px] sm:h-[80px] w-[60px] h-[60px] sm:text-[60px] text-4xl font-bold sm:font-extrabold rounded-full border-[4px] sm:border-[6px] border-[#007ea3]">4</span>
-            <h2 class="sm:ml-8 ml-2 lg:text-5xl sm:text-4xl text-3xl font-extrabold mb-2">
-              <div>Keep going,</div>
-              <div>you Econo-Warrior</div>
-            </h2>
-          </div>
-          <p class="mt-2 w-5/6 text-xl text-center">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
-        </div>
-        <div class="flex flex-col justify-center ml-4 -mb-8 items-center sm:hidden my-4">
-          <img src="/app/Econowarrior.webp" class="w-5/6" alt="The Econo-Warrior" loading="lazy" width="900" height="863">
-        </div>
-      </div>
-    </div>
-
-    <div class="w-11/12">
-      <div class="w-5/6 items-center flex justify-center relative -right-10 z-30">
-        <img loading="lazy" class="ml-[70%] -mt-[14%] w-7/12 sm:w-9/12" src="/app/leg5test.png" alt="">
-      </div>
+    <div>
+      <video id="hero-video" class="w-full rounded-3xl shadow-2xl aspect-[1344/850] bg-[#2B3D45]"
+             poster="/app/intro2-hero-poster.jpg" width="1344" height="850" loop muted playsinline preload="none">
+        <source data-src="/app/intro2-hero.mp4" type="video/mp4" />
+      </video>
     </div>
   </div>
+</section>
 
-  <div class="bg-[#2B3D45] w-full">
-    <div class="flex flex-col justify-center items-center sm:w-full mb-12 z-20">
-      <div class="sm:text-5xl text-2xl text-center sm:mb-10 mb-4 mt-8">Sign up to access quizzes, track progress, and more!</div>
-      <a href="/app/?signup=1" class="sm:mt-12 button flex flex-col !font-light !py-2 !px-6">
-        <div class="sm:text-4xl text-2xl z-40">Get Started!</div>
-      </a>
-      <div class="sm:text-xl text-lg mb-2 sm:mb-0 text-center mt-4">It's 100% free and we never send you emails.  </div><div>C'mon, what else are you doing right now?</div>
-    </div>
-    <div class="text-center text-5xl font-bold">OR</div>
-    <div class="flex flex-col justify-center items-center w-full mt-12 mb-12 z-20">
-      <a href="/videos" class="button flex flex-col !font-light !py-2 !px-6">
-        <div class="sm:text-4xl text-2xl">Jump to Videos</div>
-      </a>
-      <div class="m:text-xl text-lg mt-4">You can always sign up later</div>
-    </div>
-  </div>
-
-  <div class="flex w-full items-center justify-center flex-col mt-12">
-    <h2 class="text-3xl mb-8 text-center">Building The Future of Economics (One Quirk at a Time)</h2>
-    <img loading="lazy" class="w-1/2 md:w-auto" src="/app/Worker.png" alt="Under construction">
-    <div class="sm:w-1/2 w-3/4 mt-4 mb-24">Welcome to the early days of what will soon be the most exciting corner of the internet (or at least we hope). Sure, it’s a work in progress—kind of like that IKEA furniture you swore you’d finish assembling months ago. But don't worry, we're not done building. More videos, quizzes, and mind-blowing econ insights are on the way, along with features so cool they'll make you question why you ever doubted economics could be fun. Stick around—it’s only going to get better. And hey, if you spot a bug or something weird, let’s call it a ‘feature in beta.’</div>
+{# ---------- TAGLINE ---------- #}
+<div class="bg-[#2B3D45] border-y border-white/10">
+  <div class="max-w-7xl mx-auto px-6 py-5 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-lg sm:text-2xl font-bold">
+    <span>Stop memorizing.</span><span class="text-[#C6E83A]">Start understanding.</span><span>Economics, but finally entertaining.</span>
   </div>
 </div>
+
+{# ---------- UNITS ---------- #}
+<section id="units" class="bg-[#2B3D45] pt-12 pb-16 px-6 sm:px-12 lg:px-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-8">
+      <div>
+        <p class="uppercase tracking-widest text-sm font-bold text-gray-300">Microeconomics</p>
+        <h2 class="text-3xl sm:text-4xl font-bold mt-1">Pick a unit and dive in</h2>
+      </div>
+      <a href="{{ url_for('public.videos') }}" class="text-[#7fd3e6] font-bold hover:underline">See all {{ total_videos }} videos →</a>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for u in units %}
+        {% set first = u.cards[0] if u.cards else None %}
+        {% if u.coming_soon %}
+        <div class="block bg-[#344A53] rounded-2xl overflow-hidden border-t-8 unit-border"
+             style="--unit: {{ u.color }}; --unit-text: {{ u.text }}; --unit-light: {{ u.light }}">
+          <div class="aspect-video flex items-center justify-center text-2xl font-black unit-bg opacity-90">COMING SOON</div>
+        {% else %}
+        <a href="{{ url_for('public.videos') }}#unit-{{ u.number }}"
+           class="group block bg-[#344A53] rounded-2xl overflow-hidden border-t-8 unit-border transition hover:-translate-y-1"
+           style="--unit: {{ u.color }}; --unit-text: {{ u.text }}; --unit-light: {{ u.light }}">
+          {% if first and first.yt %}
+            <img src="https://i.ytimg.com/vi/{{ first.yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="270" class="w-full aspect-video object-cover">
+          {% endif %}
+        {% endif %}
+          <div class="p-5">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-extrabold px-2 py-0.5 rounded unit-bg">UNIT {{ u.number }}</span>
+              {% if u.is_new %}<span class="text-xs font-extrabold px-2 py-0.5 rounded bg-[#E3262E] text-white">NEW</span>{% endif %}
+            </div>
+            <h3 class="text-lg font-bold mt-2 leading-snug">{{ u.title }}</h3>
+            <p class="text-sm mt-1 font-semibold unit-text">
+              {% if u.coming_soon %}Coming soon{% else %}{{ u.video_count }} video{{ '' if u.video_count == 1 else 's' }}{% endif %}
+            </p>
+            {% if u.cards %}
+              <p class="text-gray-300 text-sm mt-2">{{ u.cards[:4] | map(attribute='title') | join(', ') }}{% if u.cards | length > 4 %}…{% endif %}</p>
+            {% endif %}
+          </div>
+        {% if u.coming_soon %}</div>{% else %}</a>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ---------- HOW IT WORKS ---------- #}
+<section class="py-16 px-6 sm:px-12 lg:px-20">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl sm:text-4xl font-bold text-center">How it works</h2>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="flex items-center gap-4"><span class="step-num bg-[#FFC93C]">1</span>
+          <h3 class="text-3xl sm:text-4xl font-extrabold leading-tight">Watch the Videos<br><span class="text-gray-300 text-2xl sm:text-3xl">(that don't suck)</span></h3></div>
+        <p class="mt-4 text-lg sm:text-xl">For real, they don’t. We’ve edited out all the parts that flopped, so all you need to do is kick back, press play, and maybe even laugh while learning. (We said maybe.)</p>
+      </div>
+      <div>
+        <video id="sample-video" class="hidden md:block rounded-3xl w-full shadow-xl aspect-video bg-[#2B3D45]" loop muted playsinline preload="none"
+               poster="/app/MobileMiniVid.webp" width="1280" height="720">
+          <source data-src="/app/Sample-web.mp4" type="video/mp4" />
+        </video>
+        <img src="/app/MobileMiniVid.webp" class="md:hidden rounded-3xl w-full shadow-xl" alt="A sample economics video" loading="lazy" width="1200" height="676">
+      </div>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-2 gap-10 items-center">
+      <img src="/app/Sampleq.png" class="rounded-xl shadow-xl order-2 md:order-1" alt="A sample AP-style practice quiz question" loading="lazy">
+      <div class="order-1 md:order-2">
+        <div class="flex items-center gap-4"><span class="step-num bg-[#C6E83A]">2</span>
+          <h3 class="text-3xl sm:text-4xl font-extrabold leading-tight">Take practice quizzes like a Boss</h3></div>
+        <p class="mt-4 text-lg sm:text-xl">Unlike some resources, our practice quizzes DON'T suck. Nope, these bad boys are almost identical to the AP questions you’ll face on game day. Why waste time practicing with the wrong tools when you can sharpen your skills with the real deal?</p>
+      </div>
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <div class="flex items-center gap-4"><span class="step-num bg-[#FF6FAE]">3</span>
+          <h3 class="text-3xl sm:text-4xl font-extrabold leading-tight">Turn Goofs into Gold</h3></div>
+        <p class="mt-4 text-lg sm:text-xl">Got a question wrong? No worries! Our genius algorithm will make sure it haunts you—in the best way possible. In subsequent review sessions we’ll serve up custom quizzes that focus on your weakest spots until you’re an econ ninja.</p>
+      </div>
+      <img src="/app/qresults.png" class="rounded-xl shadow-xl" alt="Personalized quiz results" loading="lazy">
+    </div>
+
+    <div class="mt-16 grid md:grid-cols-2 gap-10 items-center">
+      <img src="/app/Econowarrior.webp" class="w-3/4 mx-auto order-2 md:order-1" alt="The Econo-Warrior" loading="lazy" width="900" height="863">
+      <div class="order-1 md:order-2">
+        <div class="flex items-center gap-4"><span class="step-num bg-[#4CC2F5]">4</span>
+          <h3 class="text-3xl sm:text-4xl font-extrabold leading-tight">Keep going, you Econo-Warrior</h3></div>
+        <p class="mt-4 text-lg sm:text-xl">The learning never stops, and neither does our algorithm. We’ll keep feeding you personalized practice until you’re ready to crush the AP exam and beyond. Think of it as a never-ending supply of knowledge. You’re welcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ---------- CLOSING CTA ---------- #}
+<section class="bg-[#2B3D45] py-16 px-6 text-center">
+  <h2 class="text-3xl sm:text-5xl font-bold">Sign up to access quizzes, track progress, and more!</h2>
+  <p class="mt-4 text-lg sm:text-xl text-gray-200">It's 100% free and we never send you emails. C'mon, what else are you doing right now?</p>
+  <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+    <a href="/app/?signup=1" class="btn-primary text-xl px-10 py-3">Get Started!</a>
+    <a href="{{ url_for('public.videos') }}" class="btn-secondary text-xl px-10 py-3">Jump to Videos</a>
+  </div>
+  <p class="mt-4 text-gray-300">You can always sign up later.</p>
+</section>
 {% endblock %}
 
 {% block scripts %}
 <script>
-(function () {
-  var desktop = window.innerWidth >= 640;
-
-  // Videos only download on desktop (they're hidden on phones), and only when needed:
-  // the hero right away, the others shortly before they scroll into view.
-  function loadVideo(v) {
-    if (v.dataset.loaded) return;
-    v.dataset.loaded = '1';
-    v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.dataset.src; });
-    v.preload = 'auto';
-    v.load();
-    if (v.hasAttribute('data-desktop-autoplay')) { v.play().catch(function () {}); }
-  }
-  if (desktop) {
-    document.querySelectorAll('video[data-lazy="eager"]').forEach(loadVideo);
-    // The fixed-position videos are always "in view", so watch their section triggers instead
-    [['video-left', 'sample-video'], ['warrior-section', 'warrior-video']].forEach(function (pair) {
-      var trigger = document.getElementById(pair[0]), video = document.getElementById(pair[1]);
-      if (trigger && video) {
-        new IntersectionObserver(function (entries, obs) {
-          if (entries[0].isIntersecting) { loadVideo(video); obs.disconnect(); }
-        }, { rootMargin: '800px 0px' }).observe(trigger);
-      }
+  (function () {
+    // Videos download only when they're about to be seen (the "how it works" one only on md+ screens)
+    function loadAndPlay(v) {
+      if (!v || v.dataset.loaded) return;
+      v.dataset.loaded = '1';
+      v.querySelectorAll('source[data-src]').forEach(function (s) { s.src = s.dataset.src; });
+      v.load();
+      v.play().catch(function () {});
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;  // keep the poster images
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting && v.offsetParent !== null) {
+          if (v.dataset.loaded) { v.play().catch(function () {}); } else { loadAndPlay(v); }
+        } else if (!e.isIntersecting && v.dataset.loaded) {
+          v.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    ['hero-video', 'sample-video'].forEach(function (id) {
+      var v = document.getElementById(id);
+      if (v) observer.observe(v);
     });
-  }
-
-  function fadeOnVisible(triggerId, targetId, onChange) {
-    var trigger = document.getElementById(triggerId);
-    var target = document.getElementById(targetId);
-    if (!trigger || !target) return;
-    new IntersectionObserver(function (entries) {
-      var visible = entries[0].isIntersecting;
-      target.classList.toggle('opacity-100', visible);
-      target.classList.toggle('opacity-0', !visible);
-      if (onChange) onChange(visible, target);
-    }, { threshold: 0.5 }).observe(trigger);
-  }
-
-  fadeOnVisible('video-left', 'sample-video', function (visible, video) {
-    if (!desktop) return;
-    if (visible) { loadVideo(video); video.play().catch(function () {}); } else { video.pause(); }
-  });
-  fadeOnVisible('quiz-right', 'quiz-image');
-  fadeOnVisible('results-left', 'results-image');
-
-  // Econo-Warrior: fades in at section 4, then stops following the scroll
-  var section = document.getElementById('warrior-section');
-  var warrior = document.getElementById('warrior-video');
-  if (!section || !warrior) return;
-
-  var lastScrollY = window.scrollY;
-  new IntersectionObserver(function (entries) {
-    var current = window.scrollY;
-    if (entries[0].isIntersecting) {
-      warrior.classList.add('opacity-100'); warrior.classList.remove('opacity-0');
-    } else if (current < lastScrollY) {
-      warrior.classList.add('opacity-0'); warrior.classList.remove('opacity-100');
-    }
-    lastScrollY = current;
-  }, { threshold: 0.8 }).observe(section);
-
-  var isFixed = true;
-  window.addEventListener('scroll', function () {
-    var sectionTop = section.getBoundingClientRect().top;
-    if (sectionTop <= window.innerHeight / 2) {
-      if (isFixed) {
-        warrior.style.top = (warrior.getBoundingClientRect().top + window.scrollY) + 'px';
-        warrior.classList.remove('fixed', 'top-11');
-        warrior.classList.add('absolute');
-        isFixed = false;
-      }
-    } else if (!isFixed) {
-      warrior.style.top = '';
-      warrior.classList.remove('absolute');
-      warrior.classList.add('fixed', 'top-11');
-      isFixed = true;
-    }
-  }, { passive: true });
-})();
+  })();
 </script>
 {% endblock %}

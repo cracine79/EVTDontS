@@ -1,4 +1,4 @@
-"""Load seed_files/video_metadata.json (upload dates, durations, transcripts) into the chapter
+"""Load seed_files/video_metadata.json (upload dates, durations, key moments, transcripts) into the chapter
 table, matched by slug. Safe to re-run: it only fills in or updates values present in the JSON.
 
     python seed_video_metadata.py                          # locally, from backend/
@@ -33,6 +33,8 @@ def main():
                 chapter.video_upload_date = datetime.fromisoformat(entry['upload_date'])
             if entry.get('duration_seconds'):
                 chapter.video_duration_seconds = entry['duration_seconds']
+            if entry.get('chapters'):
+                chapter.video_chapters = entry['chapters']
             if entry.get('transcript'):
                 chapter.transcript = entry['transcript']
             updated += 1
