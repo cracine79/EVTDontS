@@ -10,6 +10,10 @@ Then load it into a database with seed_video_metadata.py.
 
 Raw captions are cached in seed_files/transcripts_raw/ so cleanup can be re-run without
 calling YouTube (which rate-limits/blocks repeated transcript downloads).
+
+Each transcript also gets a hand-editable file in seed_files/transcripts/ (created once, never
+overwritten). Edit it, change its first line to "STATUS: done", and run seed_video_metadata.py;
+only "done" transcripts are shown on the site.
 """
 import json
 import os
@@ -23,6 +27,7 @@ from config import DevConfig
 from main import create_app
 from models import Chapter
 from public import youtube_id
+from transcript_files import write_draft
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'seed_files', 'video_metadata.json')
@@ -33,10 +38,43 @@ RAW_DIR = os.path.join(HERE, 'seed_files', 'transcripts_raw')
 REPLACEMENTS = [
     (r"\bI'm Mr\.? [A-Za-z]+", "I'm Mr. Racine"),
     (r"\bMr\.? Racine\b", "Mr. Racine"),
-    (r"(?i)(today's episode of) (?:a )?economics(?: [\w']+){0,4}? (?:suck|songs?|son|notes)\b",
-     r"\1 Economics Videos That Don't Suck"),
 ]
+
+# The channel name is sung over music in the intro, so captions drop or mishear it
+# ("economics foreign", "look at this", "Economics with Youssef and Don't do songs").
+# After "today's episode of", swallow words from this list only, then insert the real name.
+INTRO_MISHEARD = {
+    "a", "economics", "economic", "vide", "videos", "with", "youssef", "yo", "you", "that's",
+    "dope", "and", "don't", "do", "songs", "song", "son", "that", "suck", "sucks", "reviews", "review",
+    "class", "notes", "at", "foreign", "math", "screaming",
+}
+# Multi-word mishearings that contain everyday words ("this", "the") we can't swallow on their own
+INTRO_MISHEARD_PHRASES = [['look', 'at', 'this'], ['go', 'to', 'the', 'song']]
+INTRO = re.compile(r"(today's episode of)((?:\s+[\w']+)*)", re.IGNORECASE)
+
+
+def fix_intro(text):
+    def repl(m):
+        words = m.group(2).split()
+        eaten, progress = 0, True
+        while progress and eaten < min(len(words), 8):
+            progress = False
+            lowered = [w.lower().strip(".,!?") for w in words[eaten:eaten + 4]]
+            for phrase in INTRO_MISHEARD_PHRASES:
+                if lowered[:len(phrase)] == phrase:
+                    eaten += len(phrase)
+                    progress = True
+                    break
+            else:
+                if lowered and lowered[0] in INTRO_MISHEARD:
+                    eaten += 1
+                    progress = True
+        rest = ' '.join(words[eaten:])
+        return "today's episode of Economics Videos That Don't Suck" + (f' {rest}' if rest else '')
+    return INTRO.sub(repl, text, count=1)
+
 NOISE = re.compile(r"\[[A-Za-z _]+\]|>>")
+FILLERS = re.compile(r"\b(?:uh|um|uhm|erm)\b,?\s*", re.IGNORECASE)
 PARAGRAPH_SECONDS = 45
 MAX_PARAGRAPH_SECONDS = 75  # older captions have no punctuation to break on
 
@@ -85,9 +123,12 @@ def watch_page_info(video_id):
 
 
 def clean(text):
+    """Applied to whole paragraphs: YouTube splits phrases across caption fragments."""
     text = NOISE.sub(' ', text)
+    text = FILLERS.sub('', text)
     for pattern, repl in REPLACEMENTS:
         text = re.sub(pattern, repl, text)
+    text = fix_intro(text)
     return re.sub(r'\s+', ' ', text).strip()
 
 
@@ -108,7 +149,7 @@ def raw_captions(video_id):
 def transcript_paragraphs(snippets):
     paragraphs, current, start = [], [], None
     for s in snippets:
-        text = clean(s['text'])
+        text = re.sub(r'\s+', ' ', NOISE.sub(' ', s['text'])).strip()
         if not text:
             continue
         if start is None:
@@ -120,7 +161,8 @@ def transcript_paragraphs(snippets):
             current, start = [], None
     if current:
         paragraphs.append(' '.join(current))
-    return '\n\n'.join(paragraphs)
+    paragraphs = [clean(p) for p in paragraphs]
+    return '\n\n'.join(p[:1].upper() + p[1:] for p in paragraphs if p)
 
 
 def main():
@@ -158,6 +200,9 @@ def main():
                 # Keep whatever transcript we already had
                 print(f'  ! {ch.name}: no transcript ({type(e).__name__})')
                 entry.setdefault('transcript', None)
+
+        if entry.get('transcript') and write_draft(ch.name, ch.slug, entry['transcript']):
+            print(f'  + created transcript file for {ch.name} (STATUS: draft)')
 
         print(f"{ch.name}: {entry.get('upload_date')}, {entry.get('duration_seconds')}s, "
               f"{len(entry.get('chapters') or [])} key moments, {len(entry.get('transcript') or '')} chars")

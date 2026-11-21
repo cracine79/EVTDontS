@@ -12,6 +12,7 @@ from config import ProdConfig
 from exts import db
 from main import create_app
 from models import Chapter
+from transcript_files import read_transcript
 
 SOURCE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'seed_files', 'video_metadata.json')
 
@@ -23,7 +24,7 @@ def main():
         data = json.load(f)
 
     with app.app_context():
-        updated, missing = 0, []
+        updated, published, missing = 0, 0, []
         for slug, entry in data.items():
             chapter = Chapter.query.filter_by(slug=slug).first()
             if not chapter:
@@ -35,11 +36,14 @@ def main():
                 chapter.video_duration_seconds = entry['duration_seconds']
             if entry.get('chapters'):
                 chapter.video_chapters = entry['chapters']
-            if entry.get('transcript'):
-                chapter.transcript = entry['transcript']
+            # Transcripts come from seed_files/transcripts/*.txt; only files marked "STATUS: done" are shown
+            status, text = read_transcript(entry.get('name') or chapter.name, slug)
+            if status is not None:
+                chapter.transcript = text if status == 'done' and text else None
+                published += status == 'done'
             updated += 1
         db.session.commit()
-        print(f'Updated {updated} chapters.')
+        print(f'Updated {updated} chapters ({published} transcripts marked done and published).')
         if missing:
             print(f'No chapter found for slugs: {missing}')
 

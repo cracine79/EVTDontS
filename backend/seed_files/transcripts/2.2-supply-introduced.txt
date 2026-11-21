@@ -1,0 +1,57 @@
+STATUS: done
+
+What's going on, guys? Today I want to introduce you to the other half of the supply and demand model: supply. Remember that all markets are made up of buyers and sellers. Supply represents the sellers. I find supply more difficult to understand, because I don't have a lot of personal experience functioning on the supply side of a lot of markets. I have a ton of experience as a member of demand for lots of things, from concert tickets to basic food, from dental care to video game systems, so it's easy to use my own personal experience to rationalize the downward-sloping demand curve. But unless you're a serial entrepreneur, you probably have quite limited experience participating as a seller of goods or services. As such, when dealing with supply, I find it a necessary mental exercise to stop and think for a moment about who supply is actually representing in these markets. It's the sellers. It seems obvious when we're focusing on it right now, but it can be a useful thing to remind yourself as we move through this introduction of supply. Hi, I'm Mr. Racine. Welcome to today's episode of Economics Videos That Don't Suck.
+
+In order to introduce supply, let's consider Job, a burgeoning entrepreneur with a lawn mowing business. We can consider the price that Job can receive for mowing one lawn, and the total quantity of lawns that Job would be willing to mow each week at those prices. We can represent this information both in a table and on a graph. And again, as our surprise guest harped on relentlessly in a previous video on demand, this diagram is backwards. Supply is also a function, where price is the in and quantity supplied is the out, meaning that this model assumes that the price that a business can receive for their product when they sell it determines how many they're going to be willing to make and sell. If you haven't watched our previous video on how this graph is backwards, I strongly recommend you go back and check it out before moving on from here. Also, if you haven't seen that video, it's probably because you haven't subscribed yet, so don't forget to do that, so you can be notified when we release future videos.
+
+So let's assume that if Job can receive ten dollars to mow one lawn, he'd be willing to mow five lawns in one week. Again, we can represent this data both in the table and on the graph. This row suggests that Job will supply five lawn mowings at a price of ten dollars, and on the graph, I'm going to plot a point right here that says when the price is ten dollars, Job will supply five lawn mowings. If the price that Job can receive goes up to twenty dollars, he'll then become more willing to mow lawns, and he'll mow 10 lawns in a week. We can represent that data in the table, and we can also plot that point on the graph, right here.
+
+Oh no, not you again. Come on. Look, I already explained to them that this diagram is backwards. Okay? We get it. I didn't do anything wrong.
+
+"Come on, man. You don't even know when you're doing it, do you? This still is making no sense to anybody."
+
+What? What makes no sense?
+
+"Look, you say if Job can receive ten dollars for mowing lawns, he'll mow five, and if he can get twenty dollars, he'll mow 10. It sounds great until you actually use your brain to think about it. What do you mean, 'if he can receive ten dollars'? Isn't Job the business owner? Doesn't the business just set the price? Like, what is this 'if he can get' nonsense?"
+
+Oh. Oh no. Okay, you... no, you're right. Very often, we econ teachers do an okay job of explaining demand, but then we gloss over a lot of this supply stuff because we're in a hurry. Okay, so it's like this: imagine there's a woman in the sky who determines the price for the week. On Monday, Job wakes up, and the woman in the sky has decreed what the price of lawn mowings will be for the week. If the woman decrees a price of ten dollars, then Job will decide he wants to mow five lawns. If the woman decrees a price of twenty dollars, Job will become more willing to mow lawns.
+
+"Makes no sense. Economics is a social science designed to understand real-world phenomena. There is no woman or man in the sky."
+
+I mean, I think that's a conversation for an entirely different YouTube channel.
+
+"I mean, there's no lawn-mowing-price-decreeing woman in the sky. Okay? The explanation sucks."
+
+Oh, okay, okay, you're right, it's bad. If we assume that Job is the only lawn-mowing business in town... but what if, in fact, there were a thousand identical Jobs walking the earth offering their lawn mowing services? Now, one of them could theoretically offer a higher price, but because there are 999 other Jobs that are offering an identical service, no homeowner would be willing to pay a price higher than the lowest bid. So in that way, all 1,000 Jobs are subject to one market price, and no one Job has the ability to set the price. It's like the price is set independently of our one original Job's decision making.
+
+"You're getting there, but... but still, identical lawn mowing services? Like, surely in the real world businesses aren't identical."
+
+No, I mean, you're right, they're not. There are all kinds of different industries: some dominated by one firm that can set any price that it wants, some that are much closer to our hypothetical thousand-Job lawn-mowing example, where individual firms don't have much market power. And we're going to add in these assumptions and build more convincing models as we move through the subject, but in order to do so, we first need to set up some basic, fundamental models, which do rely upon some gross oversimplification first.
+
+"Okay. I don't like it, but I'll accept it."
+
+And I implore you: don't do what I did the first time that I studied economics, which was look at the supply curve and say, "This is stupid. It doesn't represent any real world that I've ever seen," and just write economics off as a stupid subject that's not worth understanding, simply because of some discrepancies between the theory and the real world. If you did that for everything, you'd also have to abandon physics.
+
+"Okay. I'll see ya."
+
+Thank you. Whichever explanation works best for you, in this model the price is not set by Job, and is independent of his decision making. So if the price is ten dollars, then Job would be willing to supply five lawn mowings in a week. If the price that Job can receive from mowing lawns goes up to twenty dollars, he becomes more willing to mow lawns, and he would supply 10 lawn mowings in a week. He'll supply 15 lawn mowings if he can get thirty dollars per lawn, and he'll supply 20 lawn mowings a week if he can haul in forty dollars per lawn. We have this data represented both in the table and on the diagram. We connect the dots, and we have... it's a giraffe! No, it's the supply curve.
+
+Supply is defined as the relationship between the price of a good or service and the quantity of that good or service that a business or businesses will make and sell at those prices. What is the relationship between price and quantity supplied? What happens to quantity supplied when price increases? Well, we can see both from the table and from the upward-sloping supply curve that when price increases, quantity supplied also increases. This is what we call the law of supply, which states that if the price that producers can receive for their output increases, they'll become more willing to produce, and increase the quantity supplied. Conversely, if the price that producers receive falls, they'll become less willing to produce, and decrease quantity supplied.
+
+"Nope, nope, nope. Sorry, sorry, I'm back. It was making sense, but now it's not again. I'm sorry. The law of demand makes sense, right? More expensive, I'll buy less. Like, it happens to me all the time. But this is nonsense, right? Price goes up, so Job wants to mow more lawns? Doesn't he just want to mow as many lawns as possible so he can maximize his profit? Right? I mean, what is this?"
+
+No, you're right again. This is the most irritating part of supply: it really doesn't seem to represent how businesses operate. So let's make some simple assumptions about Job. Let's say he needs to drive to each location to mow the lawn, so each lawn has an additional cost associated with gasoline. And let's say that he can do the first five lawns on one tank of gas, so they all have the same average cost, and he's happy to mow five at a price of ten dollars. Okay, but let's say if he wants to go on and mow the sixth lawn, he needs to go and refill his tank of gas, and doing so takes him out of town a good distance and adds to his overall costs. As such, if he mows the sixth lawn for the original price of ten dollars, he'll be losing money. So he only becomes willing to supply lawn mowings in excess of five if the price increases beyond ten dollars.
+
+"Kind of impressed. Okay, so it kind of actually makes sense in this instance. But you still have a lot of assumptions here, and you'd have to apply, like, these assumptions to all businesses and all market structures, so I'm not completely sold."
+
+Sorry. You're right again. It does rely on some non-trivial assumptions. But these assumptions, which are about the cost of production, and more specifically the cost of increasing production when the size of your factory is fixed, for example, do make a lot of sense, and become quite useful in real-world application. I promise you, we will continue to further develop these explanations, but please just be patient. And I do thank you for pointing out these inconsistencies in how we present this material. A lot of the time, econ teachers have been teaching this for so long that we forget to question the parts that kind of don't make sense.
+
+"Okay. But I'll be back when you start making no sense again."
+
+Thank you. I hope you do.
+
+Okay, one last thing. If we were to consider the market supply of lawn mowing, it would simply be the sum of all of the individual supply curves in the market. So if only two people were providing their lawn mowing services in the market, Job and Dr. Angelo, and these were their supply curves and tables, market supply would simply be the sum of the two. At a price of ten dollars, Job supplies five lawn mowings and Dr. Angelo supplies zero, so the quantity supplied in the market at the price of ten is five. At a price of twenty dollars, Job supplies 10 and Dr. Angelo supplies three, so market supply is 13, and so on and so forth.
+
+Okay, so this has been supply, introduced, and these are the main ideas we talked about today. One: supply represents the relationship between price and quantity supplied. Two: the law of supply states that if price increases, quantity supplied increases, and if price falls, quantity supplied falls. Three: the supply curve is upward sloping, which is indicative of the law of supply, and the fact that businesses will produce and sell more if they can sell at a higher price. Four: market supply is the sum of all individual supply curves in the market.
+
+Next time, we're going to take a look at what happens when something other than price, which can cause supply to increase or decrease in the market, changes, and how we can represent those changes graphically. It's going to be rad. Hope to see you there.
