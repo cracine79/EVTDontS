@@ -60,9 +60,8 @@ export const UserMenu = () => {
                         <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {() => {navigate('/quizgenerator')}}>Create review quiz</div>
                         <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goAllVids}>Go to all Videos</div>
                         <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goHome}>User dashboard</div>
-                        <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4 my-4">
-                            <LogoutButton/>
-                        </div>
+                        {/* The whole highlighted row is the button, not just the word "Logout" */}
+                        <LogoutButton className="block text-right hover:bg-[#0088a8] hover:text-white hover:cursor-pointer w-48 -ml-6 px-4 my-4" />
                     </div>
                 </div>
                 
