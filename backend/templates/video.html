@@ -5,7 +5,6 @@
 {% block og_type %}video.other{% endblock %}
 {% block og_image %}{% if yt %}https://i.ytimg.com/vi/{{ yt }}/hqdefault.jpg{% else %}{{ site_url }}/app/EVTDSBlue.png{% endif %}{% endblock %}
 
-{% block spa_redirect %}{% with target="/app/video-library/" ~ chapter.slug %}{% include "_spa_redirect.html" %}{% endwith %}{% endblock %}
 
 {% block structured_data %}
 {% if video_ld %}
@@ -86,10 +85,45 @@
             {% endif %}
           </div>
 
-          <div class="mt-6 flex flex-col sm:flex-row gap-4">
+          <div class="lo-only mt-6 flex flex-col sm:flex-row gap-4">
             <a href="/app/freequiz/{{ chapter.slug | urlencode }}" class="btn-primary text-lg px-7 py-3"><i class="fa-solid fa-pen-to-square"></i> Take the free quiz</a>
             <a href="{{ auth_url('signup') }}" class="btn-secondary text-lg px-7 py-3"><i class="fa-solid fa-chart-line"></i> Sign up to track progress</a>
           </div>
+
+          {# Logged-in students: their progress on this chapter (filled in by the script below) #}
+          <section id="my-progress" data-chapter-id="{{ chapter.id }}" aria-labelledby="my-progress-heading"
+                   class="li-only hidden mt-6 bg-[#2B3D45] rounded-2xl p-5 sm:p-6 border-l-8 unit-border">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h2 id="my-progress-heading" class="text-lg font-bold">Your progress</h2>
+              <span data-upnext class="hidden text-xs font-extrabold bg-[#FFC93C] text-[#111] rounded px-2 py-0.5">UP NEXT IN YOUR STUDY PLAN</span>
+            </div>
+            <div class="mt-4 grid sm:grid-cols-2 gap-4 text-sm">
+              <button type="button" role="switch" aria-checked="false" data-watched-toggle
+                      class="flex items-center gap-3 bg-[#344A53]/60 hover:bg-[#344A53] rounded-xl px-4 py-3 text-left">
+                <span class="switch-track shrink-0 w-11 h-6 rounded-full bg-gray-500 relative transition-colors">
+                  <span class="switch-knob absolute top-[3px] left-[3px] w-[18px] h-[18px] rounded-full bg-white transition-all"></span>
+                </span>
+                <span><b data-watched-label>Not watched yet</b><br><span class="text-gray-300 text-xs">Marked automatically when the video ends</span></span>
+              </button>
+              <div class="bg-[#344A53]/60 rounded-xl px-4 py-3">
+                <p><b>Chapter quiz:</b> <span data-grade class="font-extrabold text-gray-300">Not taken yet</span></p>
+                <p data-grade-hint class="mt-1 text-xs text-gray-300"></p>
+              </div>
+            </div>
+            {% if chapter_topics %}
+            <p class="mt-5 text-xs uppercase tracking-widest font-bold text-gray-400">Topic mastery</p>
+            <ul class="mt-2 space-y-2 text-sm">
+              {% for t in chapter_topics %}
+              <li data-topic-id="{{ t.id }}" class="grid grid-cols-[minmax(0,1fr)_5rem_auto] sm:grid-cols-[minmax(0,1fr)_7rem_8.5rem] gap-3 items-center">
+                <span>{{ t.name }}</span>
+                <span class="h-2 rounded-full bg-[#344A53] overflow-hidden"><span data-topic-bar class="block h-full rounded-full" style="width:0"></span></span>
+                <span data-topic-label class="text-xs text-right text-gray-400">Not tried yet</span>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            <div data-actions class="mt-5 flex flex-col sm:flex-row gap-3"></div>
+          </section>
 
           {% if key_moments %}
           <section class="mt-8 bg-[#2B3D45] rounded-2xl p-5" aria-labelledby="moments-heading">
@@ -136,7 +170,7 @@
              style="--unit: {{ nu.color }}; --unit-text: {{ nu.text }}; --unit-light: {{ nu.light }}">
             {% if next_card.yt %}<img src="https://i.ytimg.com/vi/{{ next_card.yt }}/hqdefault.jpg" alt="" loading="lazy" width="480" height="270" class="sm:w-64 aspect-video object-cover">{% endif %}
             <div class="p-5 flex flex-col justify-center">
-              <span class="text-xs uppercase tracking-widest font-bold unit-text">Up next →{% if nu.number != unit.number %} · Unit {{ nu.number }}{% endif %}</span>
+              <span class="text-xs uppercase tracking-widest font-bold unit-text">Next video →{% if nu.number != unit.number %} · Unit {{ nu.number }}{% endif %}</span>
               <h3 class="text-xl font-bold mt-1">{{ next_card.chapter.name }}</h3>
               {% if next_card.teaser %}<p class="text-sm text-gray-300 mt-1">{% if next_card.duration %}{{ next_card.duration }} · {% endif %}{{ next_card.teaser }}</p>{% endif %}
             </div>
@@ -172,6 +206,8 @@
 {% endblock %}
 
 {% block scripts %}
+{% include "_library_progress.html" %}
+{% include "_video_progress.html" %}
 <script>
   function ytThumbFallback(img, failed) {
     if (!failed && img.naturalWidth > 120) return;          // a real thumbnail loaded
@@ -198,7 +234,8 @@
     // Swap the thumbnail for the real YouTube player, optionally starting at a timestamp
     function play(start) {
       if (!yt) return;
-      var src = 'https://www.youtube.com/embed/' + yt + '?autoplay=1&rel=0' + (start ? '&start=' + start : '');
+      // enablejsapi lets the page hear when the video ends (to mark it watched for logged-in students)
+      var src = 'https://www.youtube.com/embed/' + yt + '?autoplay=1&rel=0&enablejsapi=1' + (start ? '&start=' + start : '');
       var iframe = player.querySelector('iframe');
       if (!iframe) {
         iframe = document.createElement('iframe');
@@ -209,9 +246,22 @@
         iframe.allowFullscreen = true;
         player.innerHTML = '';
         player.appendChild(iframe);
+        // Ask the YouTube player to send us its state changes
+        iframe.addEventListener('load', function () {
+          iframe.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1 }), '*');
+        });
       }
       iframe.src = src;
     }
+    window.addEventListener('message', function (e) {
+      if (!/^https:\/\/www\.youtube(-nocookie)?\.com$/.test(e.origin)) return;
+      var msg;
+      try { msg = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (err) { return; }
+      if (!msg) return;
+      var ended = (msg.event === 'onStateChange' && msg.info === 0) ||
+                  (msg.event === 'infoDelivery' && msg.info && msg.info.playerState === 0);
+      if (ended) window.dispatchEvent(new Event('evtds:video-ended'));
+    });
     if (btn) {
       btn.addEventListener('pointerover', preconnect, { once: true });
       btn.addEventListener('click', function () { play(0); });

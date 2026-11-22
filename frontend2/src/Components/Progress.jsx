@@ -1,350 +1,202 @@
 import { useSelector } from "react-redux"
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { selectUserChapters } from "../Slices/selectors"
-import { masteryPercent } from "./masteryUtils"
+import { masteryPercent, isReviewDue } from "./masteryUtils"
+import { MASTERY, gradeColor, masteryJoke, splitChapterName, thumbUrl, unitStyle, videoPageUrl } from "./ui"
 
-export const Progress = () => {
-    const units = useSelector((state)=>state.units)
-    // const units_names = Object.values(units)
-    const bookChapters = useSelector((state)=>state.chapters)
-    const userChapters = useSelector((state)=>state.userChapters)
-    const chapters = 
-        Object.keys(userChapters).reduce((result, key) => {
-            result[key] = bookChapters[key]
-            ?{...userChapters[key], ...bookChapters[key]}
-            : userChapters[key]
-        return result
-        }, {})
-    
-    const chaptersObj = Object.values(chapters)
-    const chaptersEnt = Object.entries(chapters)
+// Topics with the student's progress merged in: {topicId: {topic_id, topic_name, chapter_id, mastery_*...}}
+export const useTopicsWithProgress = () => {
+    const topics = useSelector((state) => state.topics)
+    const topicProg = useSelector((state) => state.topicProg)
+    const merged = {}
+    Object.entries(topics).forEach(([id, t]) => { merged[id] = { ...t, topic_id: Number(id) } })
+    Object.entries(topicProg).forEach(([id, p]) => { merged[id] = { ...(merged[id] || {}), ...p, topic_id: Number(id) } })
+    return merged
+}
 
-    const [expandedUnits, setExpandedUnits] = useState({})
+// The student's study plan: units (in order) with their chapters (in order) and progress
+export const useStudyPlan = () => {
+    const units = useSelector((state) => state.units)
+    const chapters = useSelector((state) => state.chapters)
+    const userChapters = useSelector((state) => state.userChapters)
+    const topics = useTopicsWithProgress()
+
+    return Object.entries(units)
+        .map(([unitId, unit]) => {
+            const unitChapters = Object.entries(chapters)
+                .filter(([, ch]) => ch.in_plan && String(ch.unit_id) === String(unitId))
+                .map(([id, ch]) => ({
+                    id: Number(id),
+                    ...ch,
+                    ...(userChapters[id] || {}),
+                    topics: Object.values(topics).filter((t) => String(t.chapter_id) === String(id)),
+                }))
+                .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+            return { id: Number(unitId), ...unit, chapters: unitChapters }
+        })
+        .sort((a, b) => (a.number ?? a.id) - (b.number ?? b.id))
+}
+
+// Half credit for the video, half for passing (60%+) the chapter quiz
+const percentDone = (unit) => {
+    if (!unit.chapters.length) return 0
+    let done = 0
+    unit.chapters.forEach((ch) => {
+        if (ch.video_completed) done += 0.5
+        if (ch.quiz_grade >= 60) done += 0.5
+    })
+    return Math.floor((done / unit.chapters.length) * 100)
+}
+
+const unitLevel = (unit) => {
+    const tried = unit.chapters.flatMap((ch) => ch.topics).filter((t) => t.questions_asked > 0 || t.mastery_percent != null)
+    if (!tried.length) return 'Not yet started'
+    return masteryJoke(tried.reduce((sum, t) => sum + masteryPercent(t), 0) / tried.length)
+}
+
+const TopicRow = ({ topic }) => {
+    const status = MASTERY[topic.mastery_status]
+    const pct = topic.mastery_percent ?? (topic.questions_asked ? masteryPercent(topic) : null)
+    if (!status || pct === null) {
+        return (
+            <li className="flex items-center gap-3">
+                <span className="flex-1">{topic.topic_name}</span>
+                <span className="text-xs text-gray-400">Not tried yet</span>
+            </li>
+        )
+    }
+    return (
+        <li className="grid grid-cols-[minmax(0,1fr)_5rem_auto] sm:grid-cols-[minmax(0,1fr)_8rem_8.5rem] gap-3 items-center">
+            <span>
+                {topic.topic_name}
+                {isReviewDue(topic) && <i className="fa-solid fa-rotate text-[#4CC2F5] text-xs ml-1.5" title="Due for a refresher"></i>}
+            </span>
+            <span className="h-2 rounded-full bg-[#344A53] overflow-hidden">
+                <span className="block h-full rounded-full" style={{ width: `${pct}%`, background: status.color }}></span>
+            </span>
+            <span className="text-xs font-bold text-right" style={{ color: status.color }}>{pct}% · {status.label}</span>
+        </li>
+    )
+}
+
+const ChapterRow = ({ chapter, isNext }) => {
     const navigate = useNavigate()
-    const userProg = useSelector((state)=>state.topicProg)
-    const topics = useSelector((state)=>state.topics)
-    const userTopicProg = Object.keys(userProg).reduce((acc, key) => {
-        if(topics[key]) {
-            acc[key] = {
-                ...userProg[key],
-                ...topics[key]
-            }
-        }
-        return acc;
-    }, {})
+    const hasGrade = chapter.quiz_grade !== null && chapter.quiz_grade !== undefined
+    const [num, title] = splitChapterName(chapter.name)
+    const thumb = thumbUrl(chapter, 'mqdefault')
+    const tried = chapter.topics.filter((t) => t.mastery_status && t.mastery_status !== 'not_started')
 
-    const userTopicVals = Object.values(userTopicProg)
-    const userTopicEntries = Object.entries(userTopicProg)
+    const takeQuiz = () => navigate('/quiz', { state: { chapter: chapter.id, type: 'chapterQuiz', topics: [] } })
+    const quizFirst = chapter.video_completed && (!hasGrade || chapter.quiz_grade < 85)
 
+    const quizButton = (
+        <button type="button" onClick={takeQuiz}
+            className={`${quizFirst ? 'btn-primary px-5 py-2' : 'btn-secondary px-5 py-1.5'} text-sm`}>
+            <i className={`fa-solid fa-${hasGrade ? 'rotate-right' : 'pen-to-square'}`}></i> {hasGrade ? 'Retake the quiz' : 'Take the quiz'}
+        </button>
+    )
+    const videoButton = (
+        <a href={videoPageUrl(chapter)} className={`${chapter.video_completed ? 'btn-secondary px-5 py-1.5' : 'btn-primary px-5 py-2'} text-sm`}>
+            <i className="fa-solid fa-play"></i> {chapter.video_completed ? 'Rewatch' : 'Watch the video'}
+        </a>
+    )
 
-    const toggleUnit = (unitId) => {
-        setExpandedUnits((prevState)=>({
-            ...prevState,
-            [unitId]: !prevState[unitId]
-        }))
-    }
-
-    const generatePraise = () => {
-        const praise = ['Nailed it ', 'Killed that quiz ', 'Destroyed it ', 'Proved you are a boss ', 'Dayy Bao Bao ', 'Was da bomb ', 'Aced it ', 'Proved your awesomeness ']
-        const num = Math.floor(Math.random()*7)
-        return(praise[num])
-    }
-
-    const skillsButton = () => {
-        return(
-            <span className='text-xxs w-1/3 text-center leading-3'>+Click to Expand</span>
-        )
-    }
-
-    const goToChapterQuiz = (chapterId) => {
-        console.log(chapterId)
-        navigate('/Quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})
-    }
-
-    const praiseBlurb = () => {
-        const praises = [
-            "I'd high-five you...if I could",
-            "Are you even human?",
-            "You are the Kendrick Lamar of Econ",
-            "Keynes would be proud",
-            "You're a quiz wizard.  A Quizard!",
-            "Did you binge the entire season?",
-            "You are The One!  Do you know Kung Fu?",
-            "Are you a time traveller from the future?",
-            "You are the Tony Stark of Econ"
-        ]
-        return praises[Math.floor(Math.random()*11)]
-    }
-
-    const quizProgress = (chapterId, chapter) => {
-        if(chapter.quiz_grade != null){
-            if(chapter.quiz_grade > 50){
-                return(
-                    <>
-                        <div className='sm:text-center w-full text-center -ml-1 sm:w-1/2 relative text-xs sm:items-center'>
-                        <div className='group'>
-                        <div className='absolute 
-                                hidden 
-                                bg-gray-800 
-                                shadow-lg 
-                                hover:cursor-pointer  
-                                group-hover:block 
-                                text-white 
-                                text-center 
-                                py-1 px-2 
-                                 
-                                text-xs 
-                                rounded-lg' >
-                                    {praiseBlurb()}
-                                </div>
-                            <span className='text-2xl'>🏆 </span>
-                            </div>
-                            <div className='font-extrabold text-rose-500 text-lg'>{chapter.quiz_grade}</div>
+    return (
+        <li>
+            <details className="plain group" open={isNext}>
+                <summary className="cursor-pointer py-2.5 grid grid-cols-[1rem_minmax(0,1fr)_auto_4rem] gap-3 items-center hover:bg-white/5 rounded-lg -mx-2 px-2">
+                    <i className="chev fa-solid fa-chevron-right text-xs text-gray-400"></i>
+                    <span className={isNext ? 'font-bold text-[#FFC93C]' : ''}>
+                        {num} {title}
+                        {isNext && <span className="ml-2 text-[10px] font-extrabold bg-[#FFC93C] text-[#111] rounded px-1.5 py-0.5 align-middle">UP NEXT</span>}
+                    </span>
+                    {chapter.video_completed
+                        ? <i className="fa-solid fa-circle-check text-[#C6E83A]" title="Video watched"></i>
+                        : <i className="fa-regular fa-circle text-gray-500" title="Not watched yet"></i>}
+                    {hasGrade
+                        ? <span className="text-center font-bold rounded-full text-[#111]" style={{ background: gradeColor(chapter.quiz_grade) }}>{chapter.quiz_grade}%</span>
+                        : <span className="text-center text-xs text-gray-400">No quiz</span>}
+                </summary>
+                <div className="mt-1 mb-4 sm:ml-7 rounded-xl bg-[#344A53]/60 p-4 grid sm:grid-cols-[13rem_minmax(0,1fr)] gap-5">
+                    <a href={videoPageUrl(chapter)} className="relative block rounded-lg overflow-hidden self-start group/thumb bg-black/30 aspect-video">
+                        {thumb && <img src={thumb} alt="" loading="lazy" className="w-full aspect-video object-cover" />}
+                        <span className="absolute inset-0 flex items-center justify-center group-hover/thumb:bg-black/40 transition">
+                            <i className="fa-solid fa-circle-play text-4xl opacity-0 group-hover/thumb:opacity-100"></i>
+                        </span>
+                        {chapter.duration && <span className="absolute bottom-1.5 right-1.5 bg-black/80 text-xs px-1.5 rounded">{chapter.duration}</span>}
+                    </a>
+                    <div className="min-w-0">
+                        <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                            <span>Video: <b className={chapter.video_completed ? 'text-[#C6E83A]' : 'text-gray-300'}>{chapter.video_completed ? 'Watched' : 'Not watched yet'}</b></span>
+                            <span>Chapter quiz: <b style={{ color: hasGrade ? gradeColor(chapter.quiz_grade) : '#d1d5db' }}>{hasGrade ? `${chapter.quiz_grade}%` : 'Not taken yet'}</b></span>
                         </div>
-                    </>
-                )
-            } else {
-                return(
-                    <>
-                        <div className='flex flex-col justify-center relative items-center group'>
-                        <div className='absolute 
-                                hidden 
-                                bg-gray-800 
-                                shadow-lg 
-                                hover:cursor-pointer  
-                                -left-[100%]  
-                                group-hover:block 
-                                text-white 
-                                text-center 
-                                py-1 px-2 
-                                w-[350%] 
-                                text-xs 
-                                rounded-lg' 
-                        onClick={()=>navigate('/Quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})}>Yikes! <br></br> Try the Quiz Again</div>
-                            <div className='text-center text-2xl flex'> 
-                                 {/* <div className='text-center button !h-6' onClick={()=>goToChapterQuiz(chapterId)}>Try Again</div> */}
-                                 🤢 
-                            </div>
-                            <div className='font-extrabold text-rose-500 text-lg'>
-                          {chapter.quiz_grade} 
-                            </div>
-                           
-                         
-                        </div>
-                        {/* {skillsButton()} */}
-                    </>
-                )
-            }
-        } else if (chapter.video_completed){
-            return(
-                <>
-                <div className='sm:-ml-0 flex flex-col justify-center relative items-center group'>
-                <div className='absolute 
-                                hidden 
-                                bg-gray-800 
-                                shadow-lg 
-                                hover:cursor-pointer  
-                                -left-[100%]  
-                                group-hover:block 
-                                text-white 
-                                text-center 
-                                py-1 px-2 
-                                w-[350%] 
-                                text-xs 
-                                rounded-lg' 
-                        onClick={()=>navigate('/Quiz', {state:{chapter:chapterId, type:'chapterQuiz', topics:[]}})}>You're Ready! <br></br> Take The Quiz</div>
-                    <div className='sm:text-3xl text-xl hidden sm:inline'>⚡</div>
-                    <div>
-                        <span className='inline sm:hidden'>READY!</span>
-                    </div>
-                </div>
-                {/* <span onClick={()=>goToChapterQuiz(chapterId)}className='button !h-8 !w-20 !text-[12px] leading-none'>Jump to Quiz</span> */}
-                </>
-            )
-        } else {
-            return(
-                <div className='relative group hover:cursor-pointer'>
-                    <div className='absolute bg-gray-800 shadow-lg -top-[25%] -left-[50%] hidden group-hover:block text-white text-center py-1 px-2 w-[250%] text-xs rounded-lg'>Watch the Video First</div>
-                    <span className='text-center text-3xl hover:cursor-pointer'>🔒</span>
-                </div>
-            )
-        }
-    }
-    const vidProgress = (chapterId, chapter) => {
-        if(chapter.video_completed && chapter.video_completed == true){
-            return(
-                <div className='relative group hover:cursor-pointer'>
-                <div className='absolute bg-gray-800 shadow-lg -top-[25%] -left-[100%] hidden group-hover:block text-white text-center py-1 px-2 w-[300%] text-xs rounded-lg' onClick={()=>{navigate(`/video/${chapterId}`)}}>Watch Video Again</div>
-         
-                <div className='text-center text-xl'>✅</div>
-                </div>
-            )
-        } else {
-            return(
-                <>
-                    <div className='relative group hover:cursor-pointer'>
-                        <div className='absolute bg-gray-800 shadow-lg -top-[50%] -left-[100%] hidden group-hover:block text-white text-center py-1 px-2 w-[300%] text-xs rounded-lg' onClick={()=>{navigate(`/video/${chapterId}`)}}>Jump to Video</div>
-                        <div className='text-center'>🔴</div>
-                    </div>
-                </>
-            )
-        }
-    }
-
-    const openTopicQuiz = (chapterTopics) => {
-        
-        navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: chapterTopics}})
-    }
-
-    
-
-    const mastery = (chapterId) => {
-        const chapter_topics = []
-        
-        userTopicEntries.forEach(([topicId, topic]) => {
-            if(topic.chapter_id==chapterId){
-                chapter_topics.push({...topic, topic_id: topicId})
-            }
-        }) 
-
-        let sum = 0
-        chapter_topics.forEach(chapter => {
-            sum += masteryPercent(chapter)
-        })
-
-        const averagePercentCorrect = chapter_topics.length > 0 ? sum/chapter_topics.length : 0
-
-        let reply=""
-        if(averagePercentCorrect > 80){
-            reply = 'Econo-ninja-level'
-        } else if (averagePercentCorrect > 70){
-            reply = 'Fiscal Phenom'
-        } else if (averagePercentCorrect > 60) {
-            reply = 'Curve Whisperer'
-        } else if (averagePercentCorrect > 50) {
-            reply = 'Marginally Got It'
-        } else if (averagePercentCorrect > 0) {
-            reply = 'A bit Econ-fused'
-        } else {
-            reply = 'Not yet started'
-        }
-
-        return(
-            <div className='flex flex-col items-left sm:items-center'>
-                <div>{reply}</div>
-                {reply !== 'Not yet started' && <div className="button !h-4 !text-xs sm:mt-2"
-                            onClick={(event) => {
-                                event.stopPropagation(); 
-                                console.log('DOOBIE', chapter_topics)
-                                openTopicQuiz(chapter_topics);
-                            }}
-                            ><span> <span className='hidden sm:inline'> Take Practice</span> Quiz</span></div>}
-            </div>
-        )
-    }
-
-    
-    const unitChapters = (unitId) => {
-        const chaptersUnits = chaptersEnt.filter(([chapterId, chapter])=>chapter.unit_id == unitId)
-
-        return(
-            <>
-                <div className='flex bg-[#0088a8] text-white h-16 items-center w-100 text-xs sm:text-sm'>
-                    <div className='sm:ml-8 ml-2 font-semibold sm:w-1/2 w-5/12 text-xl'>Chapter Name</div>
-                    <div className='w-1/6 font-semibold text-xl text-center'>Video<span className='sm:inline hidden'> Status</span></div>
-                    <div className='w-1/6 font-semibold text-xl text-center '>Quiz <span className='sm:inline hidden'>Status</span></div>
-                    <div className='w-1/6 font-semibold text-xl text-center '> <span className='sm:inline hidden'>Topics </span>Mastery</div>
-                </div>
-                {chaptersUnits.map(([chapterId, chapter], index)=>{
-                    const odd = index % 2 == 0
-                    return(
-                        <div key = {chapterId} className={`w-100 flex items-center ${odd ? 'bg-[#f1f6fb]' : 'bg-[#d9e4f5]'}`}>
-                            <div className='sm:ml-8 ml-2 my-2 sm:w-1/3 w-1/4 font-semibold text-xs sm:text-base '>
-                                {chapter.name}
-
-                            </div>
-                            <div className='w-[15%] sm:w-1/6 flex items-right justify-end'>
-                                <div onClick = {()=>navigate(`/video/${chapterId}`)} className=
-                                        'button my-4 sm:my-0 sm:py-1 sm:w-1/2 !pl-0 !pr-0 !text-[10px] !rounded-lg'
-                                        
-                                        >{chapter.video_completed ? <>Watch Video Again!</> : <>Jump To Video</>}</div>
-                                </div>
-                            <div className='justify-around text-xs font-bold flex items-center w-1/5 sm:w-1/6 sm:text-sm'>
-                                {vidProgress(chapterId, chapter)}
-                                
-                            </div>
-                            <div className='justify-left sm:justify-center -ml-2 sm:-ml-0 sm:my-2 items-start  sm:items-center text-xs sm:text-md font-bold flex items-center w-1/5 mr-2 sm:mr-0 sm:w-1/6'>
-                                {quizProgress(chapterId, chapter)}
-                            </div>
-                            <div className='justify-center items-center  text-xs sm:text-sm font-bold flex  text-center -ml-2 sm:-ml-0 sm:items-center w-1/5 sm:w-1/6'>
-                                {mastery(chapterId)}
-                            </div>
-                        </div>
-                    )
-                })}
-            </>
-        )
-    }
-
-    const percentUnitCompleted = (unitId) =>{
-        const chaptersUnits = chaptersObj.filter((chapter)=>chapter.unit_id == unitId)
-        let totalUnitsCompleted = 0 
-        chaptersUnits.forEach((chapter) => {
-            if(chapter.quiz_grade && chapter.quiz_grade >=60){
-                totalUnitsCompleted +=0.5
-            }
-            if(chapter.video_completed){
-                totalUnitsCompleted += 0.5
-            }
-        })
-        const percentComplete = Math.floor((totalUnitsCompleted / chaptersUnits.length) * 100)
-        if(percentComplete > 0){
-            return (
-                <>{percentComplete}% completed</>
-            )
-        } else {
-            return (
-                <>Not yet started</>
-            )
-        }
-    }
-
-    return(
-        <div className='w-10/12 bg-white rounded-3xl shadow-2xl p-5'>
-            <h1 className='sm:text-4xl text-2xl text-center sm:mb-8 mb-4'>Your Study Plan</h1>
-            <div className='flex flex-row justify-around'>
-            <div className='w-full'>
-                <div className='flex flex-row w-100 mb-2 bg-'>
-                    <span className='sm:text-3xl text-xl text-left font-bold w-2/3'>Units</span>
-                    <span className='sm:text-3xl hidden sm:block text-xl text-center font-bold w-1/5'>Progress</span>
-    
-                </div>
-                {Object.entries(units).map(([key, value])=>{
-                    return(
-                        < div key={key}>
-                            <div className='w-100' key={key}>
-                            <div className='flex w-100'>
-                                <div 
-                                    className='text-left sm:text-xl text-sm cursor-pointer w-full sm:w-2/3'
-                                    onClick ={()=>toggleUnit(key)}>
-                                    {expandedUnits[key] ? ' -' : ' +'}  {value.name}
-                                </div>
-                                <div className='sm:w-1/5 hidden sm:block text-center'>
-                                    {percentUnitCompleted(key)}
-                                </div>
-                            </div>
-                            {expandedUnits[key] && (<div className='w-100 '>
-                                {unitChapters(key)}
-                            </div>
+                        {chapter.topics.length > 0 && <>
+                            <p className="mt-3 text-xs uppercase tracking-widest font-bold text-gray-400">Topic mastery</p>
+                            <ul className="mt-2 space-y-2 text-sm">
+                                {chapter.topics.map((t) => <TopicRow key={t.topic_id} topic={t} />)}
+                            </ul>
+                        </>}
+                        <div className="mt-4 flex flex-wrap items-center gap-3">
+                            {chapter.video_completed ? <>{quizButton}{videoButton}</> : <>{videoButton}{quizButton}</>}
+                            {tried.length > 0 && (
+                                <button type="button" className="text-sm font-bold text-[#7fd3e6] hover:underline"
+                                    onClick={() => navigate('/quiz', { state: { chapter: 1, type: 'topicQuiz', topics: tried } })}>
+                                    Practice these topics →
+                                </button>
                             )}
-                            </div>
                         </div>
+                    </div>
+                </div>
+            </details>
+        </li>
+    )
+}
+
+// "Your study plan": one card per unit in its unit color; chapters expand to show details
+export const Progress = () => {
+    const navigate = useNavigate()
+    const plan = useStudyPlan()
+    const currentChapterId = useSelector((state) => state.user.currentChapter)
+
+    return (
+        <section>
+            <div className="flex items-end justify-between gap-4">
+                <h2 className="text-2xl sm:text-3xl font-bold">Your study plan</h2>
+                <button type="button" className="text-[#7fd3e6] font-bold hover:underline text-sm whitespace-nowrap" onClick={() => navigate('/updateunits')}>
+                    Update study plan →
+                </button>
+            </div>
+            <div className="mt-4 space-y-4">
+                {plan.map((unit) => {
+                    const done = percentDone(unit)
+                    const hasNext = unit.chapters.some((ch) => String(ch.id) === String(currentChapterId))
+                    return (
+                        <details key={unit.id} open={hasNext} className="plain panel rounded-2xl border-l-8 unit-border" style={unitStyle(unit)}>
+                            <summary className="cursor-pointer p-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                                <span className="text-xs font-extrabold px-2 py-0.5 rounded unit-bg whitespace-nowrap">UNIT {unit.number ?? unit.id}</span>
+                                <span className="font-bold text-lg flex-1 min-w-[12rem]">{unit.title || unit.name}</span>
+                                <span className="text-sm text-gray-300">Level: <b className="text-white">{unitLevel(unit)}</b></span>
+                                <div className="w-full flex items-center gap-3">
+                                    <div className="flex-1 h-3 rounded-full bg-[#344A53] overflow-hidden">
+                                        <div className="h-full rounded-full unit-bg" style={{ width: `${done}%` }}></div>
+                                    </div>
+                                    <span className="text-sm font-bold w-24 text-right">{done}% done</span>
+                                </div>
+                            </summary>
+                            <ul className="px-5 pb-4 divide-y divide-white/10 text-sm">
+                                {unit.chapters.map((ch) => (
+                                    <ChapterRow key={ch.id} chapter={ch} isNext={String(ch.id) === String(currentChapterId)} />
+                                ))}
+                            </ul>
+                        </details>
                     )
                 })}
             </div>
-
-            </div>
-        </div>
+            <p className="mt-3 text-xs text-gray-400 flex flex-wrap gap-x-4 gap-y-1">
+                <span><span className="inline-block w-2.5 h-2.5 rounded-full bg-[#C6E83A] mr-1"></span>Mastered</span>
+                <span><span className="inline-block w-2.5 h-2.5 rounded-full bg-[#FFC93C] mr-1"></span>Getting there</span>
+                <span><span className="inline-block w-2.5 h-2.5 rounded-full bg-[#FF8A3D] mr-1"></span>Needs work</span>
+                <span><i className="fa-solid fa-rotate text-[#4CC2F5] mr-1"></i>Due for a refresher</span>
+            </p>
+        </section>
     )
 }

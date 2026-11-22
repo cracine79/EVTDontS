@@ -36,41 +36,36 @@ export const ContactUs = () => {
     useEffect(()=>{
         scrollTo(0,0)
     }, [])
-    return<>
-        <div className="mt-32 flex flex-col items-center">
-            <div className='sm:w-7/12 xl:w-5/12 w-5/6 flex flex-col items-center'>
-                <h1 className='text-center text-3xl'>Send Us A Note!</h1>
-                <div className='mt-4'>Whether you've got a question about a quiz problem you can't crack, there's an irritating bug that you'd love us to get rid of, or you (dare we say it!?) just want to give us a pat on the back (eep!), go ahead and send us a note. And by us I mean me.  I'd love to hear your thoughts. </div>
-               
-                <input 
-                className="border border-black w-full rounded-lg mt-6 mb-2 p-2 text-top" 
-                placeholder="Subject"
-                onChange = {(e)=>{setSubject(e.target.value)}}
-                />
-
-                <input 
-                className="border border-black w-full rounded-lg  mb-2 p-2 text-top" 
-                placeholder="Your Email"
-                type='email'
-                onChange = {(e)=>{setEmail(e.target.value)}}
-                />
-
-                <textarea 
-                className="border border-black w-full rounded-lg sm:h-[40vh] h-[20vh] mb-4 p-2 align-top resize-none" 
-                placeholder="Penny for your thoughts? Too much?"
-                onChange = {(e)=>{setBody(e.target.value)}}
-                ></textarea>
-
-                {errorMessage && <p className='mb-4 text-red-600 text-center' role='alert'>{errorMessage}</p>}
-                <button className="fancy-button mb-8 !px-8 disabled:opacity-60" disabled={sending}
-                        onClick = {async ()=>{
-                            setSending(true)
-                            setErrorMessage(await sendEmail(subject, email, body, navigate) || '')
-                            setSending(false)
-                        }}
-                        >{sending ? 'Sending…' : 'Send Email!'}</button>
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <div className="max-w-2xl mx-auto">
+                <p className="uppercase tracking-widest text-sm font-bold text-[#7fd3e6]">Contact us</p>
+                <h1 className="mt-2 text-3xl sm:text-5xl font-extrabold">Send us a note!</h1>
+                <p className="mt-4 text-lg text-gray-200">Whether you've got a question about a quiz problem you can't crack, there's an irritating bug that you'd love us to get rid of, or you (dare we say it!?) just want to give us a pat on the back (eep!), go ahead and send us a note. And by us I mean me. I'd love to hear your thoughts.</p>
+                <form className="mt-8 panel rounded-3xl p-6 sm:p-8 space-y-4" onSubmit={async (e) => {
+                    e.preventDefault()
+                    setSending(true)
+                    setErrorMessage(await sendEmail(subject, email, body, navigate) || '')
+                    setSending(false)
+                }}>
+                    <label className="block">
+                        <span className="text-sm font-bold text-gray-300">Subject</span>
+                        <input className="field mt-1" placeholder="What's this about?" onChange={(e) => setSubject(e.target.value)} />
+                    </label>
+                    <label className="block">
+                        <span className="text-sm font-bold text-gray-300">Your email</span>
+                        <input className="field mt-1" type="email" placeholder="So we can write back" onChange={(e) => setEmail(e.target.value)} />
+                    </label>
+                    <label className="block">
+                        <span className="text-sm font-bold text-gray-300">Message</span>
+                        <textarea className="field mt-1 h-56 resize-y" placeholder="Penny for your thoughts? Too much?" onChange={(e) => setBody(e.target.value)}></textarea>
+                    </label>
+                    {errorMessage && <p className="font-bold text-[#FF6FAE]" role="alert">{errorMessage}</p>}
+                    <button type="submit" className="btn-primary px-7 py-3" disabled={sending}>
+                        <i className="fa-solid fa-paper-plane"></i> {sending ? 'Sending…' : 'Send it'}
+                    </button>
+                </form>
             </div>
-            
-       </div>
-    </>
+        </div>
+    )
 }

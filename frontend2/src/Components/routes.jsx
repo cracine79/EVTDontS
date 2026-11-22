@@ -60,3 +60,15 @@ export const friendlyAuthError = (message, fallback) => {
 
 // Full page load to the public (server-rendered) homepage
 export const goToPublicHome = () => window.location.assign('/');
+
+/**
+ * Old in-app video URLs (/app/video/6, /app/video-library/<slug>, /app/searchresults).
+ * A full page load lets the server redirect to the matching public video page.
+ */
+export const LegacyVideoRedirect = () => {
+  const location = useLocation();
+  useEffect(() => {
+    window.location.replace('/app' + location.pathname + location.search);
+  }, [location.pathname, location.search]);
+  return null;
+};

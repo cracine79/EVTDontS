@@ -1,3 +1,4 @@
+from public import chapter_api_info, unit_api_info
 from flask_restx import Namespace, Resource
 from flask import request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -21,11 +22,13 @@ class AddUnits(Resource):
         shortened_chapters = {
             chapter.id: {
                 "name": chapter.name,
-                "unit_id": chapter.unit_id
+                "unit_id": chapter.unit_id,
+                "order": chapter.order,
             }
         for chapter in chapters}
         shortened_units = {
             unit.id: {
+                **unit_api_info(unit),
                 "name": unit.name,
                 "subject_id": unit.subject_id
             } for unit in units
@@ -92,11 +95,7 @@ class AddUnits(Resource):
 
         user_units = user.units
         chapter_dict = {
-            chapter.id: {
-                "name": chapter.name,
-                'unit_id': chapter.unit_id,
-                'video_url': chapter.video_url
-            } for chapter in user_chapters
+            chapter.id: chapter_api_info(chapter) for chapter in user_chapters
         } 
 
         for chapter_id in chapter_dict.keys():
@@ -138,6 +137,7 @@ class AddUnits(Resource):
                     quiz_grades.append(0) 
             all_completed = all(grade > 60 for grade in quiz_grades)
             units_dict[unit.id] = {
+                **unit_api_info(unit),
                 "name": unit.name,
                 "complete": all_completed
             } 

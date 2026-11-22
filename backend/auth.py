@@ -1,6 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from models import User, UserChapterProgress, UserTopicProgress, QuestionTopic, Chapter, UserPerformance
 from mastery import add_mastery
+from public import chapter_api_info, unit_api_info
 from rate_limits import LOGIN_LIMITS, SIGNUP_LIMITS, SET_PASSWORD_LIMITS
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
@@ -62,11 +63,7 @@ class RefreshUser(Resource):
             } for chapter in chapter_progress
         }
         chapter_dict = {
-            chapter.id: {
-                "name": chapter.name,
-                'unit_id': chapter.unit_id,
-                'video_url': chapter.video_url
-            } for chapter in user_chapters
+            chapter.id: chapter_api_info(chapter) for chapter in user_chapters
         }
         units_dict = {}
         for unit in user_units:
@@ -76,6 +73,7 @@ class RefreshUser(Resource):
                 for chapter in unit_chapters
             )
             units_dict[unit.id] = {
+                **unit_api_info(unit),
                 "name": unit.name,
                 "complete": all_completed
             }
@@ -344,11 +342,7 @@ class Login(Resource):
                     } for chapter in chapter_progress
                 }
                 chapter_dict = {
-                    chapter.id: {
-                        "name": chapter.name, 
-                        "unit_id": chapter.unit_id,
-                        "video_url": chapter.video_url,
-                    } for chapter in db_user.chapters}
+                    chapter.id: chapter_api_info(chapter) for chapter in db_user.chapters}
                 # units_dict = {unit.id: unit.name for unit in user_units}
                 units_dict = {}
                 for unit in user_units:
@@ -363,6 +357,7 @@ class Login(Resource):
                             quiz_grades.append(0) 
                     all_completed = all(grade > 60 for grade in quiz_grades)
                     units_dict[unit.id] = {
+                        **unit_api_info(unit),
                         "name": unit.name,
                         "complete": all_completed
                     }

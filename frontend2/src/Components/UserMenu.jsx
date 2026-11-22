@@ -1,74 +1,54 @@
-import { FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import LogoutButton from "./LogoutComponent";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import LogoutButton from "./LogoutComponent";
 import { clearQuestions } from "../Slices/questionsSlice"
 import { clearUserResults } from "../Slices/resultsSlice"
-import { getAllChapters } from "../Slices/chaptersActions";
 
+// Avatar + dropdown in the nav; same items as the public pages' user menu (templates/_user_menu.html)
 export const UserMenu = () => {
-    const username = useSelector((state) => state.user.username)
-    const capitalized = username ? username[0].toUpperCase() + username.slice(1) : "";
-    const currentChapterId = useSelector((state) => state.user.currentChapter)
-    const bookChapters = useSelector((state) => state.chapters); 
-    const userChapters = useSelector((state) => state.userChapters)
-
-    const videoWatched = currentChapterId && userChapters?.[currentChapterId]?.video_completed ? true : false;
+    const username = useSelector((state) => state.user.username) || ''
+    const name = username ? username[0].toUpperCase() + username.slice(1) : ''
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    
-    const thing = videoWatched ? "Take chapter quiz" : "Go to next video"
+    const [open, setOpen] = useState(false)
+    const ref = useRef(null)
 
+    useEffect(() => {
+        const close = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+        document.addEventListener('click', close)
+        return () => document.removeEventListener('click', close)
+    }, [])
 
-    const nextThing = () => {
-        if(currentChapterId){
-            videoWatched 
-            ? navigate('/Quiz', {state: {chapter: currentChapterId, type: 'chapterQuiz', topics: []}}) 
-            : navigate(`/video/${currentChapterId}`)
-        }
-    }
-
-    const goHome = () => {
+    const go = (path) => {
+        setOpen(false)
         dispatch(clearQuestions())
         dispatch(clearUserResults())
-        navigate('/userhome')
+        navigate(path)
     }
 
-    const goAllVids = () => {
-        dispatch(getAllChapters())
-        navigate('/video-library')
-    }
+    const item = 'w-full flex items-center gap-3 px-4 py-2 hover:bg-white/10 text-left'
+    const icon = 'w-5 text-[#7fd3e6]'
 
-    return(
- 
-            <div className='relative inline-block group'>
-                <div className='flex flex-col items-center mr-6 mt-2 hover:cursor-pointer text-slate-600 text-white'>
-                    <FaUserCircle className='text-3xl '/>
-                    <div>Menu</div>
+    return (
+        <div className="relative" ref={ref} data-tour="menu">
+            <button type="button" aria-expanded={open} onClick={() => setOpen(!open)}
+                className="flex items-center gap-2 bg-[#344A53]/40 hover:bg-[#344A53]/70 rounded-full pl-1 pr-3 py-1">
+                <span className="w-8 h-8 rounded-full bg-[#FFC93C] text-[#111] flex items-center justify-center font-black">{name[0]}</span>
+                <span className="hidden sm:inline">{name}</span>
+                <i className="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+            {open && (
+                <div className="absolute right-0 mt-2 w-60 bg-[#2B3D45] border border-white/10 rounded-2xl shadow-2xl py-2 text-base font-semibold z-50">
+                    <button type="button" className={item} onClick={() => go('/userhome')}><i className={`fa-solid fa-house ${icon}`}></i>My dashboard</button>
+                    <a className={item} href="/videos"><i className={`fa-solid fa-video ${icon}`}></i>Video library</a>
+                    <button type="button" className={item} onClick={() => go('/quizgenerator')}><i className={`fa-solid fa-bolt ${icon}`}></i>Review quiz</button>
+                    <button type="button" className={item} onClick={() => go('/updateunits')}><i className={`fa-solid fa-sliders ${icon}`}></i>Update study plan</button>
+                    <hr className="my-2 border-white/10" />
+                    {/* The whole row is the button, not just the word */}
+                    <LogoutButton className={item} icon={<i className={`fa-solid fa-right-from-bracket ${icon}`}></i>} label="Log out" />
                 </div>
-                <div className=
-                    'h-auto w-48 shadow-lg  
-                    border-slate-900 border 
-                    border-solid bg-white 
-                    rounded-lg px-6 pt-2 absolute -ml-32 flex flex-col hidden group-hover:block'>
-                    <div className = 'font-bold text-lg'>{capitalized}</div>
-                    <div className='text-left'>User Account</div>
-                    <hr className='border-gray-400 w-full mb-2'></hr>
-                    <div className='text-right'>
-                        <div className="hover:bg-[#0088a8] hover:text-white hover:cursor-pointer w-48 -ml-6 px-4" onClick = {nextThing}>{thing}</div>
-                        <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {() => {navigate('/quizgenerator')}}>Create review quiz</div>
-                        <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goAllVids}>Go to all Videos</div>
-                        <div className="hover:bg-[#0088a8] hover:text-white  hover:cursor-pointer w-48 -ml-6 px-4" onClick = {goHome}>User dashboard</div>
-                        {/* The whole highlighted row is the button, not just the word "Logout" */}
-                        <LogoutButton className="block text-right hover:bg-[#0088a8] hover:text-white hover:cursor-pointer w-48 -ml-6 px-4 my-4" />
-                    </div>
-                </div>
-                
-            
-
-            </div>
-        )
-
-
+            )}
+        </div>
+    )
 }

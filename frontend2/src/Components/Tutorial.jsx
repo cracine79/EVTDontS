@@ -1,178 +1,109 @@
-import { useState, useEffect } from "react"
-export const Tutorial = ({showModal}) => {
-    const [modalState, setModalState] = useState(['off', 0])
+import { useEffect, useLayoutEffect, useState } from "react"
+
+// The dashboard tour shown after signing up. Each step spotlights an element marked data-tour="...".
+const STEPS = [
+    {
+        target: null,
+        title: 'Welcome to your dashboard!',
+        body: <>
+            <p>Give us a quick second to walk you through the page. We know, we know, you’ve been on a million websites before. You're basically the internet whisperer. But humor us, alright? This is <em>your</em> dashboard, where you can review your progress, videos watched, quiz scores and topic mastery. No judgment here... okay, maybe just a little.</p>
+            <p>We’ll try to keep the jargon and cringe to a minimum. Ready? Cool, let’s do this thing!</p>
+        </>,
+        next: 'Next stop: enlightenment',
+        skip: 'Skip the awkward tour',
+    },
+    {
+        target: 'upnext',
+        title: 'Up next',
+        body: <p>Your personal cheerleader, telling you what chapter you're currently <i>surviving</i>. Whether you're about to watch another mind-blowing video or dive into a quiz, this is your trusty guide. Click it and boom: on to your next step toward total mastery (or at least faking it till you make it)!</p>,
+        next: 'Keep the magic going!',
+        skip: 'Boring. No more.',
+    },
+    {
+        target: 'plan',
+        title: 'Your study plan',
+        body: <p>Your grand master plan... or as we like to call it, 'organized chaos.' Every unit lives here, with a tracker showing how much you’ve actually done. Click a chapter to open it: you’ll see whether you watched the video, your quiz grade, and how well you’ve mastered each topic (our algorithm tries its best!).</p>,
+        next: 'Amazing! More!',
+        skip: "I'm out.",
+    },
+    {
+        target: 'practice',
+        title: 'Practice',
+        body: <p>Need more practice? The Gauntlet goes straight for your weak spots, or you can hand-craft a quiz by picking topics. Show those questions who’s boss!</p>,
+        next: 'One more',
+        skip: 'Enough talk.',
+    },
+    {
+        target: 'menu',
+        title: 'Your menu',
+        body: <p>You can teleport out of this Econo-wasteland to any other part of the site from your menu: the video library, review quizzes, your study plan, and logging out.</p>,
+        next: "Enough talk. Let's go.",
+        skip: null,
+    },
+]
+
+const PAD = 8
+
+export const Tutorial = ({ showModal }) => {
+    const [step, setStep] = useState(showModal ? 0 : null)
+    const [rect, setRect] = useState(null)
+    const current = step === null ? null : STEPS[step]
 
     useEffect(() => {
         if (showModal) {
-          setModalState(['on', 0]); // Show the modal
-          localStorage.setItem('hasVisitedDashboard', 'true'); // Set the key
+            setStep(0)
+            try { localStorage.setItem('hasVisitedDashboard', 'true') } catch (e) { /* private mode */ }
         }
-      }, []);
+    }, [showModal])
 
-      useEffect(() => {
-        if (modalState[0] === 'on') {
-          document.body.style.overflow = 'hidden'; // Prevent scrolling
-        } else {
-          document.body.style.overflow = 'auto'; // Allow scrolling
-        }
-    
-        // Clean up the effect on unmount
+    // Find the spotlighted element, bring it into view, and track where it is
+    useLayoutEffect(() => {
+        if (!current?.target) { setRect(null); return }
+        const el = document.querySelector(`[data-tour="${current.target}"]`)
+        if (!el) { setRect(null); return }
+        el.scrollIntoView({ block: 'center' })
+        const measure = () => setRect(el.getBoundingClientRect())
+        measure()
+        window.addEventListener('resize', measure)
+        window.addEventListener('scroll', measure, true)
         return () => {
-          document.body.style.overflow = 'auto'; // Ensure scrolling is enabled on unmount
-        };
-      }, [modalState]);
+            window.removeEventListener('resize', measure)
+            window.removeEventListener('scroll', measure, true)
+        }
+    }, [current])
+
+    if (!current) return null
+    const close = () => setStep(null)
+    const isLast = step === STEPS.length - 1
+
+    // Bubble below the spotlight if there's room, otherwise above; centered when there's no target
+    let bubbleStyle = { left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }
+    if (rect && rect.height > window.innerHeight * 0.55) {
+        // Tall section (e.g. a long study plan): keep the bubble pinned at the bottom of the screen
+        bubbleStyle = { right: 16, bottom: 16 }
+    } else if (rect) {
+        const below = rect.bottom + PAD + 16
+        const left = Math.min(Math.max(16, rect.left), window.innerWidth - 400)
+        bubbleStyle = below + 260 < window.innerHeight
+            ? { left, top: below }
+            : { left, bottom: window.innerHeight - rect.top + PAD + 16 }
+    }
+
     return (
-        <>
-          return (
-        {modalState[0] == 'on' && <>
-            {modalState[1]==0 && <>
-                <div
-                className="fixed inset-0 bg-black bg-opacity-60 z-40 w-full"
-              
-                >
+        <div className="fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-label={current.title}>
+            {rect
+                ? <div className="fixed rounded-2xl ring-4 ring-[#FFC93C] pointer-events-none transition-all"
+                    style={{ left: rect.left - PAD, top: rect.top - PAD, width: rect.width + PAD * 2, height: rect.height + PAD * 2, boxShadow: '0 0 0 9999px rgba(0,0,0,.65)' }}></div>
+                : <div className="fixed inset-0 bg-black/65"></div>}
+            <div className="fixed w-[min(24rem,calc(100vw-2rem))] panel border border-white/15 rounded-2xl shadow-2xl p-5" style={bubbleStyle}>
+                <p className="text-xs uppercase tracking-widest font-bold text-[#7fd3e6]">Tour · {step + 1} of {STEPS.length}</p>
+                <h2 className="mt-1 text-xl font-extrabold">{current.title}</h2>
+                <div className="mt-2 space-y-2 text-sm text-gray-200">{current.body}</div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                    <button type="button" className="btn-primary px-4 py-2 text-sm" onClick={() => (isLast ? close() : setStep(step + 1))}>{current.next}</button>
+                    {current.skip && <button type="button" className="btn-secondary px-4 py-1.5 text-sm" onClick={close}>{current.skip}</button>}
                 </div>
-                <div className="absolute  sm:left-1/4 sm:top-56 top-20 z-50 sm:w-1/3  bg-slate-100 p-4 rounded-md shadow-lg">
-                                <p className="mb-4 text-2xl text-center">Welcome to Your User Dashboard!</p>
-                                <div>
-                                    <p className='mb-4'>Give us a quick second to walk you through the page. We know, we know, you’ve been on a million websites before—you're basically the internet whisperer—but humor us, alright? This isn’t just any page. This is <em>your</em> dashboard, where you can review your progress, videos watched, quiz scores and topic mastery.  Dont worry, no judgment here... okay, maybe just a little. </p>
-                              
-                                </div>
-                                <p className = 'mb-4'>And don’t worry, we’ll try to keep the jargon and cringe to a minimum. Ready? Cool, let’s do this thing!</p>
-                                <div className='flex justify-around flex-row mt-6'>
-                                    <button className="bg-blue-500 px-4 py-2 w-1/3 sm:w-auto rounded-md text-xs sm:text-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 1])}>Next Stop: Enlightenment</button>
-                                    <button className="bg-blue-500 px-4 py-2 w-1/3 sm:w-auto rounded-md text-xs sm:text-md text-white hover:bg-blue-700" onClick={()=>setModalState(['off', 1])}>Skip the awkward tour</button>
-                                </div>
-                            </div>
-            </>}
-
-            {modalState[1]==1 && <>
-                <div
-                className="fixed inset-0 bg-black bg-opacity-60 z-40"
-                style={{
-                    clipPath: `polygon(
-                    0 0, 
-                    100% 0, 
-                    100% 100%, 
-                    0 100%, 
-                    0 0, /* Move these percentages to change the cutout */
-                    85% 0, 
-                    85% 300px, 
-                    100% 300px, 
-                    100% 0, 
-                    0 0
-                    )`, 
-                }}
-                >
-                </div>
-                <div className="absolute top-10 mt-12 sm:left-1/2 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg sm:w-1/4 min-w-80">
-                                <p className='mb-4'>You can teleport out of this Econo-wasteland to any other part of the site by accessing your user menu.  From here you can go straight to your next task or access all of our captivating videos in one place </p>
-                                <p className='mb-4'>You can also visit our quiz generator, which will allow you to hand-craft a quiz by selecting topics</p>
-                                <div className='flex justify-around flex-row'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 2])}>Amazing! More!</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 1])}>Boring.  No more. </button>
-                                </div>
-                            </div>
-            </>}
-            {modalState[1]==2 && <>
-                <div
-                className="fixed inset-0 bg-black bg-opacity-60 z-40"
-                style={{
-                    clipPath: `polygon(
-                    0 0, 
-                    100% 0, 
-                    100% 100%, 
-                    0 100%, 
-                    0 120px, /* Move these percentages to change the cutout */
-                    58% 120px, 
-                    58% 400px, 
-                    88% 400px, 
-                    88% 120px, 
-                    0 120px
-                    )`, 
-                }}
-                >
-                </div>
-                <div className="absolute top-10 mt-28 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
-                                <p className='mb-4'>Ah, the mighty Progress Box—your personal cheerleader, telling you what chapter you're currently <i>surviving</i>. Whether you're about to watch another mind-blowing video or dive into a quiz that you totally remember all the answers to, this button is your trusty guide. ust click it, and boom—on to your next step toward total mastery (or at least faking it till you make it)!"</p>
-                                <div className='flex justify-around flex-row'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 3])}>Keep it the magic going!</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 0])}>Eh, I'll wing it</button>
-                                </div>
-                            </div>
-            </>}
-
-            {modalState[1]==3 && <>
-                <div
-                className="fixed inset-0 bg-black bg-opacity-60 z-40"
-                style={{
-                    clipPath: `polygon(
-                    0 0, 
-                    100% 0, 
-                    100% 100%, 
-                    0 100%, 
-                    0 430px, /* Move these percentages to change the cutout */
-                    2% 430px, 
-                    2% 100%, 
-                    98% 100%, 
-                    98% 430px, 
-                    0 430px
-                    )`, 
-                }}
-                >
-                </div>
-                <div className="absolute top-10 mt-28 left-1/3 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/4 min-w-80">
-                                <p className='mb-4'>Welcome to your grand master plan... or as we like to call it, 'organized chaos.' Here’s where all your units live, along with a handy tracker to show exactly how much you’ve actually done. Spoiler: It's probably less than you'd like, but hey, progress is progress! </p>
-                                <p> Click on your first unit to expand it.</p>
-                                <div className='flex justify-around flex-row mt-4'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 4])}>OK, I expanded it</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 1])}>I don't feel like it.  I'm out.</button>
-                                </div>
-                            </div>
-            </>}
-
-            {modalState[1]==4 && <>
-                <div
-                className="fixed inset-0 bg-black bg-opacity-60 z-40"
-                style={{
-                    clipPath: `polygon(
-                    0 0, 
-                    100% 0, 
-                    100% 100%, 
-                    0 100%, 
-                    0 610px, /* Move these percentages to change the cutout */
-                    2% 610px, 
-                    2% 720px, 
-                    98% 720px, 
-                    98% 610px, 
-                    0 610px
-                    )`, 
-                }}
-                >
-                </div>
-                <div className="absolute top-36 mt-28 left-1/4 z-50 bg-slate-100 z-100  p-4 rounded-md shadow-lg w-1/3">
-                                
-                                    <p className='mb-2'>Here’s your chapter breakdown! You’ll see the chapter name (so fancy, right?), whether you’ve watched the video (but no judgment if you want to watch it again, we know they’re that thrilling), and your quiz status with a grade that we promise we’re not judging... much.</p>
-                                <div className='flex flex-row items-'>
-                                    <div className='flex flex-row items-center mb-4'>
-                                    <p> Once you've taken the a quiz, we'll award you with mastery level here, which is our humble attempt to quantify how well you’ve mastered the chapter topics (our algorithm tries its best!).</p>
-
-                                <img src='topicMastery.png' className='w-1/4 object-contain'></img>
-                                    </div>
-                                   
-                                </div>
-                                <p className='mb-4'> Need more practice? Just hit the quiz button and show those questions who’s boss!</p>
-                                    <div className='flex justify-around flex-row mt-4'>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700" onClick={()=>setModalState(['on', 0])}>I wasn't paying attention. Start over.</button>
-                                    <button className="bg-blue-500 px-4 py-2 rounded-md text-white hover:bg-blue-700"  onClick={()=>setModalState(['off', 0])}>Enough talk. Let's go.</button>
-                                </div>
-                            </div>
-            </>}
-
-        
-
-       
-        </>}
-    );
-        </>
+            </div>
+        </div>
     )
 }

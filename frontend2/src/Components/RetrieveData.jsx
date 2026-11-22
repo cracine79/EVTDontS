@@ -12,7 +12,8 @@ export const RetrieveData = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
 
-    const source = location.state?.source
+    // Which email to send; default to the password reset (the common case)
+    const source = location.state?.source || 'forgotPassword'
 
     const [sending, setSending] = useState(false)
 
@@ -57,63 +58,37 @@ export const RetrieveData = () => {
         setFirstBoxStatus(true)
         setSuccessBoxStatus(false)
     }
-    return(
-        <div className='sm:mt-48 mt-32 flex flex-col items-center h-full min-h-screen'>
-            <div className='sm:w-5/6 md:w-2/3 lg:w-1/2 flex flex-col items-center shadow-2xl rounded-lg'>
-            {firstBoxStatus &&<>
-                <form className='flex flex-col  items-center w-100' onSubmit ={(event)=>{
-                    event.preventDefault()
-                    handleSubmit()
-                }}>
-                    {source == 'forgotPassword' &&
-                    <>
-                        <p className = 'sm:my-4 text-2xl'>
-                            Forgot your password, huh?
-                        </p>
-                        <p className = 'text-xl mx-8 my-2'>No worries. We get it. Trying to remember passwords these days feels like the ending of The Usual Suspects—just staring at the wall, trying to recall if "hang_in_there" is the magical phrase that unlocks the gateway to some weird website I signed up for at 2 a.m. last month.</p>
-                        <p className = 'text-xl mx-8 my-2'>
-                            Just enter the email you signed up with, and we’ll send you a 
-                            lifeline to reset your password. It’s like getting a second chance 
-                            at life—and a way to avoid finding out you signed up for a website 
-                            that sends you daily cat horoscope emails. If only this existed back 
-                            in 11th grade when I was also trying to figure out my future... 
-                            and what the heck that website was.
-                        </p>
-                        <input type='email' required placeholder = 'Submit Email to Reset Password' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <button type='submit' disabled={sending} className='my-6 py-2 px-2 button disabled:opacity-60'>{sending ? 'Sending…' : 'Reset My Password'}</button>
-                    </>
-                    }
-                    {
-                        source == 'forgotUsername' &&
-                        <>
-                            <p className = 'my-4 text-2xl'>
-                            Forgot your username, huh?
-                        </p>
-                        <p className = 'text-xl mx-8 my-2'>Oh, forgotten your username, have you? Classic. Don’t worry; it happens to the best of us—and by ‘best,’ we mean people who may have a dozen variations of the same username across different platforms. Just pop your email into the box below, and we’ll send your username straight to your inbox. Because who needs memory when you’ve got us?</p>
-                        <input type='email' required placeholder = 'Submit Email to Retrieve Username' className='p-2 lg:w-1/2 w-5/6 border-2 border-neutral-300 my-4' onChange={(e)=>{setEmail(e.target.value)}}></input>
-                        <button type='submit' disabled={sending} className="button mb-20 disabled:opacity-60">{sending ? 'Sending…' : 'Send Username To My Email'}</button>
-                        </>
-                    }
-                    {errorMessageVisible && <p className="mb-6 mx-8 text-red-600 text-sm text-center">{errorMessage}</p>}
-                </form>
-            </>
-            }
-            {successBoxStatus && <>
-            <div className='text-xl p-8'>
-                {source == 'forgotPassword' && <>
-                <p>A password reset email has been sent to your email address.  Please check for further instructions</p>
-                </>}
-                {source == 'forgotUsername' && <>
-                <p>An email with your username has been sent to your email.</p>
-                </>}
-                <p>Be sure to check your spam folder as well, because your email inbox might hate us for some unfathomable reason.</p>
-            </div>
-            <button className='mb-8 button p-2' onClick={submitAgain}>Submit email again</button>
-            
-            </>}
-            
-            </div>
+    const isPassword = source == 'forgotPassword'
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <section className="max-w-2xl mx-auto panel rounded-3xl p-6 sm:p-10 border-t-8 border-[#7fd3e6]">
+                {firstBoxStatus && (
+                    <form onSubmit={(event) => { event.preventDefault(); handleSubmit() }}>
+                        <h1 className="text-3xl sm:text-4xl font-extrabold">Forgot your {isPassword ? 'password' : 'username'}, huh?</h1>
+                        {isPassword ? <>
+                            <p className="mt-4 text-lg text-gray-200">No worries. We get it. Trying to remember passwords these days feels like the ending of The Usual Suspects: just staring at the wall, trying to recall if "hang_in_there" is the magical phrase that unlocks the gateway to some weird website I signed up for at 2 a.m. last month.</p>
+                            <p className="mt-3 text-gray-300">Enter the email you signed up with, and we’ll send you a lifeline to reset your password. It’s like getting a second chance at life, and a way to avoid finding out you signed up for a website that sends you daily cat horoscope emails.</p>
+                        </> : (
+                            <p className="mt-4 text-lg text-gray-200">Classic. Don’t worry; it happens to the best of us, and by ‘best’ we mean people who have a dozen variations of the same username across different platforms. Pop your email into the box below, and we’ll send your username straight to your inbox. Because who needs memory when you’ve got us?</p>
+                        )}
+                        <input type="email" required placeholder="The email you signed up with" className="field mt-6" onChange={(e) => setEmail(e.target.value)} />
+                        {errorMessageVisible && <p className="mt-3 font-bold text-[#FF6FAE]" role="alert">{errorMessage}</p>}
+                        <button type="submit" disabled={sending} className="btn-primary px-7 py-3 mt-5">
+                            <i className="fa-solid fa-envelope"></i> {sending ? 'Sending…' : isPassword ? 'Reset my password' : 'Email me my username'}
+                        </button>
+                    </form>
+                )}
+                {successBoxStatus && (
+                    <div>
+                        <h1 className="text-3xl font-extrabold"><i className="fa-solid fa-envelope-circle-check text-[#C6E83A] mr-2"></i>Check your email</h1>
+                        <p className="mt-4 text-lg text-gray-200">{isPassword
+                            ? 'A password reset email is on its way. Follow the instructions in it.'
+                            : 'An email with your username is on its way.'}</p>
+                        <p className="mt-2 text-gray-300">Be sure to check your spam folder as well, because your inbox might hate us for some unfathomable reason.</p>
+                        <button type="button" className="btn-secondary px-6 py-2 mt-6" onClick={submitAgain}>Send it again</button>
+                    </div>
+                )}
+            </section>
         </div>
-
     )
 }

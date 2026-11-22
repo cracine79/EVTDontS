@@ -17,8 +17,17 @@
   <meta property="og:image" content="{% block og_image %}{{ site_url }}/app/EVTDSBlue.png{% endblock %}" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  {# Logged-in students keep using the app: send them to the SPA equivalent of this page #}
+  {# Pages can send logged-in students to an app page instead (the landing page goes to the dashboard) #}
   {% block spa_redirect %}{% endblock %}
+  {# Mark logged-in visitors before the page paints, so the nav doesn't flash the logged-out links #}
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('access_token');
+        if (t && t !== 'null' && t !== 'undefined') document.documentElement.classList.add('logged-in');
+      } catch (e) {}
+    })();
+  </script>
 
   <link rel="icon" type="image/png" href="/app/MiniLogo.png" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -48,12 +57,19 @@
           {% include "_search.html" %}
         </div>
         <div class="flex items-center gap-3 sm:gap-5 xl:gap-6 text-sm sm:text-base xl:text-lg font-bold whitespace-nowrap">
-          <a class="hidden md:block hover:text-[#344A53]" href="/videos">Jump To Videos</a>
-          <a class="hidden md:block hover:text-[#344A53]" href="/app/aboutus">About Us</a>
-          <a class="hidden md:block hover:text-[#344A53]" href="/app/contactus">Contact Us</a>
+          {# logged out #}
+          <a class="lo-only hidden md:block hover:text-[#344A53]" href="/videos">Jump To Videos</a>
+          <a class="lo-only hidden md:block hover:text-[#344A53]" href="/app/aboutus">About Us</a>
+          <a class="lo-only hidden md:block hover:text-[#344A53]" href="/app/contactus">Contact Us</a>
+          {# logged in (same links as the app's nav) #}
+          {% set in_library = request.path.startswith('/videos') %}
+          <a class="li-only hidden md:flex items-center gap-2 {{ 'text-[#FFC93C]' if in_library else 'hover:text-[#344A53]' }}" href="/videos"><i class="fa-solid fa-video"></i> Video Library</a>
+          <a class="li-only hidden md:flex items-center gap-2 hover:text-[#344A53]" href="/app/userhome"><i class="fa-solid fa-house"></i> My Dashboard</a>
+          <a class="li-only hidden xl:flex items-center gap-2 hover:text-[#344A53]" href="/app/quizgenerator"><i class="fa-solid fa-bolt"></i> Review Quiz</a>
           <button type="button" class="lg:hidden hover:text-[#344A53]" id="mobile-search-toggle" aria-label="Search videos"><i class="fa-solid fa-magnifying-glass"></i></button>
-          <a class="hover:text-[#344A53]" href="{{ auth_url('login') }}">Log In</a>
-          <a class="btn-primary px-4 sm:px-5 py-2 text-sm sm:text-base" href="{{ auth_url('signup') }}">Get Started</a>
+          <a class="lo-only hover:text-[#344A53]" href="{{ auth_url('login') }}">Log In</a>
+          <a class="lo-only btn-primary px-4 sm:px-5 py-2 text-sm sm:text-base" href="{{ auth_url('signup') }}">Get Started</a>
+          {% include "_user_menu.html" %}
         </div>
       </nav>
       <div id="mobile-search" class="left-0 fixed top-0 bg-[#0088a8] py-2 mt-[64px] sm:mt-[80px] w-full shadow-md z-40 transition-transform duration-300 -translate-y-[200%] lg:hidden">
@@ -101,6 +117,60 @@
           panel.classList.toggle('-translate-y-[200%]');
         });
       }
+    })();
+  </script>
+  <script>
+    // Logged-in visitors: name in the menu, log out, and a shared fetch of their progress
+    window.EVTDS = (function () {
+      function token() {
+        try {
+          var t = localStorage.getItem('access_token');
+          return t && t !== 'null' && t !== 'undefined' ? t : null;
+        } catch (e) { return null; }
+      }
+      function username() {
+        var t = token();
+        if (!t) return null;
+        try { return JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).sub; } catch (e) { return null; }
+      }
+      function logout() {
+        try { localStorage.removeItem('access_token'); } catch (e) {}
+        document.documentElement.classList.remove('logged-in');
+      }
+      function api(url, options) {
+        options = options || {};
+        options.headers = Object.assign({ 'Authorization': 'Bearer ' + token() }, options.headers || {});
+        return fetch(url, options).then(function (r) {
+          if (r.status === 401 || r.status === 422) { logout(); throw new Error('Login expired'); }
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        });
+      }
+      var summary = null;
+      return {
+        token: token,
+        username: username,
+        logout: logout,
+        api: api,
+        summary: function () {
+          if (!token()) return Promise.reject(new Error('Not logged in'));
+          return summary || (summary = api('/api/progress/summary'));
+        },
+      };
+    })();
+    (function () {
+      var name = EVTDS.username();
+      if (name) {
+        document.querySelectorAll('[data-username]').forEach(function (el) { el.textContent = name.charAt(0).toUpperCase() + name.slice(1); });
+        document.querySelectorAll('[data-initial]').forEach(function (el) { el.textContent = name.charAt(0).toUpperCase(); });
+      }
+      document.querySelectorAll('[data-logout]').forEach(function (b) {
+        b.addEventListener('click', function () { EVTDS.logout(); location.assign('/'); });
+      });
+      // Close the user menu when clicking elsewhere
+      document.addEventListener('click', function (e) {
+        document.querySelectorAll('details.user-menu[open]').forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute('open'); });
+      });
     })();
   </script>
   {% block scripts %}{% endblock %}

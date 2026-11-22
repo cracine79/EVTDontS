@@ -28,7 +28,7 @@
             <ul class="ml-4 mt-1 mb-2 border-l-2 unit-border pl-3 space-y-1 text-sm">
               {% for c in u.cards %}
                 <li>
-                  <a href="{{ url_for('public.video', slug=c.slug) }}"
+                  <a href="{{ url_for('public.video', slug=c.slug) }}" data-side-chapter="{{ c.chapter.id }}"
                      class="block py-1 px-2 rounded {% if current_id == c.chapter.id %}unit-bg font-bold{% else %}text-gray-200 hover:text-white hover:bg-white/5{% endif %}"
                      {% if current_id == c.chapter.id %}aria-current="page"{% endif %}>{{ c.num }} {{ c.title }}</a>
                 </li>

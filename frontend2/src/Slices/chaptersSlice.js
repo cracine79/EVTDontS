@@ -9,13 +9,14 @@ const chaptersSlice = createSlice({
         storeChapters: (state, action) => {
             return action.payload
         },
+        // Merge field by field, so loading every chapter doesn't drop what we know about plan chapters (in_plan etc.)
         updateChapters: (state, action) => {
-            return {
-                ...state,
-                ...action.payload
-            }
-
-        }, 
+            const merged = { ...state }
+            Object.entries(action.payload || {}).forEach(([id, chapter]) => {
+                merged[id] = { ...(state[id] || {}), ...chapter }
+            })
+            return merged
+        },
         clearChapters: (state) => {
             return {}
         }

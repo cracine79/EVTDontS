@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { getQuestions } from "../Slices/questionsActions"
 import { getAllChapters } from "../Slices/chaptersActions"
 import { useEffect } from "react"
@@ -7,13 +7,13 @@ import { QuestionComponent } from "./QuestionComponent"
 import { openQuizModal } from "../Slices/modalSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
 import { useState } from "react"
+import { IntroCard } from "./Quiz"
+import { goToVideoPage, splitChapterName, unitStyle } from "./ui"
 
 
 export const FreeQuiz = () => {
 
-    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const location = useLocation()
     const {chapterslug} = useParams()
 
     const chapterEntry = useSelector((state)=>
@@ -56,53 +56,31 @@ export const FreeQuiz = () => {
     )
 
     if (!chapter) {
-        return <div className='mt-32 mb-32 text-center text-xl'>Loading quiz...</div>
+        return <div className='pt-32 pb-32 text-center text-xl'>Loading quiz...</div>
     }
 
-    const chapterName = chapter.name
+    const [num, title] = splitChapterName(chapter.name)
 
-    const handleOpen = () => {
-        dispatch(openQuizModal())
-    }
-
-    const goHome = ()=>{
+    const goBack = () => {
         dispatch(clearQuestions())
-        navigate('/video-library')
+        goToVideoPage(chapter)
     }
 
-    return(
-        <div className='flex flex-col justify-center items-center'>
-            <div className="max-w-10xl   mt-24 sm:mt-32 sm:min-h-[65vh] sm:ml-20 px-8 grid grid-cols-1  sm:grid-cols-2  items-center">
-                
-                <div>
-                    <div className='sm:text-2xl sm:w-5/6 text-xl text-center'>
-                            <div className='sm:text-4xl text-3xl sm:mb-4'>
-                            Are You Ready To Rock?
-                            </div>
-                            <div>
-                            Get Ready to Take a Free Review Quiz on: <p className='font-bold'>Chapter {chapterName}</p>
-                            </div>
-                            <div className ='sm:w-full sm:hidden '>
-                                <img src = {quizBlurbImgUrl} />
-                            </div>
-                            <div className = 'whitespace-pre-line mt-8  w-full  text-left text-xl' dangerouslySetInnerHTML={{__html: quizBlurb}}>
-                            {/* {quizBlurb} */}
-                            </div>
-                    </div>
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <div className="max-w-6xl mx-auto">
+                <IntroCard style={unitStyle(null)} eyebrow="Free practice quiz"
+                    title={<>Are you ready to rock?<span className="block mt-2 text-2xl sm:text-3xl text-gray-200">{num} {title}</span></>}
+                    image={quizBlurbImgUrl}>
+                    <div className="whitespace-pre-line" dangerouslySetInnerHTML={{ __html: quizBlurb }}></div>
+                </IntroCard>
+                <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                    <button type="button" className="btn-primary text-lg px-8 py-3" onClick={() => dispatch(openQuizModal())}>
+                        <i className="fa-solid fa-play"></i> Start the quiz
+                    </button>
+                    <button type="button" className="btn-secondary text-lg px-8 py-2.5" onClick={goBack}>Back to the video</button>
                 </div>
-                <div>
-                <div className ='sm:w-8/12 hidden sm:block'>
-                                <img src = {quizBlurbImgUrl} />
-                            </div>
-                </div>
-          
             </div>
-            <div className='flex justify-center w-full mt-8 mb-12'>
-                    <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl" onClick={handleOpen}>Start The Quiz</button>
-                    <div className='w-20'></div>
-                    <button className="button !text-base !py-0 !px-4 my-4 !rounded-3xl"
-                            onClick={goHome}> Back to Videos</button>
-                </div>
             <QuestionComponent chapter={chapterId} type="chapterQuizNoUser" topics={[]} unit="1"/>
         </div>
     )

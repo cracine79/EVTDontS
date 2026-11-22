@@ -1,0 +1,108 @@
+{# Logged-in students: show their progress on the public library pages.
+   Sidebar ticks (library + video pages), card badges, unit progress bars and the "pick up where
+   you left off" card (library page). Does nothing for logged-out visitors. #}
+<script>
+  (function () {
+    if (!window.EVTDS || !EVTDS.token()) return;
+
+    function gradeColor(g) { return g >= 85 ? '#C6E83A' : g >= 60 ? '#FFC93C' : '#FF6FAE'; }
+    function el(html) { var t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstChild; }
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    EVTDS.summary().then(function (data) {
+      var progress = data.chapters || {};
+      var current = data.current_chapter_id;
+      function prog(id) { return progress[id] || {}; }
+
+      // Sidebar: watched ticks
+      document.querySelectorAll('[data-side-chapter]').forEach(function (a) {
+        var watched = prog(a.dataset.sideChapter).video_completed;
+        var onCurrentPage = a.getAttribute('aria-current') === 'page';
+        var icon = watched
+          ? '<i class="fa-solid fa-circle-check mr-1.5 ' + (onCurrentPage ? '' : 'text-[#C6E83A]') + '" title="Watched"></i>'
+          : '<i class="fa-regular fa-circle mr-1.5 ' + (onCurrentPage ? '' : 'text-gray-500') + '" title="Not watched yet"></i>';
+        a.insertAdjacentHTML('afterbegin', icon);
+      });
+
+      // Video cards: watched badge, quiz score, up next
+      document.querySelectorAll('a[data-chapter-id]').forEach(function (card) {
+        var id = card.dataset.chapterId, p = prog(id);
+        var thumb = card.querySelector('.relative');
+        if (thumb) {
+          if (p.video_completed) {
+            thumb.appendChild(el('<span class="absolute top-2 left-2 bg-black/80 text-[#C6E83A] text-xs font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-circle-check mr-1"></i>Watched</span>'));
+          }
+          if (String(id) === String(current)) {
+            thumb.appendChild(el('<span class="absolute top-2 right-2 bg-[#FFC93C] text-[#111] text-xs font-extrabold px-2 py-0.5 rounded">UP NEXT</span>'));
+          }
+        }
+        var line = card.querySelector('[data-quiz-line]');
+        if (line) {
+          if (p.quiz_grade !== null && p.quiz_grade !== undefined) {
+            line.outerHTML = '<p class="text-xs font-bold mt-3"><span class="px-2 py-0.5 rounded-full text-[#111]" style="background:' +
+              gradeColor(p.quiz_grade) + '">Quiz ' + p.quiz_grade + '%</span></p>';
+          } else {
+            line.innerHTML = '<i class="fa-solid fa-pen-to-square mr-1"></i>Quiz not taken yet';
+          }
+        }
+      });
+
+      // Unit progress bars
+      document.querySelectorAll('[data-unit-progress]').forEach(function (bar) {
+        var cards = bar.closest('section').querySelectorAll('a[data-chapter-id]');
+        var watched = 0;
+        cards.forEach(function (c) { if (prog(c.dataset.chapterId).video_completed) watched++; });
+        if (!cards.length) return;
+        bar.querySelector('[data-bar]').style.width = Math.round(100 * watched / cards.length) + '%';
+        bar.querySelector('[data-label]').textContent = watched + ' of ' + cards.length + ' watched';
+        bar.classList.remove('hidden');
+      });
+
+      // "Pick up where you left off"
+      var box = document.getElementById('continue');
+      if (!box) return;
+      var card = current && document.querySelector('a[data-chapter-id="' + current + '"]');
+      if (!card) {
+        // Nothing up next (no study plan, or finished it): show the regular welcome instead
+        var welcome = box.nextElementSibling;
+        if (welcome) welcome.classList.remove('lo-only');
+        return;
+      }
+      var p = prog(current);
+      var section = card.closest('section');
+      ['--unit', '--unit-text', '--unit-light'].forEach(function (v) {
+        box.style.setProperty(v, section.style.getPropertyValue(v));
+      });
+      var img = card.querySelector('img');
+      var h3 = card.querySelector('h3'), num = h3.querySelector('span');
+      var title = num ? num.textContent.trim() + ' ' + h3.textContent.replace(num.textContent, '').trim() : h3.textContent.trim();
+      var quizUrl = '/app/quiz?chapter=' + current;
+      var hasGrade = p.quiz_grade !== null && p.quiz_grade !== undefined;
+      var status, buttons;
+      if (!p.video_completed) {
+        status = 'Next step: watch the video, then take the chapter quiz.';
+        buttons = '<a href="' + card.getAttribute('href') + '" class="btn-primary px-6 py-2.5"><i class="fa-solid fa-play"></i> Watch the video</a>';
+      } else {
+        status = 'Watched · ' + (hasGrade
+          ? 'quiz score <b style="color:' + gradeColor(p.quiz_grade) + '">' + p.quiz_grade + '%</b>'
+          : 'quiz not taken yet') + '. Choose wisely, unlike that guy in Indiana Jones.';
+        buttons = '<a href="' + quizUrl + '" class="btn-primary px-6 py-2.5"><i class="fa-solid fa-' + (hasGrade ? 'rotate-right' : 'pen-to-square') + '"></i> ' +
+          (hasGrade ? 'Retake the quiz' : 'Take the quiz') + '</a>' +
+          '<a href="' + card.getAttribute('href') + '" class="btn-secondary px-6 py-2"><i class="fa-solid fa-play"></i> Rewatch</a>';
+      }
+      box.innerHTML =
+        (img ? '<img src="' + img.src + '" alt="" class="w-full h-full object-cover aspect-video sm:aspect-auto">' : '<div></div>') +
+        '<div class="p-6">' +
+          '<p class="uppercase tracking-widest text-sm font-bold unit-text">Pick up where you left off</p>' +
+          '<h1 class="mt-1 text-2xl sm:text-3xl font-extrabold">' + esc(title) + '</h1>' +
+          '<p class="mt-1 text-gray-300">' + status + '</p>' +
+          '<div class="mt-4 flex flex-wrap gap-3">' + buttons + '</div>' +
+        '</div>';
+      box.classList.remove('hidden');
+    }).catch(function () {
+      // Login expired or the request failed: the logged-out page is already there underneath
+      var box = document.getElementById('continue');
+      if (box && box.nextElementSibling) box.nextElementSibling.classList.remove('lo-only');
+    });
+  })();
+</script>

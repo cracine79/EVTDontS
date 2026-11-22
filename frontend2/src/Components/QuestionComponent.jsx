@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
 import { addResults } from "../Slices/resultsActions";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GrChapterAdd } from "react-icons/gr";
 import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
+import { unitStyle } from "./ui";
 
 
 export const QuestionComponent = ({chapter, type, topics}) => {
@@ -19,7 +19,9 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     const location = useLocation()
 
     const lastUnitId = location.state?.currentUnitId
-    const quizChapterName = type == 'chapterQuiz' ? useSelector(state=>(state.chapters[chapter].name)) : "No Name Available"
+    const quizChapter = useSelector(state=>(state.chapters[chapter]))
+    const quizChapterName = quizChapter?.name || ''
+    const quizUnit = useSelector(state=>(quizChapter ? state.units[quizChapter.unit_id] : null))
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
     const [selectedAnswer,setSelectedAnswer] = useState(null)
@@ -101,24 +103,31 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     };
 
 
+    const LETTERS = 'ABCDEFGHIJ'
     const Answers = () => {
-      if (questionsObj[questionNumber] && questionsObj[questionNumber].answers) {
-        return Object.entries(questionsObj[questionNumber].answers).map(([answerId, answer]) => (
-          <div className='my-2' key={answerId}>
-          <input type='radio'
+      const question = questionsObj[questionNumber]
+      if (!question || !question.answers) return <p>No answers available</p>
+      return (
+        <div className="space-y-3" role="radiogroup">
+          {Object.entries(question.answers).map(([answerId, answer], i) => {
+            const selected = submittedAnswers[question.id]?.answerId === answerId
+            return (
+              <label key={answerId} htmlFor={`answer-${answerId}`} className="block cursor-pointer">
+                <input type="radio" className="sr-only"
                   name={`question-${questionNumber}`}
-                  id={`answer-${answerId}`} 
-                  onChange={() => handleAnswerSelect(answerId)} 
-                  checked={submittedAnswers[questionsObj[questionNumber].id]?.answerId === answerId} // Pre-select the answer if it's in submittedAnswers
-                  value={answerId} // Set value to answerObj.id
-          />
-         <label className='ml-4' htmlFor={`answer-${answerId}`}>{answer.text}</label>
-          <br />
-          </div>
-        ));
-      } else {
-        return <p>No answers available</p>;
-      }
+                  id={`answer-${answerId}`}
+                  onChange={() => { setSelectAnswerPrompt(false); handleAnswerSelect(answerId) }}
+                  checked={selected}
+                  value={answerId} />
+                <span className={`flex items-center gap-4 rounded-2xl border-2 px-4 py-3 transition ${selected ? 'border-[#FFC93C] bg-[#FFC93C]/15' : 'border-white/15 hover:border-white/40'}`}>
+                  <span className={`w-9 h-9 shrink-0 rounded-full border-2 flex items-center justify-center font-extrabold ${selected ? 'bg-[#FFC93C] border-[#FFC93C] text-[#111]' : 'border-white/40'}`}>{LETTERS[i]}</span>
+                  <span>{answer.text}</span>
+                </span>
+              </label>
+            )
+          })}
+        </div>
+      )
     };
 
     const previousQuestion = () => {
@@ -158,7 +167,8 @@ export const QuestionComponent = ({chapter, type, topics}) => {
           const percentageScore = Math.floor((numCorrect/answersObj.length)*100)
           
           const quizData = {
-            chapter_id: currentChapterId,
+            // The chapter this quiz is for (not necessarily the student's current "up next" chapter)
+            chapter_id: type == 'chapterQuiz' ? Number(chapter) : currentChapterId,
             quiz_score: percentageScore,
             answers: newSubmittedAnswers
           }
@@ -173,7 +183,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       
             dispatch(closeQuizModal());
             setQuestionNumber(0);
-            navigate('/results', {state: {unitFinished}})
+            navigate('/results', {state: {unitFinished, chapterId: Number(chapter)}})
           } else if (type == 'topicQuiz'){
             dispatch(finishReviewQuiz(quizData))
             dispatch(closeQuizModal());
@@ -203,141 +213,83 @@ export const QuestionComponent = ({chapter, type, topics}) => {
     
     };
 
-    return(
-      <div >
+    const quizTitle = () => {
+      if (type == 'chapterQuiz' || type == 'chapterQuizNoUser') return <>{quizChapterName} · Chapter quiz</>
+      if (type == 'topicQuiz') return <>Topic quiz: {topicQuizName}</>
+      if (type == 'shortWeakspotQuiz') return <>The Gauntlet: take on your weaknesses</>
+      if (type == 'unitQuiz') return <>Unit quiz</>
+      return null
+    }
+    const question = questionsObj[questionNumber]
 
-         <div
-      className={`
-        justify-center
-        items-center
-        flex
-        overflow-x-hidden
-        
-        fixed
-        inset-0
-        z-50
-        outline-none
-        focus:outline-none
-        bg-[#344a53]
-        ${showModal ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}
-      `}
-    >
-      <div
-        className={`
-          translate
-          relative
-          w-full
-          md:w-5/6
-          lg:w-4/6
-          xl:w-1/2
-          my-6
-          mx-auto
-         max-h-[95vh]
-          lg:h-auto
-          md:h-auto
-          flex
-          justify-center
-          items-center
-          
-        `}
-      >
-        <div
-          ref={modalContentRef} 
-          className={`
-            translate
-            max-h-[95vh]
-            min-h-64
-            lg:h-auto
-            md:h-auto
-            border-0
-            rounded-lg
-            shadow-lg
-            relative
-            flex
-            flex-col
-            w-full
-            bg-white
-            outline-none
-            focus:outline-none
-             transition-transform
-            duration-300
-            overflow-y-auto
-              
-          `}
-        >
-            {questionsObj[questionNumber] ? (
-              <div className=' h-full'>
-                <div className='flex flex-col items-center mt-6'>
-                  {type=='chapterQuiz' && 
-                    <div className="text-3xl px-6">{quizChapterName}  - Chapter Quiz</div>
-                  }
-                  {type=='topicQuiz' && 
-                    <div className='flex flex-col items-center'>
-                      <div className='text-4xl mb-2'>Topic Quiz for:</div>
-                    <div className="text-2xl px-6 text-center">{topicQuizName} </div>
-                    </div>
-                  }
-                  {
-                    type=='shortWeakspotQuiz' &&
-                    <div className='flex flex-col items-center'>
-                      <div className='text-4xl'>Gauntlet Quiz - Take on your Weaknesses!</div>
-                    </div>
-                  }
-                
-                </div>
-                <div className='flex flex-row justify-center mt-4 -mb-4 h-full'>
-                  {questionsObj[questionNumber].image_url && <img className='sm:size-5/12' src={questionsObj[questionNumber].image_url}/>}
-                </div>
-                <div className="text-2xl mt-8 ml-8 mr-4 mb-6">Question {questionNumber + 1} of {numberOfQuestions}:{questionsObj[questionNumber].text.split('<br>').map((line, index) => (
-                      <p key={index}>{line}</p>
-                      ))}</div>
-                <div className="ml-8 text-xl"><Answers /></div>
+    if (!showModal) return null
 
-              </div>
-
-            ) : (
-              type=='shortWeakspotQuiz' ? 
-              <div className='mt-8 mx-6'>
-                <div className='text-center text-2xl mb-4'>Dude, you're too green!</div>
-                <div >Looks like you need to go take some quizzes before we have enough data to judge your weak spots.  Go take some quizzes, flail around in the dark a bit like Shroedinger's cat, and come back when you're battle tested.</div>
-              </div> :
-              <>
-                <div>Oops!  Question Not available</div>
-              </>
-            )}
-            {
-              selectAnswerPrompt &&
-              <div className='ml-12 -mb-6 text-red-500 font-bold'>
-                Please select an answer
-              </div>
-            }
-            <div className='flex justify-around mt-10 mb-10'>
-           
-            {questionNumber >= 1 ?
-            <button className='button !text-base !py-0 !px-4 my-4 !rounded-3xl'
-                      onClick={previousQuestion}>
-                              
-              Previous Question
-                            </button> :
-              <div className='w-40'></div>
-              } { questionsObj[questionNumber] &&
-              <button className='
-                          button !text-base !py-0 !px-4 my-4 !rounded-3xl'
-                            onClick = {(e) => {
-                              e.target.blur();
-                              handleSubmit();
-                            }}>{questionNumber < numberOfQuestions - 1 ? <>Next Question</>:<>Submit Quiz</>}</button>
-                          }
-              <button className='
-                            button !text-base !py-0 !px-4 my-4 !rounded-3xl'
-                            onClick = {handleClose}>Close</button>          
-
+    // Full-screen "focus mode": covers the nav and footer while the student answers
+    return (
+      <div ref={modalContentRef} className="fixed inset-0 z-[60] overflow-y-auto bg-[#344A53] text-white" style={unitStyle(quizUnit)}>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-8 sm:pt-12 pb-16">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 min-w-0">
+              {quizUnit && <span className="text-xs font-extrabold px-2 py-0.5 rounded unit-bg shrink-0">UNIT {quizUnit.number}</span>}
+              <span className="font-bold truncate">{quizTitle()}</span>
             </div>
-    
-      </div>
-      </div>
-      </div>
-      </div>
-      )
+            <button type="button" onClick={handleClose} className="text-sm text-gray-300 hover:text-white whitespace-nowrap">
+              <i className="fa-solid fa-xmark mr-1"></i>Quit
+            </button>
+          </div>
 
+          {question ? (
+            <>
+              <div className="mt-4" aria-hidden="true">
+                <div className="flex gap-1.5">
+                  {questionsObj.map((q, i) => (
+                    <span key={q.id} className={`h-2 flex-1 rounded-full ${
+                      i === questionNumber ? 'bg-white ring-2 ring-[#FFC93C]'
+                      : submittedAnswers[q.id] ? 'bg-[#FFC93C]' : 'bg-[#2B3D45]'}`}></span>
+                  ))}
+                </div>
+              </div>
+              <p className="mt-2 text-sm text-gray-300">Question <b className="text-white">{questionNumber + 1}</b> of {numberOfQuestions}</p>
+
+              <section className="mt-6 panel rounded-3xl p-6 sm:p-8">
+                {question.image_url && (
+                  <figure className="bg-white rounded-xl p-3 mx-auto max-w-md mb-6">
+                    <img src={question.image_url} alt="" className="w-full" />
+                  </figure>
+                )}
+                <h1 className="text-xl sm:text-2xl font-bold leading-snug">
+                  {question.text.split('<br>').map((line, index) => <span key={index} className="block">{line}</span>)}
+                </h1>
+                <div className="mt-6"><Answers /></div>
+              </section>
+
+              {selectAnswerPrompt && <p className="mt-4 font-bold text-[#FF6FAE]" role="alert">Pick an answer first.</p>}
+
+              <div className="mt-6 flex items-center justify-between gap-3">
+                {questionNumber >= 1
+                  ? <button type="button" className="btn-secondary px-5 py-2" onClick={previousQuestion}><i className="fa-solid fa-arrow-left"></i> Back</button>
+                  : <span></span>}
+                <button type="button" className="btn-primary px-7 py-2.5"
+                  onClick={(e) => { e.currentTarget.blur(); handleSubmit(); }}>
+                  {questionNumber < numberOfQuestions - 1
+                    ? <>Next question <i className="fa-solid fa-arrow-right"></i></>
+                    : <>Submit quiz <i className="fa-solid fa-check"></i></>}
+                </button>
+              </div>
+            </>
+          ) : type == 'shortWeakspotQuiz' ? (
+            <section className="mt-8 panel rounded-3xl p-6 sm:p-8 text-center">
+              <h1 className="text-2xl font-extrabold">Dude, you're too green!</h1>
+              <p className="mt-3 text-gray-200">Looks like you need to take some quizzes before we have enough data to judge your weak spots. Go take some quizzes, flail around in the dark a bit like Schrödinger's cat, and come back when you're battle tested.</p>
+              <button type="button" className="btn-primary px-6 py-2.5 mt-6" onClick={handleClose}>Got it</button>
+            </section>
+          ) : (
+            <section className="mt-8 panel rounded-3xl p-6 sm:p-8 text-center">
+              <h1 className="text-2xl font-extrabold">Loading questions…</h1>
+              <p className="mt-3 text-gray-300">If this takes more than a few seconds, quit and try again.</p>
+            </section>
+          )}
+        </div>
+      </div>
+    )
 }

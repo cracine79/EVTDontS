@@ -1,129 +1,49 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useMemo } from "react"
-import { ResultsModal } from "./ResultsModal"
-import { openResultsModal } from "../Slices/modalSlice"
+import { useEffect } from "react"
 import { clearUserResults } from "../Slices/resultsSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
+import { ScoreCard, TopicMovement, MissedQuestions, scoreOf } from "./ResultsParts"
+
 export const UnitQuizResults = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
-
-    const topics = location.state?.topics
-    const topicProg = useSelector(state=>state.topicProg)
-    const topicProgObj = Object.values(topicProg)
-    const mergedTopics = useMemo(()=>{
-        return topics.map(topic=>{
-            const dictEntry = topicProg[topic.topic_id]
-            return {...topic, ...dictEntry}
-        })
-    }, [topics, topicProg])
-
-    const currentChapterId = useSelector(state=>state.user.currentChapter)
+    const topics = location.state?.topics || []
     const currentUnitId = location.state?.unitId
-    const units = useSelector(state=>state.units)
-    const currentUnit = units[currentUnitId]
-    
-    const results = useSelector(state=>(state.results))
-    const resultsObj = Object.values(results)
+    const units = useSelector(state => state.units)
+    const unit = units[currentUnitId]
+    const results = useSelector(state => state.results)
+    const score = scoreOf(results)
 
-    let numCorrect = 0
-    resultsObj.forEach((result)=>{
-        if (result.isCorrect == true){
-            numCorrect += 1
-        }
-    })
-    const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
+    useEffect(() => { window.scrollTo(0, 0) }, [])
 
     const scoreHeader = () => {
-        if(percentageScore >= 70){
-            return(<p>Absolutely destroyed it! If the AP exam had legs, it’d be sprinting away in the other direction right now. With skills like that, you’re on the fast track to making College Board’s hardest questions look like elementary math. Seriously, if they awarded trophies for multiple-choice annihilation, we’d be shipping one to you right now. But we’ll settle for sending you back to destroy the next unit instead – this AP exam doesn’t stand a chance!</p>)
-        }else if (percentageScore >50){
-            return(<p>Nice work! You’re pacing yourself perfectly for a victory lap when the AP exam comes around. Sure, you could stop here and probably make College Board mildly uncomfortable, but a few more rounds with these quizzes will have them issuing a warning. Come back, sharpen those skills a bit more, and soon you’ll be making those exam questions feel as weak as our ‘state-of-the-art’ website! Keep it up – greatness awaits!</p>)
-        }else {
-            return(<p>Let’s just say you’re giving the AP exam way too much confidence. But no worries – that’s why these quizzes are here (we’ll let you practice while the College Board sweats). Give it another go, take down those questions one by one, and show that AP test it can’t hide behind fancy vocab and graphs forever. You’ve got this, and, unlike our ‘super helpful’ website, the AP exam isn’t actually impossible! </p>)
-        }
+        if (score.percent >= 70) return "Absolutely destroyed it! If the AP exam had legs, it’d be sprinting away in the other direction right now. If they awarded trophies for multiple-choice annihilation, we’d be shipping one to you right now. But we’ll settle for sending you back to destroy the next unit instead. This AP exam doesn’t stand a chance!"
+        if (score.percent > 50) return "Nice work! You’re pacing yourself perfectly for a victory lap when the AP exam comes around. A few more rounds with these quizzes and College Board will be issuing a warning. Keep it up, greatness awaits!"
+        return "Let’s just say you’re giving the AP exam way too much confidence. But no worries, that’s why these quizzes are here. Give it another go, take down those questions one by one, and show that AP test it can’t hide behind fancy vocab and graphs forever. You’ve got this!"
     }
 
-    const showResults = () => {
-        dispatch(openResultsModal())
-    }
-
-    const retake = () => {
+    const clear = () => {
         dispatch(clearUserResults())
         dispatch(clearQuestions())
-        navigate('/Quiz',  {state: {chapter: 1, type: 'unitQuiz', topics: [], unit: currentUnitId}})
-
     }
+    const retake = () => { clear(); navigate('/quiz', { state: { chapter: 1, type: 'unitQuiz', topics: [], unit: currentUnitId } }) }
+    const goHome = () => { clear(); navigate('/userhome') }
 
-    const goHome = () => {
-        dispatch(clearUserResults())
-        dispatch(clearQuestions())
-        navigate('/userhome')
-    }
-    return(
-        <>
-
-        <div className='w-screen flex justify-center min-h-[calc(100vh-100px)]'>
-            <div className="mt-40 mb-24 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
-                <div className='flex flex-col items-center justify-center '>
-                    <div className='mt-10 ml-8 w-full'>
-                        <div className='text-3xl text-center'>
-                            Results for quiz on {currentUnit.name}
-                        </div>
-                        <div className = 'mt-4 text-xl'>You answered <span className='font-bold'>{numCorrect} out of a total possible {resultsObj.length} questions</span> correctly.  Your total score on this quiz was <span className = 'font-extrabold'>{percentageScore}%</span></div>
-                        <div className = 'mt-4 text-xl'>{scoreHeader()}</div>
-                    </div>
-                    <div className='flex flex-row justify-around my-10'>
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/5
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
-                            onClick={showResults}>Show Me What I Missed</button>
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/5
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
-                            onClick={retake}>Gimme A Mulligan.  Take that bad boy again.</button>
-            
-                    <button className='
-                            border-black 
-                            h-1/5 
-                            w-1/5
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer' 
-                            onClick={goHome}>Back to my dashboard please.</button>
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <div className="max-w-4xl mx-auto">
+                <ScoreCard unit={unit} eyebrow={`Unit ${unit?.number ?? ''} · Unit quiz results`} title={unit?.title || unit?.name || 'Unit quiz'} score={score}>
+                    <p>{scoreHeader()}</p>
+                </ScoreCard>
+                <div className="mt-6 flex flex-wrap gap-3 justify-center sm:justify-start">
+                    <button type="button" className="btn-primary px-7 py-3" onClick={goHome}><i className="fa-solid fa-house"></i> Back to my dashboard</button>
+                    <button type="button" className="btn-secondary px-6 py-2.5" onClick={retake}><i className="fa-solid fa-rotate-right"></i> Gimme a mulligan</button>
                 </div>
-                </div>
+                <TopicMovement topicIds={topics.map((t) => t.topic_id)} />
+                <MissedQuestions results={results} />
             </div>
-            <ResultsModal />
         </div>
-        </>
     )
 }

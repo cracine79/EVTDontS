@@ -108,6 +108,7 @@ const LoginComponent = ({ onClose }) => {
             flex-col
             w-full
             bg-white
+            text-gray-900
             outline-none
             focus:outline-none
              transition-transform
@@ -170,7 +171,7 @@ const LoginComponent = ({ onClose }) => {
               <div className='w-full flex items-center justify-center'>
 
                 {errorMessage && <p className='mt-3 mx-8 text-sm text-red-600 text-center' role='alert'>{errorMessage}</p>}
-                <button type="submit" disabled={submitting} className='mt-2 button !px-8 disabled:opacity-60'>{submitting ? 'Logging in…' : 'Login'}</button>
+                <button type="submit" disabled={submitting} className='mt-2 btn-primary px-8 py-2.5'>{submitting ? 'Logging in…' : 'Login'}</button>
               </div>
 
               </div>

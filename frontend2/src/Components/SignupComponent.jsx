@@ -93,6 +93,7 @@ const SignupComponent = ({ onClose }) => {
             flex-col
             w-full
             bg-white
+            text-gray-900
             outline-none
             focus:outline-none
              transition-transform
@@ -177,9 +178,7 @@ const SignupComponent = ({ onClose }) => {
               <button type="button" className="absolute inset-y-0 right-3  flex items-center" onClick = {()=>setShowPassword((prev)=>!prev)}> {showPassword ? <BsFillEyeSlashFill className="text-gray-400"  size={24}/> : <BsFillEyeFill className="text-gray-400" size={24} />} </button>
             </div>
               {errorMessage && <p className='mt-3 mx-8 text-sm text-red-600 text-center' role='alert'>{errorMessage}</p>}
-              <button type="submit" className='mt-2
-                            button !text-base !py-0 !px-4 my-4 !rounded-3xl !px-8
-                            mb-4 disabled:opacity-60' disabled={submitting}>{submitting ? 'Signing up…' : 'Sign Up'}</button>
+              <button type="submit" className='mt-4 mb-4 btn-primary px-8 py-2.5' disabled={submitting}>{submitting ? 'Signing up…' : 'Sign Up'}</button>
             </form>
           </div>
         </div>

@@ -52,65 +52,21 @@
   }
 
 
+  /* Legacy button class, restyled to match the public site's outline button */
   .button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    cursor: pointer;
-    /* height: 50px; */
-    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
-    border-radius: 30px;
-    border: 1px solid #8F9092;
-    transition: all 0.2s ease;
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #606060;
-    text-shadow: 0 1px #fff;
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: center;
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    cursor: pointer; outline: none; text-align: center;
+    border: 2px solid #fff; color: #fff; font-weight: 700; border-radius: 9999px;
+    padding: .5rem 1.25rem; transition: background .15s ease;
   }
-  
-  .button:hover {
-    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 3px 3px #CECFD1;
-    transform: translateY(2px);
-  }
-  
-  .button:active {
-    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
-  }
-  
-  .button:focus {
-    box-shadow: 0 4px 3px 1px #FCFCFC, 0 6px 8px #D6D7D9, 0 -4px 4px #CECFD1, 0 -6px 4px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;
-  }
-  
-  .custom-button {
-    @apply flex items-center justify-center outline-none cursor-pointer rounded-full border border-gray-600 font-sans font-semibold text-gray-600 text-center px-2 py-2; /* Add padding */
-    background-image: linear-gradient(to top, #D8D9DB 0%, #fff 80%, #FDFDFD 100%);
-    transition: all 0.2s ease;
+  .button:hover, .button:focus-visible { background: rgba(255, 255, 255, .1); }
 
-    /* Default states */
+.custom-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  cursor: pointer; text-align: center; border: 2px solid #fff; color: #fff; font-weight: 700;
+  border-radius: 9999px; padding: .5rem 1rem; transition: background .15s ease;
 }
-
-.custom-button:hover {
-    box-shadow: 
-        0 2px 6px rgba(255, 255, 255, 0.5), /* Brighter bottom shadow */
-        0 -2px 6px rgba(255, 255, 255, 0.5), /* Brighter top shadow */
-        0 4px 10px rgba(0, 0, 0, 0.3), /* Stronger neutral shadow for depth */
-        inset 0 0 5px rgba(255, 255, 255, 0.3); /* Brighter inner glow */
-    border-color: #A0A3A6; /* Lighten the border without a purple hue */
-    transform: translateY(2px); /* Reduced sinking effect on hover */
-}
-
-.custom-button:active,
-.custom-button:focus {
-    box-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.4), /* More pronounced shadow */
-        inset 0 0 5px rgba(255, 255, 255, 0.2); /* Maintain inner glow */
-    transform: translateY(1px); /* Slightly deeper sink when active */
-}
+.custom-button:hover { background: rgba(255, 255, 255, .1); }
 
 /* ---------- Public site (Jinja templates): buttons & unit colors ---------- */
 /* Each unit section/card sets --unit (and --unit-text / --unit-light) inline from UNIT_THEME in backend/public.py */
@@ -138,3 +94,26 @@
 }
 details.plain > summary { list-style: none; }
 details.plain > summary::-webkit-details-marker { display: none; }
+.btn-primary:disabled, .btn-secondary:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* Whole site: dark slate background like the public pages */
+body { background: #344A53; color: #fff; }
+
+/* Public pages: links only for logged-in (.li-only) or logged-out (.lo-only) visitors.
+   base.html adds .logged-in to <html> before the page paints when a login token is saved. */
+html:not(.logged-in) .li-only { display: none !important; }
+html.logged-in .lo-only { display: none !important; }
+
+/* App panels and status colors */
+.panel { background: #2B3D45; border-radius: 1rem; }
+.chev { transition: transform .15s ease; }
+details[open] > summary .chev { transform: rotate(90deg); }
+details.plain > summary::marker { content: ''; }
+
+/* Form fields on the dark background */
+.field {
+  width: 100%; background: #2B3D45; color: #fff; border: 2px solid rgba(255,255,255,.15);
+  border-radius: .75rem; padding: .75rem 1rem; outline: none; transition: border-color .15s ease;
+}
+.field::placeholder { color: #9ca3af; }
+.field:focus { border-color: #FFC93C; }

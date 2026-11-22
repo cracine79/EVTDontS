@@ -7,7 +7,7 @@ import { clearUserChapters } from '../Slices/userChaptersSlice';
 import { clearUserResults } from '../Slices/resultsSlice';
 import { clearTopicProg } from '../Slices/topicProgSlice';
 import { clearTopics } from '../Slices/topicsSlice';
-const LogoutButton = ({ className = '' }) => {
+const LogoutButton = ({ className = '', icon = null, label = 'Logout' }) => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
@@ -28,7 +28,7 @@ const LogoutButton = ({ className = '' }) => {
   return (
     <>
 
-        <button type="button" className={className} onClick={handleLogout}>Logout</button>
+        <button type="button" className={className} onClick={handleLogout}>{icon}{label}</button>
    
     </>
   )

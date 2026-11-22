@@ -5,10 +5,9 @@
 {% block canonical %}{{ site_url }}/videos{% endblock %}
 {% block robots %}{% if q %}<meta name="robots" content="noindex, follow" />{% endif %}{% endblock %}
 
-{% block spa_redirect %}{% if not q %}{% with target="/app/video-library" %}{% include "_spa_redirect.html" %}{% endwith %}{% endif %}{% endblock %}
 
 {% macro video_card(c, unit) -%}
-  <a href="{{ url_for('public.video', slug=c.slug) }}"
+  <a href="{{ url_for('public.video', slug=c.slug) }}" data-chapter-id="{{ c.chapter.id }}"
      class="group block bg-[#344A53] rounded-2xl overflow-hidden transition hover:-translate-y-1 hover:ring-2 unit-ring"
      style="--unit: {{ unit.color }}; --unit-text: {{ unit.text }}; --unit-light: {{ unit.light }}">
     <div class="relative">
@@ -18,7 +17,7 @@
     <div class="p-4">
       <h3 class="font-bold leading-snug"><span class="text-gray-400 mr-1">{{ c.num }}</span>{{ c.title }}</h3>
       {% if c.teaser %}<p class="text-sm text-gray-300 mt-2">{{ c.teaser }}</p>{% endif %}
-      {% if c.quiz_count %}<p class="text-xs font-bold mt-3 unit-text"><i class="fa-solid fa-circle-check mr-1"></i>Practice quiz included</p>{% endif %}
+      {% if c.quiz_count %}<p class="text-xs font-bold mt-3 unit-text" data-quiz-line><i class="fa-solid fa-circle-check mr-1"></i>Practice quiz included</p>{% endif %}
     </div>
   </a>
 {%- endmacro %}
@@ -46,7 +45,9 @@
         <hr class="my-12 border-white/10">
       {% else %}
         {# ---------- WELCOME ---------- #}
-        <section class="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
+        {# Logged-in students: "pick up where you left off" (filled in by the script below) #}
+        <section id="continue" class="li-only hidden bg-[#2B3D45] rounded-3xl overflow-hidden border-t-8 unit-border grid sm:grid-cols-[16rem_minmax(0,1fr)] items-stretch"></section>
+        <section class="lo-only grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
           <img class="rounded-3xl shadow-2xl w-full" src="/app/he_chose_poorly.webp"
                alt="Cartoon: a knight guarding a shelf of economics VHS tapes says “He chose... poorly.”" width="1200" height="896" fetchpriority="high">
           <div>
@@ -93,6 +94,10 @@
             </div>
             <span class="text-sm font-semibold unit-text">{{ u.video_count }} video{{ '' if u.video_count == 1 else 's' }}{% if u.length %} · {{ u.length }}{% endif %}</span>
           </div>
+          <div class="li-only hidden mt-4 flex items-center gap-3" data-unit-progress>
+            <div class="flex-1 h-2.5 rounded-full bg-[#344A53] overflow-hidden"><div class="h-full rounded-full unit-bg" data-bar style="width:0"></div></div>
+            <span class="text-sm font-bold whitespace-nowrap" data-label></span>
+          </div>
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for c in u.cards %}{{ video_card(c, u) }}{% endfor %}
           </div>
@@ -102,3 +107,5 @@
   </div>
 </div>
 {% endblock %}
+
+{% block scripts %}{% include "_library_progress.html" %}{% endblock %}

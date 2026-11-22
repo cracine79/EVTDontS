@@ -1,218 +1,97 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
-import { openResultsModal } from "../Slices/modalSlice"
-import { ResultsModal } from "./ResultsModal"
+import { useEffect, useMemo } from "react"
 import { clearUserResults } from "../Slices/resultsSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
-import { useMemo, useEffect } from "react"
-import { masteryPercent } from "./masteryUtils"
+import { ScoreCard, TopicMovement, MissedQuestions, scoreOf } from "./ResultsParts"
+
+// How sharp the student is on a topic, by mastery score
+const ranking = (percent) => {
+    if (percent > 80) return 'Neo in the Matrix level clarity'
+    if (percent > 70) return 'A Werner Herzog documentary production value'
+    if (percent > 60) return 'An intern on their third cup of coffee level sharpness'
+    if (percent > 50) return 'The depth of the lyrics of an early 2000s boy band song'
+    return 'Michael Scott trying to declare bankruptcy level knowledge'
+}
+
+const GOOD = [
+    "Well, look at you, making economic principles bow before your mighty intellect! Somewhere, a supply-and-demand curve just shed a proud tear.",
+    "You crushed that quiz like a monopolist crushing competition!",
+    "Some people balance budgets; you just balanced right on the line between impressive and economically intimidating!",
+    "Boom! You absolutely Ricardianly owned that quiz. Comparative advantage? Clearly, it's you vs. the rest of us mere mortals.",
+    "That was some fine-tuned economic genius. You’re practically a walking case study on human capital!",
+]
+const MEDIUM = [
+    "Not exactly breaking economic records, but hey, there were some correct answers in there!",
+    "Not bad, not great. Kind of like a lukewarm cup of coffee. But, hey, caffeine is caffeine!",
+    "In the economic cycle of quiz performance, consider this a gentle recession. Not great, not the end of the world either!",
+    "Not too hot, not too cold. Call it the Goldilocks of quiz scores!",
+    "I wouldn't brag to Dave Grohl about that score, but I'd probably tell my mom.",
+]
+const BAD = [
+    "Oof. That score tanked harder than Blockbuster stock in 2008.",
+    "Alright, maybe not quite booming, but still very much in the expansion territory for effort!",
+    "It’s a marathon, not a sprint. Just think of this score as a warm-up lap!",
+    "Think of it as an investment in learning. Sometimes the market just dips a little.",
+    "Even the best economists hit a rough patch! You’ve got a strong foundation for next time.",
+]
 
 export const ReviewQuizResults = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const results = useSelector(state=>(state.results))
-    const resultsObj = Object.values(results)
     const location = useLocation()
-    const topics = location.state?.topics
+    const results = useSelector(state => state.results)
+    const questions = useSelector(state => state.questions)
+    const topics = location.state?.topics || []
     const type = location.state?.type
-    const topicProg = useSelector(state=>state.topicProg)
-    const topicProgObj = Object.values(topicProg)
-    const mergedTopics = useMemo(() => {
-        return topics.map(topic => {
-            const dictEntry = topicProg[topic.topic_id];
-            return { ...topic, ...dictEntry };
-        });
-    }, [topics, topicProg]);
+    const score = scoreOf(results)
 
-    const names = topics.map(topic => topic.topic_name)
+    useEffect(() => { window.scrollTo(0, 0) }, [])
 
-    const formattedNames = names.length > 1 
-    ? names.slice(0, -1).join (', ') + ' and ' + names[names.length -1]    
-    : names[0]
+    const praise = useMemo(() => {
+        const pick = (list) => list[Math.floor(Math.random() * list.length)]
+        if (score.percent > 65) return pick(GOOD)
+        if (score.percent > 49) return pick(MEDIUM)
+        return pick(BAD)
+    }, [score.percent])
 
-    let numCorrect = 0
-    resultsObj.forEach((result)=>{
-        if (result.isCorrect == true){
-            numCorrect += 1
-        }
-    })
-    const percentageScore = Math.floor((numCorrect/resultsObj.length)*100)
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
-    const showResults = () => {
-        dispatch(openResultsModal())
-    }
-
-    const goHome = () => {
+    const clear = () => {
         dispatch(clearUserResults())
         dispatch(clearQuestions())
-        navigate('/userhome')
     }
+    const goHome = () => { clear(); navigate('/userhome') }
+    const goAgain = () => { clear(); navigate('/quiz', { state: { chapter: 1, type: 'topicQuiz', topics } }) }
+    const gauntletAgain = () => { clear(); navigate('/quiz', { state: { chapter: 1, type: 'shortWeakspotQuiz', topics: [] } }) }
 
-    const goAgain = () => {
-        dispatch(clearUserResults())
-        dispatch(clearQuestions())
-        navigate('/quiz', {state: {chapter: 1, type: 'topicQuiz', topics: topics}})
+    const isGauntlet = type === 'shortWeakspotQuiz'
+    const topicIds = topics.length
+        ? topics.map((t) => t.topic_id)
+        : Object.values(results).map((r) => questions[r.questionId]?.topic_id).filter(Boolean)
+    const theme = isGauntlet ? { color: '#FF8A3D', light: '#FF8A3D' } : { color: '#9B6BFF', light: '#B89AFF', text: '#fff' }
 
-    }
- 
-    const ranking = (percent) => {
-   
-        if(percent > 80){
-            return(
-                <div className='text-green-700'>
-             Neo in the Matrix Level Clarity
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <div className="max-w-4xl mx-auto">
+                <ScoreCard unit={theme} eyebrow={isGauntlet ? 'The Gauntlet · results' : 'Topic quiz results'}
+                    title={isGauntlet ? 'You vs. your weak spots' : topics.map((t) => t.topic_name).join(', ')} score={score}>
+                    <p>{praise}</p>
+                </ScoreCard>
+
+                <div className="mt-6 flex flex-wrap gap-3 justify-center sm:justify-start">
+                    {type === 'topicQuiz'
+                        ? <button type="button" className="btn-primary px-7 py-3" onClick={goAgain}><i className="fa-solid fa-rotate-right"></i> Take another one</button>
+                        : <button type="button" className="btn-primary px-7 py-3" onClick={gauntletAgain}><i className="fa-solid fa-bolt"></i> Run the Gauntlet again</button>}
+                    <button type="button" className="btn-secondary px-6 py-2.5" onClick={() => { clear(); navigate('/quizgenerator') }}>
+                        <i className="fa-solid fa-dice"></i> Build a different quiz
+                    </button>
+                    <button type="button" className="btn-secondary px-6 py-2.5" onClick={goHome}><i className="fa-solid fa-house"></i> Back to my dashboard</button>
+                </div>
+
+                <TopicMovement topicIds={topicIds} describe={(t, pct) => (
+                    <>Faced {t.questions_asked ?? 0} question{t.questions_asked === 1 ? '' : 's'}, {t.answered_correctly ?? 0} right. Your understanding is equivalent to: <b>{ranking(pct)}</b>.</>
+                )} />
+                <MissedQuestions results={results} />
             </div>
-            )
-        } else if (percent > 70) {
-            return (
-                <div className='text-lime-600'>
-                A Werner Herzog Documentary Production Value
-                </div>)
-        } else if (percent > 60) {
-            return (
-                <div className='text-amber-500'>
-                     An Intern on their Third Cup of Coffee Level Sharpness
-                </div>
-               )
-        } else if (percent > 50) {
-            return (
-                <div className='text-pink-700'>
-                The depth of the lyrics of an early 2000s Boy Band Song
-                </div>)
-        } else {
-            return (<div className='text-red-500'>Michael Scott Trying to Declare Bankruptcy Level Knowledge
-            </div>)
-        }
-    }
-
-    const getQuestionsAsked = (topicName) => {
-        const topic = topicProgObj.find(topic => topic.topic_name == topicName)
-        return topic.questions_asked
-    }
-
-    const getQuestionsAnswered = (topicName) => {
-        const topic = topicProgObj.find(topic => topic.topic_name == topicName)
-        return topic.answered_correctly
-    }
-
-    const topicMastery = () => {
-        return(
-            <div className='flex sm:flex-wrap sm:flex-row flex-col justify-center sm:mr-8 mt-6'>
-                {mergedTopics.map((topic=>{
-                    return(
-                        <div key={topic.id} className=' sm:basis-1/5 mx-6 my-2 border-2 rounded-lg border-slate-300'>  
-                            <div className='mt-4 mx-4'>
-                                <div className='mt-2 font-bold text-center text-xl'>
-                                    Topic: {topic.topic_name}
-                                </div>
-                                <div>
-                                    You have faced down&nbsp;<span className='font-bold text-lg'>
-                                        {topic.questions_asked}
-                                    </span>
-                                    &nbsp;questions on this topic and answered&nbsp;
-                                    <span className='font-bold text-lg'>{topic.answered_correctly} </span>correctly.
-                                </div>
-                                <div className='mt-2'>
-                                    Your mastery score is <span className='font-bold'>{masteryPercent(topic)}%</span> (your most recent answers count the most).
-                                    Your current level of understanding of {topic.topic_name} is equivalent to:
-                                </div>
-                                <div className='font-bold mb-4'>
-                                    {ranking(masteryPercent(topic))}
-                                </div>
-
-                            </div>
-                        
-                        </div>
-                    )
-                }))}
-            </div>
-        )
-
-    }
-    const goodSentence = [
-        "Well, look at you, making economic principles bow before your mighty intellect! Somewhere, a supply-and-demand curve just shed a proud tear.",
-        "You crushed that quiz like a monopolist crushing competition!",
-        "Some people balance budgets; you just balanced right on the line between impressive and economically intimidating!",
-        "Boom! You absolutely Ricardianly owned that quiz. Comparative advantage? Clearly, it's you vs. the rest of us mere mortals.",
-        "That was some fine-tuned economic genius. You’re practically a walking case study on human capital!"
-    ]
-
-    const mediumSentence = [
-        "Not exactly breaking economic records, but hey, there were some correct answers in there!",
-        "Not bad, not great—kind of like a lukewarm cup of coffee. But, hey, caffeine is caffeine!",
-        "In the economic cycle of quiz performance, consider this a gentle recession. Not great, not the end of the world either!",
-        "Not too hot, not too cold—call it the Goldilocks of quiz scores!",
-        "I wouldn't brag to Dave Grohl about that score, but I'd probably tell my mom"
-    ]
-
-    const badSentence = [
-        "Oof. That score tanked harder than Blockbuster stock in 2008.",
-        "Alright, maybe not quite booming, but still very much in the expansion territory for effort!",
-        "It’s a marathon, not a sprint—just think of this score as a warm-up lap!",
-        "Think of it as an investment in learning—sometimes the market just dips a little.",
-        "Even the best economists hit a rough patch! You’ve got a strong foundation for next time."
-    ]
-    const scorePraise = () => {
-        const randomNumber = Math.floor(Math.random() * 5);
-        if(percentageScore > 65){
-            return goodSentence[randomNumber] 
-        } else if (percentageScore > 49){
-            return mediumSentence[randomNumber] 
-        } else {
-            return badSentence[randomNumber]
-        }
-    }
-    return(
-        <>
-
-            <div className='w-screen flex justify-center min-h-[calc(100vh-100px)]'>
-            <div className="sm:mt-40 mt-28 mb-24 w-11/12 h-auto border-black border-2 rounded-lg shadow-2xl">
-                <div className='flex flex-col items-center justify-center '>
-                <div className='sm:mt-10 mt-4 w-full'>
-
-                <div >
-                    <div className='sm:text-3xl text-xl text-center px-4'>
-                    Results for {type=="review_quiz" ? "Topic Review": "Gauntlet"} Quiz on: <span className='text-blue'>{formattedNames}</span>
-                    </div>
-                <div className='flex'>
-                    <div className='text-lg sm:mx-10 mx-2 sm:mt-10 mt-4'>
-                        You answered {numCorrect} out of a total {resultsObj.length} questions correctly, for a quiz score of {percentageScore}%.  &nbsp;
-                        {scorePraise()}
-                    </div>
-                </div>
-                <div className="text-2xl text-center sm:ml-10 mx-2 sm: mt-10">
-                    Topic Mastery Progress from This Quiz:
-                </div>
-                <div>
-                    {topicMastery()}
-                </div>
-                </div>
-                </div>
-                <div className='flex flex-row justify-center my-10 w-full'>
-                    <button className='
-                            button' 
-                            onClick={showResults }>Show Me What I Missed</button>
-                    {type == 'topicQuiz' &&
-                    <button className='
-                    button mx-28' 
-                    onClick={goAgain }>Take Another One</button>
-                    }
-
-                        <button className='
-                       button' 
-                            onClick={goHome}
-                           >Back to Dashboard</button>
-                            </div>
-                </div>
-            </div>
-            
-         
-            </div>
-     
-            <ResultsModal />
-       
-        </>
+        </div>
     )
 }

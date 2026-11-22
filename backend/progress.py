@@ -251,7 +251,10 @@ class QuizProgress(Resource):
         if progress:
             progress.quiz_grade = quiz_grade
         else:
-            progress = UserChapterProgress(user_id=user_id, chapter_id=chapter_id)
+            # First record for this chapter: save the grade too (it used to be dropped)
+            progress = UserChapterProgress(user_id=user_id, chapter_id=chapter_id,
+                                           video_completed=True, quiz_grade=quiz_grade)
+            db.session.add(progress)
         
         db.session.commit()
 
@@ -321,3 +324,32 @@ class ChapterProgress(Resource):
    
 
         
+
+
+@progress_ns.route('/summary')
+class ProgressSummary(Resource):
+    @jwt_required()
+    def get(self):
+        """Everything the public video pages need to show a logged-in student's progress."""
+        user = User.query.filter_by(username=get_jwt_identity()).first()
+        if not user:
+            return {"message": "User not found"}, 404
+
+        chapters = {
+            p.chapter_id: {"video_completed": bool(p.video_completed), "quiz_grade": p.quiz_grade}
+            for p in UserChapterProgress.query.filter_by(user_id=user.id).all()
+        }
+        topics = {}
+        for tp in UserTopicProgress.query.filter_by(user_id=user.id).all():
+            topics[tp.topic_id] = {"questions_asked": tp.questions_asked,
+                                   "answered_correctly": tp.answered_correctly}
+        add_mastery(topics, user.id)
+
+        plan = sorted(user.chapters, key=lambda c: c.order)
+        return jsonify({
+            "username": user.username,
+            "current_chapter_id": user.current_chapter.id if user.current_chapter else None,
+            "plan_chapter_ids": [c.id for c in plan],
+            "chapters": chapters,
+            "topics": topics,
+        })

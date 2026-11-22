@@ -7,20 +7,18 @@ import { useEffect } from 'react';
 import { restoreCSRF } from './csrf';
 import './index.css'
 import { AppRoot, ProtectedRoute } from './Components/routes';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
 import { NavBar } from './Components/NavBar';
 import { restoreUser } from './Slices/userActions';
 import { useDispatch } from 'react-redux';
 import { UserHome } from './Components/UserHome';
 import { Footer } from './Components/Footer';
-import { Video } from './Components/Video';
+import { LegacyVideoRedirect } from './Components/routes';
 import { Quiz } from './Components/Quiz';
 import { QuizResults } from './Components/QuizResults';
 import { GetStarted } from './Components/GetStarted';
 import { ReviewQuizResults } from './Components/ReviewQuizResults';
-import { VideoIndex } from './Components/VideoIndex';
 import { QuizGenerator } from './Components/QuizGenerator';
-import { Whoops } from './Components/Whoops';
 import { UpdateUnits } from './Components/UpdateUnits';
 import { FinishPage } from './Components/FinishPage';
 import { FinishUnit } from './Components/FinishedUnit';
@@ -30,22 +28,19 @@ import { ResetPassword } from './Components/ResetPassword';
 import { PrivacyPolicy } from './Components/PrivacyPolicy';
 import { TermsOfService } from './Components/TermsOfService';
 import { AboutUs } from './Components/AboutUs';
-import { SearchResults } from './Components/SearchResults';
 import { ContactUs } from './Components/ContactUs';
 import { MessageSent } from './Components/MessageSent';
 import { UserlessResults } from './Components/UserlessResults';
-import { VideoIndexVideo } from './Components/VideoIndexVideo';
-import { VideoIndexHome } from './Components/VideoIndexHome';
 import { FreeQuiz } from './Components/FreeQuiz';
 import { AuthGate } from './Components/AuthGate';
 
 const Layout = () => {
   return(
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen bg-[#344A53] text-white">
       <NavBar />
-      <div className='flex flex-col'>
+      <main className='flex flex-col flex-1'>
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </div>
   )
@@ -66,10 +61,11 @@ const router = createBrowserRouter([
         path:"/userhome",
         element: <ProtectedRoute component={UserHome} />
       },
+      // The app's old video pages: everyone now uses the public (server-rendered) video pages
       {
         path:"/video/:chapterId",
-        element: <Video />
-      }, 
+        element: <LegacyVideoRedirect />
+      },
       {
         path:"/quiz",
         element: <Quiz />
@@ -86,23 +82,9 @@ const router = createBrowserRouter([
         path:"/getstarted",
         element: <ProtectedRoute component={GetStarted} />
       },
-      // {
-      //   path:'/video-library',
-      //   element: <VideoIndex />,
-      // },
       {
-        path:"/video-library",
-        element:<VideoIndex />,
-        children: [
-          {
-            index:true, 
-            element: <VideoIndexHome />
-          },
-          {
-            path: ":slug",
-            element: <VideoIndexVideo />
-          }
-        ]
+        path:"/video-library/*",
+        element: <LegacyVideoRedirect />
       },
       {
         path:"/freequiz/:chapterslug",
@@ -112,10 +94,11 @@ const router = createBrowserRouter([
         path:'/quizgenerator',
         element: <ProtectedRoute component={QuizGenerator} />
       },
+      // Old error page: login/signup problems now show inside the login box
       {
         path: '/whoops',
-        element: <Whoops />
-      }, 
+        element: <Navigate to="/login" replace />
+      },
       {
         path: '/updateunits',
         element: <ProtectedRoute component={UpdateUnits} />
@@ -158,7 +141,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/searchresults',
-        element: <SearchResults />
+        element: <LegacyVideoRedirect />
       },
       {
         path:'/contactus',

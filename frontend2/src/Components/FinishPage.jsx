@@ -1,277 +1,70 @@
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectUserChapters } from "../Slices/selectors"
-import { useState } from "react"
+import { useEffect } from "react"
 import { masteryPercent } from "./masteryUtils"
+import { Progress, useStudyPlan } from "./Progress"
 
+// The student finished every chapter in their study plan
 export const FinishPage = () => {
     const navigate = useNavigate()
-    const userProg = useSelector((state)=>state.topicProg)
-    const userChapters = useSelector((state)=>state.userChapters)
-    const topics = useSelector((state)=>state.topics)
-    const bookChapters = useSelector((state)=>state.chapters)
-    const units = useSelector((state)=>state.units)
-    const userName = useSelector((state)=>state.user.username)
+    const topicProg = useSelector((state) => state.topicProg)
+    const userName = useSelector((state) => state.user.username) || ''
+    const plan = useStudyPlan()
 
-    const unitsObj = Object.values(units)
-    const topicProgObj = Object.values(userProg)
-    // const userChaptersObj = Object.values(userChapters)
-    const unitsObjWithIds = Object.keys(units).map((key)=>({
-        id: key,
-        name: units[key].name
-    }))
-    
-    const thisUnit = (unit) => {
-        const output = (unitsObjWithIds.filter((objUnit)=>{
-            return objUnit.name === unit
-        }))
-        return output[0]
-    }
+    useEffect(() => { window.scrollTo(0, 0) }, [])
 
-    // Totals for the "In total you faced down..." message
-    let asked = 0
-    let answered = 0
-    topicProgObj.forEach((topicProg)=>{
-        asked += topicProg.questions_asked
-        answered += topicProg.answered_correctly
-    })
-    // Overall level = average mastery across the topics the student has practiced
-    const practiced = topicProgObj.filter((topicProg)=>topicProg.questions_asked > 0)
-    const averagePercentCorrect = practiced.length
-        ? Math.floor(practiced.reduce((sum, topicProg)=>sum + masteryPercent(topicProg), 0) / practiced.length)
-        : 0
-    // const userChaptersComplete = Object.keys(userChapters).reduce((acc, key)=>{
-    //     if(bookChapters[key]){
-    //         acc[key] = {
-    //             ...userChapters[key],
-    //             ...bookChapters[key]
-    //         }
-    //     }
-    // })
+    const topicList = Object.values(topicProg)
+    const asked = topicList.reduce((sum, t) => sum + (t.questions_asked || 0), 0)
+    const answered = topicList.reduce((sum, t) => sum + (t.answered_correctly || 0), 0)
+    const practiced = topicList.filter((t) => t.questions_asked > 0)
+    const average = practiced.length ? Math.floor(practiced.reduce((sum, t) => sum + masteryPercent(t), 0) / practiced.length) : 0
+    const videos = plan.reduce((sum, u) => sum + u.chapters.length, 0)
 
-    const userTopicProgComplete = Object.keys(userProg).reduce((acc, key) => {
-        if(topics[key]) {
-            acc[key] = {
-                ...userProg[key],
-                ...topics[key]
-            }
-        }
-        return acc;
-    }, {})
+    let level = 'Not yet started'
+    if (average > 90) level = 'Economic Overlord'
+    else if (average > 80) level = 'Econo-ninja'
+    else if (average > 60) level = 'Curve Whisperer'
+    else if (average > 50) level = 'Sort of Chart Challenged'
+    else if (average > 0) level = 'Economic Noob'
 
-    const userTopicProgObj = Object.values(userTopicProgComplete)
+    const stat = (big, text) => (
+        <div className="panel rounded-2xl p-5">
+            <p className="text-3xl font-black text-[#FFC93C]">{big}</p>
+            <p className="mt-1 text-gray-200">{text}</p>
+        </div>
+    )
 
-
-    const userChaptersComplete = Object.keys(userChapters).reduce((acc, key) => {
-        if(bookChapters[key]) {
-            acc[key] = {
-                ...userChapters[key],
-                ...bookChapters[key],
-                'chapter_id': key
-            }
-        }
-        return acc;
-    }, {})
-
-    const chaptersInitial = {}
-    const userChaptersObj = Object.values(userChaptersComplete)
-    userChaptersObj.forEach((chapter)=>{
-        chaptersInitial[chapter.chapter_id]=false
-    })
-
-    const [chaptersOpen, setChaptersOpen] = useState(chaptersInitial)
-
-
-    let reply=""
-    if(averagePercentCorrect > 90){
-        reply = 'Economic Overlord'
-    } else if (averagePercentCorrect > 80){
-        reply = 'Econo-ninja'
-    } else if (averagePercentCorrect > 60) {
-        reply = 'Curve Whisperer'
-    } else if (averagePercentCorrect > 50) {
-        reply = 'Sort of Chart Challenged'
-    } else if (averagePercentCorrect > 0) {
-        reply = 'Economic Noob'
-    } else {
-        reply = 'Not yet started'
-    }
-
-    const chapterRanking = (percentCorrect) => {
-        if(percentCorrect >= 80){
-            return(<>The Bomb</>)
-        } else if (percentCorrect >= 70){
-            return(<>Big Cheese</>)
-        } else if (percentCorrect >= 60){
-            return(<>Middle Management</>)
-        } else if (percentCorrect >= 50){
-            return(<>Winging It</>)
-        } else {
-            return(<>Dumpster Fire</>)
-        }
-    }
-
-    const topicRanking = (percentCorrect) => {
-        if(percentCorrect >= 80){
-            return(<>Fiscal Samurai</>)
-        } else if (percentCorrect >= 70){
-            return(<>Keynesian Conquerer</>)
-        } else if (percentCorrect >= 60){
-            return(<>Monetarist Maverick</>)
-        } else if (percentCorrect >= 50){
-            return(<>Supply-Side Struggling</>)
-        } else {
-            return(<>Deficit Disaster</>)
-        }
-    }
-    const openChapters = (chapter_id) =>{
-        const isOpen = chaptersOpen[chapter_id]
-
-        setChaptersOpen((prev)=>{
-            return(
-                {
-                    ...prev,
-                    [chapter_id]: !isOpen
-                }
-            )
-     
-        })
-    }
-
-    const chaptersProg= (unit) => {
-        const currentUnit = thisUnit(unit)
-        const unitChapters = userChaptersObj.filter((chapter)=> chapter.unit_id==parseInt(currentUnit.id))
-        
-        return(
-            unitChapters.map((chapter)=>{
-      
-                const chapterTopicsForScore = userTopicProgObj.filter((topic)=>topic.chapter_id==(chapter.chapter_id))
-                let chapterQuestionsFaced = 0
-                let chapterQuestionsAnswered = 0
-
-                chapterTopicsForScore.forEach((topic)=>{
-                    chapterQuestionsFaced += topic.questions_asked
-                    chapterQuestionsAnswered += topic.answered_correctly
-                })
-
-                
-                return(
-                    <div className='ml-2 mt-2' onClick={()=>openChapters(chapter.chapter_id)}>
-
-                     
-                        <div className='flex justify-between'>
-                            <div className='text-center w-1/6 font-bold'>{chapter.name}</div>
-                            <div  className='text-center w-1/6'>{chapter.quiz_grade}</div>
-                            <div className='text-center w-1/6'>{chapterQuestionsFaced}</div>
-                            <div className='text-center w-1/6'>{chapterQuestionsAnswered}</div>
-                            <div className='text-center w-1/6'>{chapterRanking((chapterQuestionsAnswered/chapterQuestionsFaced)*100)}</div>
-                        </div> 
-                      
-                        {chaptersOpen[chapter.chapter_id] && 
-                            <>  <div className='w-full bg-lime-400 text-sm font-bold flex justify-around'>
-                                    <div className='w-1/5 text-center px-2 '>Sub-Topic</div> 
-                                    <div className='w-1/5 text-center px-2 '>Topic Questions Asked</div>
-                                    <div className='w-1/5 text-center px-2 '>Answered Correctly</div>
-                                    <div className='w-1/5 text-center px-2 '>Topic Achievement</div>
-                                 </div>
-                                <div>
-                                    {topicsBreakdown(chapter.chapter_id)}
-                                </div>
-                            </>                     
-                        }
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <div className="max-w-5xl mx-auto">
+                <section className="panel rounded-3xl p-6 sm:p-10 border-t-8 border-[#FFC93C]">
+                    <p className="uppercase tracking-widest text-sm font-bold text-[#FFC93C]">Study plan complete 🎉</p>
+                    <h1 className="mt-2 text-3xl sm:text-5xl font-extrabold">Congratulations, {userName ? userName[0].toUpperCase() + userName.slice(1) : 'legend'}!!</h1>
+                    <div className="mt-4 space-y-3 text-lg text-gray-200">
+                        <p>[Insert preferred expletive] yeah!! You've officially crushed all the chapters you enrolled in! You watched all the videos, aced the quizzes, and now, my friend, you’re the economist everyone wishes they could hang out with at parties (…just go with it).</p>
+                        <p>But wait, there’s more! If you’re craving more economic enlightenment (or looking for a distraction from another re-watch of <em>The Office</em>), there are still chapters you haven’t signed up for. Add new ones, or do a power rewatch of your favorites.</p>
+                        <p className="text-gray-300">And hey, if you’ve secretly enjoyed the thrilling world of supply and demand, tell a friend! They’ll thank you later... maybe.</p>
                     </div>
-                )
-            })
-        )
-    }
-
-    const topicsBreakdown = (chapterId) => {
-        const chapterTopics = userTopicProgObj.filter((topic)=>topic.chapter_id==parseInt(chapterId))
-
-        return(
-            chapterTopics.map((topic)=>{
-                return(
-                    <div className='w-full'>
-
-                    <div className='w-full flex justify-around text-sm'>
-                        <div className='w-1/5 text-center px-2 '>{topic.topic_name}</div>
-                        <div className='w-1/5 text-center px-2 '>{topic.questions_asked}</div>
-                        <div className='w-1/5 text-center px-2 '>{topic.answered_correctly}</div>
-                        <div className='w-1/5 text-center px-2 '>{topicRanking(masteryPercent(topic))}</div>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                        <button type="button" className="btn-primary px-6 py-2.5" onClick={() => navigate('/updateunits')}><i className="fa-solid fa-plus"></i> Add more units</button>
+                        <button type="button" className="btn-secondary px-6 py-2" onClick={() => navigate('/userhome')}><i className="fa-solid fa-house"></i> Back to my dashboard</button>
                     </div>
+                </section>
+
+                <h2 className="mt-10 text-2xl sm:text-3xl font-bold">Econ Legends Scorecard <span className="text-gray-400 font-normal">(dun dun dunnnnnnn!)</span></h2>
+                <div className="mt-4 grid sm:grid-cols-3 gap-4">
+                    {stat(videos, `video${videos === 1 ? '' : 's'} suffered through, covering ${topicList.length} topic${topicList.length === 1 ? '' : 's'}. Whether or not they sucked is up to you!`)}
+                    {stat(`${answered} / ${asked}`, "questions faced down and vanquished. You're a legend.")}
+                    {stat(`${average}%`, 'average mastery across every topic you practiced.')}
                 </div>
-                )
-            })
-        )
-    }
+                <p className="mt-4 panel rounded-2xl p-5 text-xl">
+                    Given your performance, stats, and overall grittiness, you are officially awarded the level of <b className="text-[#FFC93C]">{level}</b>.
+                </p>
 
-    return(<div className='mt-36 w-screen flex justify-center'>
-        <div className='w-4/5 mb-28 shadow-2xl rounded-3xl flex justify-cente flex-col items-center'>
-            
-            <p className='mt-16 text-3xl mb-4'>CONGRATULATIONS {userName}!!</p>
-            <p className='my-2 px-4'>[Insert preferred expletive] yeah!!  You've officially crushed all the chapters you have enrolled in! 🎉 You watched all the videos, aced the quizzes, and now, my friend, you’re the economist everyone wishes they could hang out with at parties (…just go with it).</p>
-            <p className='my-2 px-4'>But wait, there’s more! If you’re craving more economic enlightenment (or looking for a distraction from another re-watch of <em>The Office</em>), there are still chapters you haven’t signed up for. Go ahead—dive back in, add those new ones, or do a power rewatch of your favorites.</p>
-            <p className='my-2 px-4'>And now, the moment the econo-nerd inside of you has been waiting for: your Econ Legends Scorecard below! Yes, it’s like your very own stats in a video game—except instead of maxing out agility or charm, you've leveled up in things like Price Elasticity and Marginal Cost. Take a look, bask in the glory of your economic dominance, and feel free to screenshot and send it to that one friend who still thinks ‘opportunity cost’ is a new cryptocurrency.</p>
-            <p className='my-2 px-4'>And hey, if you’ve secretly enjoyed the thrilling world of supply and demand, don’t keep it to yourself. Tell a friend! They’ll thank you later...maybe. Or they'll pretend they didn't see your text. Either way, you are the econ star we all need. Shine on!</p>
-       
-            <p className='mt-8 text-2xl'> Econ Legends Scorecard (Dun dun dunnnnnnn!)</p>
-            <div className='flex justify-around w-100 mt-6 px-6'>
-                <div className='w-1/4 rounded-xl border-2 p-2 border-black h-100'>All together you have suffered through <span className='font-bold text-xl'>{userChaptersObj.length}  {userChaptersObj.length == 1 ? <>video</> : <>videos</>}</span>  covering <span className='font-bold text-xl'>{topicProgObj.length} {topicProgObj.length == 1 ? <>topic</> : <>topics</>}. </span>Whether or not they sucked is up to you!</div>
-                <div className='w-1/4 rounded-xl border-2 p-2 border-black h-100'>In total you faced down <span className='font-bold text-xl'>{asked} questions</span> and you proved your skills by answering <span className='font-bold text-xl'>{answered} correctly. </span>You're a legend. </div>
-                <div className='w-1/4 rounded-xl border-2 p-2 border-black h-100'>Of all of the nasty questions that we threw at you, you answered a whopping <span className='font-bold text-xl'>{averagePercentCorrect}% correctly</span></div>
-               
-            </div>
-            <div className='w-2/3 mt-8 text-2xl rounded-xl border-2 p-2 border-black h-100'>Given your performance, stats, and overall grittiness, you are officially awarded the level of <span className='font-bold text-2xl'>{reply}</span></div>
-            
-            <div className='mt-4 text-2xl'>Topic Mastery Details</div>
-            <div className='w-full flex justify-center'>
-                {unitsObj.map((unit)=>{
-                    return(
-                        <div className='border-black border-2 rounded-xl p-4 w-5/6'>
-                        <div className='text-xl'key='unit.id'>{unit} </div>
-                        <div className='flex justify-between bg-green-100'>
-                            <div className='text-center w-1/6 font-bold text-xl'>Chapter Name</div>
-                            <div className='text-center w-1/6'>Chapter Quiz Score</div>
-                            <div className='text-center w-1/6'>Total Questions Faced</div>
-                            <div className='text-center w-1/6'>Questions  Vanquished</div>
-                            <div className='text-center w-1/6'>Chapter Ranking</div>
-                        </div>
-                        {chaptersProg(unit)}
-                        </div>
-                    )
-                })}
-                
-            </div>
-                <div className='my-12 flex justify-center w-full'>
-                    <button className='
-                            border-black
-                            w-1/6 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer
-                            mr-16'
-                            onClick={()=>(navigate('userhome'))}>Back to User Dashboard</button>
-                    <button className='
-                             ml-16
-                            border-black
-                            w-1/6 
-                            border-2 
-                            flex 
-                            justify-center 
-                            items-center
-                            rounded-lg
-                            bg-stone-300
-                            hover:bg-slate-500
-                            font-medium
-                            hover:cursor-pointer'
-                            onClick = {()=>(navigate('/'))}>Add More Units</button>
+                <div className="mt-10">
+                    <Progress />
                 </div>
             </div>
-    </div>)
+        </div>
+    )
 }

@@ -86,33 +86,26 @@ export const ResetPassword = () => {
         }
     }
 
-    if (!validToken) return <p className="mt-36">Validating token...</p>
-    
-    return (
-        <div className='mt-36 flex items-center  flex-col w-100 h-screen -mb-60'>
-            <div className='sm:w-1/2 flex flex-col items-center shadow-2xl rounded-lg sm:mt-16'>
-                {
-                    !resetSuccessful &&<>
-                <p className='text-2xl mt-10'>Password Reset</p>
-                <p className='my-6 mx-6'>Enter a new password below to reset and continue on your Econo-quest</p>
-                <form className='flex flex-col items-center w-3/4' onSubmit = {submitReset}>
-                    <input type="password"  onChange = {(e)=>setPassword1(e.target.value)} className='text-center text-lg my-4 border-2 rounded-md w-full border-black border-solid ' placeholder="New Password" />
-                    <input type="password" onChange = {(e)=>setPassword2(e.target.value)} className='text-center  text-lg my-4 border-2 rounded-md w-full border-black border-solid ' placeholder="Confirm Password" />
-                    <button type="submit" className='my-4 button py-2'>Reset Password</button>
-                    {errorMessage &&
-                        <div className='mb-2 text-sm text-red-400'>{errorMessage}</div>
-                    }
-                </form>
-                    </>
-                }
-                {
-                    resetSuccessful && <>
-                        <p className='mt-8'>You successfully reset your password.</p>
-                        <button className='my-8' onClick={()=>dispatch(openLoginModal())}>Log In</button>
-                    </>
-                }
-            </div>
-    </div>
-)
-}
+    if (!validToken) return <p className="pt-36 pb-32 text-center text-gray-300">Checking your reset link…</p>
 
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <section className="max-w-xl mx-auto panel rounded-3xl p-6 sm:p-10 border-t-8 border-[#7fd3e6]">
+                {!resetSuccessful ? <>
+                    <h1 className="text-3xl font-extrabold">Pick a new password</h1>
+                    <p className="mt-3 text-gray-200">Enter a new password below to reset it and continue on your Econo-quest.</p>
+                    <form className="mt-6 space-y-4" onSubmit={submitReset}>
+                        <input type="password" autoComplete="new-password" onChange={(e) => setPassword1(e.target.value)} className="field" placeholder="New password (8+ characters)" />
+                        <input type="password" autoComplete="new-password" onChange={(e) => setPassword2(e.target.value)} className="field" placeholder="Type it again" />
+                        {errorMessage && <p className="font-bold text-[#FF6FAE]" role="alert">{errorMessage}</p>}
+                        <button type="submit" className="btn-primary px-7 py-3">Reset my password</button>
+                    </form>
+                </> : <>
+                    <h1 className="text-3xl font-extrabold"><i className="fa-solid fa-circle-check text-[#C6E83A] mr-2"></i>Password reset</h1>
+                    <p className="mt-3 text-gray-200">You're all set. Log in with your new password.</p>
+                    <button type="button" className="btn-primary px-7 py-3 mt-6" onClick={() => dispatch(openLoginModal())}>Log in</button>
+                </>}
+            </section>
+        </div>
+    )
+}

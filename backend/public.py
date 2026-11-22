@@ -183,6 +183,27 @@ def chapter_card(ch, counts=None):
     }
 
 
+def chapter_api_info(ch):
+    """A study-plan chapter as the app (SPA) sees it: links to the public video page, thumbnails, durations.
+    in_plan tells it apart from chapters the app loads for other reasons (e.g. a free quiz)."""
+    return {
+        'in_plan': True,
+        'name': ch.name,
+        'unit_id': ch.unit_id,
+        'video_url': ch.video_url,
+        'slug': ch.slug,
+        'order': ch.order,
+        'yt': youtube_id(ch.video_url),
+        'duration': mmss(ch.video_duration_seconds),
+    }
+
+
+def unit_api_info(unit):
+    """Unit number and colors for the app, matching the public pages."""
+    number = unit_number(unit)
+    return {'number': number, 'title': unit_title(unit.name), **theme(number)}
+
+
 def library():
     """Units in display order, each with its theme and chapter cards; includes coming-soon units."""
     counts = quiz_counts()
@@ -344,6 +365,7 @@ def video(slug):
         transcript_paragraphs=transcript_paragraphs,
         description=description,
         short_name=current['title'],
+        chapter_topics=QuestionTopic.query.filter_by(chapter_id=chapter.id).order_by(QuestionTopic.id).all(),
     )
 
 
@@ -389,6 +411,16 @@ def spa_root():
 @public_bp.route('/app/')
 @public_bp.route('/app/<path:path>')
 def spa(path=''):
+    # The app's old video pages: everyone now uses the public library and video pages
+    first, _, rest = path.partition('/')
+    if first == 'video-library':
+        slug = rest.strip('/')
+        return redirect(url_for('public.video', slug=SLUG_REDIRECTS.get(slug, slug)) if slug else url_for('public.videos'))
+    if first == 'video' and rest.isdigit():
+        ch = db.session.get(Chapter, int(rest))
+        return redirect(url_for('public.video', slug=ch.slug) if ch and ch.slug else url_for('public.videos'))
+    if first == 'searchresults':
+        return redirect(url_for('public.videos'))
     if path and os.path.isfile(os.path.join(BUILD_DIR, path)):
         # assets/ files have a content hash in their name, so they can be cached "forever"
         max_age = 31536000 if path.startswith('assets/') else 86400

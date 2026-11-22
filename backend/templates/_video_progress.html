@@ -1,0 +1,93 @@
+{# Logged-in students: the "Your progress" card on a video page (watched switch, quiz score,
+   topic mastery, next step). Does nothing for logged-out visitors. #}
+<script>
+  (function () {
+    var box = document.getElementById('my-progress');
+    if (!box || !window.EVTDS || !EVTDS.token()) return;
+    var chapterId = box.dataset.chapterId;
+    var STATUS = {
+      mastered: { color: '#C6E83A', label: 'Mastered' },
+      getting_there: { color: '#FFC93C', label: 'Getting there' },
+      needs_work: { color: '#FF8A3D', label: 'Needs work' },
+    };
+    function gradeColor(g) { return g >= 85 ? '#C6E83A' : g >= 60 ? '#FFC93C' : '#FF6FAE'; }
+    function sideLink(id) { return document.querySelector('[data-side-chapter="' + id + '"]'); }
+    function sideTitle(id) { var a = sideLink(id); return a ? a.textContent.trim() : ''; }
+
+    var toggle = box.querySelector('[data-watched-toggle]');
+    var watched = false;
+    function showWatched(on) {
+      watched = on;
+      toggle.setAttribute('aria-checked', on ? 'true' : 'false');
+      toggle.querySelector('.switch-track').style.background = on ? '#C6E83A' : '';
+      toggle.querySelector('.switch-knob').style.left = on ? '23px' : '3px';
+      toggle.querySelector('.switch-knob').style.background = on ? '#111' : '#fff';
+      toggle.querySelector('[data-watched-label]').textContent = on ? 'Watched' : 'Not watched yet';
+    }
+    function saveWatched(on) {
+      showWatched(on);
+      return EVTDS.api('/api/progress/', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chapter_id: Number(chapterId), status: on ? 'watched' : 'unwatched' }),
+      }).catch(function () { showWatched(!on); });
+    }
+
+    EVTDS.summary().then(function (data) {
+      var p = (data.chapters || {})[chapterId] || {};
+      var isCurrent = String(data.current_chapter_id) === String(chapterId);
+      var plan = (data.plan_chapter_ids || []).map(String);
+      var planIdx = plan.indexOf(String(chapterId));
+      var nextId = planIdx >= 0 && planIdx + 1 < plan.length ? plan[planIdx + 1] : null;
+      var hasGrade = p.quiz_grade !== null && p.quiz_grade !== undefined;
+
+      showWatched(!!p.video_completed);
+      toggle.addEventListener('click', function () { saveWatched(!watched); });
+      window.addEventListener('evtds:video-ended', function () { if (!watched) saveWatched(true); });
+
+      if (isCurrent) box.querySelector('[data-upnext]').classList.remove('hidden');
+
+      var grade = box.querySelector('[data-grade]');
+      if (hasGrade) {
+        grade.textContent = p.quiz_grade + '%';
+        grade.className = 'font-extrabold';
+        grade.style.color = gradeColor(p.quiz_grade);
+      }
+      var hint = box.querySelector('[data-grade-hint]');
+      if (isCurrent && nextId) hint.textContent = 'Score above 60% to move on to ' + sideTitle(nextId).split(' ')[0] + '.';
+      else if (!hasGrade) hint.textContent = 'Test yourself once you’ve watched the video.';
+
+      box.querySelectorAll('[data-topic-id]').forEach(function (li) {
+        var t = (data.topics || {})[li.dataset.topicId];
+        var s = t && STATUS[t.mastery_status];
+        if (!s || t.mastery_percent === null || t.mastery_percent === undefined) return;
+        var bar = li.querySelector('[data-topic-bar]');
+        bar.style.width = t.mastery_percent + '%';
+        bar.style.background = s.color;
+        var label = li.querySelector('[data-topic-label]');
+        label.textContent = t.mastery_percent + '% · ' + s.label;
+        label.className = 'text-xs text-right font-bold';
+        label.style.color = s.color;
+        if (t.review_due) {
+          li.firstElementChild.insertAdjacentHTML('beforeend', ' <i class="fa-solid fa-rotate text-[#4CC2F5] text-xs" title="Due for a refresher"></i>');
+        }
+      });
+
+      // Main button: take/retake the quiz (yellow when it's the next thing to do)
+      var quizUrl = '/app/quiz?chapter=' + chapterId;
+      var needsQuiz = !hasGrade || p.quiz_grade < 85;
+      var html = '<a href="' + quizUrl + '" class="' + (needsQuiz ? 'btn-primary text-lg px-7 py-3' : 'btn-secondary px-6 py-2.5') + '">' +
+        '<i class="fa-solid fa-' + (hasGrade ? 'rotate-right' : 'pen-to-square') + '"></i> ' +
+        (hasGrade ? 'Retake the chapter quiz' : 'Take the chapter quiz') + '</a>';
+      if (nextId && sideLink(nextId)) {
+        html += '<a href="' + sideLink(nextId).getAttribute('href') + '" class="' + (needsQuiz ? 'btn-secondary px-6 py-2.5' : 'btn-primary text-lg px-7 py-3') + '">' +
+          'Next in your plan: ' + sideTitle(nextId).split(' ')[0] + ' <i class="fa-solid fa-arrow-right"></i></a>';
+      } else if (!isCurrent && data.current_chapter_id && sideLink(data.current_chapter_id)) {
+        html += '<a href="' + sideLink(data.current_chapter_id).getAttribute('href') + '" class="btn-secondary px-6 py-2.5">' +
+          'Back to your plan: ' + sideTitle(data.current_chapter_id).split(' ')[0] + ' <i class="fa-solid fa-arrow-right"></i></a>';
+      }
+      box.querySelector('[data-actions]').innerHTML = html;
+      box.classList.remove('hidden');
+    }).catch(function () {});
+  })();
+</script>

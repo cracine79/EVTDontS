@@ -1,125 +1,59 @@
 import { useSelector } from "react-redux"
 import { useNavigate, useLocation } from "react-router-dom"
+import { useEffect } from "react"
+import { useStudyPlan } from "./Progress"
+import { gradeColor, splitChapterName, unitStyle } from "./ui"
+
+// Finished the last chapter of a unit: celebrate, show the grades, offer the unit quiz
 export const FinishUnit = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const currentChapter = useSelector(state=>(state.user.currentChapter))
-    const chapters = useSelector(state=>(state.chapters))
-    const userChapters = useSelector(state=>(state.userChapters))
-    const units = useSelector(state=>(state.units))
-    const topicProg = useSelector(state=>(state.topicProg))
-     
+    const plan = useStudyPlan()
+    const unitId = location.state?.unitId
+    const unit = plan.find((u) => String(u.id) === String(unitId))
 
-    const {unitId} = location.state || {}
-    const currentUnitId = unitId ? unitId : null
-    
+    useEffect(() => { window.scrollTo(0, 0) }, [])
 
-    // const finishedUnit = chapters[currentChapter.unit_id]
-
-    const completeUserChapters = Object.keys(userChapters).reduce((acc, key) => {
-        if(chapters[key] && chapters[key].unit_id == currentUnitId){
-            acc[key] = {
-                ...chapters[key],
-                ...userChapters[key],
-                chapter_id: key
-            }
-        }
-        return acc
-    }, {})
-
-    const completeChaptersObj = Object.values(completeUserChapters)
-    const currentChapterUnitId = completeChaptersObj[0].unit_id
-    const chapterToSend = Object.entries(chapters).find(
-        ([, chapter]) => chapter.unit_id === currentChapterUnitId
-    )?.[0]
-
-    const goToUnitTest = () => {
-        
-        
-        navigate('/Quiz', {state: {chapter: chapterToSend, type: 'unitQuiz', topics: [], unit: currentUnitId}})
-
-    }
-
-    const chapterResults = () => {
-        return(
-            Object.values(completeUserChapters).map((chapter)=>{
-                return(
-                    <div className='w-full  flex flex-row align-start justify-between mb-6'>
-                        <div>
-                            {chapter.name}
-                        </div>
-                        <div>
-                            Quiz Grade:  &nbsp;
-                            {chapter.quiz_grade}
-                        </div>
-                    </div>
-                )
-            })
-
+    if (!unit) {
+        return (
+            <div className="pt-28 pb-16 px-5 max-w-3xl mx-auto text-center">
+                <h1 className="text-3xl font-extrabold">Unit wrap-up party</h1>
+                <p className="mt-3 text-gray-300">We lost track of which unit you just finished. Your dashboard has everything.</p>
+                <button type="button" className="btn-primary px-6 py-2.5 mt-6" onClick={() => navigate('/userhome')}>Back to my dashboard</button>
+            </div>
         )
     }
 
+    const goToUnitTest = () => navigate('/quiz', { state: { chapter: unit.chapters[0]?.id, type: 'unitQuiz', topics: [], unit: unit.id } })
 
-
-    return(
-        <div className='w-screen flex justify-center min-h-screen'>
-            <div className="mt-52 w-5/6 h-1/2 border-black border-2 rounded-lg shadow-2xl">
-                <div className='flex flex-col items-center justify-center mx-4'>               
-                    <div className='mt-6'>
-                        Congratulations on Finishing {units[currentUnitId].name}!
+    return (
+        <div className="pt-24 sm:pt-28 pb-16 px-5 sm:px-10">
+            <div className="max-w-3xl mx-auto">
+                <section className="panel rounded-3xl p-6 sm:p-10 border-t-8 unit-border" style={unitStyle(unit)}>
+                    <p className="uppercase tracking-widest text-sm font-bold unit-text">Unit {unit.number} complete 🎉</p>
+                    <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold">Congratulations on finishing {unit.title || unit.name}! You're a beast.</h1>
+                    <ul className="mt-6 divide-y divide-white/10">
+                        {unit.chapters.map((ch) => {
+                            const [num, title] = splitChapterName(ch.name)
+                            const hasGrade = ch.quiz_grade !== null && ch.quiz_grade !== undefined
+                            return (
+                                <li key={ch.id} className="py-2.5 flex items-center gap-4">
+                                    <span className="flex-1"><span className="text-gray-400 mr-1">{num}</span>{title}</span>
+                                    {hasGrade
+                                        ? <span className="w-16 text-center font-bold rounded-full text-[#111]" style={{ background: gradeColor(ch.quiz_grade) }}>{ch.quiz_grade}%</span>
+                                        : <span className="w-16 text-center text-xs text-gray-400">No quiz</span>}
+                                </li>
+                            )
+                        })}
+                    </ul>
+                    <p className="mt-6 text-lg text-gray-200">
+                        Ready for the unit quiz? Buckle up, bucko: it's a 20-question marathon without the heavy breathing. Well . . . actually . . . I guess that depends upon how much you are into econ exams. Okay, that got weird. You can take it now or later. Umm, I'm just going to let myself out while you decide.
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                        <button type="button" className="btn-primary px-7 py-3" onClick={goToUnitTest}><i className="fa-solid fa-trophy"></i> YEAH BRAH, UNIT TEST</button>
+                        <button type="button" className="btn-secondary px-6 py-2.5" onClick={() => navigate('/userhome')}>Later, OK? Country roads, take me home</button>
                     </div>
-                    <div>
-                        You're a beast
-                    </div>
-                    <div className='text-2xl font-bold underline'>
-                        Results
-                    </div>
-                    <div className='w-full'>
-                        {chapterResults()}
-                    </div>
-                    <div>
-                        Ready for the unit quiz?  Buckle up bucko, it's a 20 question long marathon without the heavy breathing.  Well . . . actually . . . I guess that depends upon how much you are into econ exams.  Okay, that got weird.  You should take the quiz.  You can take it now or later.   Umm, I'm just going to let myself out while you decide.
-                    </div>
-                </div>
-                <div className='flex justify-around'>
-
-                <button  className={`
-                                mt-4
-                                border-black 
-                                
-                                w-1/3 
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
-                                mb-6`
-                                }
-                                onClick = {goToUnitTest}
-                                >YEAH BRAH UNIT TEST</button>
-
-                            <button  className={`
-                                mt-4
-                                border-black 
-                                
-                                w-1/3 
-                                border-2 
-                                flex 
-                                justify-center 
-                                items-center
-                                rounded-lg
-                                bg-slate-300
-                                hover:bg-slate-500
-                                font-medium
-                                hover:cursor-pointer
-                                mb-6`}
-                                onClick = {()=>(navigate('/userhome'))}
-                                >LATER OK? Country Road Take Me Home.</button>
-                 </div>
+                </section>
             </div>
         </div>
     )

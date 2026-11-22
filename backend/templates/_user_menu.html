@@ -1,0 +1,16 @@
+{# Logged-in user menu (public pages). Matches the app's UserMenu. #}
+<details class="li-only plain user-menu relative">
+  <summary class="cursor-pointer flex items-center gap-2 bg-[#344A53]/40 hover:bg-[#344A53]/70 rounded-full pl-1 pr-3 py-1">
+    <span data-initial class="w-8 h-8 rounded-full bg-[#FFC93C] text-[#111] flex items-center justify-center font-black">?</span>
+    <span data-username class="hidden sm:inline"></span>
+    <i class="fa-solid fa-chevron-down text-xs"></i>
+  </summary>
+  <div class="absolute right-0 mt-2 w-60 bg-[#2B3D45] border border-white/10 rounded-2xl shadow-2xl py-2 text-base font-semibold z-50">
+    <a href="/app/userhome" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10"><i class="fa-solid fa-house w-5 text-[#7fd3e6]"></i>My dashboard</a>
+    <a href="/videos" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10"><i class="fa-solid fa-video w-5 text-[#7fd3e6]"></i>Video library</a>
+    <a href="/app/quizgenerator" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10"><i class="fa-solid fa-bolt w-5 text-[#7fd3e6]"></i>Review quiz</a>
+    <a href="/app/updateunits" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10"><i class="fa-solid fa-sliders w-5 text-[#7fd3e6]"></i>Update study plan</a>
+    <hr class="my-2 border-white/10">
+    <button type="button" data-logout class="w-full flex items-center gap-3 px-4 py-2 hover:bg-white/10 text-left"><i class="fa-solid fa-right-from-bracket w-5 text-[#7fd3e6]"></i>Log out</button>
+  </div>
+</details>
