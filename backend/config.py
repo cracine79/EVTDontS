@@ -16,6 +16,9 @@ class Config:
     APP_DOMAIN = config('APP_DOMAIN', default='http://localhost:5173')
     # Public canonical domain used in SEO tags, sitemap.xml and robots.txt
     SITE_URL = config('SITE_URL', default='https://www.economicsvideos.com').rstrip('/')
+    # Rate limiting (see rate_limits.py). Use a Redis URL here to share counts across workers/dynos.
+    RATELIMIT_STORAGE_URI = config('RATELIMIT_STORAGE_URI', default='memory://')
+    RATELIMIT_HEADERS_ENABLED = True
 
 
 class DevConfig(Config):
@@ -33,4 +36,5 @@ class ProdConfig(Config):
 class TestConfig(Config):
     TESTING=True
     APP_DOMAIN = config('TEST_APP_DOMAIN', default='http://localhost:5173')
+    RATELIMIT_ENABLED = False
     ENV = 'testing'

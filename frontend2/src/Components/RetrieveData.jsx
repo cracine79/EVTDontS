@@ -36,6 +36,10 @@ export const RetrieveData = () => {
             } else if (response.status == 404) {
                 setErrorMessage("We couldn't find an account with that email address. Please check it and try again.")
                 setErrorMessageVisible(true)
+            } else if (response.status == 429) {
+                const data = await response.json().catch(()=>({}))
+                setErrorMessage(data.message || "Too many attempts. Please wait a few minutes and try again.")
+                setErrorMessageVisible(true)
             } else {
                 setErrorMessage("We couldn't send the email right now. Please try again in a few minutes.")
                 setErrorMessageVisible(true)

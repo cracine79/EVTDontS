@@ -5,6 +5,7 @@ from models import User
 from itsdangerous import URLSafeTimedSerializer
 from html import escape
 from email_client import send_email
+from rate_limits import ACCOUNT_EMAIL_LIMITS, VALIDATE_TOKEN_LIMITS, SET_PASSWORD_LIMITS
 from werkzeug.security import generate_password_hash, check_password_hash
 from exts import db
 
@@ -58,6 +59,8 @@ def verify_reset_token(token, secret_key, salt, max_age=3600):
     
 @retrieve_ns.route('/username')
 class RetrieveUsername(Resource):
+    decorators = ACCOUNT_EMAIL_LIMITS
+
     def post(self):
         data=request.get_json()
         email = data.get('email')
@@ -75,6 +78,8 @@ class RetrieveUsername(Resource):
 
 @retrieve_ns.route('/password')
 class RetrievePassword(Resource):
+    decorators = ACCOUNT_EMAIL_LIMITS
+
     def post(self):
         app_domain = current_app.config['APP_DOMAIN']
 
@@ -96,6 +101,8 @@ class RetrievePassword(Resource):
             
 @retrieve_ns.route('/validate-token')
 class ValidateToken(Resource):
+    decorators = VALIDATE_TOKEN_LIMITS
+
     def post(self):
         data = request.get_json()
         token = data.get('token')
@@ -109,6 +116,8 @@ class ValidateToken(Resource):
 
 @retrieve_ns.route('/reset-password')
 class ResetPassword(Resource):
+    decorators = SET_PASSWORD_LIMITS
+
     def post(self):
         data = request.get_json() or {}
         token = data.get('token')

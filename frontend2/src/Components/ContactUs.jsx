@@ -2,10 +2,10 @@ import { useState } from "react"
 import { csrfFetch } from "../csrf"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import { friendlyAuthError } from "./routes"
 const sendEmail = async(subject, email, body, navigate) => {
 
     try{
-        console.log(subject, email, body)
         const response = await csrfFetch('/api/mail/send', {
             method: 'POST',
             headers:{
@@ -16,19 +16,22 @@ const sendEmail = async(subject, email, body, navigate) => {
         
         if(response.ok){
             navigate('/messagesent')
-        } else {
-            console.log('Problem sending')
+            return null
         }
+        return "We couldn't send your message right now. Please try again in a few minutes."
     } catch (error) {
         console.error('Failed to send email:', error)
+        // csrfFetch throws "HTTP error! Status: 429 - <server message>" for non-OK responses
+        return friendlyAuthError(error.message, "We couldn't send your message right now. Please try again in a few minutes.")
     }
-        
 }
 
 export const ContactUs = () => {
     const [subject, setSubject] = useState('')
     const [body, setBody] = useState('')
     const [email, setEmail] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [sending, setSending] = useState(false)
     const navigate = useNavigate()
     useEffect(()=>{
         scrollTo(0,0)
@@ -58,9 +61,14 @@ export const ContactUs = () => {
                 onChange = {(e)=>{setBody(e.target.value)}}
                 ></textarea>
 
-                <button className="fancy-button mb-8 !px-8"
-                        onClick = {()=>sendEmail(subject, email, body, navigate)}
-                        >Send Email!</button>
+                {errorMessage && <p className='mb-4 text-red-600 text-center' role='alert'>{errorMessage}</p>}
+                <button className="fancy-button mb-8 !px-8 disabled:opacity-60" disabled={sending}
+                        onClick = {async ()=>{
+                            setSending(true)
+                            setErrorMessage(await sendEmail(subject, email, body, navigate) || '')
+                            setSending(false)
+                        }}
+                        >{sending ? 'Sending…' : 'Send Email!'}</button>
             </div>
             
        </div>

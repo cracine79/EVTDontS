@@ -21,6 +21,8 @@ from dotenv import load_dotenv
 import os
 from mail import mail_ns
 from public import public_bp
+from rate_limits import limiter
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 #to protect a route(require signin), decorate the route with @jwt_required()
 migrate = Migrate()
@@ -34,6 +36,7 @@ def create_app(config):
     CORS(app)
     app.config.from_object(config)
     Compress(app)  # gzip/brotli for HTML, CSS, JS and JSON
+    limiter.init_app(app)
 
     db.init_app(app)
     JWTManager(app)
@@ -42,6 +45,9 @@ def create_app(config):
     api = Api(app, doc='/docs', prefix='/api')
     
     if app.config["ENV"] == "production":
+        # Heroku's router sits in front of the app: trust its X-Forwarded-For/Proto so rate limits
+        # see each visitor's real IP (not the router's) and URLs are built as https
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1)
         migrate_directory = 'backend/migrations'
     else:
         migrate_directory = 'migrations'

@@ -4,6 +4,7 @@ from flask import request
 from flask_restx import Namespace, Resource
 
 from email_client import ADMIN_EMAIL, EmailError, send_email
+from rate_limits import CONTACT_LIMITS
 
 mail_ns = Namespace('mail', description = "A namespace for mail")
 
@@ -27,6 +28,8 @@ def send_mail(subject, email, body, sender_email=ADMIN_EMAIL):
 
 @mail_ns.route('/send')
 class SendMail(Resource):
+    decorators = CONTACT_LIMITS
+
     def post(self):
         data = request.get_json() or {}
         email = data.get('email')

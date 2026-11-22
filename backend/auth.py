@@ -1,5 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from models import User, UserChapterProgress, UserTopicProgress, QuestionTopic, Chapter, UserPerformance
+from rate_limits import LOGIN_LIMITS, SIGNUP_LIMITS, SET_PASSWORD_LIMITS
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -142,6 +143,8 @@ login_model = auth_ns.model(
 )
 @auth_ns.route('/signup')
 class Signup(Resource):
+    decorators = SIGNUP_LIMITS
+
     @auth_ns.expect(signup_model)
     def post(self):
         data=request.get_json()
@@ -288,6 +291,8 @@ class Signup(Resource):
     
 @auth_ns.route('/login')
 class Login(Resource):
+    decorators = LOGIN_LIMITS
+
     @auth_ns.expect(login_model)
     def post(self):
         # print("starting")
@@ -432,6 +437,8 @@ class Refresh(Resource):
 
 @auth_ns.route('/resetpassword')
 class ResetPassword(Resource):
+    decorators = SET_PASSWORD_LIMITS
+
     def post(self):
         email = request.json.get('email')
 
