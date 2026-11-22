@@ -35,8 +35,8 @@ export const AuthGate = ({ mode }) => {
         <div className="min-h-screen bg-[#344A53] flex flex-col">
             <div className="bg-[#0088A8] px-4 sm:px-12 py-3 flex items-center">
                 <a href="/" className="flex items-center gap-2">
-                    <img src="/app/EvtdsDarkerGBlue.png" alt="Economics Videos That Don't Suck" className="h-10 sm:h-14" />
-                    <span className="text-sm sm:text-2xl font-bold text-white">BETA</span>
+                    <img src="/app/evtds_logo_circle.png" alt="Economics Videos That Don't Suck" className="h-12 w-12 sm:h-16 sm:w-16 -my-1" />
+                    <span className="text-[10px] sm:text-xs font-extrabold tracking-widest text-white bg-[#0B1F3A] rounded-full px-2 py-0.5">BETA</span>
                 </a>
             </div>
             <div className="flex-1 flex flex-col items-center justify-center text-center px-6 opacity-40 text-white">

@@ -37,8 +37,8 @@ export const NavBar = () => {
             <nav className="w-full bg-[#0088A8] text-white flex items-center justify-between fixed top-0 z-50 px-4 sm:px-8 lg:px-12 py-3 gap-4">
                 <button type="button" className="flex items-center gap-2 shrink-0"
                     onClick={() => (currentUser ? navigate('/userhome') : goToPublicHome())}>
-                    <img src="/app/EvtdsDarkerGBlue.png" alt="Economics Videos That Don't Suck logo" className="h-10 sm:h-14 w-auto" width="144" height="56" />
-                    <span className="text-sm sm:text-2xl font-bold">BETA</span>
+                    <img src="/app/evtds_logo_circle.png" alt="Economics Videos That Don't Suck logo" className="h-12 w-12 sm:h-16 sm:w-16 -my-1" width="64" height="64" />
+                    <span className="text-[10px] sm:text-xs font-extrabold tracking-widest text-white bg-[#0B1F3A] rounded-full px-2 py-0.5">BETA</span>
                 </button>
                 <div className="hidden lg:flex flex-1 max-w-md">
                     <SearchForm />
