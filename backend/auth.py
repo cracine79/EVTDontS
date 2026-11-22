@@ -1,5 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from models import User, UserChapterProgress, UserTopicProgress, QuestionTopic, Chapter, UserPerformance
+from mastery import add_mastery
 from rate_limits import LOGIN_LIMITS, SIGNUP_LIMITS, SET_PASSWORD_LIMITS
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, jsonify, make_response
@@ -92,7 +93,7 @@ class RefreshUser(Resource):
             else:
                 percent_correct = 0
 
-            topic_progress_dict[topic_progress.id] = {
+            topic_progress_dict[topic.id] = {  # keyed by topic id, like login
                 'topic_name': topic_name,
                 'percent_correct': percent_correct,
                 'chapter_id': topic.chapter_id,
@@ -124,7 +125,7 @@ class RefreshUser(Resource):
                },
                "units": units_dict,
                "chapters": chapter_dict,
-               "topic_progress": topic_progress_dict,
+               "topic_progress": add_mastery(topic_progress_dict, user.id),
                "user_chapters": progress_dict
                
                 # Add any other user data you want to return
@@ -283,7 +284,7 @@ class Signup(Resource):
                     "email": email,
                     "username": username
                 },
-                'topic_progress': topic_progress_dict, 
+                'topic_progress': add_mastery(topic_progress_dict, new_user.id), 
                 'topics': topics_dict,
                 'chapters': chapter_dict
 
@@ -406,7 +407,7 @@ class Login(Resource):
                         },
                     "units": units_dict,
                     "chapters": chapter_dict,
-                    'topic_progress': topic_progress_dict,
+                    'topic_progress': add_mastery(topic_progress_dict, db_user.id),
                     "user_chapters": progress_dict,
                     'topics': topic_dict
                 

@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { selectUserChapters } from "../Slices/selectors"
+import { masteryPercent } from "./masteryUtils"
 
 export const Progress = () => {
     const units = useSelector((state)=>state.units)
@@ -209,7 +210,7 @@ export const Progress = () => {
 
         let sum = 0
         chapter_topics.forEach(chapter => {
-            sum += chapter.percent_correct
+            sum += masteryPercent(chapter)
         })
 
         const averagePercentCorrect = chapter_topics.length > 0 ? sum/chapter_topics.length : 0

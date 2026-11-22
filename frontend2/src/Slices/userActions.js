@@ -15,6 +15,12 @@ import { updateUserChapters } from "./userChaptersSlice";
 
 
 export const restoreUser = () => async(dispatch) => {
+    // No saved login: nothing to restore, so don't ask the server (avoids a 401 on every visit)
+    const token = localStorage.getItem('access_token')
+    if (!token || token === 'null' || token === 'undefined') {
+      dispatch(logout());
+      return;
+    }
 
     try {
 

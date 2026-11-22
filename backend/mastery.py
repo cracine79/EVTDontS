@@ -173,3 +173,18 @@ def build_review_quiz(user_id, fallback_topic_ids=(), max_topics=4, max_question
                                         exclude_ids={q.id for q in questions}))
     random.shuffle(questions)
     return questions[:max_questions]
+
+
+def add_mastery(topic_progress_dict, user_id):
+    """Add mastery_percent / mastery_status / review_due to a {topic_id: {...}} progress dict
+    (what the API sends to the app), so screens can show mastery instead of all-time percent."""
+    if not topic_progress_dict:
+        return topic_progress_dict
+    topic_ids = {int(k) for k in topic_progress_dict}
+    mastery = topic_mastery(user_id, topic_ids)
+    for key, entry in topic_progress_dict.items():
+        m = mastery.get(int(key))
+        entry['mastery_percent'] = m.percent if m else None
+        entry['mastery_status'] = m.status if m else 'not_started'
+        entry['review_due'] = bool(m and m.status == 'mastered' and m.is_due)
+    return topic_progress_dict

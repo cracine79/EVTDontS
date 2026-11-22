@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { selectUserChapters } from "../Slices/selectors"
 import { useState } from "react"
+import { masteryPercent } from "./masteryUtils"
 
 export const FinishPage = () => {
     const navigate = useNavigate()
@@ -27,13 +28,18 @@ export const FinishPage = () => {
         return output[0]
     }
 
+    // Totals for the "In total you faced down..." message
     let asked = 0
     let answered = 0
     topicProgObj.forEach((topicProg)=>{
         asked += topicProg.questions_asked
         answered += topicProg.answered_correctly
     })
-    const averagePercentCorrect = Math.floor((answered/asked) * 100)
+    // Overall level = average mastery across the topics the student has practiced
+    const practiced = topicProgObj.filter((topicProg)=>topicProg.questions_asked > 0)
+    const averagePercentCorrect = practiced.length
+        ? Math.floor(practiced.reduce((sum, topicProg)=>sum + masteryPercent(topicProg), 0) / practiced.length)
+        : 0
     // const userChaptersComplete = Object.keys(userChapters).reduce((acc, key)=>{
     //     if(bookChapters[key]){
     //         acc[key] = {
@@ -191,7 +197,7 @@ export const FinishPage = () => {
                         <div className='w-1/5 text-center px-2 '>{topic.topic_name}</div>
                         <div className='w-1/5 text-center px-2 '>{topic.questions_asked}</div>
                         <div className='w-1/5 text-center px-2 '>{topic.answered_correctly}</div>
-                        <div className='w-1/5 text-center px-2 '>{topicRanking((topic.questions_asked/topic.answered_correctly) * 100)}</div>
+                        <div className='w-1/5 text-center px-2 '>{topicRanking(masteryPercent(topic))}</div>
                     </div>
                 </div>
                 )

@@ -5,6 +5,7 @@ import { ResultsModal } from "./ResultsModal"
 import { clearUserResults } from "../Slices/resultsSlice"
 import { clearQuestions } from "../Slices/questionsSlice"
 import { useMemo, useEffect } from "react"
+import { masteryPercent } from "./masteryUtils"
 
 export const ReviewQuizResults = () => {
     const dispatch = useDispatch()
@@ -77,7 +78,7 @@ export const ReviewQuizResults = () => {
                )
         } else if (percent > 50) {
             return (
-                <div claddName='text-pink-700'>
+                <div className='text-pink-700'>
                 The depth of the lyrics of an early 2000s Boy Band Song
                 </div>)
         } else {
@@ -114,10 +115,11 @@ export const ReviewQuizResults = () => {
                                     <span className='font-bold text-lg'>{topic.answered_correctly} </span>correctly.
                                 </div>
                                 <div className='mt-2'>
-                                    Your current level of understanding of {topic.topic_name} is equivalent to: 
+                                    Your mastery score is <span className='font-bold'>{masteryPercent(topic)}%</span> (your most recent answers count the most).
+                                    Your current level of understanding of {topic.topic_name} is equivalent to:
                                 </div>
                                 <div className='font-bold mb-4'>
-                                    {ranking(topic.percent_correct)}
+                                    {ranking(masteryPercent(topic))}
                                 </div>
 
                             </div>

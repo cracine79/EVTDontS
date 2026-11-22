@@ -1,3 +1,4 @@
+from mastery import add_mastery
 from flask_restx import Namespace, Resource, fields
 from flask import request, jsonify, make_response, session
 from exts import db
@@ -145,7 +146,7 @@ class QuizProgress(Resource):
             db.session.commit()
         return (jsonify({
             "answers": answer_response_data,
-            'topic_progress': topic_progress_dict
+            'topic_progress': add_mastery(topic_progress_dict, user_id)
             }
                 ))
 
@@ -274,7 +275,7 @@ class QuizProgress(Resource):
             "chapters": chapter_dict,
             # "completed": done,
             "answers": answer_response_data,
-            'topic_progress': topic_progress_dict,
+            'topic_progress': add_mastery(topic_progress_dict, user_id),
             'topics': topics_dict,
             'last_chapter': last_chapter
             }

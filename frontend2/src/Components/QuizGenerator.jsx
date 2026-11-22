@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getAllTopics } from "../Slices/topicsActions"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { masteryPercent, isReviewDue } from "./masteryUtils"
 
 
 
@@ -210,7 +211,8 @@ export const QuizGenerator = () => {
                                                                 {topic.topic_name}
                                                             </div>
                                                             <div className='sm:w-1/5 text-center text-xs sm:text-md'> {studiedIt(topic.chapter_id)} </div>
-                                                            <div className='sm:w-1/5 w-1/5 text-center text-xs sm:text-md'> {ranking(topic.percent_correct)} </div>
+                                                            <div className='sm:w-1/5 w-1/5 text-center text-xs sm:text-md'> {ranking(masteryPercent(topic))}
+                                                                {isReviewDue(topic) && <div className='text-[10px] sm:text-xs font-bold text-[#0088a8]'>Time for a refresher</div>} </div>
                                                             
                                                         </div>
                                                 </>)
