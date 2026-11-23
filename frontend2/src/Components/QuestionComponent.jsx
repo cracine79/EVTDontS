@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect, useRef } from "react";
 import { closeQuizModal } from "../Slices/modalSlice";
-import { addResults } from "../Slices/resultsActions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 import { unitStyle } from "./ui";
@@ -18,21 +17,16 @@ export const QuestionComponent = ({chapter, type, topics}) => {
   
     const location = useLocation()
 
-    const lastUnitId = location.state?.currentUnitId
     const quizChapter = useSelector(state=>(state.chapters[chapter]))
     const quizChapterName = quizChapter?.name || ''
     const quizUnit = useSelector(state=>(quizChapter ? state.units[quizChapter.unit_id] : null))
     const dispatch = useDispatch();
     const [questionNumber, setQuestionNumber] = useState(0)
-    const [selectedAnswer,setSelectedAnswer] = useState(null)
     const [submittedAnswers, setSubmittedAnswers] = useState({})
     const [selectAnswerPrompt, setSelectAnswerPrompt] = useState(false)
     const [questionsObj, setQuestionsObj] = useState([])
     const currentChapterId = useSelector(state=>(state.user.currentChapter))
-    const userlessChapterId = chapter
-    const currentChapter = useSelector(state=>state.chapters[currentChapterId])
     const unitQuizUnitId = location.state?.unit
-    const currentUnitId = currentChapter ? currentChapter.unit_id : 2
 
     const shuffleArray = (array) => {
       for (let i = array.length - 1; i > 0; i--) {
@@ -86,7 +80,6 @@ export const QuestionComponent = ({chapter, type, topics}) => {
       dispatch(closeQuizModal())
       setSubmittedAnswers([])
       setQuestionNumber(0)
-      setSelectedAnswer(null)
     }
 
     const handleAnswerSelect = (answerId) => {
@@ -138,7 +131,6 @@ export const QuestionComponent = ({chapter, type, topics}) => {
 
     const handleSubmit = async() => {
       const questionId = questionsObj[questionNumber].id;
-      const selectedAnswer = submittedAnswers[questionId]; // Grab the stored answer for this question
       const newSubmittedAnswers = {
         ...submittedAnswers,
       };

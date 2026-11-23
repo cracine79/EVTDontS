@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux"
 import { useNavigate, useLocation } from "react-router-dom"
 import { useEffect } from "react"
 import { useStudyPlan } from "./Progress"

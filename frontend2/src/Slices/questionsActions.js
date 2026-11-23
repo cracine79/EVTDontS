@@ -1,5 +1,5 @@
 import { updateQuestions } from "./questionsSlice";
-import { csrfFetch } from "../csrf";
+import { apiFetch } from "../api";
 
 export const getQuestions = (data) => async(dispatch) => {
     try {
@@ -9,9 +9,9 @@ export const getQuestions = (data) => async(dispatch) => {
 
         let response
         if (type == 'chapterQuizNoUser'){
-           response = await csrfFetch(`/api/quiz/questions_nouser?chapter=${chapter}`)
+           response = await apiFetch(`/api/quiz/questions_nouser?chapter=${chapter}`)
         } else {
-           response = await csrfFetch(`/api/quiz/questions?chapter=${chapter}&type=${type}&topics=${encodeURIComponent(topicsParam)}`);
+           response = await apiFetch(`/api/quiz/questions?chapter=${chapter}&type=${type}&topics=${encodeURIComponent(topicsParam)}`);
         }
 
     

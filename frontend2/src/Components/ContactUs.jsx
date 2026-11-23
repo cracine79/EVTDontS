@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { csrfFetch } from "../csrf"
+import { apiFetch } from "../api"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { friendlyAuthError } from "./routes"
 const sendEmail = async(subject, email, body, navigate) => {
 
     try{
-        const response = await csrfFetch('/api/mail/send', {
+        const response = await apiFetch('/api/mail/send', {
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const sendEmail = async(subject, email, body, navigate) => {
         return "We couldn't send your message right now. Please try again in a few minutes."
     } catch (error) {
         console.error('Failed to send email:', error)
-        // csrfFetch throws "HTTP error! Status: 429 - <server message>" for non-OK responses
+        // apiFetch throws "HTTP error! Status: 429 - <server message>" for non-OK responses
         return friendlyAuthError(error.message, "We couldn't send your message right now. Please try again in a few minutes.")
     }
 }

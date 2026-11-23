@@ -1,15 +1,14 @@
-import { csrfFetch } from "../csrf";
+import { apiFetch } from "../api";
 import { updateUserResults } from "./resultsSlice";
 import { updateUserChapters } from "./userChaptersSlice";
 import { updateUser, login } from "./userSlice";
-import { useNavigate } from "react-router-dom";
 import { updateTopicProg } from "./topicProgSlice";
 import { updateTopics } from "./topicsSlice";
 
 
 export const addResults = (results) => async(dispatch) => {
     try{
-        const response = await csrfFetch('/api/results/', {
+        const response = await apiFetch('/api/results/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +36,7 @@ export const addResults = (results) => async(dispatch) => {
 export const finishQuiz = (quizData) => async(dispatch) => {
     
     try{
-        const response = await csrfFetch('/api/progress/finishquiz', {
+        const response = await apiFetch('/api/progress/finishquiz', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -60,7 +59,7 @@ export const finishQuiz = (quizData) => async(dispatch) => {
 
 export const finishReviewQuiz = (quizData) => async(dispatch) => {
     try{
-        const response = await csrfFetch('/api/progress/finishreviewquiz', {
+        const response = await apiFetch('/api/progress/finishreviewquiz', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +77,7 @@ export const finishReviewQuiz = (quizData) => async(dispatch) => {
 
 export const finishChapter = (chapterData)  => async(dispatch) => {
     try{
-        const response = await csrfFetch('/api/progress/chapter', {
+        const response = await apiFetch('/api/progress/chapter', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

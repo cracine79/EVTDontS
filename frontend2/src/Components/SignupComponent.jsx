@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../Slices/userSlice';
-import { csrfFetch } from '../csrf';
 import { closeSignupModal } from '../Slices/modalSlice';
 import { IoMdClose } from 'react-icons/io';
-import { GetStarted } from './GetStarted';
 import { useNavigate } from 'react-router-dom';
 import { friendlyAuthError } from './routes';
 import { signupUser } from '../Slices/userActions';

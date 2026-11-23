@@ -4,9 +4,6 @@ from models import User
 from exts import db
 from flask_jwt_extended import JWTManager
 from auth import auth_ns
-from questions import questions_ns
-from csrf import csrf_ns
-from flask_wtf.csrf import CSRFProtect
 from flask_cors import CORS
 from flask_compress import Compress
 from flask_migrate import Migrate
@@ -40,8 +37,6 @@ def create_app(config):
 
     db.init_app(app)
     JWTManager(app)
-    # csrf = CSRFProtect()
-    # csrf.init_app(app)
     api = Api(app, doc='/docs', prefix='/api')
     
     if app.config["ENV"] == "production":
@@ -55,8 +50,6 @@ def create_app(config):
     migrate.init_app(app, db, directory=migrate_directory)
 
     api.add_namespace(auth_ns)
-    api.add_namespace(questions_ns)
-    api.add_namespace(csrf_ns)
     api.add_namespace(progress_ns)
     api.add_namespace(quiz_ns)
     api.add_namespace(results_ns)

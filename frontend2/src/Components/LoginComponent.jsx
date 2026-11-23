@@ -1,19 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../Slices/userSlice';
-import { csrfFetch } from '../csrf';
 import { closeLoginModal } from '../Slices/modalSlice';
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
-import { storeUserUnits } from '../Slices/unitsSlice';
-import { updateChapters } from '../Slices/chaptersSlice';
-import { storeTopicProg } from '../Slices/topicProgSlice';
-import { storeUserChapters } from '../Slices/userChaptersSlice';
-import { storeTopics } from '../Slices/topicsSlice';
 import { loginUser } from '../Slices/userActions';
 import { friendlyAuthError } from './routes';
-import { FaEye, FaEyeSlash } from 'react-icons/fa6';
-import { Eye, EyeOff } from "lucide-react";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 
 const LoginComponent = ({ onClose }) => {

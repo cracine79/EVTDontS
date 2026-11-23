@@ -1,4 +1,4 @@
-import { csrfFetch } from "../csrf";
+import { apiFetch } from "../api";
 import { storeUserUnits } from "./unitsSlice";
 import { storeUserChapters } from "./userChaptersSlice";
 import { storeChapters } from "./chaptersSlice";
@@ -8,7 +8,7 @@ import { updateUser } from "./userSlice";
 export const addUserUnits = (units) => async(dispatch) => {
 
     try{
-        const response = await csrfFetch('/api/units/', {
+        const response = await apiFetch('/api/units/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export const addUserUnits = (units) => async(dispatch) => {
 
 export const getUnitsAndChapters = async() => {
     try{
-        const results = await csrfFetch('/api/units/')
+        const results = await apiFetch('/api/units/')
         return results
     } catch(error){
         console.error('Error during answer submission:', error);

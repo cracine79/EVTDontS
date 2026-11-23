@@ -1,13 +1,11 @@
 import { login, logout } from "./userSlice";
-import { csrfFetch } from "../csrf";
-import { useDispatch } from "react-redux";
+import { apiFetch } from "../api";
 import { storeUserUnits } from "./unitsSlice";
 import { storeUserChapters } from "./userChaptersSlice";
 import { storeTopicProg } from "./topicProgSlice";
 import { storeChapters } from "./chaptersSlice";
 import { updateChapters } from "./chaptersSlice";
 import { storeTopics } from "./topicsSlice";
-import { updateUserResults } from "./resultsSlice";
 import { updateTopicProg } from "./topicProgSlice";
 import { updateTopics } from "./topicsSlice";
 import { updateUserChapters } from "./userChaptersSlice";
@@ -24,7 +22,7 @@ export const restoreUser = () => async(dispatch) => {
 
     try {
 
-      const response = await csrfFetch('/api/auth/refreshuser');
+      const response = await apiFetch('/api/auth/refreshuser');
       if (response.ok) {
         const data = await response.json();
      
@@ -53,7 +51,7 @@ export const restoreUser = () => async(dispatch) => {
 
 export const loginUser = (username, password) => async(dispatch) => {
   try {
-    const response = await csrfFetch('/api/auth/login', {
+    const response = await apiFetch('/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +88,7 @@ export const loginUser = (username, password) => async(dispatch) => {
 
   export const signupUser = (username, email, password, quizData) => async(dispatch)  => {
     try{
-      const response = await csrfFetch('/api/auth/signup', {
+      const response = await apiFetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

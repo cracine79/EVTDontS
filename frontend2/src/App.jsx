@@ -1,10 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import LoginComponent from './Components/LoginComponent';
-import SignupComponent from './Components/SignupComponent';
 // import ProtectedRoute from './components/ProtectedRoute'; // Implement this for protected routes
-import LogoutButton from './Components/LogoutComponent';
 import { useEffect } from 'react';
-import { restoreCSRF } from './csrf';
 import './index.css'
 import { AppRoot, ProtectedRoute } from './Components/routes';
 import { createBrowserRouter, RouterProvider, Outlet, Navigate } from 'react-router-dom';
@@ -159,7 +154,6 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    restoreCSRF();
     dispatch(restoreUser());
   }, []);
 

@@ -1,10 +1,10 @@
-import { csrfFetch } from "../csrf"
+import { apiFetch } from "../api"
 import { updateChapters } from "./chaptersSlice";
 
 
 export const getAllChapters = () => async(dispatch) => {
     try {
-        const response = await csrfFetch('/api/chapters/getall')
+        const response = await apiFetch('/api/chapters/getall')
     
         if (!response.ok) {
             // Log the status and response text for debugging
@@ -26,7 +26,7 @@ export const getAllChapters = () => async(dispatch) => {
 
 export const getChapterBlurb = async(chapterId) => {
     try {
-        const response = await csrfFetch(`/api/chapters/blurb/${chapterId}`)
+        const response = await apiFetch(`/api/chapters/blurb/${chapterId}`)
     
     if (!response.ok) {
         const errorText = await response.text();
@@ -48,7 +48,7 @@ export const getChapterBlurb = async(chapterId) => {
 export const searchChapters = async(searchTerm) => {
     try{
         const encodedSearchTerm = encodeURIComponent(searchTerm)
-        const response = await csrfFetch(`/api/chapters/search/${encodedSearchTerm}`)
+        const response = await apiFetch(`/api/chapters/search/${encodedSearchTerm}`)
         const data = await response.json();
         console.log('data is', data)
         return(data)
