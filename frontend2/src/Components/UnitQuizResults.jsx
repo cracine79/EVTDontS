@@ -13,6 +13,7 @@ export const UnitQuizResults = () => {
     const currentUnitId = location.state?.unitId
     const units = useSelector(state => state.units)
     const unit = units[currentUnitId]
+    const chapters = useSelector(state => state.chapters) || {}
     const results = useSelector(state => state.results)
     const score = scoreOf(results)
 
@@ -28,7 +29,9 @@ export const UnitQuizResults = () => {
         dispatch(clearUserResults())
         dispatch(clearQuestions())
     }
-    const retake = () => { clear(); navigate('/quiz', { state: { chapter: 1, type: 'unitQuiz', topics: [], unit: currentUnitId } }) }
+    // The server finds the unit from a chapter in it, so send one of this unit's chapters
+    const unitChapterId = Object.values(chapters).find(ch => String(ch.unit_id) === String(currentUnitId))?.id
+    const retake = () => { clear(); navigate('/quiz', { state: { chapter: unitChapterId, type: 'unitQuiz', topics: [], unit: currentUnitId } }) }
     const goHome = () => { clear(); navigate('/userhome') }
 
     return (
