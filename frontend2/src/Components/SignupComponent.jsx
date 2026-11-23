@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { friendlyAuthError } from './routes';
 import { signupUser } from '../Slices/userActions';
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
+import { PASSWORD_HINT, PASSWORD_PATTERN, PasswordChecklist } from "./PasswordRules";
 
 const SignupComponent = ({ onClose }) => {
   const showModal= useSelector(state=>(state.modal.isSignupOpen))
@@ -22,8 +23,6 @@ const SignupComponent = ({ onClose }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  console.log(quizData)
-  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     if (submitting) return
@@ -168,15 +167,16 @@ const SignupComponent = ({ onClose }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 required
-                minlength="8"
-                maxlength="20"        
-                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,20}"
-                title='Password must include at least one uppercase letter, one lowercase letter, one numeral(0-9), and one special character?=.*[!@#$%^&*(),.?\, and be beween 8 and 20 chars long'
-                
+                minLength="8"
+                maxLength="20"
+                pattern={PASSWORD_PATTERN}
+                title={PASSWORD_HINT}
+                aria-describedby="password-rules"
               />
               
               <button type="button" className="absolute inset-y-0 right-3  flex items-center" onClick = {()=>setShowPassword((prev)=>!prev)}> {showPassword ? <BsFillEyeSlashFill className="text-gray-400"  size={24}/> : <BsFillEyeFill className="text-gray-400" size={24} />} </button>
             </div>
+              <PasswordChecklist password={password} className="w-4/5 -mt-3" />
               {errorMessage && <p className='mt-3 mx-8 text-sm text-red-600 text-center' role='alert'>{errorMessage}</p>}
               <button type="submit" className='mt-4 mb-4 btn-primary px-8 py-2.5' disabled={submitting}>{submitting ? 'Signing up…' : 'Sign Up'}</button>
             </form>

@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { openLoginModal } from "../Slices/modalSlice";
 import { useDispatch } from "react-redux";
+import { PASSWORD_HINT, PasswordChecklist, passwordOk } from "./PasswordRules";
 
 
 
@@ -10,8 +11,8 @@ export const ResetPassword = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const [validToken, setValidToken] = useState(false)
-    const [password1, setPassword1] = useState()
-    const [password2, setPassword2] = useState()
+    const [password1, setPassword1] = useState('')
+    const [password2, setPassword2] = useState('')
     const [errorMessage, setErrorMessage] = useState()
     const [email, setEmail]= useState()
     const [resetSuccessful, setResetSuccessful] = useState(false)
@@ -79,8 +80,8 @@ export const ResetPassword = () => {
         e.preventDefault()
         if(password1!=password2){
             setErrorMessage("Passwords Must Match")
-        } else if (password1.length < 8) {
-            setErrorMessage("Passwords must be a minimum of 8 characters")
+        } else if (!passwordOk(password1)) {
+            setErrorMessage(PASSWORD_HINT)
         } else {
             submitNewPassword(password1)
         }
@@ -95,8 +96,15 @@ export const ResetPassword = () => {
                     <h1 className="text-3xl font-extrabold">Pick a new password</h1>
                     <p className="mt-3 text-gray-200">Enter a new password below to reset it and continue on your Econo-quest.</p>
                     <form className="mt-6 space-y-4" onSubmit={submitReset}>
-                        <input type="password" autoComplete="new-password" onChange={(e) => setPassword1(e.target.value)} className="field" placeholder="New password (8+ characters)" />
-                        <input type="password" autoComplete="new-password" onChange={(e) => setPassword2(e.target.value)} className="field" placeholder="Type it again" />
+                        <div>
+                            <input type="password" autoComplete="new-password" value={password1} onChange={(e) => setPassword1(e.target.value)} className="field" placeholder="New password" aria-describedby="password-rules" maxLength={20} />
+                            <PasswordChecklist password={password1} dark className="mt-3" />
+                        </div>
+                        <input type="password" autoComplete="new-password" value={password2} onChange={(e) => setPassword2(e.target.value)} className="field" placeholder="Type it again" maxLength={20} />
+                        {password2 && <p className={`text-sm ${password1 === password2 ? 'text-[#C6E83A]' : 'text-gray-400'}`}>
+                            <i className={`fa-solid ${password1 === password2 ? 'fa-circle-check' : 'fa-circle-xmark'} mr-2`}></i>
+                            {password1 === password2 ? 'Passwords match' : "Passwords don't match yet"}
+                        </p>}
                         {errorMessage && <p className="font-bold text-[#FF6FAE]" role="alert">{errorMessage}</p>}
                         <button type="submit" className="btn-primary px-7 py-3">Reset my password</button>
                     </form>
