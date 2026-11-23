@@ -13,6 +13,8 @@
 //   "guides": [[[0, 7], [6, 7]]],                 // dashed lines, each a list of points
 //   "arrows": [{"from": [4, 4], "to": [5.5, 5.5]}],
 //   "xTicks": [[2, "Q1"]],  "yTicks": [[7, "P4"]],
+//   "grid": {"x": 1, "y": 2},      // light gridlines; numbered ticks when xTicks/yTicks are left out
+//                                   // (x/y "prefix": "$" puts a $ on the numbers)
 //   "points": [{"at": [2, 7], "label": "A", "pos": "ne"},       // pos: n ne e se s sw w nw
 //              {"on": 1, "x": 3, "label": "B", "dot": true}],    // "on" = a point on curve 1 at this x
 //   "areas": [{"points": [[0, 9], [2, 7], [0, 7]], "color": "demand", "label": "CS"}],
@@ -77,6 +79,11 @@ const EconGraph = ({ fig, title = true }) => {
     const curves = (fig.curves || []).map((c) => ({ ...c, pts: c.ppc ? ppcPoints(c.ppc, c.bow ?? 2) : c.points }))
     const pointAt = (p) => (p.on != null && curves[p.on] ? [p.x, curveY(curves[p.on], p.x)] : p.at)
     const ids = `arrow${useId().replace(/:/g, '')}`
+    // Optional grid: light lines every grid.x / grid.y units, numbered when no ticks are given
+    const steps = (max, step) => (step ? Array.from({ length: Math.floor(max / step + 1e-9) }, (_, i) => +((i + 1) * step).toFixed(6)) : [])
+    const gx = steps(xMax, fig.grid?.x), gy = steps(yMax, fig.grid?.y)
+    const xTicks = fig.xTicks || gx.map((v) => [v, `${fig.x?.prefix || ''}${v}`])
+    const yTicks = fig.yTicks || gy.map((v) => [v, `${fig.y?.prefix || ''}${v}`])
 
     return (
         <svg viewBox={`0 0 ${W} ${height}`} role={title ? 'img' : undefined} aria-label={title ? (fig.alt || 'Graph') : undefined}
@@ -87,6 +94,9 @@ const EconGraph = ({ fig, title = true }) => {
                     <path d="M0,0 L10,5 L0,10 z" fill="#1A1A1A" />
                 </marker>
             </defs>
+
+            {gx.map((v) => <line key={`gx${v}`} x1={sx(v)} y1={TOP} x2={sx(v)} y2={baseY} stroke="#1A1A1A" strokeOpacity="0.15" />)}
+            {gy.map((v) => <line key={`gy${v}`} x1={LEFT} y1={sy(v)} x2={sx(xMax)} y2={sy(v)} stroke="#1A1A1A" strokeOpacity="0.15" />)}
 
             {(fig.areas || []).map((a, i) => (
                 <polygon key={`a${i}`} points={a.points.map(([x, y]) => `${sx(x)},${sy(y)}`).join(' ')}
@@ -103,10 +113,10 @@ const EconGraph = ({ fig, title = true }) => {
             <Lines text={fig.x?.label} x={LEFT + PW + 8} y={baseY + 42} textAnchor="end" fontSize="17" />
             {fig.origin != null && <text x={LEFT - 10} y={baseY + 22} textAnchor="end">{fig.origin}</text>}
 
-            {(fig.xTicks || []).map(([x, label], i) => (
+            {xTicks.map(([x, label], i) => (
                 <text key={`xt${i}`} x={sx(x)} y={baseY + 22} textAnchor="middle">{label}</text>
             ))}
-            {(fig.yTicks || []).map(([y, label], i) => (
+            {yTicks.map(([y, label], i) => (
                 <text key={`yt${i}`} x={LEFT - 10} y={sy(y) + 5} textAnchor="end">{label}</text>
             ))}
 
