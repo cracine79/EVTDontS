@@ -156,6 +156,9 @@ class Question(db.Model):
     chapter_id: Mapped[int] = mapped_column(ForeignKey('chapter.id', name='question_chapter_id'))
     topic_id: Mapped[int] = mapped_column(ForeignKey('question_topic.id', name='question_topic_id'))
     image_url: Mapped[str] = mapped_column(Text, nullable=True)
+    # A graph or table described as data, drawn by the app (frontend2 QuestionFigure.jsx).
+    # Shown instead of image_url when present.
+    figure: Mapped[dict] = mapped_column(JSON, nullable=True)
     # Where in the chapter's video this question is explained (seconds); results pages link there
     video_start: Mapped[int] = mapped_column(Integer, nullable=True)
 

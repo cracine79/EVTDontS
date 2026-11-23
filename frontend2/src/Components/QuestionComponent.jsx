@@ -4,6 +4,7 @@ import { closeQuizModal } from "../Slices/modalSlice";
 import { useNavigate, useLocation } from "react-router-dom";
 import { finishQuiz, finishReviewQuiz } from "../Slices/resultsActions";
 import { unitStyle } from "./ui";
+import { QuestionFigure } from "./QuestionFigure";
 
 
 export const QuestionComponent = ({chapter, type, topics}) => {
@@ -244,11 +245,7 @@ export const QuestionComponent = ({chapter, type, topics}) => {
               <p className="mt-2 text-sm text-gray-300">Question <b className="text-white">{questionNumber + 1}</b> of {numberOfQuestions}</p>
 
               <section className="mt-6 panel rounded-3xl p-6 sm:p-8">
-                {question.image_url && (
-                  <figure className="bg-white rounded-xl p-3 mx-auto max-w-md mb-6">
-                    <img src={question.image_url} alt="" className="w-full" />
-                  </figure>
-                )}
+                <QuestionFigure question={question} className="mx-auto max-w-md mb-6" />
                 <h1 className="text-xl sm:text-2xl font-bold leading-snug">
                   {question.text.split('<br>').map((line, index) => <span key={index} className="block">{line}</span>)}
                 </h1>

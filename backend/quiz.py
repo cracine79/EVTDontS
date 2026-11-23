@@ -155,6 +155,7 @@ class AccessQuiz(Resource):
                 "text": question.text,
                 "topic_id": question.topic_id,
                 'image_url': question.image_url,
+                'figure': question.figure,
                 'rewatch': rewatch_info(question),
                 "answers": answers
             }
@@ -199,6 +200,7 @@ class AccessQuizLoggedout(Resource):
                 "text": question.text,
                 "topic_id": question.topic_id,
                 'image_url': question.image_url,
+                'figure': question.figure,
                 'rewatch': rewatch_info(question),
                 "answers": answers
             }

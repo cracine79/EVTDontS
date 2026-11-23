@@ -49,7 +49,7 @@ def seed_price_ceiling_chapter():
     answer2e = Answer(text="Q2 x P2", question=question2, is_correct=False)
 
     answer3a = Answer(text="Total consumer expenditure changes from area P3,D,Q2,0 to P2, G, Q3, 0", question=question3, is_correct=False)
-    answer3b = Answer(text="Total producer revenue changes from area P3,D,Q2,0 to P2, E, Q3, 0", question=question3, is_correct=True)
+    answer3b = Answer(text="Total producer revenue changes from area P3,D,Q2,0 to P2, E, Q1, 0", question=question3, is_correct=True)
     answer3c = Answer(text="Deadweight loss is area B, D, G", question=question3, is_correct=False)
     answer3d = Answer(text="Producer revenue definitely rises", question=question3, is_correct=False)
     answer3e = Answer(text="Consumer expenditure definitely rises", question=question3, is_correct=False)

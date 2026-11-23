@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { MASTERY, gradeColor, unitStyle } from "./ui"
 import { masteryPercent, isReviewDue } from "./masteryUtils"
+import { QuestionFigure } from "./QuestionFigure"
 
 // Score from a results object: {anything: {isCorrect, ...}}
 export const scoreOf = (results) => {
@@ -128,7 +129,7 @@ export const MissedQuestions = ({ results }) => {
         const correct = answers.find(([, a]) => a.is_correct)?.[1]
         return (
             <div className="px-5 pb-5 sm:ml-6 space-y-2 text-sm">
-                {q.image_url && <figure className="bg-white rounded-xl p-3 max-w-sm mb-3"><img src={q.image_url} alt="" className="w-full" /></figure>}
+                <QuestionFigure question={q} className="max-w-sm mb-3" />
                 {showYours && yours && (
                     <p className="rounded-xl bg-[#FF6FAE]/15 border border-[#FF6FAE]/50 px-4 py-2">
                         <i className="fa-solid fa-xmark text-[#FF6FAE] mr-2"></i><b>Your answer:</b> {yours.text}
