@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { MASTERY, gradeColor, unitStyle } from "./ui"
 import { masteryPercent, isReviewDue } from "./masteryUtils"
@@ -70,9 +71,52 @@ export const TopicMovement = ({ topicIds, describe }) => {
     )
 }
 
+const mmss = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+
+// Pop-up player that starts the chapter video at the part that explains a question
+const RewatchPlayer = ({ clip, onClose }) => {
+    const closeRef = useRef(null)
+    useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Escape') onClose() }
+        document.addEventListener('keydown', onKey)
+        const overflow = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+        closeRef.current?.focus()
+        return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = overflow }
+    }, [onClose])
+    return (
+        <div className="fixed inset-0 z-[80] bg-black/80 flex items-center justify-center p-4" role="dialog" aria-modal="true"
+            aria-label={`Rewatch: ${clip.label || clip.chapter}`} onClick={onClose}>
+            {/* Width also limited by screen height so header + 16:9 video + footer always fit */}
+            <div className="w-full max-w-[min(56rem,calc((100vh-9rem)*16/9))] panel rounded-2xl overflow-hidden shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-start gap-3 px-5 py-3">
+                    <div className="flex-1 min-w-0">
+                        <p className="text-xs uppercase tracking-widest font-bold text-[#7fd3e6]">Rewatch · from {mmss(clip.start)}</p>
+                        <p className="font-bold truncate">{clip.label || clip.chapter}</p>
+                    </div>
+                    <button ref={closeRef} type="button" onClick={onClose} className="text-gray-300 hover:text-white text-xl px-2" aria-label="Close video">
+                        <i className="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div className="aspect-video bg-black">
+                    <iframe className="w-full h-full" title={clip.chapter}
+                        src={`https://www.youtube.com/embed/${clip.yt}?start=${clip.start}&autoplay=1&rel=0`}
+                        allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen></iframe>
+                </div>
+                <div className="px-5 py-3 flex flex-wrap items-center gap-3 text-sm">
+                    <span className="text-gray-300 flex-1">{clip.chapter}</span>
+                    <a className="font-bold text-[#7fd3e6] hover:underline" href={`/videos/${clip.slug}`}>Open the full video page →</a>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 // "Show me what I missed": each missed question with the student's answer and the right one
 export const MissedQuestions = ({ results }) => {
     const questions = useSelector((state) => state.questions)
+    const [clip, setClip] = useState(null)
+    const closeClip = useCallback(() => setClip(null), [])
     const list = Object.values(results || {})
     const missed = list.filter((r) => r.isCorrect === false && questions[r.questionId])
     const right = list.filter((r) => r.isCorrect === true && questions[r.questionId])
@@ -95,12 +139,20 @@ export const MissedQuestions = ({ results }) => {
                         <i className="fa-solid fa-check text-[#C6E83A] mr-2"></i><b>Correct answer:</b> {correct.text}
                     </p>
                 )}
+                {showYours && q.rewatch && (
+                    <button type="button" onClick={() => setClip(q.rewatch)}
+                        className="inline-flex items-center gap-2 rounded-full border-2 border-white/70 hover:bg-white hover:text-[#344A53] px-4 py-1.5 font-bold transition">
+                        <i className="fa-solid fa-play text-xs"></i>
+                        Rewatch this part <span className="font-normal opacity-80">({mmss(q.rewatch.start)}{q.rewatch.label ? ` · ${q.rewatch.label}` : ''})</span>
+                    </button>
+                )}
             </div>
         )
     }
 
     return (
         <section className="mt-10">
+            {clip && <RewatchPlayer clip={clip} onClose={closeClip} />}
             <h2 className="text-2xl font-bold">Show me what I missed</h2>
             <div className="mt-4 space-y-3">
                 {missed.length === 0 && (

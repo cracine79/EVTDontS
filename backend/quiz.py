@@ -6,6 +6,25 @@ import json, random
 
 from mastery import build_review_quiz
 
+
+def rewatch_info(question):
+    """The part of the video that explains this question, for the results page's "Rewatch this part" link.
+    None when the question has no timestamp (or the chapter has no video)."""
+    if question.video_start is None:
+        return None
+    from public import youtube_id  # here, not at the top: public imports this module
+    ch = question.chapter
+    yt = youtube_id(ch.video_url) if ch else None
+    if not yt:
+        return None
+    # Name the key moment the timestamp falls in, e.g. "Proportion of Consumer Budget/Income"
+    moments = sorted((m for m in (ch.video_chapters or []) if 'start' in m and m.get('label')), key=lambda m: m['start'])
+    label = None
+    for m in moments:
+        if m['start'] <= question.video_start:
+            label = m['label']
+    return {'yt': yt, 'start': question.video_start, 'label': label, 'slug': ch.slug, 'chapter': ch.name}
+
 quiz_ns = Namespace('quiz', description="a namespace for getting quiz qusetions and answers")
 
 # Chapter quiz size (also used for the free quiz): this many questions from each topic,
@@ -105,6 +124,7 @@ class AccessQuiz(Resource):
                 "text": question.text,
                 "topic_id": question.topic_id,
                 'image_url': question.image_url,
+                'rewatch': rewatch_info(question),
                 "answers": answers
             }
         quiz_blurb = quiz_blurb if 'quiz_blurb' in locals() else None
@@ -155,6 +175,7 @@ class AccessQuizLoggedout(Resource):
                 "text": question.text,
                 "topic_id": question.topic_id,
                 'image_url': question.image_url,
+                'rewatch': rewatch_info(question),
                 "answers": answers
             }
         quiz_blurb = quiz_blurb if 'quiz_blurb' in locals() else None
