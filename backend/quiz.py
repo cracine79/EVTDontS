@@ -142,9 +142,10 @@ class AccessQuizLoggedout(Resource):
     def get(self):
         
         chapter_id = request.args.get('chapter')
-        print('CHAPTER ID', chapter_id)
-        topics = QuestionTopic.query.filter_by(chapter_id=chapter_id).all()
-        chapter = Chapter.query.get(chapter_id)
+        chapter = Chapter.query.get(chapter_id) if chapter_id and str(chapter_id).isdigit() else None
+        if chapter is None:
+            return {'message': 'Chapter not found'}, 404
+        topics = QuestionTopic.query.filter_by(chapter_id=chapter.id).all()
         quiz_blurb = chapter.quiz_blurb
         quiz_blurb_img_url = chapter.quiz_blurb_img_url
         questions = []
